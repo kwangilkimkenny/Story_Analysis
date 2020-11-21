@@ -1,0 +1,8 @@
+1.text_preprocessing_fin.py 실행
+    fin_texts.pickle 파일 생성 및 저장
+2.lsi_topic_modeling.py 실행
+    similerlist.dict 딕셔너리 파일 생성 및 저장
+    similerlist_text.dict 딕셔너리 파일 생성 및 저장
+    similerlist.mm 파일 생성 및 저장
+    model.lsi 파일 생성 및 저장
+3.ai_writingsupporter_fin.py 실행
