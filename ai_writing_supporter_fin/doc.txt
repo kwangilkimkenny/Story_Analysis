@@ -1,3 +1,5 @@
+## 문서작성 도움을 위한 추천텍스트(문장) 
+
 1.text_preprocessing_fin.py 실행
     fin_texts.pickle 파일 생성 및 저장
 2.lsi_topic_modeling.py 실행
