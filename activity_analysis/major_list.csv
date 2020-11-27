@@ -1,45 +1,45 @@
 ﻿College_Majors_Professional_Topics,1st Big Major Category,2nd Big Major Category
-General Engineering,Tech/Engineering,Math/Science
-Mechanical Engineering,Tech/Engineering,
-Industrial Engineering,Tech/Engineering,
-Bioengineering,Tech/Engineering,Math/Science
-Operations Research,Tech/Engineering,
-Materials Science,Tech/Engineering,Math/Science
-Electrical Engineering,Tech/Engineering,
-Computer Science/Engineering,Tech/Engineering,
-Civil Engineering,Tech/Engineering,
-Aerospace Engineering,Tech/Engineering,
-Chemical Engineering,Tech/Engineering,Math/Science
-Environmental Engineering,Tech/Engineering,Math/Science
-Agriculture,Math/Science,
-Physics,Math/Science,
-Biology,Math/Science,
-Biophysics,Math/Science,
-Biochemistry/Molecular Biology,Math/Science,
-Mathematics,Math/Science,
-Applied Mathematics,Math/Science,
-Nutrition/Food Science,Math/Science,
-Genetics,Math/Science,
-Astronomy/Astrophysics,Math/Science,
-Statistics,Math/Science,
-Chemistry,Math/Science,
-Neuroscience,Math/Science,
-Economics,Social Science,
-Archeology,Humanities,Social Science
-Sociology,Social Science,
+General Engineering,tech_eng,math_sci
+Mechanical Engineering,tech_eng,
+Industrial Engineering,tech_eng,
+Bioengineering,tech_eng,Math_sci
+Operations Research,tech_eng,
+Materials Science,tech_eng,math_sci
+Electrical Engineering,tech_eng,
+Computer Science/Engineering,tech_eng,
+Civil Engineering,tech_eng,
+Aerospace Engineering,tech_eng,
+Chemical Engineering,tech_eng,math_sci
+Environmental Engineering,tech_eng,math_sci
+Agriculture,math_sci,
+Physics,math_sci,
+Biology,math_sci,
+Biophysics,math_sci,
+Biochemistry/Molecular Biology,math_sci,
+Mathematics,math_sci,
+Applied Mathematics,math_sci,
+Nutrition/Food Science,math_sci,
+Genetics,math_sci,
+Astronomy/Astrophysics,math_sci,
+Statistics,math_sci,
+Chemistry,math_sci,
+Neuroscience,math_sci,
+Economics,social_sci,
+Archeology,Humanities,Social_sci
+Sociology,social_sci,
 Journalism,Communication,Humanities
 Asian Studies,Social Science,Humanities
 African Studies,Social Science,
-Psychology,Social Science,Math/Science
+Psychology,Social Science,Math_sci
 Women's Studies,Social Science,
 Anthropology,Social Science,Humanities
 Political Science/Government,Social Science,Humanities
 Communication,Communication,
-International Relations/Affairs,Social Science,
-Public Policy/Affairs,Social Science,
-Public Health,Social Science,
-Environmental Science/Studies,Social Science,
-Film Studies,Humanities,Social Science
+International Relations/Affairs,social_sci,
+Public Policy/Affairs,social_sci,
+Public Health,social_sci,
+Environmental Science/Studies,social_sci,
+Film Studies,Humanities,Social_sci
 German (Language and Literature),Humanities,
 Art History,Humanities,
 French (Language and Literature),Humanities,
@@ -55,20 +55,20 @@ Classical Studies/Latin/Greek,Humanities,
 "Business (Marketing, Intl. Biz)",Business,
 Mgmt. Info Systems,Business,
 Hotel/Hospitality Management,Business,
-Nursing,Math/Science,
-Pre-Med,Math/Science,
-Pre-Veterinary,Math/Science,
-Pharmacy/Pre-Pharmacy,Math/Science,
-Pre-Dental,Math/Science,
-Education,Social Science,Humanities
-Fine Art/Art Schools,Visual Arts,
-Dance,Performing Arts,
-Theater,Performing Arts,
-Film&Television,Visual Arts,Communication
-"Design (Graphic, Industrial, Computer Graphics)",Visual Arts,
-Fashion Design,Visual Arts,
+Nursing,math_sci,
+Pre-Med,math_sci,
+Pre-Veterinary,math_sci,
+Pharmacy/Pre-Pharmacy,math_sci,
+Pre-Dental,math_sci,
+Education,social_sci,Humanities
+Fine Art/Art Schools,visualart,
+Dance,performing_arts,
+Theater,performing_arts,
+Film&Television,visualart,Communication
+"Design (Graphic, Industrial, Computer Graphics)",visualart,
+Fashion Design,visualart,
 Music (Performance),Music,
 Music Theory,Music,
-Photography,Visual Arts,
-Architecture,Visual Arts,
-Urban Planning,Social Science,
+Photography,visualart,
+Architecture,visualart,
+Urban Planning,social_sci,
