@@ -1,0 +1,32 @@
+####### 실행 테스트  ########
+
+# 1.ai_plot_conf(input_text) 실행하면, 
+
+# 2.결과 나옴!(그래프 2개, 적합성, 복잡성 등등 값 도출됨)
+
+# ACTION VERBS RATIO : 6.25
+# ====================================================================
+# 에세이에 표현된 다양한 감정 수: 7
+# ====================================================================
+# 문장에 표현된 감정 비율 :  25.0
+# ====================================================================
+# ['trail', 'view', 'city', 'camp', 'until', 'on', 'way', 'in', 'through', 'after', 'up', 'during', 'by', 'from', 'sound', 'to', 'path', 'above', 'against', 'before', 'route', 'forge']
+# ai_plot_conflict.py:601: DeprecationWarning: Call to deprecated `most_similar_cosmul` (Method will be removed in 4.0.0, use self.wv.most_similar_cosmul() instead).
+#   ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
+# ====================================================================
+# SETTING RATIO :  12.34
+# ====================================================================
+# ai_plot_conflict.py:674: DeprecationWarning: Call to deprecated `most_similar_cosmul` (Method will be removed in 4.0.0, use self.wv.most_similar_cosmul() instead).
+#   ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
+# 전체 문장에서 캐릭터를 의미하는 단어나 유사어 비율 : 8.79
+# conflict 단어가 전체 문장(단어)에서 차지하는 비율 계산 : 1.5
+# 감정기복비율 : 25.0
+# 셋팅비율 계산 :  12.34
+# Degree of Conflict : 27.59764663879875
+# ===============================================================================
+# ======================      Degree of Conflict   ==============================
+# ===============================================================================
+# ideal_mean: 36.0
+# 18~ 30 : you are here!
+# 30~ 42 : not here!
+# 42~ 54 : not here!
