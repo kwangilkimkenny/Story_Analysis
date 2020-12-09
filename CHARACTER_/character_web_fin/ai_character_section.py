@@ -526,7 +526,7 @@ def character_total_analysis(text):
 
 
     ## 1000명 데이터의 각 값(char_desc_mean)의 평균 값 전달. >>>> group_mean 으로 입력됨
-    char_desc_mean = [72.4, 321.4, 148.8, 93.6] # 현재 계산 완료한 1000명의 평균 값(고정값)
+    char_desc_mean = [77.975, 478.3, 214.325, 150.625] # 현재 계산 완료한 1000명의 평균 값(고정값)
 
     char_desc_ideal_mean = char_desc_mean[0] #첫번째 값을 가져옴, Character Descriptiveness
     num_of_char_ideal_mean = char_desc_mean[1] #Number of Characters
@@ -558,23 +558,28 @@ def character_total_analysis(text):
             if cal_abs > compare: # 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
                 print("Overboard: 2")
                 result = 2
+                score = 1
             else: #차이가 많이 안나면
                 print("Ideal: 1")
                 result = 1
+                score = 5
             
         elif one_ps_char_desc < ideal_mean: # 개인점수가 평균보다 작을 경우 lacking
             if cal_abs > compare: #차이가 많이나면 # 개인점수가  평균보다 작을 경우 Lacking이고 
                 print("Lacking: 0")
                 result = 0
+                score = 1
             else: #차이가 많이 안나면
                 print ("Ideal: 1")
                 result = 1
+                score = 5
                 
         else:
             print("Ideal: 1")
             result = 1
+            score = 5
 
-        return result
+        return result, score
 
 
     #종합계산시작 lackigIdealOverboard(group_mean, personal_value)
