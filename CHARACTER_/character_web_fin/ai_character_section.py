@@ -100,7 +100,11 @@ def character_all_section(text):
                         'brother','cousin','daughter','father','grandchild','granddaughter','granddson','grandfather',
                         'grandmother','great-grandchild','husband','ex-husband','son-in-law', 'daughter-in-law','mother',
                         'niece','nephew','parents','sister','son','stepfather','stepmother','stepdaughter', 'stepson',
-                        'twin','uncle','widow','widower','wife','ex-wife']
+                        'twin','uncle','widow','widower','wife','ex-wife','aunt',
+                        'baby', 'beget', 'brother', 'buddy', 'conserve', 'counterpart', 'cousin', 'daughter', 'duplicate', 'ex',
+                        'father', 'forefather', 'founder', 'gemini', 'grandchild', 'granddaughter', 'grandfather', 'grandma', 'he', 'helium',
+                        'husband', 'i', 'in', 'iodine', 'law', 'maine', 'match', 'mine', 'mother', 'nephew', 'niece', 'one', 'parent', 'person',
+                        'rear', 'sister', 'son', 'stepdaughter', 'stepfather', 'stepmother', 'stepson', 'twin', 'uncle', 'widow', 'widower', 'wife']
         
         ####문장에 char_list의 단어들이 있는지 확인하고, 있다면 유사단어를 추출한다.
         #우선 토큰화한다.
@@ -156,7 +160,12 @@ def character_all_section(text):
                         'brother','cousin','daughter','father','grandchild','granddaughter','granddson','grandfather',
                         'grandmother','great-grandchild','husband','ex-husband','son-in-law', 'daughter-in-law','mother',
                         'niece','nephew','parents','sister','son','stepfather','stepmother','stepdaughter', 'stepson',
-                        'twin','uncle','widow','widower','wife','ex-wife']
+                        'twin','uncle','widow','widower','wife','ex-wife','aunt',
+                        'baby', 'beget', 'brother', 'buddy', 'conserve', 'counterpart', 'cousin', 'daughter', 'duplicate', 'ex',
+                        'father', 'forefather', 'founder', 'gemini', 'grandchild', 'granddaughter', 'grandfather', 'grandma', 'he', 'helium',
+                        'husband', 'i', 'in', 'iodine', 'law', 'maine', 'match', 'mine', 'mother', 'nephew', 'niece', 'one', 'parent', 'person',
+                        'rear', 'sister', 'son', 'stepdaughter', 'stepfather', 'stepmother', 'stepson', 'twin', 'uncle', 'widow', 'widower', 'wife']
+
 
             sentences = data.split(".")
             
@@ -346,7 +355,7 @@ def character_all_section(text):
         #모델 설계 완료
 
         #캐릭터 표현하는 단어들을 리스트에 넣어서 필터로 만들고
-        character_list = ['i', 'I', 'my', 'me', 'mine']
+        character_list = ['i', 'I', 'my', 'me', 'mine', 'one']
         
         ####문장에 char_list의 단어들이 있는지 확인하고, 있다면 유사단어를 추출한다.
         #우선 토큰화한다.
@@ -412,12 +421,17 @@ def character_all_section(text):
         #모델 설계 완료
 
         #캐릭터 표현하는 단어들을 리스트에 넣어서 필터로 만들고
-        character_list = ['you', 'your', 'they','them',
-                        'yours', 'he','him','his' 'she','her','it','someone','their', 'myself', 'aunt',
+        character_list = ['they','them','he','him','his' 'she','her','it','someone','their', 'myself', 'aunt',
                         'brother','cousin','daughter','father','grandchild','granddaughter','granddson','grandfather',
                         'grandmother','great-grandchild','husband','ex-husband','son-in-law', 'daughter-in-law','mother',
                         'niece','nephew','parents','sister','son','stepfather','stepmother','stepdaughter', 'stepson',
-                        'twin','uncle','widow','widower','wife','ex-wife']
+                        'twin','uncle','widow','widower','wife','ex-wife','aunt',
+                        'baby', 'beget', 'brother', 'buddy', 'conserve', 'counterpart', 'cousin',
+                        'daughter', 'duplicate', 'ex', 'father', 'forefather', 'founder', 'gemini',
+                        'grandchild', 'granddaughter', 'grandfather', 'grandma', 'he', 'helium', 'husband',
+                        'in', 'law', 'match', 'mother', 'nephew', 'niece', 'parent', 'person', 'rear',
+                        'sister', 'son', 'stepdaughter', 'stepfather', 'stepmother', 'stepson', 'twin', 'uncle', 'widow',
+                        'widower', 'wife']
         
         ####문장에 char_list의 단어들이 있는지 확인하고, 있다면 유사단어를 추출한다.
         #우선 토큰화한다.
