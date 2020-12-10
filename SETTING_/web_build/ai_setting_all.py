@@ -1,3 +1,7 @@
+# Setting 전체 분석 코드
+# 총 11개의 분석이 가능함
+
+
 import numpy as np
 import pandas as pd
 import gensim
@@ -390,6 +394,9 @@ def setting_analy_all(text):
     #################################################
     # 구간별 셋팅 intro - body - conclusion   계산 시작
     #################################################
+
+    # setting indicators 
+    setting_indicators = indications_setting(input_text)
 
     # intro 의 setting 분석
     intro_re = indications_setting(intro)
@@ -835,12 +842,14 @@ def setting_analy_all(text):
     re_char_desp_fin_conclusion = setting_descriptiveness(conclusion)
 
     ### 최종 결과 계산!!!! 끝!!!
-    return intro_re, body_re, conclusion_re, place_nouns_ratio, place_nouns_intro, place_nouns_body, place_nouns_conclusion, re_char_desp_fin, re_char_desp_fin_intro, re_char_desp_fin_body, re_char_desp_fin_conclusion
+    return setting_indicators, intro_re, body_re, conclusion_re, place_nouns_ratio, place_nouns_intro, place_nouns_body, place_nouns_conclusion, re_char_desp_fin, re_char_desp_fin_intro, re_char_desp_fin_body, re_char_desp_fin_conclusion
 
 ########### return 값 설명 ###########
 
 ## 계산결과 ex) RESULT : (6.34, 1.84, 8.85, 2.47, 1.12, 0.61, 2.9, 77.0, 69.0, 45.0, 86.0)
 
+#전체 setting_indicators
+# setting_indicators
 
 # 구간별 setting indicator
 # intro_re
@@ -872,20 +881,21 @@ def ai_setting_overallratio(input_text):
     # 위에서 계산한 총 4개의 값을 개인, 그룹의 값과 비교하여 lacking, ideal, overboard 계산
 
     # 개인에세이 값 계산 11가지 결과 추출 >>>>> personal_value 로 입력됨
-    intro_re = setting_one_ps[0]
-    body_re = setting_one_ps[1]
-    conclusion_re = setting_one_ps[2]
-    place_nouns_ratio = setting_one_ps[3]
-    place_nouns_intro = setting_one_ps[4]
-    place_nouns_body = setting_one_ps[5]
-    place_nouns_conclusion = setting_one_ps[6]
-    re_char_desp_fin = setting_one_ps[7]
-    re_char_desp_fin_intro = setting_one_ps[8]
-    re_char_desp_fin_body = setting_one_ps[9]
-    re_char_desp_fin_conclusion = setting_one_ps[10]
+    setting_indicators = setting_one_ps[0]
+    intro_re = setting_one_ps[1]
+    body_re = setting_one_ps[2]
+    conclusion_re = setting_one_ps[3]
+    place_nouns_ratio = setting_one_ps[4]
+    place_nouns_intro = setting_one_ps[5]
+    place_nouns_body = setting_one_ps[6]
+    place_nouns_conclusion = setting_one_ps[7]
+    re_char_desp_fin = setting_one_ps[8]
+    re_char_desp_fin_intro = setting_one_ps[9]
+    re_char_desp_fin_body = setting_one_ps[10]
+    re_char_desp_fin_conclusion = setting_one_ps[11]
     
     ## 1000명 데이터의 평균값 (이미 계산한 결과를 반영하여 적용: 고정값임)
-    set_result_1000 = [7.805,
+    set_result_1000 = [7.805,7.805,
  8.2025,
  9.29,
  3.965,
@@ -898,17 +908,18 @@ def ai_setting_overallratio(input_text):
  94.25]
 
     #1000명의 학생에 에세이 값을 가져온다.
-    intro_re_mean = set_result_1000[0]
-    body_re_mean = set_result_1000[1]
-    conclusion_re_mean = set_result_1000[2]
-    place_nouns_ratio_mean = set_result_1000[3]
-    place_nouns_intro_mean = set_result_1000[4]
-    place_nouns_body_mean = set_result_1000[5]
-    place_nouns_conclusion_mean = set_result_1000[6]
-    re_char_desp_fin_mean = set_result_1000[7]
-    re_char_desp_fin_intro_mean = set_result_1000[8]
-    re_char_desp_fin_body_mean = set_result_1000[9]
-    re_char_desp_fin_conclusion_mean = set_result_1000[10]
+    setting_indicators_mean = set_result_1000[0]
+    intro_re_mean = set_result_1000[1]
+    body_re_mean = set_result_1000[2]
+    conclusion_re_mean = set_result_1000[3]
+    place_nouns_ratio_mean = set_result_1000[4]
+    place_nouns_intro_mean = set_result_1000[5]
+    place_nouns_body_mean = set_result_1000[6]
+    place_nouns_conclusion_mean = set_result_1000[7]
+    re_char_desp_fin_mean = set_result_1000[8]
+    re_char_desp_fin_intro_mean = set_result_1000[9]
+    re_char_desp_fin_body_mean = set_result_1000[10]
+    re_char_desp_fin_conclusion_mean = set_result_1000[11]
 
     def lackigIdealOverboard(group_mean, personal_value): # group_mean: 1000명 평균, personal_value|:개인값
         ideal_mean = group_mean
@@ -990,6 +1001,7 @@ def ai_setting_overallratio(input_text):
 
 
     #종합계산시작 lackigIdealOverboard(group_mean, personal_value)
+    setting_indicators_fin = lackigIdealOverboard(setting_indicators_mean, setting_indicators)
     intro_re_fin = lackigIdealOverboard(intro_re_mean, intro_re)
     body_re_fin = lackigIdealOverboard(body_re_mean, body_re)
     conclusion_re_fin = lackigIdealOverboard(conclusion_re_mean, conclusion_re)
@@ -1002,13 +1014,13 @@ def ai_setting_overallratio(input_text):
     re_char_desp_fin_body_fin = lackigIdealOverboard(re_char_desp_fin_body_mean, re_char_desp_fin_body)
     re_char_desp_fin_conclusione_fin = lackigIdealOverboard(re_char_desp_fin_conclusion_mean, re_char_desp_fin_conclusion)
 
-    fin_result = [intro_re_fin, body_re_fin, conclusion_re_fin, place_nouns_ratio_fin, place_nouns_intro_fin, place_nouns_body_fin,
+    fin_result = [setting_indicators_fin, intro_re_fin, body_re_fin, conclusion_re_fin, place_nouns_ratio_fin, place_nouns_intro_fin, place_nouns_body_fin,
                     place_nouns_conclusion_fin, re_char_desp_fin_fin, re_char_desp_fin_intro_fin, re_char_desp_fin_body_fin, re_char_desp_fin_conclusione_fin]
 
 
     each_fin_result = [fin_result[0][0], fin_result[1][0], fin_result[2][0], fin_result[3][0],
                     fin_result[4][0],fin_result[5][0], fin_result[6][0], fin_result[7][0], fin_result[8][0],
-                    fin_result[9][0],fin_result[10][0]]
+                    fin_result[9][0],fin_result[10][0], fin_result[11][0]]
 
 
     overall_setting_rating = [round((fin_result[0][1]
@@ -1021,7 +1033,8 @@ def ai_setting_overallratio(input_text):
                            +fin_result[7][1]
                            +fin_result[8][1]
                            +fin_result[9][1]
-                           +fin_result[10][1])/11, 2)]
+                           +fin_result[10][1]
+                           +fin_result[11][1])/12, 2)]
 
     result_final = each_fin_result + overall_setting_rating
 
@@ -1041,11 +1054,14 @@ print("최종결과 : ", ai_setting_overallratio(input_text))
 
 
 
-# 최종결과 :  [1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 3.91]
+# 최종결과 :  [1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 3.91]
 
 ###  lacking : 0, ideal: 1, overboard : 2  ###
 
+#setting_indicators_fin : 1 lacking
+
 #### 구간별 setting indicator
+
 # intro_re : 1 ideal
 # body_re 0 lacking
 # conclusion_re 1 ideal
