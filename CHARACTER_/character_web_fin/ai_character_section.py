@@ -253,8 +253,8 @@ def character_all_section(text):
             #저장된 모델을 불러온다.
             #J:\Django\EssayFit_Django\essayfitaiproject\essayfitapp\model.pt
             #time.sleep(1)
-            #model = torch.load("/Users/jongphilkim/Desktop/Django_WEB/essayfitaiproject/essayai/model.pt", map_location=torch.device('cpu'))
-            model = torch.load("/Users/kimkwangil/Documents/001_ESSAYFITAI/essayfitaiproject_2020_12_4/essayai/data/model.pt", map_location=torch.device('cpu'))
+            #model = torch.load("model.pt", map_location=torch.device('cpu'))
+            model = torch.load("model.pt", map_location=torch.device('cpu'))
             print("model loadling~")
             model.eval()
 
@@ -616,15 +616,20 @@ def character_total_analysis(text):
 
     #종합계산시작 lackigIdealOverboard(group_mean, personal_value)
     character_desc_result = lackigIdealOverboard(char_desc_ideal_mean, one_ps_char_desc)
-    number_of_char_result = lackigIdealOverboard(one_ps_num_of_char, one_ps_num_of_char)
+    number_of_char_result = lackigIdealOverboard(num_of_char_ideal_mean, one_ps_num_of_char)
     emp_on_you_result = lackigIdealOverboard(emp_on_you_ideal_mean, one_ps_emp_on_you)
     emp_on_others_result = lackigIdealOverboard(emp_on_others_ideal_mean, one_ps_emp_on_others)
 
     fin_result = [character_desc_result, number_of_char_result, emp_on_you_result, emp_on_others_result]
 
-    # fin_result의 결과는 순서대로 [Character Descriptiveness, Number of Characters, Emphasis on You, Emphasis on Others] 이다. 0: lacking, 1:ideal, 2:overbaord 
+    # each_fin_result의 결과는 순서대로 [Character Descriptiveness, Number of Characters, Emphasis on You, Emphasis on Others] 이다. 0: lacking, 1:ideal, 2:overbaord 
+    each_fin_result = [fin_result[0][0], fin_result[1][0], fin_result[2][0], fin_result[3][0]]
+    # 최종 character  전체 점수 계산
+    overall_character_rating = [(fin_result[0][1]+ fin_result[1][1] + fin_result[2][1]+ fin_result[3][1])/4]
 
-    return fin_result
+    result_final = each_fin_result + overall_character_rating
+
+    return result_final
 
 
 
