@@ -1,34 +1,81 @@
 ## 캐릭터 분석 단독 페이지를 구현한 코드 ##
 
 # MBTI를 제외한 4개의 분석이 가능함
+# 최종점수 계산이 가능함
 # 1000명의 데이터를 적용해서 평균값을 비교완료 - 계산결과는 이미 결과 도출하여 고정값으로 계산결과를 적용하였음.(나중에 자동 업데이트 필요함, 현재는 전체평균값 수동입력)
 
 
-## 결과임  ##
+## 결과임  ## lacking : 0 , ideal : 1, overboard : 2
+# 최종결과 ex)  [1, 0, 2, 0, 2.75]
+# Character Descriptiveness: 1  ideal 
+# Number of Characters : 0 lacking
+# Emphasis on You : 2 overboard
+# Emphasis on Others : 0 lacking
+# Overall Character Rating : 2.75
 
 # ===============================================================
-# Character Descriptiveness :  33.0
+# Character Descriptiveness :  67.0
 # ===============================================================
-# ['their', 'they', 'me', 'you', 'her', 'it', 'myself', 'i', 'my', 'them']
-# ai_character_section.py:92: DeprecationWarning: Call to deprecated `most_similar_cosmul` (Method will be removed in 4.0.0, use self.wv.most_similar_cosmul() instead).
+# ['person', 'i', 'them', 'her', 'you', 'they', 'me', 'one', 'myself', 'their', 'in', 'it', 'my']
+# ai_character_section.py:128: DeprecationWarning: Call to deprecated `most_similar_cosmul` (Method will be removed in 4.0.0, use self.wv.most_similar_cosmul() instead).
 #   ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
 # =============================================
-# Number of Characters : 92
+# Number of Characters : 145
 # =============================================
-# ['i', 'my', 'me']
-# ai_character_section.py:338: DeprecationWarning: Call to deprecated `most_similar_cosmul` (Method will be removed in 4.0.0, use self.wv.most_similar_cosmul() instead).
+# ['i', 'me', 'one', 'my']
+# ai_character_section.py:379: DeprecationWarning: Call to deprecated `most_similar_cosmul` (Method will be removed in 4.0.0, use self.wv.most_similar_cosmul() instead).
 #   ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
 # =============================================
-# Emphasis on You : 60
+# Emphasis on You : 66
 # =============================================
-# ['their', 'they', 'you', 'her', 'it', 'myself', 'them']
-# ai_character_section.py:409: DeprecationWarning: Call to deprecated `most_similar_cosmul` (Method will be removed in 4.0.0, use self.wv.most_similar_cosmul() instead).
+# ['person', 'them', 'her', 'they', 'myself', 'their', 'in', 'it']
+# ai_character_section.py:455: DeprecationWarning: Call to deprecated `most_similar_cosmul` (Method will be removed in 4.0.0, use self.wv.most_similar_cosmul() instead).
 #   ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
 # =============================================
-# Emphasis on Others : 32
+# Emphasis on Others : 33
 # =============================================
-# (33.0, 92, 60, 32)
-
+# 1명의 에세이 결과 계산점수 : (67.0, 145, 66, 33)
+# min_ 30
+# max_:  123
+# div_: 30
+# cal_abs 절대값 : 10.0
+# compare7 : 24.0
+# compare6 : 28.8
+# compare5 : 36.0
+# compare4 : 48.0
+# compare3 : 72.0
+# Ideal: 1
+# min_ 191
+# max_:  764
+# div_: 191
+# cal_abs 절대값 : 333
+# compare7 : 103.83333333333333
+# compare6 : 124.6
+# compare5 : 155.75
+# compare4 : 207.66666666666666
+# compare3 : 311.5
+# Lacking: 2
+# min_ 5
+# max_:  22
+# div_: 5
+# cal_abs 절대값 : 52
+# compare7 : 13.333333333333334
+# compare6 : 16.0
+# compare5 : 20.0
+# compare4 : 26.666666666666668
+# compare3 : 40.0
+# Overboard: 2
+# min_ 20
+# max_:  80
+# div_: 20
+# cal_abs 절대값 : 17
+# compare7 : 13.833333333333334
+# compare6 : 16.6
+# compare5 : 20.75
+# compare4 : 27.666666666666668
+# compare3 : 41.5
+# Lacking: 2
+# 최종결과 :  [1, 0, 2, 0, 2.75]
 
 
 import numpy as np
@@ -638,11 +685,79 @@ character_total_analysis(text)
 
 print("최종결과 : ", character_total_analysis(text))
 
-#최종결과 : [1, 1, 0, 0]   
+# 최종결과 :  [1, 0, 2, 0, 2.75]
 # 
-# 설명 : ideal, ideal, lacking, lacking
+# 결과 설명 : ideal, ideal, lacking, lacking, overall_character_rating
 
 # Character Descriptiveness: ideal
 # Number of Characters : ideal
 # Emphasis on You : lacking
 # Emphasis on Others : lacking
+
+
+
+## 실제 출력결과(확인용)
+
+# ===============================================================
+# Character Descriptiveness :  67.0
+# ===============================================================
+# ['person', 'i', 'them', 'her', 'you', 'they', 'me', 'one', 'myself', 'their', 'in', 'it', 'my']
+# ai_character_section.py:128: DeprecationWarning: Call to deprecated `most_similar_cosmul` (Method will be removed in 4.0.0, use self.wv.most_similar_cosmul() instead).
+#   ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
+# =============================================
+# Number of Characters : 145
+# =============================================
+# ['i', 'me', 'one', 'my']
+# ai_character_section.py:379: DeprecationWarning: Call to deprecated `most_similar_cosmul` (Method will be removed in 4.0.0, use self.wv.most_similar_cosmul() instead).
+#   ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
+# =============================================
+# Emphasis on You : 66
+# =============================================
+# ['person', 'them', 'her', 'they', 'myself', 'their', 'in', 'it']
+# ai_character_section.py:455: DeprecationWarning: Call to deprecated `most_similar_cosmul` (Method will be removed in 4.0.0, use self.wv.most_similar_cosmul() instead).
+#   ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
+# =============================================
+# Emphasis on Others : 33
+# =============================================
+# 1명의 에세이 결과 계산점수 : (67.0, 145, 66, 33)
+# min_ 30
+# max_:  123
+# div_: 30
+# cal_abs 절대값 : 10.0
+# compare7 : 24.0
+# compare6 : 28.8
+# compare5 : 36.0
+# compare4 : 48.0
+# compare3 : 72.0
+# Ideal: 1
+# min_ 191
+# max_:  764
+# div_: 191
+# cal_abs 절대값 : 333
+# compare7 : 103.83333333333333
+# compare6 : 124.6
+# compare5 : 155.75
+# compare4 : 207.66666666666666
+# compare3 : 311.5
+# Lacking: 2
+# min_ 5
+# max_:  22
+# div_: 5
+# cal_abs 절대값 : 52
+# compare7 : 13.333333333333334
+# compare6 : 16.0
+# compare5 : 20.0
+# compare4 : 26.666666666666668
+# compare3 : 40.0
+# Overboard: 2
+# min_ 20
+# max_:  80
+# div_: 20
+# cal_abs 절대값 : 17
+# compare7 : 13.833333333333334
+# compare6 : 16.6
+# compare5 : 20.75
+# compare4 : 27.666666666666668
+# compare3 : 41.5
+# Lacking: 2
+# 최종결과 :  [1, 0, 2, 0, 2.75]
