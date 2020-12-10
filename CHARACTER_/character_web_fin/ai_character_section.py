@@ -254,7 +254,7 @@ def character_all_section(text):
             #J:\Django\EssayFit_Django\essayfitaiproject\essayfitapp\model.pt
             #time.sleep(1)
             #model = torch.load("/Users/jongphilkim/Desktop/Django_WEB/essayfitaiproject/essayai/model.pt", map_location=torch.device('cpu'))
-            model = torch.load("model.pt", map_location=torch.device('cpu'))
+            model = torch.load("/Users/kimkwangil/Documents/001_ESSAYFITAI/essayfitaiproject_2020_12_4/essayai/data/model.pt", map_location=torch.device('cpu'))
             print("model loadling~")
             model.eval()
 
@@ -514,7 +514,7 @@ def character_total_analysis(text):
 
     char_sec_re = character_all_section(text)
 
-    print(char_sec_re)
+    print("1명의 에세이 결과 계산점수 :", char_sec_re)
 
     # 위에서 계산한 총 4개의 값을 개인, 그룹의 값과 비교하여 lacking, ideal, overboard 계산
     
@@ -526,7 +526,8 @@ def character_total_analysis(text):
 
 
     ## 1000명 데이터의 각 값(char_desc_mean)의 평균 값 전달. >>>> group_mean 으로 입력됨
-    char_desc_mean = [77.975, 478.3, 214.325, 150.625] # 현재 계산 완료한 1000명의 평균 값(고정값)
+    char_desc_mean = [77, 478, 14, 50] # 현재 계산 완료한 1000명의 평균 값(고정값)  
+    #1명의    계산점수 : (66.0, 145, 66, 33)
 
     char_desc_ideal_mean = char_desc_mean[0] #첫번째 값을 가져옴, Character Descriptiveness
     num_of_char_ideal_mean = char_desc_mean[1] #Number of Characters
@@ -549,28 +550,59 @@ def character_total_analysis(text):
         cal_abs = abs(ideal_mean - one_ps_char_desc) # 개인 - 단체 값의 절대값계산
 
         print('cal_abs 절대값 :', cal_abs)
-        compare = (one_ps_char_desc + ideal_mean)/7
-        print('compare :', compare)
+        compare7 = (one_ps_char_desc + ideal_mean)/6
+        compare6 = (one_ps_char_desc + ideal_mean)/5
+        compare5 = (one_ps_char_desc + ideal_mean)/4
+        compare4 = (one_ps_char_desc + ideal_mean)/3
+        compare3 = (one_ps_char_desc + ideal_mean)/2
+        print('compare7 :', compare7)
+        print('compare6 :', compare6)
+        print('compare5 :', compare5)
+        print('compare4 :', compare4)
+        print('compare3 :', compare3)
 
 
 
         if one_ps_char_desc > ideal_mean: # 개인점수가 평균보다 클 경우는 overboard
-            if cal_abs > compare: # 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
+            if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
                 print("Overboard: 2")
-                result = 2
+                result = 2 #overboard
                 score = 1
-            else: #차이가 많이 안나면
+            elif cal_abs > compare4: # 28
+                print("Overvoard: 2")
+                result = 2
+                score = 2
+            elif cal_abs > compare5: # 22
+                print("Overvoard: 2")
+                result = 2
+                score = 3
+            elif cal_abs > compare6: # 18
+                print("Overvoard: 2")
+                result = 2
+                score = 4
+            else:
                 print("Ideal: 1")
                 result = 1
                 score = 5
-            
         elif one_ps_char_desc < ideal_mean: # 개인점수가 평균보다 작을 경우 lacking
-            if cal_abs > compare: #차이가 많이나면 # 개인점수가  평균보다 작을 경우 Lacking이고 
-                print("Lacking: 0")
+            if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
+                print("Lacking: 2")
                 result = 0
                 score = 1
-            else: #차이가 많이 안나면
-                print ("Ideal: 1")
+            elif cal_abs > compare4: # 28
+                print("Lacking: 2")
+                result = 0
+                score = 2
+            elif cal_abs > compare5: # 22
+                print("Lacking: 2")
+                result = 0
+                score = 3
+            elif cal_abs > compare6: # 18
+                print("Lacking: 2")
+                result = 0
+                score = 4
+            else:
+                print("Ideal: 1")
                 result = 1
                 score = 5
                 
