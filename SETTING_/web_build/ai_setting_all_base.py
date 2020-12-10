@@ -1,3 +1,7 @@
+# Setting 전체 분석 코드
+# 총 11개의 분석이 가능함
+
+
 import numpy as np
 import pandas as pd
 import gensim
@@ -24,13 +28,12 @@ from torch.utils.data import Dataset, DataLoader
 from pytorch_transformers import BertTokenizer, BertForSequenceClassification, BertConfig
 from torch.optim import Adam
 import torch.nn.functional as F
+import pickle
 
 #cuda 메모리에 여유를 주기 위해서 잠시 딜레이를 시키자
 import time
 
 
-
-input_text= """A window into the soul.For most people, this would be the eyes. The eyes cannot lie; they often tell more about a person's emotions than their words. What distinguishes a fake smile from a genuine one? The eyes. What shows sadness? The eyes. What gives away a liar? The eyes.But are the eyes the only window into the soul?Recently, I began painting with watercolors. With watercolors, there is no turning back: if one section is too dark, it is nearly impossible to lighten the area again. Every stroke must be done purposefully, every color mixed to its exact value.I laid my materials before me, preparing myself for the worst. I checked my list of supplies, making sure my setup was perfect.I wet my brush, dipped it into some yellow ochre, and dabbed off the excess paint. Too little water on my brush. I dipped my brush back into my trusty water jar; the colors swirled beautifully, forming an abstract art piece before my eyes. \u2014It's a shame that I couldn't appreciate it.I continued mixing colors to their exact value. More alizarin crimson. More water. More yellow ochre. Less water. More phthalo blue. The cycle continued. Eventually, I was satisfied. The colors looked good, there was enough contrast between facial features, and the watercolors stayed inside the lines.Craving feedback, I posted my art to Snapchat. I got a few messages such as 'wow' and 'pretty,' but one message stood out. 'You were anxious with this one, huh? Anyways, love the hair!'I was caught off guard. Was it a lucky guess? Did they know something I didn't? I immediately responded: 'Haha, how could you tell?' No response.What I didn't know at the time was that my response would come a few months later while babysitting. Since the girl I was babysitting loved art, I took out some Crayola watercolors and some watercolor paper for her to play with. After I went to the bathroom and came back, the watercolors were doused with water. 'You were impatient with this one, huh? Anyways, love the little dog you drew!'The little girl looked up at me, confused. 'How could you tell?' 'You used a lot of water for a brighter color, but you couldn't wait for it to slowly soak in.''Oh.'Now, I would be lying if I said I realized the connection between the two events immediately.Instead, I made the connection when I decided to sit down one day and objectively critique my art. The piece that I once loved now seemed like a nervous wreck: the paper was overworked, the brushstrokes were undecided, the facial features blended together, and each drop of water was bound inside the lines as if it was a prisoner in a cage.From then on, I started noticing pieces of personality in additional creations surrounding me: website designs, solutions to math problems, code written for class, and even the preparation of a meal.When I peer around at people's projects during Code Club, I notice the clear differences between their code. Some people break it up by commenting in every possible section. Others breeze through the project, not caring to comment or organize their code. I could also see clear differences in personalities when our club members began coding the Arduino for the first time. Some followed the tutorials to the letter, while others immediately started experimenting with different colored LEDs and ways of wiring the circuit.It became clear to me that, as humans, we leave pieces of our souls in everything we do, more than we intend to. If we entertain this thought, perhaps the key to better understanding others around us is simply noticing the subtler clues under our noses?Perhaps there are endless windows to the soul, and we simply need to peer through them. I shakily rose my hand. 'We should create workshops of our own,' I suggested.I got a few strange looks. 'It's a good idea, but it's too much work.' 'We just don't have enough free time to make it work.' 'Maybe we could, but I don't know how to make workshops.' My suggestion was shot down. I shuffled in my seat. 'I could make them.' A few people stared at me in disbelief. I glanced over at the club advisor, Mr. C, nervous to hear his response.'If you're willing to take on the work, we can try it.' Mr. C replied. And so I embarked on my quest. I researched different workshops on the internet, learning the information myself at first. Then, I transitioned into creating workshops of my own, making sure that the information was easy to understand for even a beginner. I was exhausted; my first workshop took 16 cumulative hours to create."""
 
 def setting_analy_all(text):
 
@@ -59,7 +62,7 @@ def setting_analy_all(text):
         #모델 설계 완료
 
         #setting을 표현하는 단어들을 리스트에 넣어서 필터로 만들고
-        location_list = ['above', 'behind','below','beside','betweed','by','in','inside','near',
+        location_list = ['above', 'behind','below','beside','by','in','inside','near',
                         'on','over','through','about', 'above', 'along', 'approach', 'approximate', 'aside', 'behind',
                         'below', 'buttocks', 'by', 'cheeseparing', 'complete', 'dear', 'done', 'downstairs',
                         'in', 'inch', 'indiana', 'indium', 'inside', 'inwardly', 'near', 'on', 'over', 'through', 'under']
@@ -189,8 +192,8 @@ def setting_analy_all(text):
         filtered_setting_text__ = list(filtered_setting_text_) #다시 리스트로 변환
         print (filtered_setting_text__) # 중복값 제거 확인
         
-        for i in filtered_setting_text__:
-            ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
+        # for i in filtered_setting_text__:
+        #     ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
         
         setting_total_count = len(filtered_setting_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현 수
         setting_count_ = len(filtered_setting_text__) #중복제거된 setting표현 총 수
@@ -256,7 +259,7 @@ def setting_analy_all(text):
         #모델 설계 완료
 
         #setting을 표현하는 단어들을 리스트에 넣어서 필터로 만들고
-        location_list = ['above', 'behind','below','beside','betweed','by','in','inside','near',
+        location_list = ['above', 'behind','below','beside','by','in','inside','near',
                         'on','over','through']
         time_list = ['after', 'before','by','during','from','on','past','since','through','to','until','upon']
         
@@ -348,6 +351,17 @@ def setting_analy_all(text):
         
         setting_words_filter_list = location_list + time_list + movement_list + palce_terrain_type_list + water_list + outdoor_places_list + underground_list + underground_list + living_places_list + building_facilities_list + architecture_list
 
+        # # load
+        # with open('glove_vectors.pickle', 'rb') as f:
+        #     glove_vectors = pickle.load(f)
+
+        # filt_wds_list = []
+        # for i in setting_words_filter_list:
+        #     ext_setting_sim_words_key = glove_vectors.most_similar(i)#모델적용>>>>>>>>>>>>>  이 부분을 glove_vectors.most_similar(i) 로 바꿀 것 
+        #     filt_wds_list.append(ext_setting_sim_words_key)
+
+        # setting_words_filter_list_ = sum(filt_wds_list, [])
+
         
         ####문장에 setting_words_filter_list의 단어들이 있는지 확인하고, 있다면 유사단어를 추출한다.
         #우선 토큰화한다.
@@ -367,8 +381,7 @@ def setting_analy_all(text):
         filtered_setting_text__ = list(filtered_setting_text_) #다시 리스트로 변환
         print (filtered_setting_text__) # 중복값 제거 확인
         
-        for i in filtered_setting_text__:
-            ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
+
         
         setting_total_count = len(filtered_setting_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현 수
         setting_count_ = len(filtered_setting_text__) #중복제거된 setting표현 총 수
@@ -381,6 +394,9 @@ def setting_analy_all(text):
     #################################################
     # 구간별 셋팅 intro - body - conclusion   계산 시작
     #################################################
+
+    # setting indicators 
+    setting_indicators = indications_setting(input_text)
 
     # intro 의 setting 분석
     intro_re = indications_setting(intro)
@@ -420,7 +436,7 @@ def setting_analy_all(text):
         #모델 설계 완료
 
         #setting을 표현하는 단어들을 리스트에 넣어서 필터로 만들고
-        location_list = ['above', 'behind','below','beside','betweed','by','in','inside','near',
+        location_list = ['above', 'behind','below','beside','by','in','inside','near',
                         'on','over','through']
         #time_list = ['after', 'before','by','during','from','on','past','since','through','to','until','upon']
         
@@ -531,8 +547,8 @@ def setting_analy_all(text):
         filtered_setting_text__ = list(filtered_setting_text_) #다시 리스트로 변환
         print (filtered_setting_text__) # 중복값 제거 확인
         
-        for i in filtered_setting_text__:
-            ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
+        # for i in filtered_setting_text__:
+        #     ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
         
         setting_total_count = len(filtered_setting_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현 수
         setting_count_ = len(filtered_setting_text__) #중복제거된 setting표현 총 수
@@ -575,7 +591,7 @@ def setting_analy_all(text):
             
             
             #setting을 표현하는 단어들을 리스트에 넣어서 필터로 만들고
-            location_list = ['above', 'behind','below','beside','betweed','by','in','inside','near',
+            location_list = ['above', 'behind','below','beside','by','in','inside','near',
                             'on','over','through']
             time_list = ['after', 'before','by','during','from','on','past','since','through','to','until','upon']
             
@@ -826,9 +842,15 @@ def setting_analy_all(text):
     re_char_desp_fin_conclusion = setting_descriptiveness(conclusion)
 
     ### 최종 결과 계산!!!! 끝!!!
-    return intro_re, body_re, conclusion_re, place_nouns_ratio, place_nouns_intro, place_nouns_body, place_nouns_conclusion, re_char_desp_fin, re_char_desp_fin_intro, re_char_desp_fin_body, re_char_desp_fin_conclusion
+    return setting_indicators, intro_re, body_re, conclusion_re, place_nouns_ratio, place_nouns_intro, place_nouns_body, place_nouns_conclusion, re_char_desp_fin, re_char_desp_fin_intro, re_char_desp_fin_body, re_char_desp_fin_conclusion
 
 ########### return 값 설명 ###########
+
+## 계산결과 ex) RESULT : (6.34, 1.84, 8.85, 2.47, 1.12, 0.61, 2.9, 77.0, 69.0, 45.0, 86.0)
+
+#전체 setting_indicators
+# setting_indicators
+
 # 구간별 setting indicator
 # intro_re
 # body_re
@@ -850,9 +872,214 @@ def setting_analy_all(text):
 # re_char_desp_fin_body
 # re_char_desp_fin_conclusion
 
+def ai_setting_overallratio(input_text):
+
+    setting_one_ps = setting_analy_all(input_text)
+
+    print("1명의 에세이 결과 계산점수 :", setting_one_ps)
+
+    # 위에서 계산한 총 4개의 값을 개인, 그룹의 값과 비교하여 lacking, ideal, overboard 계산
+
+    # 개인에세이 값 계산 11가지 결과 추출 >>>>> personal_value 로 입력됨
+    setting_indicators = setting_one_ps[0]
+    intro_re = setting_one_ps[1]
+    body_re = setting_one_ps[2]
+    conclusion_re = setting_one_ps[3]
+    place_nouns_ratio = setting_one_ps[4]
+    place_nouns_intro = setting_one_ps[5]
+    place_nouns_body = setting_one_ps[6]
+    place_nouns_conclusion = setting_one_ps[7]
+    re_char_desp_fin = setting_one_ps[8]
+    re_char_desp_fin_intro = setting_one_ps[9]
+    re_char_desp_fin_body = setting_one_ps[10]
+    re_char_desp_fin_conclusion = setting_one_ps[11]
+    
+    ## 1000명 데이터의 평균값 (이미 계산한 결과를 반영하여 적용: 고정값임)
+    set_result_1000 = [7.805,7.805,
+ 8.2025,
+ 9.29,
+ 3.965,
+ 3.1775,
+ 3.0400000000000005,
+ 3.805,
+ 87.75,
+ 93.75,
+ 90.0,
+ 94.25]
+
+    #1000명의 학생에 에세이 값을 가져온다.
+    setting_indicators_mean = set_result_1000[0]
+    intro_re_mean = set_result_1000[1]
+    body_re_mean = set_result_1000[2]
+    conclusion_re_mean = set_result_1000[3]
+    place_nouns_ratio_mean = set_result_1000[4]
+    place_nouns_intro_mean = set_result_1000[5]
+    place_nouns_body_mean = set_result_1000[6]
+    place_nouns_conclusion_mean = set_result_1000[7]
+    re_char_desp_fin_mean = set_result_1000[8]
+    re_char_desp_fin_intro_mean = set_result_1000[9]
+    re_char_desp_fin_body_mean = set_result_1000[10]
+    re_char_desp_fin_conclusion_mean = set_result_1000[11]
+
+    def lackigIdealOverboard(group_mean, personal_value): # group_mean: 1000명 평균, personal_value|:개인값
+        ideal_mean = group_mean
+        one_ps_char_desc = personal_value
+        #최대, 최소값 기준으로 구간설정. 구간비율 30% => 0.3으로 설정
+        min_ = int(ideal_mean-ideal_mean*0.6)
+        print('min_', min_)
+        max_ = int(ideal_mean+ideal_mean*0.6)
+        print('max_: ', max_)
+        div_ = int(((ideal_mean+ideal_mean*0.6)-(ideal_mean-ideal_mean*0.6))/3)
+        print('div_:', div_)
+
+        #결과 판단 Lacking, Ideal, Overboard
+        cal_abs = abs(ideal_mean - one_ps_char_desc) # 개인 - 단체 값의 절대값계산
+
+        print('cal_abs 절대값 :', cal_abs)
+        compare7 = (one_ps_char_desc + ideal_mean)/6
+        compare6 = (one_ps_char_desc + ideal_mean)/5
+        compare5 = (one_ps_char_desc + ideal_mean)/4
+        compare4 = (one_ps_char_desc + ideal_mean)/3
+        compare3 = (one_ps_char_desc + ideal_mean)/2
+        print('compare7 :', compare7)
+        print('compare6 :', compare6)
+        print('compare5 :', compare5)
+        print('compare4 :', compare4)
+        print('compare3 :', compare3)
 
 
 
-############# test ##########3
-result__ = setting_analy_all(input_text)
-print ("RESULT :", result__)
+        if one_ps_char_desc > ideal_mean: # 개인점수가 평균보다 클 경우는 overboard
+            if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
+                print("Overboard: 2")
+                result = 2 #overboard
+                score = 1
+            elif cal_abs > compare4: # 28
+                print("Overvoard: 2")
+                result = 2
+                score = 2
+            elif cal_abs > compare5: # 22
+                print("Overvoard: 2")
+                result = 2
+                score = 3
+            elif cal_abs > compare6: # 18
+                print("Overvoard: 2")
+                result = 2
+                score = 4
+            else:
+                print("Ideal: 1")
+                result = 1
+                score = 5
+        elif one_ps_char_desc < ideal_mean: # 개인점수가 평균보다 작을 경우 lacking
+            if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
+                print("Lacking: 2")
+                result = 0
+                score = 1
+            elif cal_abs > compare4: # 28
+                print("Lacking: 2")
+                result = 0
+                score = 2
+            elif cal_abs > compare5: # 22
+                print("Lacking: 2")
+                result = 0
+                score = 3
+            elif cal_abs > compare6: # 18
+                print("Lacking: 2")
+                result = 0
+                score = 4
+            else:
+                print("Ideal: 1")
+                result = 1
+                score = 5
+                
+        else:
+            print("Ideal: 1")
+            result = 1
+            score = 5
+
+        return result, score
+
+
+    #종합계산시작 lackigIdealOverboard(group_mean, personal_value)
+    setting_indicators_fin = lackigIdealOverboard(setting_indicators_mean, setting_indicators)
+    intro_re_fin = lackigIdealOverboard(intro_re_mean, intro_re)
+    body_re_fin = lackigIdealOverboard(body_re_mean, body_re)
+    conclusion_re_fin = lackigIdealOverboard(conclusion_re_mean, conclusion_re)
+    place_nouns_ratio_fin = lackigIdealOverboard(place_nouns_ratio_mean, place_nouns_ratio)
+    place_nouns_intro_fin = lackigIdealOverboard(place_nouns_intro_mean, place_nouns_intro)
+    place_nouns_body_fin = lackigIdealOverboard(place_nouns_body_mean, place_nouns_body)
+    place_nouns_conclusion_fin = lackigIdealOverboard(place_nouns_conclusion_mean, place_nouns_conclusion)
+    re_char_desp_fin_fin = lackigIdealOverboard(re_char_desp_fin_mean, re_char_desp_fin)
+    re_char_desp_fin_intro_fin = lackigIdealOverboard(re_char_desp_fin_intro_mean, re_char_desp_fin_intro)
+    re_char_desp_fin_body_fin = lackigIdealOverboard(re_char_desp_fin_body_mean, re_char_desp_fin_body)
+    re_char_desp_fin_conclusione_fin = lackigIdealOverboard(re_char_desp_fin_conclusion_mean, re_char_desp_fin_conclusion)
+
+    fin_result = [setting_indicators_fin, intro_re_fin, body_re_fin, conclusion_re_fin, place_nouns_ratio_fin, place_nouns_intro_fin, place_nouns_body_fin,
+                    place_nouns_conclusion_fin, re_char_desp_fin_fin, re_char_desp_fin_intro_fin, re_char_desp_fin_body_fin, re_char_desp_fin_conclusione_fin]
+
+
+    each_fin_result = [fin_result[0][0], fin_result[1][0], fin_result[2][0], fin_result[3][0],
+                    fin_result[4][0],fin_result[5][0], fin_result[6][0], fin_result[7][0], fin_result[8][0],
+                    fin_result[9][0],fin_result[10][0], fin_result[11][0]]
+
+
+    overall_setting_rating = [round((fin_result[0][1]
+                           +fin_result[1][1] 
+                           +fin_result[2][1]
+                           +fin_result[3][1]
+                           +fin_result[4][1]
+                           +fin_result[5][1]
+                           +fin_result[6][1]
+                           +fin_result[7][1]
+                           +fin_result[8][1]
+                           +fin_result[9][1]
+                           +fin_result[10][1]
+                           +fin_result[11][1])/12, 2)]
+
+    result_final = each_fin_result + overall_setting_rating
+
+    return result_final
+
+
+
+#################### 테스트~~~~!!!! ###################
+
+
+input_text= """A window into the soul.For most people, this would be the eyes. The eyes cannot lie; they often tell more about a person's emotions than their words. What distinguishes a fake smile from a genuine one? The eyes. What shows sadness? The eyes. What gives away a liar? The eyes.But are the eyes the only window into the soul?Recently, I began painting with watercolors. With watercolors, there is no turning back: if one section is too dark, it is nearly impossible to lighten the area again. Every stroke must be done purposefully, every color mixed to its exact value.I laid my materials before me, preparing myself for the worst. I checked my list of supplies, making sure my setup was perfect.I wet my brush, dipped it into some yellow ochre, and dabbed off the excess paint. Too little water on my brush. I dipped my brush back into my trusty water jar; the colors swirled beautifully, forming an abstract art piece before my eyes. \u2014It's a shame that I couldn't appreciate it.I continued mixing colors to their exact value. More alizarin crimson. More water. More yellow ochre. Less water. More phthalo blue. The cycle continued. Eventually, I was satisfied. The colors looked good, there was enough contrast between facial features, and the watercolors stayed inside the lines.Craving feedback, I posted my art to Snapchat. I got a few messages such as 'wow' and 'pretty,' but one message stood out. 'You were anxious with this one, huh? Anyways, love the hair!'I was caught off guard. Was it a lucky guess? Did they know something I didn't? I immediately responded: 'Haha, how could you tell?' No response.What I didn't know at the time was that my response would come a few months later while babysitting. Since the girl I was babysitting loved art, I took out some Crayola watercolors and some watercolor paper for her to play with. After I went to the bathroom and came back, the watercolors were doused with water. 'You were impatient with this one, huh? Anyways, love the little dog you drew!'The little girl looked up at me, confused. 'How could you tell?' 'You used a lot of water for a brighter color, but you couldn't wait for it to slowly soak in.''Oh.'Now, I would be lying if I said I realized the connection between the two events immediately.Instead, I made the connection when I decided to sit down one day and objectively critique my art. The piece that I once loved now seemed like a nervous wreck: the paper was overworked, the brushstrokes were undecided, the facial features blended together, and each drop of water was bound inside the lines as if it was a prisoner in a cage.From then on, I started noticing pieces of personality in additional creations surrounding me: website designs, solutions to math problems, code written for class, and even the preparation of a meal.When I peer around at people's projects during Code Club, I notice the clear differences between their code. Some people break it up by commenting in every possible section. Others breeze through the project, not caring to comment or organize their code. I could also see clear differences in personalities when our club members began coding the Arduino for the first time. Some followed the tutorials to the letter, while others immediately started experimenting with different colored LEDs and ways of wiring the circuit.It became clear to me that, as humans, we leave pieces of our souls in everything we do, more than we intend to. If we entertain this thought, perhaps the key to better understanding others around us is simply noticing the subtler clues under our noses?Perhaps there are endless windows to the soul, and we simply need to peer through them. I shakily rose my hand. 'We should create workshops of our own,' I suggested.I got a few strange looks. 'It's a good idea, but it's too much work.' 'We just don't have enough free time to make it work.' 'Maybe we could, but I don't know how to make workshops.' My suggestion was shot down. I shuffled in my seat. 'I could make them.' A few people stared at me in disbelief. I glanced over at the club advisor, Mr. C, nervous to hear his response.'If you're willing to take on the work, we can try it.' Mr. C replied. And so I embarked on my quest. I researched different workshops on the internet, learning the information myself at first. Then, I transitioned into creating workshops of my own, making sure that the information was easy to understand for even a beginner. I was exhausted; my first workshop took 16 cumulative hours to create."""
+
+
+ai_setting_overallratio(input_text)
+
+print("최종결과 : ", ai_setting_overallratio(input_text))
+
+
+
+# 최종결과 :  [1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 3.91]
+
+###  lacking : 0, ideal: 1, overboard : 2  ###
+
+#setting_indicators_fin : 1 lacking
+
+#### 구간별 setting indicator
+
+# intro_re : 1 ideal
+# body_re 0 lacking
+# conclusion_re 1 ideal
+
+# 전체 입력 데이터셋의  plance nouns 비율
+# place_nouns_ratio 0 lacking
+
+#### 구간별 장소 명사(Place Nuns) 계산
+# place_nouns_intro 0 lacking
+# place_nouns_body 0 lacking
+# place_nouns_conclusion 1 ideal
+
+#### 전체 Setting Descriptiveness 
+# re_char_desp_fin 1 ideal
+
+#### 구간별 Setting Descriptiveness 
+# re_char_desp_fin_intro 1 ideal 
+# re_char_desp_fin_body 1 ideal 
+# re_char_desp_fin_conclusion 1 ideal
+
+# 맨 마지막 값은 '3.91'은 5점 만점중 평균비교 종합계산한 점수임11 
