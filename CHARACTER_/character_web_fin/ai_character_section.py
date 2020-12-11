@@ -171,8 +171,8 @@ def character_all_section(text):
         filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
         print (filtered_chr_text__) # 중복값 제거 확인
         
-        for i in filtered_chr_text__:
-            ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
+        # for i in filtered_chr_text__:
+        #     ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
         
         char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 캐릭터 표현 수
         char_count_ = len(filtered_chr_text__) #중복제거된 캐릭터 표현 총 수
@@ -422,8 +422,8 @@ def character_all_section(text):
         filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
         print (filtered_chr_text__) # 중복값 제거 확인
         
-        for i in filtered_chr_text__:
-            ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
+        # for i in filtered_chr_text__:
+        #     ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
         
         char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 캐릭터 표현 수
         char_count_ = len(filtered_chr_text__) #중복제거된 캐릭터 표현 총 수
@@ -498,8 +498,8 @@ def character_all_section(text):
         filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
         print (filtered_chr_text__) # 중복값 제거 확인
         
-        for i in filtered_chr_text__:
-            ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
+        # for i in filtered_chr_text__:
+        #     ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
         
         char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 캐릭터 표현 수
         char_count_ = len(filtered_chr_text__) #중복제거된 캐릭터 표현 총 수
@@ -571,10 +571,11 @@ def character_total_analysis(text):
     one_ps_emp_on_you = char_sec_re[2]
     one_ps_emp_on_others = char_sec_re[3]
 
-
+    ##############################################################################################################################
     ## 1000명 데이터의 각 값(char_desc_mean)의 평균 값 전달. >>>> group_mean 으로 입력됨
     char_desc_mean = [77, 478, 14, 50] # 현재 계산 완료한 1000명의 평균 값(고정값)  
-    #1명의    계산점수 : (66.0, 145, 66, 33)
+    ##############################################################################################################################
+
 
     char_desc_ideal_mean = char_desc_mean[0] #첫번째 값을 가져옴, Character Descriptiveness
     num_of_char_ideal_mean = char_desc_mean[1] #Number of Characters
