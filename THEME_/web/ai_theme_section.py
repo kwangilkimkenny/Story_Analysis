@@ -5,18 +5,23 @@
 # 2) question_one_1000_dataset.pickle ~ question_seven_1000_dataset.pickle
 
 
-#  결과에서 맨 마지막 최종결과만 확인하면 됨 
 
-# 1명의 에세이 결과 계산점수 : [9.550198567567948, 3.97]
+# 입력데이터 :  학생에세이(input_text), 질문 7개중 1개 선택(question_num)
+# 실행 함수 :  theme_total_analysis(input_text, question_num)  
+
+
+#  결과에서 맨 마지막 최종결과만 확인하면 됨   4개의 결과로  return result_final, emo_result, topic_result, topic_result
+
+# 1명의 에세이 결과 계산점수 : [9.45423856180526, 3.97]
 # min_ 30
 # max_:  123
 # div_: 30
-# cal_abs 절대값 : 67.44980143243205
-# compare7 : 14.425033094594658
-# compare6 : 17.31003971351359
-# compare5 : 21.637549641891987
-# compare4 : 28.850066189189317
-# compare3 : 43.27509928378397
+# cal_abs 절대값 : 67.54576143819475
+# compare7 : 14.409039760300876
+# compare6 : 17.29084771236105
+# compare5 : 21.613559640451314
+# compare4 : 28.818079520601753
+# compare3 : 43.22711928090263
 # Lacking: 2
 # min_ 191
 # max_:  764
@@ -29,9 +34,8 @@
 # compare3 : 240.985
 # Lacking: 2
 
-# 최종결과 :  [0, 0, 1.0]   >>>>>>> 순서대로 [Contextual Semantic Search, Narrativity, Overall Theme Rating]
-
-
+# return result_final(Contextual Semantic Search, Narrativity, Overall Theme Rating), emo_result(감정분석워드클라우드 결과 딕셔너리), topic_result(주제추출 워드클라우드 결과 딕셔너리)
+# 최종결과 :  ([0, 0, 1.0], {'approval': 7, 'admiration': 3, 'realization': 3, 'amusement': 1, 'confusion': 1, 'excitement': 1, 'annoyance': 1}, {'i': 27, 'filipino': 3, 'expectations': 3, 'way': 3, 'francesca': 3, 'pressure': 3, 'summer': 2, 'tradition': 2, 'expectation': 2, 'piano': 2, 's': 2, 'guitar': 2, 'sound': 2, 'interlochen': 2, 'environment': 2, 'art': 2, 'guitarist': 2, 'jazz': 2, 'one': 2, 'someone': 2, 'presence': 2, 'comfort': 2, 'warmth': 2, "'bloomington": 1, 'city': 1, 'swathes': 1, 'corn': 1, 'envelop': 1, 'roads': 1, 'smell': 1, 'bbq': 1, 'smoke': 1, 'countryside': 1, 'norms': 1, 'force': 1, 'role': 1, 'debussy': 1, 'festival': 1, 'philosophy': 1, 'demand': 1, 'triplet': 1, 'groove': 1, 'intricacies': 1, 'chordal': 1, 'harmony': 1, 'years': 1, 'music': 1, 'novelty': 1, 'methods': 1, 'solos': 1, 'greats': 1, 'experiment': 1, 'approaches': 1, 'route': 1, 'freedom': 1, 'path': 1, 'desires': 1, 'trail': 1, 'arts': 1, 'year': 1, 'growth': 1, 'people': 1, 'kinds': 1, 'regard': 1, 'ideas': 1, 'opportunity': 1, 'limits': 1, 'day': 1, 'camp': 1, 'peer': 1, 'band': 1, 'girl': 1, 'illinois': 1, 'moment': 1, 'endeavors': 1, 'effort': 1, 'background': 1, 'slew': 1, 'differences': 1, 'heights': 1, 'guitars': 1, 'styles': 1, 'others': 1, 'trouble': 1, 'distinction': 1, 'performances': 1, 'glittering': 1, 'lakes': 1, 'pine': 1, 'needles': 1, 'bloomington': 1, 'mistaken': 1, 'times': 1, 'standard': 1, 'language': 1, 'style': 1, 'qualities': 1, 'something': 1, 'pursuit': 1, 'time': 1, 'inspiration': 1, 'precedent': 1, 'spite': 1, 'solace': 1, 'similarities': 1, 'sense': 1, 'life': 1, 'matter': 1, 'm': 1, 'engage': 1, 'influence': 1, 'rewards': 1, 'encounter': 1, 'feeling': 1, 'setting': 1, 'conditions': 1, 'hometown': 1, 'resemblances': 1, 'familiarity': 1, 'balance': 1, 'elements': 1, 'discove': 1, ']': 1}, {'i': 27, 'filipino': 3, 'expectations': 3, 'way': 3, 'francesca': 3, 'pressure': 3, 'summer': 2, 'tradition': 2, 'expectation': 2, 'piano': 2, 's': 2, 'guitar': 2, 'sound': 2, 'interlochen': 2, 'environment': 2, 'art': 2, 'guitarist': 2, 'jazz': 2, 'one': 2, 'someone': 2, 'presence': 2, 'comfort': 2, 'warmth': 2, "'bloomington": 1, 'city': 1, 'swathes': 1, 'corn': 1, 'envelop': 1, 'roads': 1, 'smell': 1, 'bbq': 1, 'smoke': 1, 'countryside': 1, 'norms': 1, 'force': 1, 'role': 1, 'debussy': 1, 'festival': 1, 'philosophy': 1, 'demand': 1, 'triplet': 1, 'groove': 1, 'intricacies': 1, 'chordal': 1, 'harmony': 1, 'years': 1, 'music': 1, 'novelty': 1, 'methods': 1, 'solos': 1, 'greats': 1, 'experiment': 1, 'approaches': 1, 'route': 1, 'freedom': 1, 'path': 1, 'desires': 1, 'trail': 1, 'arts': 1, 'year': 1, 'growth': 1, 'people': 1, 'kinds': 1, 'regard': 1, 'ideas': 1, 'opportunity': 1, 'limits': 1, 'day': 1, 'camp': 1, 'peer': 1, 'band': 1, 'girl': 1, 'illinois': 1, 'moment': 1, 'endeavors': 1, 'effort': 1, 'background': 1, 'slew': 1, 'differences': 1, 'heights': 1, 'guitars': 1, 'styles': 1, 'others': 1, 'trouble': 1, 'distinction': 1, 'performances': 1, 'glittering': 1, 'lakes': 1, 'pine': 1, 'needles': 1, 'bloomington': 1, 'mistaken': 1, 'times': 1, 'standard': 1, 'language': 1, 'style': 1, 'qualities': 1, 'something': 1, 'pursuit': 1, 'time': 1, 'inspiration': 1, 'precedent': 1, 'spite': 1, 'solace': 1, 'similarities': 1, 'sense': 1, 'life': 1, 'matter': 1, 'm': 1, 'engage': 1, 'influence': 1, 'rewards': 1, 'encounter': 1, 'feeling': 1, 'setting': 1, 'conditions': 1, 'hometown': 1, 'resemblances': 1, 'familiarity': 1, 'balance': 1, 'elements': 1, 'discove': 1, ']': 1})
 
 
 
@@ -88,6 +92,25 @@ import pandas as pd
 import sys
 import pickle
 
+
+# 글속에 감정이 얼마나 표현되어 있는지 분석 - origin (Bert pre trained model 활용)
+from transformers import BertTokenizer
+from model import BertForMultiLabelClassification
+from multilabel_pipeline import MultiLabelPipeline
+from pprint import pprint
+
+
+import spacy
+from collections import Counter
+import nltk
+nltk.download('averaged_perceptron_tagger')
+
+nlp = spacy.load("en_core_web_lg")
+
+
+
+
+##################################################################################################
 ####### 이 부분은 web 페이지에서 form에서 입력을 받으면 됨
 ##### 질문을 선택하고, 에세이를 입력한다. #####
 
@@ -95,7 +118,9 @@ import pickle
 input_text = """Bloomington Normal is almost laughably cliché for a midwestern city. Vast swathes of corn envelop winding roads and the heady smell of BBQ smoke pervades the countryside every summer. Yet, underlying the trite norms of Normal is the prescriptive force of tradition—the expectation to fulfill my role as a female Filipino by playing Debussy in the yearly piano festival and enrolling in multivariable calculus instead of political philosophy.So when I discovered the technical demand of bebop, the triplet groove, and the intricacies of chordal harmony after ten years of grueling classical piano, I was fascinated by the music's novelty. Jazz guitar was not only evocative and creative, but also strangely liberating. I began to explore different pedagogical methods, transcribe solos from the greats, and experiment with various approaches until my own unique sound began to develop. And, although I did not know what would be the 'best' route for me to follow as a musician, the freedom to forge whatever path I felt was right seemed to be exactly what I needed; there were no expectations for me to continue in any particular way—only the way that suited my own desires.While journeying this trail, I found myself at Interlochen Arts Camp the summer before my junior year. Never before had I been immersed in an environment so conducive to musical growth: I was surrounded by people intensely passionate about pursuing all kinds of art with no regard for ideas of what art 'should' be. I knew immediately that this would be a perfect opportunity to cultivate my sound, unbounded by the limits of confining tradition. On the first day of camp, I found that my peer guitarist in big band was another Filipino girl from Illinois. Until that moment, my endeavors in jazz guitar had been a solitary effort; I had no one with whom to collaborate and no one against whom I could compare myself, much less someone from a background mirroring my own. I was eager to play with her, but while I quickly recognized a slew of differences between us—different heights, guitars, and even playing styles—others seemed to have trouble making that distinction during performances. Some even went as far as calling me 'other-Francesca.' Thus, amidst the glittering lakes and musky pine needles of Interlochen, I once again confronted Bloomington's frustrating expectations.After being mistaken for her several times, I could not help but view Francesca as a standard of what the 'female Filipino jazz guitarist' should embody. Her improvisatory language, comping style and even personal qualities loomed above me as something I had to live up to. Nevertheless, as Francesca and I continued to play together, it was not long before we connected through our creative pursuit. In time, I learned to draw inspiration from her instead of feeling pressured to follow whatever precedent I thought she set. I found that I grew because of, rather than in spite of, her presence; I could find solace in our similarities and even a sense of comfort in an unfamiliar environment without being trapped by expectation. Though the pressure to conform was still present—and will likely remain present in my life no matter what genre I'm playing or what pursuits I engage in—I learned to eschew its corrosive influence and enjoy the rewards that it brings. While my encounter with Francesca at first sparked a feeling of pressure to conform in a setting where I never thought I would feel its presence, it also carried the warmth of finding someone with whom I could connect. Like the admittedly trite conditions of my hometown, the resemblances between us provided comfort to me through their familiarity. I ultimately found that I can embrace this warmth while still rejecting the pressure to succumb to expectations, and that, in the careful balance between these elements, I can grow in a way that feels both like discove"""
 
 # 6개의 질문  ques_one, ques_two, ques_three, ques_four, ques_five, ques_six, ques_seven   중 선택 1개
-question_num = """ques_seven""" # 1번째 질문을 선택했을 경우
+question_num = """ques_three""" # 1번째 질문을 선택했을 경우
+
+##################################################################################################
 
 
 
@@ -151,7 +176,7 @@ def theme_all_section(input_text, question_num):
         ##### QUESTION 3 #####
         ######################
         #표현하는 단어들을 리스트에 넣어서 필터로 만들고, WORDNET에서 유사단어 추출하여 적용완료!
-        qst_tree_words_list = ['idea', 'belief', 'question', 'thinking', 'prompted', 'outcome', 'challenge', 'defy', 'realize', 
+        qst_three_words_list = ['idea', 'belief', 'question', 'thinking', 'prompted', 'outcome', 'challenge', 'defy', 'realize', 
                                 'enlighten', 'philosophy', 'religion', 'conviction', 'believe', 'thoughts', 'reason', 'logic', 'value', 
                                 'conscience', 'ethic', 'right', 'justice', 'dare', 'concept', 'existing', 'inspire', 'confront', 'oppose', 
                                 'conflict', 'against','argue', 'battle', 'belief', 'believe', 'cause', 'challenge', 'cheer', 'clear', 'concept', 'conflict',
@@ -215,7 +240,7 @@ def theme_all_section(input_text, question_num):
         ######################
         #표현하는 단어들을 리스트에 넣어서 필터로 만들고, WORDNET에서 유사단어 추출하여 적용완료!
 
-        qst_seven_words_list =  qst_one_words_list +  qst_two_words_list + qst_tree_words_list + qst_four_words_list + qst_five_words_list + qst_six_words_list
+        qst_seven_words_list =  qst_one_words_list +  qst_two_words_list + qst_three_words_list + qst_four_words_list + qst_five_words_list + qst_six_words_list
 
 
 
@@ -606,15 +631,141 @@ def narrative_ratio(text):
     return result_verbs_ratio
 
 
+############### 감정분석 ##### start #####
+
+def emo_analysis(input_text):
+    tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-original")
+    model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
+
+    goemotions = MultiLabelPipeline(
+    model=model,
+    tokenizer=tokenizer,
+    threshold=0.3
+    )
+
+    #결과확인
+    #print(goemotions(texts))
+    ########## 여기서는 최초 입력 에세이를 적용한다. input_text !!!!!!!!
+    re_text = input_text.split(".")
+
+    #데이터 전처리 
+    def cleaning(datas):
+
+        fin_datas = []
+
+        for data in datas:
+            # 영문자 이외 문자는 공백으로 변환
+            only_english = re.sub('[^a-zA-Z]', ' ', data)
+
+            # 데이터를 리스트에 추가 
+            fin_datas.append(only_english)
+
+        return fin_datas
+
+    texts = cleaning(re_text)
+
+    #분석된 감정만 추출
+    emo_re = goemotions(texts)
+
+    emo_all = []
+    for list_val in range(0, len(emo_re)):
+        #print(emo_re[list_val]['labels'],emo_re[list_val]['scores'])
+        #mo_all.append((emo_re[list_val]['labels'],emo_re[list_val]['scores'])) #KEY, VALUE만 추출하여 리스트로 저장
+        #emo_all.append(emo_re[list_val]['scores'])
+        emo_all.append((emo_re[list_val]['labels']))
+
+    from pandas.core.common import flatten #이중리스틀 FLATTEN하게 변환
+    flat_list = list(flatten(emo_all))
+        #중립적인 감정을 제외하고, 입력한 문장에서 다양한 감정을 모두 추출하고 어떤 감정이 있는지 계산
+        
+    unique = []
+    for r in flat_list:
+        if r == 'neutral':
+            pass
+        else:
+            unique.append(r)
+
+    #빈도수 계산하여 오름차순 정렬
+
+    from collections import Counter
+
+    count = Counter(unique)
+    words = dict(count.most_common())
+
+    ######  워드크라우드 구현  start  #####
+    # #분석가능한 감정 총 감정 수 - Bert origin model 적용시 28개 감정 추출돰
+    # total_num_emotion_analyzed = 28
 
 
+    # ########## wodCloud 설정 ########
+    # from wordcloud import WordCloud 
+
+    # import matplotlib.pyplot as plt
+
+    # import nltk
+    # from nltk.corpus import stopwords
+    # %matplotlib inline
+
+    # import matplotlib
+    # from IPython.display import set_matplotlib_formats
+    # matplotlib.rc('font',family = 'Malgun Gothic')
+
+    # set_matplotlib_formats('retina')
+
+    # matplotlib.rc('axes',unicode_minus = False)
+
+    # #문장의 핵심감정을 워드크라우드로 표현(큰 글자가 가장 빈도수가 많이 나온 분석결과다)
+
+    # wordcloud = WordCloud(background_color='white',
+    #                     colormap = "Accent_r",
+    #                     width=1500, height=1000).generate_from_frequencies(words) 
+
+    # plt.imshow(wordcloud)
+    # plt.axis('off')
+    # plt.show()
+    ######  워드크라우드 구현  end  #####
+ 
+    # 에세이에 표현된 핵심 감정값 도출 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    return words
+
+    # return 값 words  >>>>  딕셔너리로 출력됨
+
+    # {'approval': 7,
+    # 'admiration': 3,
+    # 'realization': 3,
+    # 'amusement': 1,
+    # 'confusion': 1,
+    # 'excitement': 1,
+    # 'annoyance': 1}
+
+    ############### 감정분석 ##### end #####
 
 
+#### 입력문장의 핵심주제를 추출해서 워드크라우드로 표현
+def topic_wordcloud(input_text):
 
+    # 전처리
+    essay_input_corpus = str(input_text) #문장입력
+    essay_input_corpus = essay_input_corpus.lower()#소문자 변환
 
+    sentences  = sent_tokenize(essay_input_corpus) #문장 토큰화
+    total_sentences = len(sentences)#토큰으로 처리된 총 문장 수
+    total_words = len(word_tokenize(essay_input_corpus))# 총 단어수
 
+    split_sentences = []
+    for sentence in sentences:
+        processed = re.sub("[^a-zA-Z]"," ", sentence)
+        #words = processed.split()
+        split_sentences.append(processed)
 
+    tokenized = nltk.word_tokenize(str(split_sentences))
 
+    nouns = [word for (word, pos) in nltk.pos_tag(tokenized) if(pos[:2] == 'NN')]
+
+    count = Counter(nouns)
+    words = dict(count.most_common())
+
+    return words
 
 
 
@@ -625,6 +776,11 @@ def theme_total_analysis(input_text, question_num):
     narrative_re = narrative_ratio(input_text) # 두번째 메소드 계산
     char_sec_re = [theme_all_section_re, narrative_re] # 리스트에 담기
 
+    #### 감성분석 워드크라우드 데이터 추출 ####
+    emo_result = emo_analysis(input_text)
+
+    ### 핵심주제어 워드크라라우드 데이터 추출 ###
+    topic_result = topic_wordcloud(input_text)
 
     print("1명의 에세이 결과 계산점수 :", char_sec_re)
 
@@ -637,7 +793,7 @@ def theme_total_analysis(input_text, question_num):
 
     ##############################################################################################################################
     ## 1000명 데이터의 각 값(char_desc_mean)의 평균 값 전달. >>>> group_mean 으로 입력됨
-    char_desc_mean = [77, 478] # 현재 계산 완료한 1000명의 평균 값(고정값)  
+    char_desc_mean = [9.919, 3.969] # 현재 계산 완료한 1000명의 평균 값(고정값)  
     ##############################################################################################################################
 
 
@@ -739,7 +895,7 @@ def theme_total_analysis(input_text, question_num):
 
     result_final = each_fin_result + overall_character_rating
 
-    return result_final
+    return result_final, emo_result, topic_result, topic_result
 
 
 
