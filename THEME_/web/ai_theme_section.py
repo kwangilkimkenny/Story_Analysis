@@ -1,4 +1,39 @@
-#본 코드는 6개의 질문중 택 1의 경우 한명의 학생데이터와 1000명의 학생 데이터를 비교하여 상, 중, 하를 구분하는 코드임. 
+#  6개의 질문중 택 1의 경우 한명의 학생데이터와 1000명의 학생 데이터를 비교하여 상, 중, 하를 구분하는 코드임. 
+
+# 실행에 필요한 사전 계산파일은 모두 2종류로 csv 1개, pickle 7개임
+# 1) actionverbs.csv
+# 2) question_one_1000_dataset.pickle ~ question_seven_1000_dataset.pickle
+
+
+#  결과에서 맨 마지막 최종결과만 확인하면 됨 
+
+# 1명의 에세이 결과 계산점수 : [9.550198567567948, 3.97]
+# min_ 30
+# max_:  123
+# div_: 30
+# cal_abs 절대값 : 67.44980143243205
+# compare7 : 14.425033094594658
+# compare6 : 17.31003971351359
+# compare5 : 21.637549641891987
+# compare4 : 28.850066189189317
+# compare3 : 43.27509928378397
+# Lacking: 2
+# min_ 191
+# max_:  764
+# div_: 191
+# cal_abs 절대값 : 474.03
+# compare7 : 80.32833333333333
+# compare6 : 96.394
+# compare5 : 120.4925
+# compare4 : 160.65666666666667
+# compare3 : 240.985
+# Lacking: 2
+
+# 최종결과 :  [0, 0, 1.0]   >>>>>>> 순서대로 [Contextual Semantic Search, Narrativity, Overall Theme Rating]
+
+
+
+
 
 import numpy as np
 import gensim
@@ -53,14 +88,14 @@ import pandas as pd
 import sys
 import pickle
 
-
+####### 이 부분은 web 페이지에서 form에서 입력을 받으면 됨
 ##### 질문을 선택하고, 에세이를 입력한다. #####
 
 # 1명 학생의 입력데이터
 input_text = """Bloomington Normal is almost laughably cliché for a midwestern city. Vast swathes of corn envelop winding roads and the heady smell of BBQ smoke pervades the countryside every summer. Yet, underlying the trite norms of Normal is the prescriptive force of tradition—the expectation to fulfill my role as a female Filipino by playing Debussy in the yearly piano festival and enrolling in multivariable calculus instead of political philosophy.So when I discovered the technical demand of bebop, the triplet groove, and the intricacies of chordal harmony after ten years of grueling classical piano, I was fascinated by the music's novelty. Jazz guitar was not only evocative and creative, but also strangely liberating. I began to explore different pedagogical methods, transcribe solos from the greats, and experiment with various approaches until my own unique sound began to develop. And, although I did not know what would be the 'best' route for me to follow as a musician, the freedom to forge whatever path I felt was right seemed to be exactly what I needed; there were no expectations for me to continue in any particular way—only the way that suited my own desires.While journeying this trail, I found myself at Interlochen Arts Camp the summer before my junior year. Never before had I been immersed in an environment so conducive to musical growth: I was surrounded by people intensely passionate about pursuing all kinds of art with no regard for ideas of what art 'should' be. I knew immediately that this would be a perfect opportunity to cultivate my sound, unbounded by the limits of confining tradition. On the first day of camp, I found that my peer guitarist in big band was another Filipino girl from Illinois. Until that moment, my endeavors in jazz guitar had been a solitary effort; I had no one with whom to collaborate and no one against whom I could compare myself, much less someone from a background mirroring my own. I was eager to play with her, but while I quickly recognized a slew of differences between us—different heights, guitars, and even playing styles—others seemed to have trouble making that distinction during performances. Some even went as far as calling me 'other-Francesca.' Thus, amidst the glittering lakes and musky pine needles of Interlochen, I once again confronted Bloomington's frustrating expectations.After being mistaken for her several times, I could not help but view Francesca as a standard of what the 'female Filipino jazz guitarist' should embody. Her improvisatory language, comping style and even personal qualities loomed above me as something I had to live up to. Nevertheless, as Francesca and I continued to play together, it was not long before we connected through our creative pursuit. In time, I learned to draw inspiration from her instead of feeling pressured to follow whatever precedent I thought she set. I found that I grew because of, rather than in spite of, her presence; I could find solace in our similarities and even a sense of comfort in an unfamiliar environment without being trapped by expectation. Though the pressure to conform was still present—and will likely remain present in my life no matter what genre I'm playing or what pursuits I engage in—I learned to eschew its corrosive influence and enjoy the rewards that it brings. While my encounter with Francesca at first sparked a feeling of pressure to conform in a setting where I never thought I would feel its presence, it also carried the warmth of finding someone with whom I could connect. Like the admittedly trite conditions of my hometown, the resemblances between us provided comfort to me through their familiarity. I ultimately found that I can embrace this warmth while still rejecting the pressure to succumb to expectations, and that, in the careful balance between these elements, I can grow in a way that feels both like discove"""
 
-# 6개의 질문  ques_one, ques_two, ques_three, ques_four, ques_five, ques_six   중 선택 1개
-question_num = """ques_one""" # 1번째 질문을 선택했을 경우
+# 6개의 질문  ques_one, ques_two, ques_three, ques_four, ques_five, ques_six, ques_seven   중 선택 1개
+question_num = """ques_seven""" # 1번째 질문을 선택했을 경우
 
 
 
@@ -173,6 +208,14 @@ def theme_all_section(input_text, question_num):
                             'investigate', 'learn', 'lease', 'magnetize', 'mentor', 'mind', 'motion', 'national', 'opinion', 'professor', 'prosecute', 'question',
                             'receive', 'recover', 'remember', 'report', 'research', 'rule', 'sketch', 'steep', 'study', 'subject', 'subjugate', 'submit', 'survey',
                             'teacher', 'theme', 'theory', 'think', 'thinking', 'thought', 'topic', 'unwrap', 'witness', 'wonder']
+
+
+        ######################
+        ##### QUESTION 6 #####
+        ######################
+        #표현하는 단어들을 리스트에 넣어서 필터로 만들고, WORDNET에서 유사단어 추출하여 적용완료!
+
+        qst_seven_words_list =  qst_one_words_list +  qst_two_words_list + qst_tree_words_list + qst_four_words_list + qst_five_words_list + qst_six_words_list
 
 
 
@@ -315,8 +358,16 @@ def theme_all_section(input_text, question_num):
                 result_most_simWords = pickle.load(f)
             print("1000명 관련 data loaded :", result_most_simWords)    
 
-        else:
+        elif 'ques_seven' == question_num:
             print("let me think...")
+            result_ques_ = sim_words_quesiton(input_text, qst_seven_words_list)
+           
+            # load
+            with open('question_seven_1000_dataset.pickle', 'rb') as f:
+                result_most_simWords = pickle.load(f)
+            print("1000명 관련 data loaded :", result_most_simWords)
+
+        else :
             pass
 
 
@@ -349,9 +400,9 @@ def theme_all_section(input_text, question_num):
 
 
         def most_similar(doc_id,similarity_matrix, matrix):
-            print (f'대표 WORD: {ps_documents_df.iloc[doc_id]["documents_cleaned"]}')
-            print ('\n')
-            print (f'Similar Words using {matrix}:')
+            ##print (f'대표 WORD: {ps_documents_df.iloc[doc_id]["documents_cleaned"]}')
+            ##print ('\n')
+            ##print (f'Similar Words using {matrix}:')
             if matrix=='Cosine Similarity':
                 similar_ix=np.argsort(similarity_matrix[doc_id])[::-1]
             elif matrix=='Euclidean Distance':
@@ -398,7 +449,7 @@ def theme_all_section(input_text, question_num):
 
             re_most_simWords = most_similar(0,pairwise_similarities,'Cosine Similarity',ps_documents_df)
             
-            print("re_most_sim_words :" , re_most_simWords)
+            ##print("re_most_sim_words :" , re_most_simWords)
             
             return re_most_simWords
 
@@ -425,8 +476,8 @@ def theme_all_section(input_text, question_num):
         for j in tqdm(result_ques_): #학생데이터를 하나씩 가져와서
             for k in tqdm(input_data_preprocessed): # 합친데이터를 하나씩 꺼내서
                 if j == k: #같으면, 그 위치로부터 시작해서 비교 구간까지의 데이터를 꺼내온다.
-                    print('j',j)
-                    print('k',k)
+                    ##print('j',j)
+                    ##print('k',k)
 
                     input_data_preprocessed  #1명과 1000명데이터 분석결과 합친결과(1단어:1000명단어)
 
@@ -434,10 +485,10 @@ def theme_all_section(input_text, question_num):
 
 
                     end_numb = input_data_preprocessed.index(j) + len(result_most_simWords) + 1
-                    print("input_data_preprocessed.index(j) : ", input_data_preprocessed.index(j))
-                    print("end_numb :", end_numb)
+                    ##print("input_data_preprocessed.index(j) : ", input_data_preprocessed.index(j))
+                    ##print("end_numb :", end_numb)
                     in_text = input_data_preprocessed[input_data_preprocessed.index(j):end_numb]
-                    print('분석할 단어 그룹', in_text)
+                    ##print('분석할 단어 그룹', in_text)
                     # 첫 계산(학생 키워드와 전체 키워드 데이터의 거리를 각각 계산)을 하고, 다음 구간으로 넘어가자
 
                     #doctovec_run(in_text) #함수실행
@@ -462,21 +513,242 @@ def theme_all_section(input_text, question_num):
 
 
                     pairwise_similarities=cosine_similarity(document_embeddings)
-                    #print('pairwise_similarities ::::::::::' , pairwise_similarities)
+                    ##print('pairwise_similarities ::::::::::' , pairwise_similarities)
 
                     re_most_simWords = most_similar(cont, pairwise_similarities,'Cosine Similarity')
                     cont += 1
                     result_most_simWords.append(re_most_simWords)
-                    print('re_most_simWords :', re_most_simWords)
+                    ##print('re_most_simWords :', re_most_simWords)
+
+
+        rlt = [x[0] for x in result_most_simWords]
+        rlt = sum(rlt, [])
+        rlt = pd.DataFrame(rlt, columns = ['result_var'])
+
+        # 연관단어와 1000명의 통계데이터 비교값   분산을 계산하자.
+        rlt= rlt[1::2]
+        var_re = rlt.var() * 1000 #분산 구하기  이 값이 크면 변화율이 크기때문에 글의 내용이 퍼져있다는 것이다.상관관계가 낮다는 것이다.
+        result = var_re.tolist()[0] # pandas.core.series.series to list, to float number
+ 
+
+        return result
 
 
 
-        # 1명의 에세이와 선택한 문항과의 연관단어 : result_ques_, 연관단어와 1000명의 통계데이터 비교값   분산을 계산하자.
-
-        return result_most_simWords
 
 
 
-############# 실행 테스트 ###########
+def narrative_ratio(text):
 
-print("RESULT :", theme_all_section(input_text, question_num))
+    #데이터 불러오기
+    data_action_verbs = pd.read_csv('actionverbs.csv')
+    data_ac_verbs_list = data_action_verbs.values.tolist()
+    verbs_list = [y for x in data_ac_verbs_list for y in x]
+
+    #############################################################################
+
+    essay_input_corpus = str(text) #문장입력
+    essay_input_corpus = essay_input_corpus.lower()#소문자 변환
+
+    sentences  = sent_tokenize(essay_input_corpus) #문장 토큰화
+    total_sentences = len(sentences)#토큰으로 처리된 총 문장 수
+    total_words = len(word_tokenize(essay_input_corpus))# 총 단어수
+    
+    split_sentences = []
+    for sentence in sentences:
+        processed = re.sub("[^a-zA-Z]"," ", sentence)
+        words = processed.split()
+        split_sentences.append(words)
+
+    skip_gram = 1
+    workers = multiprocessing.cpu_count()
+    bigram_transformer = Phrases(split_sentences)
+
+    model = gensim.models.word2vec.Word2Vec(bigram_transformer[split_sentences], workers=workers, sg=skip_gram, min_count=1)
+
+    model.train(split_sentences, total_examples=sum([len(sentence) for sentence in sentences]), epochs=100)
+    
+    #모델 설계 완료
+
+    # ACTION VERBS 표현하는 단어들을 리스트에 넣어서 필터로 만들고
+    ##################################################
+    # verbs_list
+
+    ####문장에 list의 단어들이 있는지 확인하고, 있다면 유사단어를 추출한다.
+    
+    #우선 토큰화한다.
+    retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
+    token_input_text = retokenize.tokenize(essay_input_corpus)
+    #print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
+    #리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
+    filtered_chr_text = []
+    for k in token_input_text:
+        for j in verbs_list:
+            if k == j:
+                filtered_chr_text.append(j)
+    
+    #print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
+    
+    filtered_chr_text_ = set(filtered_chr_text) #중복제거
+    filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
+    #print (filtered_chr_text__) # 중복값 제거 확인
+      
+    char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 표현 수
+    char_count_ = len(filtered_chr_text__) #중복제거된  표현 총 수
+        
+    result_verbs_ratio = round(char_total_count/total_words * 100, 2)
+    
+    df_conf_words = pd.DataFrame(filtered_chr_text, columns=['words']) #데이터프레임으로 변환
+    df_r = df_conf_words['words'] #words 컬럼 값 추출
+    ext_sim_words_key = df_r.values.tolist() # 유사단어 추출
+
+    #return result_char_ratio, total_sentences, total_words, char_total_count, char_count_, ext_sim_words_key
+    return result_verbs_ratio
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def theme_total_analysis(input_text, question_num):
+
+    theme_all_section_re = theme_all_section(input_text, question_num) # 첫번재 메소드 계산
+    narrative_re = narrative_ratio(input_text) # 두번째 메소드 계산
+    char_sec_re = [theme_all_section_re, narrative_re] # 리스트에 담기
+
+
+    print("1명의 에세이 결과 계산점수 :", char_sec_re)
+
+    # 위에서 계산한 총 4개의 값을 개인, 그룹의 값과 비교하여 lacking, ideal, overboard 계산
+    
+    # 개인에세이 값 계산 4가지 결과 추출 >>>>> personal_value 로 입력됨
+    one_ps_char_desc = char_sec_re[0] # 튜플에서 첫번재 인댁스 값 가져오기 
+    one_ps_num_of_char = char_sec_re[1]
+
+
+    ##############################################################################################################################
+    ## 1000명 데이터의 각 값(char_desc_mean)의 평균 값 전달. >>>> group_mean 으로 입력됨
+    char_desc_mean = [77, 478] # 현재 계산 완료한 1000명의 평균 값(고정값)  
+    ##############################################################################################################################
+
+
+    char_desc_ideal_mean = char_desc_mean[0] #첫번째 값을 가져옴,
+    num_of_char_ideal_mean = char_desc_mean[1] 
+
+
+
+    def lackigIdealOverboard(group_mean, personal_value): # group_mean: 1000명 평균, personal_value|:개인값
+        ideal_mean = group_mean
+        one_ps_char_desc = personal_value
+        #최대, 최소값 기준으로 구간설정. 구간비율 30% => 0.3으로 설정
+        min_ = int(ideal_mean-ideal_mean*0.6)
+        print('min_', min_)
+        max_ = int(ideal_mean+ideal_mean*0.6)
+        print('max_: ', max_)
+        div_ = int(((ideal_mean+ideal_mean*0.6)-(ideal_mean-ideal_mean*0.6))/3)
+        print('div_:', div_)
+
+        #결과 판단 Lacking, Ideal, Overboard
+        cal_abs = abs(ideal_mean - one_ps_char_desc) # 개인 - 단체 값의 절대값계산
+
+        print('cal_abs 절대값 :', cal_abs)
+        compare7 = (one_ps_char_desc + ideal_mean)/6
+        compare6 = (one_ps_char_desc + ideal_mean)/5
+        compare5 = (one_ps_char_desc + ideal_mean)/4
+        compare4 = (one_ps_char_desc + ideal_mean)/3
+        compare3 = (one_ps_char_desc + ideal_mean)/2
+        print('compare7 :', compare7)
+        print('compare6 :', compare6)
+        print('compare5 :', compare5)
+        print('compare4 :', compare4)
+        print('compare3 :', compare3)
+
+
+
+        if one_ps_char_desc > ideal_mean: # 개인점수가 평균보다 클 경우는 overboard
+            if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
+                print("Overboard: 2")
+                result = 2 #overboard
+                score = 1
+            elif cal_abs > compare4: # 28
+                print("Overvoard: 2")
+                result = 2
+                score = 2
+            elif cal_abs > compare5: # 22
+                print("Overvoard: 2")
+                result = 2
+                score = 3
+            elif cal_abs > compare6: # 18
+                print("Overvoard: 2")
+                result = 2
+                score = 4
+            else:
+                print("Ideal: 1")
+                result = 1
+                score = 5
+        elif one_ps_char_desc < ideal_mean: # 개인점수가 평균보다 작을 경우 lacking
+            if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
+                print("Lacking: 2")
+                result = 0
+                score = 1
+            elif cal_abs > compare4: # 28
+                print("Lacking: 2")
+                result = 0
+                score = 2
+            elif cal_abs > compare5: # 22
+                print("Lacking: 2")
+                result = 0
+                score = 3
+            elif cal_abs > compare6: # 18
+                print("Lacking: 2")
+                result = 0
+                score = 4
+            else:
+                print("Ideal: 1")
+                result = 1
+                score = 5
+                
+        else:
+            print("Ideal: 1")
+            result = 1
+            score = 5
+
+        return result, score
+
+
+    #종합계산시작 lackigIdealOverboard(group_mean, personal_value)
+    character_desc_result = lackigIdealOverboard(char_desc_ideal_mean, one_ps_char_desc)
+    number_of_char_result = lackigIdealOverboard(num_of_char_ideal_mean, one_ps_num_of_char)
+
+
+    fin_result = [character_desc_result, number_of_char_result]
+
+    # each_fin_result의 결과는 순서대로 [Character Descriptiveness, Number of Characters, Emphasis on You, Emphasis on Others] 이다. 0: lacking, 1:ideal, 2:overbaord 
+    each_fin_result = [fin_result[0][0], fin_result[1][0]]
+    # 최종 character  전체 점수 계산
+    overall_character_rating = [(fin_result[0][1]+ fin_result[1][1])/2]
+
+    result_final = each_fin_result + overall_character_rating
+
+    return result_final
+
+
+
+
+
+
+
+
+#################### 테스트~~~~!!!! ###################
+
+print("최종결과 : ", theme_total_analysis(input_text, question_num))
+
