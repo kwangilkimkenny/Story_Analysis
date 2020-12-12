@@ -1,0 +1,7 @@
+period_years_of_activity,coefficient,hrs_per_week,week_strength,weeks_per_year,year_strength,total_activity_hrs,total_dedication_avg
+5,1,15+,5,30_52,5,3300+,5
+4,1,10-14,4.5,20_29,4.5,3200_3300,5
+3,0.9,8-9,4,15_19,4,2400_3200,4
+2,0.75,5-7,3,12_14,3,1600_2400,3
+1,0.6,3-4,2,8_11,2,1200_1600,2
+NaN,NaN,1-2,1,1_7,1,0_1200,1
