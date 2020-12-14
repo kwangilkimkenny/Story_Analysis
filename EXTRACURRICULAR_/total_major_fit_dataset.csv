@@ -1,0 +1,320 @@
+,major,main_major
+0,mechanical engineering,tech_eng
+1,general engineering,tech_eng
+2,mechanical engineering,tech_eng
+3,industrial engineering,tech_eng
+4,bioengineering,tech_eng
+5,operations research,tech_eng
+6,materials science,tech_eng
+7,electrical engineering,tech_eng
+8,computer science/engineering,tech_eng
+9,computer engineeringcivil engineering,tech_eng
+10,aerospace engineering,tech_eng
+11,chemical engineering,tech_eng
+12,environmental engineering,tech_eng
+13,stem,tech_eng
+14,steam,tech_eng
+15,robotics,tech_eng
+16,robots,tech_eng
+17,computer,tech_eng
+18,computers,tech_eng
+19,computer programming,tech_eng
+20,programming,tech_eng
+21,coding,tech_eng
+22,computing,tech_eng
+23,mechanical,tech_eng
+24,mechanics,tech_eng
+25,mechanism,tech_eng
+26,ai,tech_eng
+27,artificial intelligence,tech_eng
+28,sensor,tech_eng
+29,environmental engineering,tech_eng
+30,environmental technology,tech_eng
+31,alternative energy,tech_eng
+32,renewable energy,tech_eng
+33,material science,tech_eng
+34,biomedical,tech_eng
+35,biomaterials,tech_eng
+36,nanotech,tech_eng
+37,pharmaceutical,tech_eng
+38,biomechanics,tech_eng
+39,biomimicking,tech_eng
+40,biomimicry,tech_eng
+41,machine,tech_eng
+42,bioengineering,tech_eng
+43,chemical engineering,tech_eng
+44,applied physics,tech_eng
+45,operations research,tech_eng
+46,civil engineering,tech_eng
+47,aerospace,tech_eng
+48,system,tech_eng
+49,operations research,tech_eng
+50,industrial engineering,tech_eng
+51,computer scienceinvention,tech_eng
+52,electrical,tech_eng
+53,computational,tech_eng
+0,agriculture,math_sci
+1,physics,math_sci
+2,biology,math_sci
+3,biophysics,math_sci
+4,biochemistry/molecular biology,math_sci
+5,mathematics,math_sci
+6,applied mathematics,math_sci
+7,nutrition/food science,math_sci
+8,genetics,math_sci
+9,astronomy/astrophysics,math_sci
+10,statistics,math_sci
+11,chemistry,math_sci
+12,neuroscience,math_sci
+13,economics,math_sci
+14,nursing,math_sci
+15,pre-med,math_sci
+16,pre-veterinarypharmacy/pre-pharmacy,math_sci
+17,pre-dental,math_sci
+18,pharmacy,math_sci
+19,pre-pharmacy,math_sci
+20,stem,math_sci
+21,steam,math_sci
+22,chemistry,math_sci
+23,physics,math_sci
+24,biology,math_sci
+25,bio,math_sci
+26,biochem,math_sci
+27,biochemistry,math_sci
+28,science,math_sci
+29,math,math_sci
+30,mathematics,math_sci
+31,algorithm,math_sci
+32,biophysics,math_sci
+33,applied math,math_sci
+34,genetics,math_sci
+35,scientific,math_sci
+36,astronomy,math_sci
+37,astrophysics,math_sci
+38,statistics,math_sci
+39,neuroscience,math_sci
+40,dental,math_sci
+41,doctor,math_sci
+42,physical,math_sci
+43,medical,math_sci
+44,scientific research,math_sci
+45,biomaterials,math_sci
+46,material science,math_sci
+47,nutrition,math_sci
+48,clinical,math_sci
+49,earth science,math_sci
+50,environmental science,math_sci
+51,ecology,math_sci
+52,ecological,math_sci
+53,veterinary,math_sci
+54,molecular,math_sci
+55,nanotech,math_sci
+56,biomedical,math_sci
+57,pharmaceutical,math_sci
+58,"food science, biotech",math_sci
+59,brain,math_sci
+60,botany,math_sci
+61,botanical,math_sci
+62,immunology,math_sci
+63,immune,math_sci
+64,zoology,math_sci
+65,biomechanics,math_sci
+66,biomimicking,math_sci
+67,biomimicry,math_sci
+0,economics asian studies,social_sci
+1,african studies,social_sci
+2,psychology,social_sci
+3,women's studies,social_sci
+4,anthropology,social_sci
+5,political science/government,social_sci
+6,political science,social_sci
+7,political government,social_sci
+8,international relations/affairs,social_sci
+9,international relations,social_sci
+10,international affairs,social_sci
+11,public policy/affairs,social_sci
+12,public policy,social_sci
+13,public affairs,social_sci
+14,public health,social_sci
+15,environmental science/studies,social_sci
+16,environmental science,social_sci
+17,environmental studies,social_sci
+18,urban planning,social_sci
+19,education,social_sci
+20,volunteer,social_sci
+21,community,social_sci
+22,community service,social_sci
+23,culture,social_sci
+24,equality,social_sci
+25,service,social_sci
+26, social issue,social_sci
+27,social,social_sci
+28,society,social_sci
+29,economic,social_sci
+30,economy,social_sci
+31,sdgs,social_sci
+32,environment,social_sci
+33,policy,social_sci
+34,psychology,social_sci
+35,asian studies,social_sci
+36,race relations,social_sci
+37,ethnicity,social_sci
+38,ethnic,social_sci
+39,women,social_sci
+40,anthropology,social_sci
+41,politic,social_sci
+42,international relations,social_sci
+43,international affairs,social_sci
+44,diplomacy,social_sci
+45,diplomat,social_sci
+46,public policy,social_sci
+47,"public health,inequality",social_sci
+48,geography,social_sci
+49,geographic,social_sci
+50,linguistic,social_sci
+51,sociology,social_sci
+52,culture,social_sci
+53,urban studies,social_sci
+54,diversity,social_sci
+55,lgbt,social_sci
+56,lgbtq,social_sci
+57,sustainable,social_sci
+58,sustainability,social_sci
+59,debate,social_sci
+60,middle east,social_sci
+61, middle eastern studies,social_sci
+0,archeology,humanities
+1,film studies,humanities
+2,german (language and literature),humanities
+3,art history,humanities
+4,french (language and literature),humanities
+5,spanish,humanities
+6,theology/religious studies,humanities
+7,linguistics,humanities
+8,history,humanities
+9,english language and literature,humanities
+10,comparative literature,humanities
+11,philosophy,humanities
+12,classical studies/latin/greek,humanities
+13,english,humanities
+14,literature,humanities
+15,history,humanities
+16,writing,humanities
+17,heritage,humanities
+18,essay,humanities
+19,script,humanities
+20,culture,humanities
+21,humanities,humanities
+22,poem,humanities
+23,poet,humanities
+24,playwright,humanities
+25,script,humanities
+26,poetry,humanities
+27,literary,humanities
+28,lit,humanities
+29,writing,humanities
+30,spanish,humanities
+31,german,humanities
+32,chinese,humanities
+33,italian,humanities
+34,french,humanities
+35,russian,humanities
+36,literature,humanities
+37,latin,humanities
+38,greek,humanities
+39,anthropology,humanities
+40,archaeology,humanities
+41,law,humanities
+42,ethics,humanities
+43,film studies,humanities
+0,business,business
+1,finance,business
+2,accounting,business
+3,marketing,business
+4,intl,business
+5,biz,business
+6,international business,business
+7,mgmt.,business
+8,info systems,business
+9,hotel/hospitality management,business
+10,hotel management,business
+11,hospitality management,business
+12,business,business
+13,start up,business
+14,start-up,business
+15,entrepreneur,business
+16,entrepreneurship,business
+17,investment,business
+18,invest,business
+19,business plan,business
+20,finance,business
+21,marketing,business
+22, organizational behavior,business
+23,logistics,business
+24,management,business
+25,managing,business
+26,social entrepreneur,business
+27,social enterprise,business
+28,accounting,business
+29,managerial,business
+30,mis,business
+31,management information systems,business
+32,hotel management,business
+33,hospitality,business
+0,music (performance),music
+1,music,music
+2,music theory,music
+0,performing arts,performing_arts
+1,performance,performing_arts
+2,dance,performing_arts
+3,movie,performing_arts
+4,music,performing_arts
+5,musical,performing_arts
+6,theater,performing_arts
+7,theatre,performing_arts
+8,opera,performing_arts
+9,thespian,performing_arts
+10,song,performing_arts
+11,sing,performing_arts
+12,vocal,performing_arts
+13,drama,performing_arts
+14,orchestra,performing_arts
+15,band,performing_arts
+16,acting,performing_arts
+17,acrobatics,performing_arts
+18,ballet,performing_arts
+19,circus,performing_arts
+20,magic,performing_arts
+21,mime,performing_arts
+22,puppetry,performing_arts
+23,ventriloquism,performing_arts
+24,spoken word,performing_arts
+25,stand-up comedy,performing_arts
+26,chinese opera,performing_arts
+27,pansori,performing_arts
+28,chamber music,performing_arts
+29,cabaret,performing_arts
+30,jazz band,performing_arts
+31,big band,performing_arts
+32,bharatanatyam,performing_arts
+33,gamelan semar pegulingan,performing_arts
+34,shōmyō,performing_arts
+35,odissi,performing_arts
+36,cantonese opera,performing_arts
+0,documentary,communication
+1,sns,communication
+2,social network,communication
+3,pr,communication
+4,public relations,communication
+5,advertisement,communication
+6,advertising,communication
+7,movie,communication
+8,film,communication
+9,news,communication
+10,journalism,communication
+11,newspaper,communication
+12,debate,communication
+13,speech,communication
+14,newspaper,communication
+15,media,communication
+16,communication,communication
