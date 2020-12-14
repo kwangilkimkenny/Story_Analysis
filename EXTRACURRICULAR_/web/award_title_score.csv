@@ -1,0 +1,41 @@
+﻿title,score_cal_rate,fin_score
+Extremely Selective,5,5
+Very Selective,4,4
+Selective,3,3
+Mediocre,2,2
+Low,1,1
+First,100,5
+First Place,100,5
+First Prize,100,5
+Top,100,5
+1st place,100,5
+1st prize,100,5
+Champion,100,5
+Grand,100,5
+Grand winner,100,5
+Grand Prize,100,5
+Grand champion,100,5
+Gold,100,5
+Gold Medal,100,5
+Platinum,100,5
+Second,90,4.5
+Second Place,90,4.5
+Second Prize,90,4.5
+Finalist,90,4.5
+2nd Place,90,4.5
+2nd Prize,90,4.5
+Silver,90,4.5
+Silver Medal,90,4.5
+Third,80,4
+Third Place,80,4
+Third Prize,80,4
+Semi-finalist,80,4
+Semi finalist,80,4
+Semi final,80,4
+Bronze,80,4
+3rd Place,80,4
+3rd Prize,80,4
+Honorable mention,60,3
+Commendation of honor,60,3
+Honourable mention,60,3
+winner,100,5
