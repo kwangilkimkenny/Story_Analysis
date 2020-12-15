@@ -72,91 +72,95 @@ total_act_lists = [input_text_1, input_text_2, input_text_3, input_text_4, input
 
 
 
-
-
 def leadership_analysis(text):
-    input_corpus = str(text) #문장입력
-    input_corpus = input_corpus.lower()#소문자 변환
-
-    sentences  = sent_tokenize(input_corpus) #문장 토큰화
     
-    split_sentences = []
-    for sentence in sentences:
-        processed = re.sub("[^a-zA-Z]"," ", sentence)
-        words = processed.split()
-        split_sentences.append(words)
-        
-    comp_txt = sum(split_sentences, [])
+    #fit_anaysis_result_fin =[]
     
-    superb_list = ['founder', 'co-founder', 'cofounder', 'chair', 'president', 'head', 
-               'chief', 'first author', 'captain', 'committee head', 'head of board', 
-               'board chair', 'chairperson', 'chairman', 'leader', 'CEO','ceo', 'organizer', 
-               'director', 'author', 'co-author', 'coauthor', 'chief editor', 'editor in chief']
+    if text:
+        input_corpus = str(text) #문장입력
+        input_corpus = input_corpus.lower()#소문자 변환
 
-    strong_list = ['founding member', 'VP', 'vp', 'vice Chair', 'vice', 'deputy', 'second author', 'vice captain',
-                   'committee member', 'board member', 'second author', 'editor']
-    good_list = ['proctor', 'prefect', 'mediator', 'third author'] # 데이터 추가할 필요가 있음
+        sentences  = sent_tokenize(input_corpus) #문장 토큰화
 
-    mediocre_list = ['member', 'participant', 'helper', 'assistant']
+        split_sentences = []
+        for sentence in sentences:
+            processed = re.sub("[^a-zA-Z]"," ", sentence)
+            words = processed.split()
+            split_sentences.append(words)
 
-    weak = ['Not Applicable']
-    
-    leadership_score = []
+        comp_txt = sum(split_sentences, [])
 
-    for word in comp_txt:
-        if word in superb_list:
-            print("superb")
-            leadership_score.append("5")
+        superb_list = ['founder', 'co-founder', 'cofounder', 'chair', 'president', 'head', 
+                   'chief', 'first author', 'captain', 'committee head', 'head of board', 
+                   'board chair', 'chairperson', 'chairman', 'leader', 'CEO','ceo', 'organizer', 
+                   'director', 'author', 'co-author', 'coauthor', 'chief editor', 'editor in chief']
 
-        elif word in strong_list:
-            print("strong")
-            leadership_score.append("4")
+        strong_list = ['founding member', 'VP', 'vp', 'vice Chair', 'vice', 'deputy', 'second author', 'vice captain',
+                       'committee member', 'board member', 'second author', 'editor']
+        good_list = ['proctor', 'prefect', 'mediator', 'third author'] # 데이터 추가할 필요가 있음
 
-        elif word in strong_list:
-            print("good")
-            leadership_score.append("3")   
+        mediocre_list = ['member', 'participant', 'helper', 'assistant']
 
-        elif word in mediocre_list:
-            print("mediocre")
-            leadership_score.append("2") 
-        elif word == 'notapplicable': # 이게 입력데이터 선택되었을 경우 (웹에서 선택할 수 있도록 구현해야 함! not applicable > notapplicable)
+        weak = ['Not Applicable']
+
+        leadership_score = []
+
+        for word in comp_txt:
+            if word in superb_list:
+                print("superb")
+                leadership_score.append("5")
+
+            elif word in strong_list:
+                print("strong")
+                leadership_score.append("4")
+
+            elif word in strong_list:
+                print("good")
+                leadership_score.append("3")   
+
+            elif word in mediocre_list:
+                print("mediocre")
+                leadership_score.append("2") 
+            elif word == 'notapplicable': # 이게 입력데이터 선택되었을 경우 (웹에서 선택할 수 있도록 구현해야 함! not applicable > notapplicable)
+                print("Not Applicable")
+                leadership_score.append("Not Applicable") 
+            else:
+                print("Not Sure")
+                leadership_score.append("2")
+
+        df_fit_re = pd.DataFrame(leadership_score)
+        df_fit_re.columns = ['score']
+        list_fit_re = df_fit_re.drop_duplicates() #중복값 제거!!!! 결과 도출
+
+        #조건문을 만들어서 결과를 비교 출력해보자.
+        fit_anaysis_result_fin =[]
+        if '5' in list_fit_re.values: # 5이 하나라도 있다면, 5 출력
+            print("5")
+            fit_anaysis_result_fin.append('5')
+        elif '4' in list_fit_re.values: # 4 이 있다면 , 4 출력
+            print("4")
+            fit_anaysis_result_fin.append('4')
+        elif '3' in list_fit_re.values: # 3 이 있다면 , 3 출력
+            print("3")
+            fit_anaysis_result_fin.append('3')
+        elif '2' in list_fit_re.values: # 2 이 있다면 , 2 출력
+            print("2")
+            fit_anaysis_result_fin.append('2')
+        elif '1' in list_fit_re.values: # 1 이 있다면 , 1 출력
+            print("1")
+            fit_anaysis_result_fin.append('1')
+        elif 'Not Applicable' in list_fit_re.values: # Not Applicable 이 있다면 , Not Applicable 출력
             print("Not Applicable")
-            leadership_score.append("Not Applicable") 
+            fit_anaysis_result_fin.append('Not Applicable')
         else:
-            print("Not Sure")
-            leadership_score.append("2")
-            
-    df_fit_re = pd.DataFrame(leadership_score)
-    df_fit_re.columns = ['score']
-    list_fit_re = df_fit_re.drop_duplicates() #중복값 제거!!!! 결과 도출
-    
-    #조건문을 만들어서 결과를 비교 출력해보자.
-    fit_anaysis_result_fin =[]
-    if '5' in list_fit_re.values: # 5이 하나라도 있다면, 5 출력
-        print("5")
-        fit_anaysis_result_fin.append('5')
-    elif '4' in list_fit_re.values: # 4 이 있다면 , 4 출력
-        print("4")
-        fit_anaysis_result_fin.append('4')
-    elif '3' in list_fit_re.values: # 3 이 있다면 , 3 출력
-        print("3")
-        fit_anaysis_result_fin.append('3')
-    elif '2' in list_fit_re.values: # 2 이 있다면 , 2 출력
-        print("2")
-        fit_anaysis_result_fin.append('2')
-    elif '1' in list_fit_re.values: # 1 이 있다면 , 1 출력
-        print("1")
-        fit_anaysis_result_fin.append('1')
-    elif 'Not Applicable' in list_fit_re.values: # Not Applicable 이 있다면 , Not Applicable 출력
-        print("Not Applicable")
-        fit_anaysis_result_fin.append('Not Applicable')
+            print("NOT SURE")
+            fit_anaysis_result_fin.append('NOT SURE')
+        
     else:
-        print("NOT SURE")
-        fit_anaysis_result_fin.append('NOT SURE')
+        fit_anaysis_result_fin= 'NOT SURE'
+       
 
     return fit_anaysis_result_fin
-
-
 
 # # 이 함수를 실행하면 3개의 입력값이 비교되어 계산됨
 # def start_leadership_analysis(a, b, c):
