@@ -41,7 +41,7 @@ def dedication_analysis(hrs_per_week, weeks_per_year, period_years_of_activity):
             ws_score = df.at[0, 'week_strength'] # 값이 없다면, 그 이상되는 값이기 때문에 최대 점수를 줌 5.0
         else:
             pass
-    print ('ws_score :', ws_score)
+    ##print ('ws_score :', ws_score)
 
     #연간 몇 주 참여강도
     for k, row in df.iterrows(): #한행씩 읽어와서
@@ -51,7 +51,7 @@ def dedication_analysis(hrs_per_week, weeks_per_year, period_years_of_activity):
             wy_score = df.at[0, 'year_strength'] # 값이 없다면, 그 이상되는 값이기 때문에 최대 점수를 줌 5.0
         else:
             pass
-    print ('wy_score :', wy_score)
+    #print ('wy_score :', wy_score)
 
     #Coefficient
     for l, row in df.iterrows(): #한행씩 읽어와서
@@ -63,7 +63,7 @@ def dedication_analysis(hrs_per_week, weeks_per_year, period_years_of_activity):
             py_score = 0.1
         else:
             pass
-    print ('py_score :', py_score)
+    #print ('py_score :', py_score)
 
     #######   Dedication 계산 (활동별 / 전체적) 
 
@@ -78,6 +78,14 @@ def dedication_analysis(hrs_per_week, weeks_per_year, period_years_of_activity):
 
 result = dedication_analysis(hrs_per_week, weeks_per_year, period_years_of_activity)
 
-print ("=================================")
-print ("RESULT :", result)
-print ("=================================")
+#print ("=================================")
+#print ("RESULT :", result)
+#print ("=================================")
+
+
+# ws_score : 3.0
+# wy_score : 4.5
+# py_score : 0.9
+# =================================
+# RESULT : 3.375
+# =================================

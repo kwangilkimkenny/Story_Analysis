@@ -91,10 +91,12 @@ def tokenized(text):
     sentences  = sent_tokenize(input_corpus) #문장 토큰화
 
     split_sentences = []
-    for sentence in sentences:
-        processed = re.sub("[^a-zA-Z]"," ", sentence)
+
+    for sentence_ in sentences:
+        processed = re.sub("[^a-zA-Z]"," ", sentence_)
         words = processed.split()
         split_sentences.append(words)
+
     result = sum(split_sentences, [])
     return result
 
@@ -114,8 +116,8 @@ def input_majors(major_txt, act_txt_list):
     ## 2. 활동입력처리 부분 ##
     activity_list = []
     for act_i in act_txt_list:
-        re = tokenized(act_i)
-        activity_list.append(re)
+        re_act_ = tokenized(act_i)
+        activity_list.append(re_act_)
     
     
     ## 전공관련 데이터셋 불러오기 ##
@@ -180,7 +182,7 @@ def input_majors(major_txt, act_txt_list):
 
     #get_major #추출한 전공이다. 이 전공 카테고리와 희망전공 3개입력한 내용의 전공분야별 카테고리를 비교해 볼 것이다.
     ext_mjr = set(get_major)
-    print('활동으로부터 추출한 관련 전공 카테고리 : ', ext_mjr)
+    #print('활동으로부터 추출한 관련 전공 카테고리 : ', ext_mjr)
     ext_mjr_list = list(ext_mjr)
     
     rResult = []
@@ -203,8 +205,8 @@ def mjr_act_analy(input_text, input_activitys):
 
     result_fit = []
     for i in input_activitys:
-        re = input_majors(input_text, i)
-        result_fit.extend(re)
+        re_mjr_ = input_majors(input_text, i)
+        result_fit.extend(re_mjr_)
 
     # 총 활동 수
     act_numb = total_activity_num
@@ -273,11 +275,11 @@ def mjr_act_analy(input_text, input_activitys):
 
 ############  실행 테스트 ##################################
 
-re = mjr_act_analy(majors, total_actvity)
+result_mar_act = mjr_act_analy(majors, total_actvity)
 
 
 print("===================================================")
-print('RESULT :', re)
+print('RESULT :', result_mar_act)
 print("===================================================")
 
 

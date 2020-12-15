@@ -107,25 +107,25 @@ def leadership_analysis(text):
 
         for word in comp_txt:
             if word in superb_list:
-                print("superb")
+                #print("superb")
                 leadership_score.append("5")
 
             elif word in strong_list:
-                print("strong")
+                #print("strong")
                 leadership_score.append("4")
 
             elif word in strong_list:
-                print("good")
+                #print("good")
                 leadership_score.append("3")   
 
             elif word in mediocre_list:
-                print("mediocre")
+                #print("mediocre")
                 leadership_score.append("2") 
             elif word == 'notapplicable': # 이게 입력데이터 선택되었을 경우 (웹에서 선택할 수 있도록 구현해야 함! not applicable > notapplicable)
-                print("Not Applicable")
+                #print("Not Applicable")
                 leadership_score.append("Not Applicable") 
             else:
-                print("Not Sure")
+                #print("Not Sure")
                 leadership_score.append("2")
 
         df_fit_re = pd.DataFrame(leadership_score)
@@ -135,26 +135,26 @@ def leadership_analysis(text):
         #조건문을 만들어서 결과를 비교 출력해보자.
         fit_anaysis_result_fin =[]
         if '5' in list_fit_re.values: # 5이 하나라도 있다면, 5 출력
-            print("5")
+            #print("5")
             fit_anaysis_result_fin.append('5')
         elif '4' in list_fit_re.values: # 4 이 있다면 , 4 출력
-            print("4")
+            #print("4")
             fit_anaysis_result_fin.append('4')
         elif '3' in list_fit_re.values: # 3 이 있다면 , 3 출력
-            print("3")
+            #print("3")
             fit_anaysis_result_fin.append('3')
         elif '2' in list_fit_re.values: # 2 이 있다면 , 2 출력
-            print("2")
+            #print("2")
             fit_anaysis_result_fin.append('2')
         elif '1' in list_fit_re.values: # 1 이 있다면 , 1 출력
-            print("1")
+            #print("1")
             fit_anaysis_result_fin.append('1')
         elif 'Not Applicable' in list_fit_re.values: # Not Applicable 이 있다면 , Not Applicable 출력
-            print("Not Applicable")
+            #print("Not Applicable")
             fit_anaysis_result_fin.append('0')
             
         else:
-            print("NOT SURE")
+            #print("NOT SURE")
             fit_anaysis_result_fin.append('0') #N : NOT SURE
             
         
@@ -189,9 +189,9 @@ def leadership_analysis(text):
 
 # re_leader = start_leadership_analysis(input_text,input_text_,input_text__) 
 
-# print ("=================================")
-# print ('RESULT :', re_leader)
-# print ("=================================")
+# #print ("=================================")
+# #print ('RESULT :', re_leader)
+# #print ("=================================")
 
 
 
@@ -221,13 +221,13 @@ def leadership_start_here(total_act_lists):
 ############ 실행테스트!!!! ############
 
 result_leadership_fin = leadership_start_here(total_act_lists)
-print ("=================================")
-print ('RESULT :', result_leadership_fin)
-print ("=================================")
+#print ("=================================")
+#print ('RESULT :', result_leadership_fin)
+#print ("=================================")
 
 
 
 ##### 최종 계산 결과값은 4.2, 가장 높은 점수를 받은 활동은 입력한 순서대로  [1, 2, 3, 4, 5, 6] 임!
-=================================
-RESULT : (4.1, [1, 2, 3, 4, 5, 6])
-=================================
+# =================================
+# RESULT : (4.1, [1, 2, 3, 4, 5, 6])
+# =================================
