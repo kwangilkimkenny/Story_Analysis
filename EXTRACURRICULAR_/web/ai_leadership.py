@@ -151,13 +151,16 @@ def leadership_analysis(text):
             fit_anaysis_result_fin.append('1')
         elif 'Not Applicable' in list_fit_re.values: # Not Applicable 이 있다면 , Not Applicable 출력
             print("Not Applicable")
-            fit_anaysis_result_fin.append('Not Applicable')
+            fit_anaysis_result_fin.append('0')
+            
         else:
             print("NOT SURE")
-            fit_anaysis_result_fin.append('NOT SURE')
+            fit_anaysis_result_fin.append('0') #N : NOT SURE
+            
         
     else:
-        fit_anaysis_result_fin= 'NOT SURE'
+        fit_anaysis_result_fin= '0' #N : NOT SURE
+        
        
 
     return fit_anaysis_result_fin
@@ -202,7 +205,17 @@ def leadership_start_here(total_act_lists):
         each_re = leadership_analysis(i)
         result.append(each_re)
 
-    return result
+    result_ = [element for array in result for element in array]
+    #문자를 숫자로 변환
+    re = list(map(float,result_))
+
+    #최종 점수(평균)
+    avg = sum(re)/len(re)
+
+    #상위 6의 입력값의 위치를 찾았음
+    re_top6 = sorted(range(len(re)), key=lambda i: re[i], reverse=True)[:6]
+
+    return avg, re_top6
 
 
 ############ 실행테스트!!!! ############
@@ -211,3 +224,10 @@ result_leadership_fin = leadership_start_here(total_act_lists)
 print ("=================================")
 print ('RESULT :', result_leadership_fin)
 print ("=================================")
+
+
+
+##### 최종 계산 결과값은 4.2, 가장 높은 점수를 받은 활동은 입력한 순서대로  [1, 2, 3, 4, 5, 6] 임!
+=================================
+RESULT : (4.1, [1, 2, 3, 4, 5, 6])
+=================================
