@@ -38,25 +38,40 @@ majors = """ mechanical engineering, Film Studies, Psychology  """
 
 
 # 일단 3개의 EXTRACURRICULAR ACTIVITY EXAMPLES  입력, 추가로 활동을 입력할 수 있음. 최대 10개, 그 이상도 가능하지만 비율로 게산
-input_text_1 =  """ Number 1 Doubles Starter (9th-12th), Captain (11th-12th)
+input_text_1 = """ deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter
+We are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.""" # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
+
+input_text_2 = """ Leader/Concertmaster (10th-12th)
+AMAC Youth Chamber Ensemble (AYCE), audition-based community choir 
+Lead ensemble in rehearsal and performance, coordinate rehearsal times, aid younger  """
+
+input_text_3 = """ Number 1 Doubles Starter (9th-12th), Captain (11th-12th)
 JV/V Beverly Hills High School Tennis Team
-Three year League Champions; planned and hosted team banquet; led team warmups and meetings; Coach's Award Recipient (11th); Team Spirit Award (12th).  """ # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
+Three year League Champions; planned and hosted team banquet; led team warmups and meetings; Coach's Award Recipient (11th); Team Spirit Award (12th).  """
 
-input_text_2 =  """"""
+input_text_4 = """ Peer Advisor (11th-12th)
+Erving High School Student Ambassador Program, selective application-based leadership team
+Organized and led orientation; served as a year round leader, mentor, tutor, and friend to freshmen; helped with class scheduling."""
 
-input_text_3 = """"""
+input_text_5 = """ Leader (11th)
+Books on Global Health Equity and Social Justice, advocacy-focused peer discussion group
+Researched global health equity/social justice , assigned weekly readings for group discussion, brainstormed questions to generate input from members.  """
 
-input_text_4 = """"""
+input_text_6 = """ Number 1 Doubles Starter (9th-12th), Captain (11th-12th)
+JV/V Beverly Hills High School Tennis Team
+Three year League Champions; planned and hosted team banquet; led team warmups and meetings; Coach's Award Recipient (11th); Team Spirit Award (12th).  """
 
-input_text_5 = """"""
+input_text_7 = """ Number 1 Doubles Starter (9th-12th), Captain (11th-12th)
+JV/V Beverly Hills High School Tennis Team
+Three year League Champions; planned and hosted team banquet; led team warmups and meetings; Coach's Award Recipient (11th); Team Spirit Award (12th).  """
 
-input_text_6 = """"""
+input_text_8 = """Student Coach (9th - 12th)
+Middle School MathCounts Team
+Taught strategies, selected competitors, hosted weekly practice sessions and lectures. Led team to 2nd place victory at State Mathematics competition (11th). """
 
-input_text_7 = """"""
-
-input_text_8 = """"""
-
-input_text_9 =  """"""
+input_text_9 = """ Protein Modeling Team Leader (10th)
+Science Olympiad, Burke High School Club
+Supervised building of protein molecule model, taught peers to use 3D molecular program Jmol; placed in top ten in 2017 regional competition. """
 
 input_text_10 = """""" #이것은 값이 없기 때문에 null로 처리해 보자
 
