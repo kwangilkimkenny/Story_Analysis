@@ -45,33 +45,19 @@ input_text_2 = """ Leader/Concertmaster (10th-12th)
 AMAC Youth Chamber Ensemble (AYCE), audition-based community choir 
 Lead ensemble in rehearsal and performance, coordinate rehearsal times, aid younger  """
 
-input_text_3 = """ Number 1 Doubles Starter (9th-12th), Captain (11th-12th)
-JV/V Beverly Hills High School Tennis Team
-Three year League Champions; planned and hosted team banquet; led team warmups and meetings; Coach's Award Recipient (11th); Team Spirit Award (12th).  """
+input_text_3 = """"""
 
-input_text_4 = """ Peer Advisor (11th-12th)
-Erving High School Student Ambassador Program, selective application-based leadership team
-Organized and led orientation; served as a year round leader, mentor, tutor, and friend to freshmen; helped with class scheduling."""
+input_text_4 = """"""
 
-input_text_5 = """ Leader (11th)
-Books on Global Health Equity and Social Justice, advocacy-focused peer discussion group
-Researched global health equity/social justice , assigned weekly readings for group discussion, brainstormed questions to generate input from members.  """
+input_text_5 = """"""
 
-input_text_6 = """ Number 1 Doubles Starter (9th-12th), Captain (11th-12th)
-JV/V Beverly Hills High School Tennis Team
-Three year League Champions; planned and hosted team banquet; led team warmups and meetings; Coach's Award Recipient (11th); Team Spirit Award (12th).  """
+input_text_6 = """"""
 
-input_text_7 = """ Number 1 Doubles Starter (9th-12th), Captain (11th-12th)
-JV/V Beverly Hills High School Tennis Team
-Three year League Champions; planned and hosted team banquet; led team warmups and meetings; Coach's Award Recipient (11th); Team Spirit Award (12th).  """
+input_text_7 = """"""
 
-input_text_8 = """Student Coach (9th - 12th)
-Middle School MathCounts Team
-Taught strategies, selected competitors, hosted weekly practice sessions and lectures. Led team to 2nd place victory at State Mathematics competition (11th). """
+input_text_8 = """"""
 
-input_text_9 = """ Protein Modeling Team Leader (10th)
-Science Olympiad, Burke High School Club
-Supervised building of protein molecule model, taught peers to use 3D molecular program Jmol; placed in top ten in 2017 regional competition. """
+input_text_9 =  """"""
 
 input_text_10 = """""" #이것은 값이 없기 때문에 null로 처리해 보자
 
@@ -217,53 +203,53 @@ def mjr_act_analy(input_text, input_activitys):
     # 점수 계산 로직
     if act_numb == 0:
         print ("weak: 1")
-        result_fit = 1
+        result_fit = '1'
     elif act_numb >= 1 and act_numb <= 2:
         if major_fit == 1:
             print ('average : 2')
-            result_fit = 2
+            result_fit = '2'
         elif major_fit == 0:
             print ('weak : 1')
-            result_fit = 1
+            result_fit = '1'
         else:
             print ('N/A')
     elif act_numb >= 3 and act_numb <=4:
         if major_fit >= 2:
             print ('superb : 5')
-            result_fit = 5
+            result_fit = '5'
         elif major_fit == 1:
             print ('average : 3')
-            result_fit = 3
+            result_fit = '3'
         else:
             print ('N/A')
     elif act_numb >= 6 and act_numb <= 7:
         if major_fit >= 3:
             print ('superb : 5')
-            result_fit = 5
+            result_fit = '5'
         elif major_fit == 2:
             print ('strong : 2')
-            result_fit = 2
+            result_fit = '2'
         elif major_fit == 1:
             print ('mediocre')
-            result_fit = 1
+            result_fit = '1'
         else:
             print ('N/A')
     elif act_numb >= 8 and act_numb <= 10:
         if major_fit >= 4:
             print ('superb: 5')
-            result_fit = 5
+            result_fit = '5'
         elif major_fit == 3:
             print ('strong : 4')
-            result_fit = 4
+            result_fit = '4'
         elif major_fit == 2:
             print ('average : 3')
-            result_fit = 3
+            result_fit = '3'
         elif major_fit == 1:
             print ('mediocre : 1')
-            result_fit = 1
+            result_fit = '1'
         else:
             print ('weak : 1')
-            result_fit = 1
+            result_fit = '1'
     else:
         pass
 
@@ -273,19 +259,48 @@ def mjr_act_analy(input_text, input_activitys):
 
 
 
+def each_mjr_act_fit_analysis(majors, total_actvity):
+    each_m_a_result = []
+    for i in total_actvity:
+        result_each_mjr_act = mjr_act_analy(majors, i)
+        each_m_a_result.append(result_each_mjr_act)
+
+
+    result_ = [element for array in each_m_a_result for element in array]
+    #문자를 숫자로 변환
+    re = list(map(float,result_))
+
+    #최종 점수(평균)
+    avg = round(sum(re)/len(re),2)
+
+    #상위 6의 입력값의 위치를 찾았음
+    re_top6 = sorted(range(len(re)), key=lambda i: re[i], reverse=True)[:6]
+
+    all_m_a_result = avg
+
+        # 개별항목 계산 결과 : each_m_a_result
+        # 전체평균 : all_m_a_result
+        # 상위 6개의 입력값 위치(우수한 활동내역 순서대로 추출) : re_top6
+
+    return each_m_a_result, all_m_a_result, re_top6
+
+
+
+
 ############  실행 테스트 ##################################
 
-result_mar_act = mjr_act_analy(majors, total_actvity)
+
+re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
+print('RESULT major - activity fit :', re_each_M_A)
 
 
-print("===================================================")
-print('RESULT :', result_mar_act)
-print("===================================================")
 
+#  ==== 결과 예시 ====  #
+ 
+# RESULT major - activity fit : (['5', '5', '1', '1', '1', '1', '1', '1', '1'], 1.89, [0, 1, 2, 3, 4, 5])
 
-# 결과
+#  ==== 결과 해석 ====  #
 
-
-# ===================================================
-# RESULT : 5
-# ===================================================
+# 개별항목 계산 결과 : each_m_a_result >>>   ['5', '5', '1', '1', '1', '1', '1', '1', '1']
+# 전체평균 : all_m_a_result >>>>>>>>>>>>>    1.89
+# 상위 6개의 입력값 위치(우수한 활동내역 순서대로 추출) : re_top6 >>>> [0, 1, 2, 3, 4, 5]

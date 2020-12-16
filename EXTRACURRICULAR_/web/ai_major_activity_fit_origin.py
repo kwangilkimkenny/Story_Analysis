@@ -38,11 +38,11 @@ majors = """ mechanical engineering, Film Studies, Psychology  """
 
 
 # 일단 3개의 EXTRACURRICULAR ACTIVITY EXAMPLES  입력, 추가로 활동을 입력할 수 있음. 최대 10개, 그 이상도 가능하지만 비율로 게산
-input_text_1 =  """ Number 1 Doubles Starter (9th-12th), Captain (11th-12th)
-JV/V Beverly Hills High School Tennis Team
-Three year League Champions; planned and hosted team banquet; led team warmups and meetings; Coach's Award Recipient (11th); Team Spirit Award (12th).  """ # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
+input_text_1 = """""" # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
 
-input_text_2 =  """"""
+input_text_2 = """ Leader/Concertmaster (10th-12th)
+AMAC Youth Chamber Ensemble (AYCE), audition-based community choir 
+Lead ensemble in rehearsal and performance, coordinate rehearsal times, aid younger  """
 
 input_text_3 = """"""
 
@@ -144,7 +144,7 @@ def input_majors(major_txt, act_txt_list):
                     #print('tok :', tok)
                     for t in tok:         
                         if j == t: # 매칭되는게 있다면, 해당 전공관련 주제를 추출해본다.
-                            #print('FIT')
+                            print('FIT')
                             #print('j :', j) 
                             #print('n :', n)                  
                             major1 = data_act['big_major_category_1'][n]
@@ -169,17 +169,18 @@ def input_majors(major_txt, act_txt_list):
     ext_mjr_list = list(ext_mjr)
     
     rResult = []
-    for z in ext_mjr_list:
-        for q in ext_input_major_query:
+    for z in ext_mjr_list: # 활동내역입력 내용에서 관련 전공 추출하여 하나씩 비교하여 
+        for q in ext_input_major_query:#입력전공에 관련한 데이터베이스에서 관련 전공 카테고리 추출하여 하나씩 비교
             if z == q:
-                rResult.append("FIT")
+                rResult.append("FIT") # 같은것이 있으면 'FIT' 출력한다.
             else:
+                rResult.append("TEST NOT FIT") ########################## 나중에 주석처리할 것임!!!!!!!!!!!!!!!!!!!!
                 pass
     
     rResult = set(rResult)
     result_fin = list(rResult)
     
-    return result_fin
+    return result_fin #최종결과 출력, 없으면 아무것도 출력하지 않음.  ================ 
 
 
 ############ 실행 함수  : (전공 3개(,로 구분), 활동내역 최대 10개까지) #####
