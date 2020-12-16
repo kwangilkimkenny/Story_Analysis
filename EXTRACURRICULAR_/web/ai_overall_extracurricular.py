@@ -1,4 +1,4 @@
-###############   전체적인 Description 강도 계산 실행함수!!!~ 이것을 실행하면 됨, 그럼 나머지 함수들도 모두 연결되어 작동함
+###############  OVERALL EXTRACURRICULAR 계산 실행함수!!!~ 이것을 실행하면 됨, 그럼 나머지 함수들도 모두 연결되어 작동함
 ######################################################################################################################
 # 실행함수  :   def total_desci_score(total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity):
 
@@ -198,9 +198,9 @@ each_desc_score = character_counter_scoring(total_actvity)
 print("==================================")
 print ('입력활동 개별 점수 계산(순서대로) : ', each_desc_score)
 
-###############   전체적인 Description 강도 계산 실행함수!!!~ 이것을 실행하면 됨, 그럼 나머지 함수들도 모두 연결되어 작동함
+###############   전체적인 overall_extracurricular 강도 계산 실행함수!!!~ 이것을 실행하면 됨, 그럼 나머지 함수들도 모두 연결되어 작동함
 ######################################################################################################################
-def total_desci_score(total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity):
+def overall_extracurricular(total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity):
     tat_numb = len(total_actvity) # 입력활동 수
 
     if tat_numb >=6 : # 입력한 내용이 6개 이상이라면
@@ -213,8 +213,22 @@ def total_desci_score(total_actvity, hrs_per_week, weeks_per_year, period_years_
         re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
         print("MAJRO FIT : ", re_each_M_A[1])
 
+         #MAJOR FIT 가산점 계산 부분
+        fit_coef = re_each_M_A[1] 
+
+        if fit_coef >= 5:
+            add_point = 0.3
+        elif fit_coef < 5 and fit_coef >= 4:
+            add_point = 0.2
+        elif fit_coef < 4 and fit_coef >= 3:
+            add_point = 0.1
+        elif fit_coef < 3 and fit_coef >= 2:
+            add_point = -0.1
+        else:
+            add_point = -0.2
+
         #비율계산>>>>>>>>>>>>>>>>>>>>>>>>>>> 이게 최종 결과값임(조전문 하에서 말이징~)
-        desc_strength_re = round(((leadership_re[0] * 0.6) + (dedecation_re * 0.4) + re_each_M_A[1])/3,2)
+        desc_strength_re = round(((leadership_re[0] * 0.6) + (dedecation_re * 0.4) + fit_coef)/3,2)
         print("Description_Strength : ", desc_strength_re)
 
 
@@ -227,8 +241,22 @@ def total_desci_score(total_actvity, hrs_per_week, weeks_per_year, period_years_
         re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
         print("MAJRO FIT : ", re_each_M_A[1])
 
+        #MAJOR FIT 가산점 계산 부분
+        fit_coef = re_each_M_A[1] 
+
+        if fit_coef >= 5:
+            add_point = 0.3
+        elif fit_coef < 5 and fit_coef >= 4:
+            add_point = 0.2
+        elif fit_coef < 4 and fit_coef >= 3:
+            add_point = 0.1
+        elif fit_coef < 3 and fit_coef >= 2:
+            add_point = -0.1
+        else:
+            add_point = -0.2
+
         #비율계산>>>>>>>>>>>>>>>>>>>>>>>>>>> 이게 최종 결과값임(조전문 하에서 말이징~)
-        desc_strength_re = round(((leadership_re[0] * 0.6) + (dedecation_re * 0.4) + re_each_M_A[1])/3,2)
+        desc_strength_re = round(((leadership_re[0] * 0.6) + (dedecation_re * 0.4) + fit_coef)/3,2)
         print("Description_Strength : ", desc_strength_re)
 
     elif tat_numb <= 3 and tat_numb >= 1 :
@@ -240,8 +268,24 @@ def total_desci_score(total_actvity, hrs_per_week, weeks_per_year, period_years_
         re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
         print("MAJRO FIT : ", re_each_M_A[1])
 
-        #비율계산>>>>>>>>>>>>>>>>>>>>>>>>>>> 이게 최종 결과값임(조전문 하에서 말이징~)
-        desc_strength_re = round(((leadership_re[0] * 0.6) + (dedecation_re * 0.4) + re_each_M_A[1])/3,2)
+        #MAJOR FIT 가산점 계산 부분
+        fit_coef = re_each_M_A[1] 
+
+        if fit_coef >= 5:
+            add_point = 0.3
+        elif fit_coef < 5 and fit_coef >= 4:
+            add_point = 0.2
+        elif fit_coef < 4 and fit_coef >= 3:
+            add_point = 0.1
+        elif fit_coef < 3 and fit_coef >= 2:
+            add_point = -0.1
+        else:
+            add_point = -0.2
+        
+
+        # [Overall Dedication level (60%) + Overall Leadership level (30%) + Overall Description Level (10%)] + Major Fit 가산점 
+        # 비율계산>>>>>>>>>>>>>>>>>>>>>>>>>>> 이게 최종 결과값임(조건문 하에서 말이징~)
+        desc_strength_re = round(((leadership_re[0] * 0.6) + (dedecation_re * 0.3) + fit_coef)/3 + add_point ,2)
         print("Description_Strength : ", desc_strength_re)
 
     else:
@@ -345,15 +389,12 @@ def action_verbs_counter(text):
 
 
 # ===========================================================================================================
+##########################     Overall Extracurricular 강도 계산 실행 테트스   ###############################
 
-
-#################     실행테트스   ##################
-
-result_total  = total_desci_score(total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity)
+result_overall  = overall_extracurricular(total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity)
 
 print ("=================================")
-print ("RESULT dedecation strength :", result_total)
+print ("RESULT overall_extracurricular:", result_overall)
 print ("=================================")
-
 
 # ===========================================================================================================

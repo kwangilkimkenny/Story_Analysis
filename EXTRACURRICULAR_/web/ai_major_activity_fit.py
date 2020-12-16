@@ -274,7 +274,7 @@ def each_mjr_act_fit_analysis(majors, total_actvity):
     avg = round(sum(re)/len(re),2)
 
     #상위 6의 입력값의 위치를 찾았음
-    re_top6 = sorted(range(len(re)), key=lambda i: re[i], reverse=True)[:6]
+    re_top6 = sorted(range(len(re)), key=lambda i: re[i], reverse=True)[:round(len(re)*0.6)]
 
     all_m_a_result = avg
 
@@ -282,7 +282,9 @@ def each_mjr_act_fit_analysis(majors, total_actvity):
         # 전체평균 : all_m_a_result
         # 상위 6개의 입력값 위치(우수한 활동내역 순서대로 추출) : re_top6
 
-    return each_m_a_result, all_m_a_result, re_top6
+    result_final = [each_m_a_result, all_m_a_result, re_top6]
+
+    return result_final
 
 
 
@@ -297,7 +299,7 @@ print('RESULT major - activity fit :', re_each_M_A)
 
 #  ==== 결과 예시 ====  #
  
-# RESULT major - activity fit : (['5', '5', '1', '1', '1', '1', '1', '1', '1'], 1.89, [0, 1, 2, 3, 4, 5])
+# RESULT major - activity fit : [['5', '5', '1', '1', '1', '1', '1', '1', '1'], 1.89, [0, 1, 2, 3, 4]]#
 
 #  ==== 결과 해석 ====  #
 

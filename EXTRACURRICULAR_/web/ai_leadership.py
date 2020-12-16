@@ -215,7 +215,9 @@ def leadership_start_here(total_act_lists):
     #상위 6의 입력값의 위치를 찾았음
     re_top6 = sorted(range(len(re)), key=lambda i: re[i], reverse=True)[:6]
 
-    return avg, re_top6
+    result_final_lidership = [avg, re_top6]
+
+    return result_final_lidership
 
 
 ############ 실행테스트!!!! ############
