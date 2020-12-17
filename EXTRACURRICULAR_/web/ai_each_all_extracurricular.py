@@ -208,7 +208,7 @@ print ('입력활동 개별 점수 계산(순서대로) : ', each_desc_score)
 
 ###############   전체적인 overall_extracurricular 강도 계산 실행함수!!!~ 이것을 실행하면 됨, 그럼 나머지 함수들도 모두 연결되어 작동함
 ######################################################################################################################
-def overall_extracurricular(total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity):
+def overall_extracurricular(majors, total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity):
     tat_numb = tot_input_act_number(total_actvity) # 입력활동 수
     print('총 입력활동 수 : ', tat_numb)
 
@@ -222,8 +222,11 @@ def overall_extracurricular(total_actvity, hrs_per_week, weeks_per_year, period_
         print("DEDICATION : ", dedecation_re)
         description_result = total_desci_score(majors, total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity)
         print("DESCRIPTION :", description_result)
-        re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)         
-        print("MAJRO FIT : ", re_each_M_A[1])
+        re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
+        print("MAJRO FIT score: ", re_each_M_A[1])
+        check_fitness = re_each_M_A[-1] #결과물의 마지막 값이 fit, not fit 이다.
+        print("전공적합성 FIT / NOT FIT :", check_fitness)         
+
 
          #MAJOR FIT 가산점 계산 부분
         fit_coef = re_each_M_A[1] 
@@ -255,6 +258,8 @@ def overall_extracurricular(total_actvity, hrs_per_week, weeks_per_year, period_
         print("DESCRIPTION :", description_result)
         re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity,tat_numb)
         print("MAJRO FIT : ", re_each_M_A[1])
+        check_fitness = re_each_M_A[-1] #결과물의 마지막 값이 fit, not fit 이다.
+        print("전공적합성 FIT / NOT FIT :", check_fitness)       
 
         #MAJOR FIT 가산점 계산 부분
         fit_coef = re_each_M_A[1] 
@@ -285,6 +290,8 @@ def overall_extracurricular(total_actvity, hrs_per_week, weeks_per_year, period_
         print("DESCRIPTION :", description_result)
         re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
         print("MAJOF FIT : ", re_each_M_A[1])
+        check_fitness = re_each_M_A[-1] #결과물의 마지막 값이 fit, not fit 이다.
+        print("전공적합성 FIT / NOT FIT :", check_fitness)       
 
         #MAJOR FIT 가산점 계산 부분
         fit_coef = re_each_M_A[1] 
@@ -311,7 +318,7 @@ def overall_extracurricular(total_actvity, hrs_per_week, weeks_per_year, period_
         pass
 
 
-    final_result = [dedecation_re, leadership_re_value, description_result, fit_coef, desc_strength_re]
+    final_result = [dedecation_re, leadership_re_value, description_result, fit_coef, check_fitness, desc_strength_re]
 
     # 최종값
 
@@ -378,7 +385,7 @@ def action_verbs_counter(text):
 # ===========================================================================================================
 ##########################     Overall Extracurricular 강도 계산 실행 테트스   ###############################
 
-result_overall  = overall_extracurricular(total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity)
+result_overall  = overall_extracurricular(majors, total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity)
 
 print ("=================================")
 print ("RESULT overall_extracurricular:", result_overall)
@@ -386,8 +393,8 @@ print ("=================================")
 
 # ===========================================================================================================
 
-# 실행결과 : 순서대로 Dedication, Leadership, Description, Major Fit, Overall Strength
+# 실행결과 : 순서대로 Dedication, Leadership, Description, Major Fit score, Major Fit, Overall Strength
 
 # =================================
-# RESULT overall_extracurricular: [3.38, 4.0, 1.58, 1.0, 1.27]
+# RESULT overall_extracurricular: [3.38, 4.0, 1.58, 1.0, ['NOT SURE'], 1.27]
 # =================================

@@ -32,41 +32,39 @@ from nltk.tokenize import word_tokenize
 from nltk.tokenize import RegexpTokenizer
 
 
-# # 3개의 입력: 전공 3개
-# majors = """ mechanical engineering, Film Studies, Psychology  """
+# 3개의 입력: 전공 3개
+majors = """ mechanical engineering, Film Studies, Psychology  """
 
 
 
-# # 일단 3개의 EXTRACURRICULAR ACTIVITY EXAMPLES  입력, 추가로 활동을 입력할 수 있음. 최대 10개, 그 이상도 가능하지만 비율로 게산
-# input_text_1 = """ deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter
-# We are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.""" # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
+# 일단 3개의 EXTRACURRICULAR ACTIVITY EXAMPLES  입력, 추가로 활동을 입력할 수 있음. 최대 10개, 그 이상도 가능하지만 비율로 게산
+input_text_1 = """ deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter
+We are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.""" # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
 
-# input_text_2 = """ Leader/Concertmaster (10th-12th)
-# AMAC Youth Chamber Ensemble (AYCE), audition-based community choir 
-# Lead ensemble in rehearsal and performance, coordinate rehearsal times, aid younger  """
+input_text_2 = """"""
 
-# input_text_3 = """"""
+input_text_3 = """"""
 
-# input_text_4 = """"""
+input_text_4 = """"""
 
-# input_text_5 = """"""
+input_text_5 = """"""
 
-# input_text_6 = """"""
+input_text_6 = """"""
 
-# input_text_7 = """"""
+input_text_7 = """"""
 
-# input_text_8 = """"""
+input_text_8 = """"""
 
-# input_text_9 =  """"""
+input_text_9 =  """"""
 
-# input_text_10 = """""" #이것은 값이 없기 때문에 null로 처리해 보자
+input_text_10 = """""" #이것은 값이 없기 때문에 null로 처리해 보자
 
 
-# ## 활동입력 값 리스트에 담기
-# total_actvity = [input_text_1, input_text_2, input_text_3, input_text_4, input_text_5, input_text_6,input_text_7, input_text_9, input_text_10]
+## 활동입력 값 리스트에 담기
+total_actvity = [input_text_1, input_text_2, input_text_3, input_text_4, input_text_5, input_text_6,input_text_7, input_text_9, input_text_10]
 
-# total_activity_num = len(total_actvity)
-# #print'(total_activity_num :' total_activity_num)
+total_activity_num = len(total_actvity)
+#print'(total_activity_num :' total_activity_num)
 
 
 # 총 활동 수 계산
@@ -189,6 +187,7 @@ def input_majors(major_txt, act_txt_list):
             if z == q:
                 rResult.append("FIT")
             else:
+                rResult.append("NOT FIT")
                 pass
     
     rResult = set(rResult)
@@ -205,6 +204,36 @@ def mjr_act_analy(input_text, input_activitys):
     for i in input_activitys:
         re_mjr_ = input_majors(input_text, i)
         result_fit.extend(re_mjr_)
+
+    print("Check FIT: ", result_fit)
+
+    result_fit = set(result_fit)
+    result_fit = list(result_fit)
+    print("중복제거한 FIT 리스트: ", result_fit)  
+
+    #값을 비교하기 위해서 데이터프레임으로 전환
+    result_fit = pd.DataFrame(result_fit)
+
+    # 만약 여기에 값이 없다면(빈리스트) not sure, 'FIT'이 하나리도 있다면 FIT, 'NOT FIT'만 있다면 'NOT FIT'
+    # 우선 계산 결과값(fit, not fit)을 전역변수로 선언하고, 나중에 결과에 반영할 것
+    global check_major_fit
+
+    fit_anaysis_result_fin =[]
+    if 'fit' in result_fit.values : # fit이 하나라도 있다면, FIT 출력
+        #print("FIT")
+        fit_anaysis_result_fin.append('FIT')
+        
+    elif 'not fit' in result_fit.values : # not fit 이 있다면 , NOT FIT 출력
+        #print("NOT FIT")
+        fit_anaysis_result_fin.append('NOT FIT')
+    else:
+        #print("NOT SURE")
+        fit_anaysis_result_fin.append('NOT SURE')
+
+    print("Check Major FIT : :", fit_anaysis_result_fin)   #>>>>>>>> 이 지역변수 값을 결과값을 추출해야 한다.
+
+    check_major_fit = fit_anaysis_result_fin #전역변수에 담고, 결과로 출력할거임
+
 
     # 총 활동 수
     act_numb = tot_input_act_number(input_activitys)
@@ -266,21 +295,11 @@ def mjr_act_analy(input_text, input_activitys):
     else:
         pass
 
-
-
     return result_fit_
 
 
 
-# ai_each_all_extra.... 실행했을 경우 에러 발생ㄷ
 
-# ===================>  mechanical engineering, Film Studies, Psychology  
-# ===================> [' deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter\nWe are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.']
-# ===================> 1
-
-# ===================>  mechanical engineering, Film Studies, Psychology  
-# ===================>  [' deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter\nWe are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.', ' Leader/Concertmaster (10th-12th)\nAMAC Youth Chamber Ensemble (AYCE), audition-based community choir \nLead ensemble in rehearsal and performance, coordinate rehearsal times, aid younger  ', '', '', '', '', '', '', '']
-# ===================>  9
 
 
 def each_mjr_act_fit_analysis(majors, total_actvity):
@@ -317,8 +336,9 @@ def each_mjr_act_fit_analysis(majors, total_actvity):
         # 개별항목 계산 결과 : each_m_a_result
         # 전체평균 : all_m_a_result
         # 상위 6개의 입력값 위치(우수한 활동내역 순서대로 추출) : re_top6
+        # FIT , NOT FIT 결과 : check_major_fit
 
-    result_final = [each_m_a_result, all_m_a_result, re_top6]
+    result_final = [each_m_a_result, all_m_a_result, re_top6, check_major_fit]
 
     return result_final
 
@@ -328,8 +348,9 @@ def each_mjr_act_fit_analysis(majors, total_actvity):
 ############  실행 테스트 ##################################
 
 
-# re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
-# print('RESULT major - activity fit :', re_each_M_A)
+re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
+
+print('RESULT major - activity fit :', re_each_M_A)
 
 
 
@@ -339,10 +360,12 @@ def each_mjr_act_fit_analysis(majors, total_actvity):
 
 #  ==== 결과 예시 ====  #
  
-# RESULT major - activity fit : [['5', '5', '1', '1', '1', '1', '1', '1', '1'], 1.89, [0, 1, 2, 3, 4]]#
+# RESULT major - activity fit : [['', '1', '1', '1', '1', '1', '1', '1', '1'], 1.0, [0, 1, 2, 3, 4], ['NOT SURE']]
 
-#  ==== 결과 해석 ====  #
+#  ==== 결과 해석 (위의 결과 순서대로 )====  #
 
-# 개별항목 계산 결과 : each_m_a_result >>>   ['5', '5', '1', '1', '1', '1', '1', '1', '1']
-# 전체평균 : all_m_a_result >>>>>>>>>>>>>    1.89
-# 상위 6개의 입력값 위치(우수한 활동내역 순서대로 추출) : re_top6 >>>> [0, 1, 2, 3, 4, 5]
+        # 개별항목 계산 결과 : each_m_a_result
+        # 전체평균 : all_m_a_result
+        # 상위 6개의 입력값 위치(우수한 활동내역 순서대로 추출) : re_top6
+        # FIT , NOT FIT 결과 : check_major_fit
+
