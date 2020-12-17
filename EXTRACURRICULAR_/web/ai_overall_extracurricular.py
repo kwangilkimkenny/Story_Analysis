@@ -57,54 +57,54 @@ from ai_major_activity_fit  import mjr_act_analy, total_actvity, each_mjr_act_fi
 from ai_dedication_analysis  import dedication_analysis
 
 
-######################## 웹사이트에서 값을 입력받아야 함 ##################################### - start -
-#input
-hrs_per_week = 5 #time_spent_hrs_per_week
-weeks_per_year = 20 #tiem_spent_weeks_per_year
-period_years_of_activity = 3 #period_years_of_activity
+# ######################## 웹사이트에서 값을 입력받아야 함 ##################################### - start -
+# #input
+# hrs_per_week = 5 #time_spent_hrs_per_week
+# weeks_per_year = 20 #tiem_spent_weeks_per_year
+# period_years_of_activity = 3 #period_years_of_activity
 
-# 3개의 입력: 전공 3개
-majors = """ mechanical engineering, Film Studies, Psychology  """
+# # 3개의 입력: 전공 3개
+# majors = """ mechanical engineering, Film Studies, Psychology  """
 
-# 일단 3개의 EXTRACURRICULAR ACTIVITY EXAMPLES  입력, 추가로 활동을 입력할 수 있음. 최대 10개, 그 이상도 가능하지만 비율로 게산
-input_text_1 = """ deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter
-We are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.""" # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
+# # 일단 3개의 EXTRACURRICULAR ACTIVITY EXAMPLES  입력, 추가로 활동을 입력할 수 있음. 최대 10개, 그 이상도 가능하지만 비율로 게산
+# input_text_1 = """ deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter
+# We are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.""" # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
 
-input_text_2 = """Manager/Administrator (Summer 2019)
-ViolinMan Resource, secondhand store for renting used musical instruments	
-Approved and updated online information database on classical music instruments for use by music enthusiasts. Cleaned and distributed instruments for use."""
+# input_text_2 = """Manager/Administrator (Summer 2019)
+# ViolinMan Resource, secondhand store for renting used musical instruments	
+# Approved and updated online information database on classical music instruments for use by music enthusiasts. Cleaned and distributed instruments for use."""
 
-input_text_3 = """  planned and hosted team banquet; led team warmups and meetings; Coach's Award Recipient (11th); Team Spirit Award (12th).  """
+# input_text_3 = """  planned and hosted team banquet; led team warmups and meetings; Coach's Award Recipient (11th); Team Spirit Award (12th).  """
 
-input_text_4 = """ Peer Advisor (11th-12th)
-Erving High School Student Ambassador Program, selective application-based leadership team
-Organized and led orientation; served as a year round leader, mentor, tutor, and friend to freshmen; helped with class scheduling."""
+# input_text_4 = """ Peer Advisor (11th-12th)
+# Erving High School Student Ambassador Program, selective application-based leadership team
+# Organized and led orientation; served as a year round leader, mentor, tutor, and friend to freshmen; helped with class scheduling."""
 
-input_text_5 = """  Leader/Concertmaster (10th-12th)
-AMAC Youth Chamber Ensemble (AYCE), audition-based community choir 
-Lead ensemble in rehearsal and performance, coordinate rehearsal times, aid younger   """
+# input_text_5 = """  Leader/Concertmaster (10th-12th)
+# AMAC Youth Chamber Ensemble (AYCE), audition-based community choir 
+# Lead ensemble in rehearsal and performance, coordinate rehearsal times, aid younger   """
 
-input_text_6 = """ researched teaching pedagogy, provided positive feedback to encourage kids.  """
+# input_text_6 = """ researched teaching pedagogy, provided positive feedback to encourage kids.  """
 
-input_text_7 = """ 
-8 months intensive preparation on English language proficiency and presentation skills for British English Olympics. Won 6th place out of 50 schools. """
+# input_text_7 = """ 
+# 8 months intensive preparation on English language proficiency and presentation skills for British English Olympics. Won 6th place out of 50 schools. """
 
-input_text_8 = """Student Coach (9th - 12th)
-Middle School MathCounts Team
-Taught strategies, selected competitors, hosted weekly practice sessions and lectures. Led team to 2nd place victory at State Mathematics competition (11th). """
+# input_text_8 = """Student Coach (9th - 12th)
+# Middle School MathCounts Team
+# Taught strategies, selected competitors, hosted weekly practice sessions and lectures. Led team to 2nd place victory at State Mathematics competition (11th). """
 
-input_text_9 = """ Protein Modeling Team Leader (10th)
-Science Olympiad, Burke High School Club
-Supervised building of protein molecule model, taught peers to use 3D molecular program Jmol; placed in top ten in 2017 regional competition. """
+# input_text_9 = """ Protein Modeling Team Leader (10th)
+# Science Olympiad, Burke High School Club
+# Supervised building of protein molecule model, taught peers to use 3D molecular program Jmol; placed in top ten in 2017 regional competition. """
 
-input_text_10 = """""" #이것은 값이 없기 때문에 null로 처리해 보자
+# input_text_10 = """""" #이것은 값이 없기 때문에 null로 처리해 보자
 
 
-## 활동입력 값 리스트에 담기
-total_actvity = [input_text_1, input_text_2, input_text_3, input_text_4, input_text_5, input_text_6,input_text_7, input_text_9, input_text_10]
+# ## 활동입력 값 리스트에 담기
+# total_actvity = [input_text_1, input_text_2, input_text_3, input_text_4, input_text_5, input_text_6,input_text_7, input_text_9, input_text_10]
 
-total_activity_num = len(total_actvity)
-#print'(total_activity_num :' total_activity_num)
+# total_activity_num = len(total_actvity)
+# #print'(total_activity_num :' total_activity_num)
 
 
 
@@ -172,11 +172,13 @@ def character_counter_scoring(total_actvity):
 
     sum_re_chr_cnt = sum(result_chr_count_[:]) # 모든점수 합치기
 
+    print('디스크립션 계산결과 중간 리스트값 :' , sum_re_chr_cnt)
+
     #입력한 값에만 해당하는 것만으로 평균계산하기(입력하지 않은 값 제외하였음)
     char_mean = round(sum_re_chr_cnt / len(result_chr_count_), 2)
 
     print ('입력항목별 개별 점수 :', result_chr_count_) # [94.44, 91.67, 52.78, 97.22, 66.67, 25.0, 55.56, 88.89, 0.0]
-    print ('입력항목(미입력 제외)의 전체 평균점수 :', char_mean) # 63.58
+    print ('입력항목(미입력 제외........)의 전체 평균점수 :', char_mean) # 63.58
     print ('입력항목별 개별 최종 강도(점수) :', each_item_score) #  순서대로 [5, 5, 2, 5, 3, 1, 2, 4, 1]
 
     #점수가 높은 순서대로 인덱스값 추출 하기
@@ -391,10 +393,10 @@ def action_verbs_counter(text):
 # ===========================================================================================================
 ##########################     Overall Extracurricular 강도 계산 실행 테트스   ###############################
 
-result_overall  = overall_extracurricular(total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity)
+# result_overall  = overall_extracurricular(total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity)
 
-print ("=================================")
-print ("RESULT overall_extracurricular:", result_overall)
-print ("=================================")
+# print ("=================================")
+# print ("RESULT overall_extracurricular:", result_overall)
+# print ("=================================")
 
 # ===========================================================================================================

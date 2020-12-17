@@ -1,4 +1,7 @@
-###############   전체적인 Description 강도 계산 실행함수!!!~ 이것을 실행하면 됨, 그럼 나머지 함수들도 모두 연결되어 작동함
+###############  개별입력 EXTRACURRICULAR 계산 실행함수!!!~ 이것을 실행하면 됨, 그럼 나머지 함수들도 모두 연결되어 작동함
+
+## 결과 : Dedication, Leadership, Description, Major Fit, Overall Strength 의 개별 결과값이 각각 산출됨
+
 ######################################################################################################################
 # 실행함수  :   def total_desci_score(total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity):
 
@@ -18,17 +21,8 @@
 ##### 전공 입력 3개 ','로 구분하여 입력받아야 함, 대소문자 상관없음
 # majors = """ mechanical engineering, Film Studies, Psychology  """
 
-##### 활동내역 최대 10개까지만 입력되어야 함
+##### 활동내역 최대 1개가 입력되어야 함
 # input_text_1 = """ 활동 내용입력 """
-# input_text_2 = """ 활동 내용입력 """
-# input_text_3 = """ 활동 내용입력 """
-# input_text_4 = """ 활동 내용입력 """
-# input_text_5 = """ 활동 내용입력 """
-# input_text_6 = """ 활동 내용입력 """
-# input_text_7 = """ 활동 내용입력 """ 
-# input_text_8 = """ 활동 내용입력 """
-# input_text_9 = """ 활동 내용입력 """
-# input_text_10 = """ 활동 내용입력 """
 
 ######################################################################################################################
 
@@ -52,65 +46,66 @@ from nltk.tag import pos_tag
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import RegexpTokenizer
 
+
+
 from ai_leadership import leadership_start_here
+from ai_description import total_desci_score
+
 from ai_major_activity_fit  import mjr_act_analy, each_mjr_act_fit_analysis
 from ai_dedication_analysis  import dedication_analysis
 
 
 
+######################## 웹사이트에서 값을 입력받아야 함 ##################################### - start -
+#input
+hrs_per_week = 5 #time_spent_hrs_per_week
+weeks_per_year = 20 #tiem_spent_weeks_per_year
+period_years_of_activity = 3 #period_years_of_activity
 
-# ######################## 웹사이트에서 값을 입력받아야 함 ##################################### - start -
-# #input
-# hrs_per_week = 5 #time_spent_hrs_per_week
-# weeks_per_year = 20 #tiem_spent_weeks_per_year
-# period_years_of_activity = 3 #period_years_of_activity
-
-# # 3개의 입력: 전공 3개
-# majors = """ mechanical engineering, Film Studies, Psychology  """
-
-# # 일단 3개의 EXTRACURRICULAR ACTIVITY EXAMPLES  입력, 추가로 활동을 입력할 수 있음. 최대 10개, 그 이상도 가능하지만 비율로 게산
-# input_text_1 = """ deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter
-# We are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.""" # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
-
-# input_text_2 = """Manager/Administrator (Summer 2019)
-# ViolinMan Resource, secondhand store for renting used musical instruments	
-# Approved and updated online information database on classical music instruments for use by music enthusiasts. Cleaned and distributed instruments for use."""
-
-# input_text_3 = """  planned and hosted team banquet; led team warmups and meetings; Coach's Award Recipient (11th); Team Spirit Award (12th).  """
-
-# input_text_4 = """ Peer Advisor (11th-12th)
-# Erving High School Student Ambassador Program, selective application-based leadership team
-# Organized and led orientation; served as a year round leader, mentor, tutor, and friend to freshmen; helped with class scheduling."""
-
-# input_text_5 = """  Leader/Concertmaster (10th-12th)
-# AMAC Youth Chamber Ensemble (AYCE), audition-based community choir 
-# Lead ensemble in rehearsal and performance, coordinate rehearsal times, aid younger   """
-
-# input_text_6 = """ researched teaching pedagogy, provided positive feedback to encourage kids.  """
-
-# input_text_7 = """ 
-# 8 months intensive preparation on English language proficiency and presentation skills for British English Olympics. Won 6th place out of 50 schools. """
-
-# input_text_8 = """Student Coach (9th - 12th)
-# Middle School MathCounts Team
-# Taught strategies, selected competitors, hosted weekly practice sessions and lectures. Led team to 2nd place victory at State Mathematics competition (11th). """
-
-# input_text_9 = """ Protein Modeling Team Leader (10th)
-# Science Olympiad, Burke High School Club
-# Supervised building of protein molecule model, taught peers to use 3D molecular program Jmol; placed in top ten in 2017 regional competition. """
-
-# input_text_10 = """""" #이것은 값이 없기 때문에 null로 처리해 보자
+# 3개의 입력: 전공 3개
+majors = """ mechanical engineering, Film Studies, Psychology  """
 
 
-# ## 활동입력 값 리스트에 담기
-# total_actvity = [input_text_1, input_text_2, input_text_3, input_text_4, input_text_5, input_text_6,input_text_7, input_text_9, input_text_10]
+# 일단 3개의 EXTRACURRICULAR ACTIVITY EXAMPLES  입력, 추가로 활동을 입력할 수 있음. 최대 10개, 그 이상도 가능하지만 비율로 게산
+input_text_1 = """ deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter
+We are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.""" # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
 
-# total_activity_num = len(total_actvity)
-# #print'(total_activity_num :' total_activity_num)
+input_text_2 = """"""
+
+input_text_3 = """"""
+
+input_text_4 = """"""
+
+input_text_5 = """"""
+
+input_text_6 = """"""
+
+input_text_7 = """"""
+
+input_text_8 = """"""
+
+input_text_9 =  """"""
+
+input_text_10 = """""" #이것은 값이 없기 때문에 null로 처리해 보자
 
 
 
+## 활동입력 값 리스트에 담기
+total_actvity = [input_text_1, input_text_2, input_text_3, input_text_4, input_text_5, input_text_6,input_text_7, input_text_9, input_text_10]
 #############################################################################################################
+
+
+def tot_input_act_number(inp_acti_list):
+    total_activity_num = 0
+    for a_item in inp_acti_list:
+        if a_item:
+            total_activity_num += 1
+        else:
+            pass
+    return total_activity_num
+
+
+
 
 # 캐릭터(문자) 수 계산
 def character_counter(text):
@@ -181,6 +176,7 @@ def character_counter_scoring(total_actvity):
             only_input_value += 1
         else:
             pass
+    
 
     print('디스크립션 계산결과 중간 리스트값 :' , result_chr_count_)
 
@@ -205,63 +201,121 @@ def character_counter_scoring(total_actvity):
 
 
 
-# ####### 입력 활동 개별 점수 계산 실행 !
-# each_desc_score = character_counter_scoring(total_actvity)
-# print("==================================")
-# print ('입력활동 개별 점수 계산(순서대로) : ', each_desc_score)
+####### 입력 활동 개별 점수 계산 실행 !
+each_desc_score = character_counter_scoring(total_actvity)
+print("==================================")
+print ('입력활동 개별 점수 계산(순서대로) : ', each_desc_score)
 
-###############   전체적인 Description 강도 계산 실행함수!!!~ 이것을 실행하면 됨, 그럼 나머지 함수들도 모두 연결되어 작동함
+###############   전체적인 overall_extracurricular 강도 계산 실행함수!!!~ 이것을 실행하면 됨, 그럼 나머지 함수들도 모두 연결되어 작동함
 ######################################################################################################################
-def total_desci_score(majors, total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity):
-    tat_numb = len(total_actvity) # 입력활동 수
+def overall_extracurricular(total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity):
+    tat_numb = tot_input_act_number(total_actvity) # 입력활동 수
+    print('총 입력활동 수 : ', tat_numb)
 
     if tat_numb >=6 : # 입력한 내용이 6개 이상이라면
         print("5~10")
 
         leadership_re = leadership_start_here(total_actvity)
-        print("LEADERSHIP : ", leadership_re[0])
+        leadership_re_value = leadership_re[0]
+        print("LEADERSHIP : ", leadership_re_value)
         dedecation_re = dedication_analysis(hrs_per_week, weeks_per_year, period_years_of_activity)
         print("DEDICATION : ", dedecation_re)
-        re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
+        description_result = total_desci_score(majors, total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity)
+        print("DESCRIPTION :", description_result)
+        re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)         
         print("MAJRO FIT : ", re_each_M_A[1])
 
+         #MAJOR FIT 가산점 계산 부분
+        fit_coef = re_each_M_A[1] 
+
+        if fit_coef >= 5:
+            add_point = 0.3
+        elif fit_coef < 5 and fit_coef >= 4:
+            add_point = 0.2
+        elif fit_coef < 4 and fit_coef >= 3:
+            add_point = 0.1
+        elif fit_coef < 3 and fit_coef >= 2:
+            add_point = -0.1
+        else:
+            add_point = -0.2
+
         #비율계산>>>>>>>>>>>>>>>>>>>>>>>>>>> 이게 최종 결과값임(조전문 하에서 말이징~)
-        desc_strength_re = round(((leadership_re[0] * 0.6) + (dedecation_re * 0.4) + re_each_M_A[1])/3,2)
-        print("Description_Strength : ", desc_strength_re)
+        desc_strength_re = round(((leadership_re[0] * 0.6) + (dedecation_re * 0.4) + fit_coef)/3,2)
+        print("Overall Strength : ", desc_strength_re)
 
 
     elif tat_numb <= 6 and tat_numb >= 4 :
         print("4~6")
-        leadership_re = leadership_start_here(total_actvity)
-        print("LEADERSHIP : ", leadership_re[0])
+        leadership_re = leadership_start_here(total_act_lists)
+        leadership_re_value = leadership_re[0]
+        print("LEADERSHIP : ", leadership_re_value)
         dedecation_re = dedication_analysis(hrs_per_week, weeks_per_year, period_years_of_activity)
         print("DEDICATION : ", dedecation_re)
-        re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
+        description_result = total_desci_score(majors, total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity)
+        print("DESCRIPTION :", description_result)
+        re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity,tat_numb)
         print("MAJRO FIT : ", re_each_M_A[1])
 
+        #MAJOR FIT 가산점 계산 부분
+        fit_coef = re_each_M_A[1] 
+
+        if fit_coef >= 5:
+            add_point = 0.3
+        elif fit_coef < 5 and fit_coef >= 4:
+            add_point = 0.2
+        elif fit_coef < 4 and fit_coef >= 3:
+            add_point = 0.1
+        elif fit_coef < 3 and fit_coef >= 2:
+            add_point = -0.1
+        else:
+            add_point = -0.2
+
         #비율계산>>>>>>>>>>>>>>>>>>>>>>>>>>> 이게 최종 결과값임(조전문 하에서 말이징~)
-        desc_strength_re = round(((leadership_re[0] * 0.6) + (dedecation_re * 0.4) + re_each_M_A[1])/3,2)
-        print("Description_Strength : ", desc_strength_re)
+        desc_strength_re = round(((leadership_re[0] * 0.6) + (dedecation_re * 0.4) + fit_coef)/3,2)
+        print("Overall Strength : ", desc_strength_re)
 
     elif tat_numb <= 3 and tat_numb >= 1 :
         print("1~4")
         leadership_re = leadership_start_here(total_actvity)
-        print("LEADERSHIP : ", leadership_re[0])
+        leadership_re_value = leadership_re[0]
+        print("LEADERSHIP : ", leadership_re_value)
         dedecation_re = dedication_analysis(hrs_per_week, weeks_per_year, period_years_of_activity)
         print("DEDICATION : ", dedecation_re)
+        description_result = total_desci_score(majors, total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity)
+        print("DESCRIPTION :", description_result)
         re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
-        print("MAJRO FIT : ", re_each_M_A[1])
+        print("MAJOF FIT : ", re_each_M_A[1])
 
-        #비율계산>>>>>>>>>>>>>>>>>>>>>>>>>>> 이게 최종 결과값임(조전문 하에서 말이징~)
-        desc_strength_re = round(((leadership_re[0] * 0.6) + (dedecation_re * 0.4) + re_each_M_A[1])/3,2)
-        print("Description_Strength : ", desc_strength_re)
+        #MAJOR FIT 가산점 계산 부분
+        fit_coef = re_each_M_A[1] 
+
+        if fit_coef >= 5:
+            add_point = 0.3
+        elif fit_coef < 5 and fit_coef >= 4:
+            add_point = 0.2
+        elif fit_coef < 4 and fit_coef >= 3:
+            add_point = 0.1
+        elif fit_coef < 3 and fit_coef >= 2:
+            add_point = -0.1
+        else:
+            add_point = -0.2
+        
+
+        # [Overall Dedication level (60%) + Overall Leadership level (30%) + Overall Description Level (10%)] + Major Fit 가산점 
+        # 비율계산>>>>>>>>>>>>>>>>>>>>>>>>>>> 이게 최종 결과값임(조건문 하에서 말이징~)
+        desc_strength_re = round(((leadership_re[0] * 0.6) + (dedecation_re * 0.3) + fit_coef)/3 + add_point ,2)
+        print("Overall Strength : ", desc_strength_re)
 
     else:
         print("0")
         pass
 
-    # 전체적인 Description 강도 계산
-    return desc_strength_re
+
+    final_result = [dedecation_re, leadership_re_value, description_result, fit_coef, desc_strength_re]
+
+    # 최종값
+
+    return final_result
 
 
 # ==== 이 부분 개발적용 해야 함 ====
@@ -320,52 +374,20 @@ def action_verbs_counter(text):
 
 
 
-#### 전공 + 특별활동 >> 개별항목에 대한 계산결과를 도출해야 함
 
-# def each_mjr_act_fit_analysis(majors, total_actvity):
-#     each_m_a_result = []
-#     for i in total_actvity:
-#         result_each_mjr_act = mjr_act_analy(majors, i)
-#         each_m_a_result.append(result_each_mjr_act)
-#     return each_m_a_result
+# ===========================================================================================================
+##########################     Overall Extracurricular 강도 계산 실행 테트스   ###############################
 
+result_overall  = overall_extracurricular(total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity)
 
-# re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
-# print("==================================")
-# print('RESULT major - activity fit :', re_each_M_A)
-
-#  ==== 결과 예시 ====  #
- 
-# RESULT major - activity fit : (['5', '5', '1', '1', '1', '1', '1', '1', '1'], 1.89, [0, 1, 2, 3, 4, 5])
-
-#  ==== 결과 해석 ====  #
-
-# 개별항목 계산 결과 : each_m_a_result >>>   ['5', '5', '1', '1', '1', '1', '1', '1', '1']
-# 전체평균 : all_m_a_result >>>>>>>>>>>>>    1.89
-# 상위 6개의 입력값 위치(우수한 활동내역 순서대로 추출) : re_top6 >>>> [0, 1, 2, 3, 4, 5]
-
-
-# result_leadership_fin = leadership_start_here(total_act_lists)
-# print ("=================================")
-# print ('RESULT leadership :', result_leadership_fin)
-
-
-# result = dedication_analysis(hrs_per_week, weeks_per_year, period_years_of_activity)
-# print ("=================================")
-# print ("RESULT dedecation :", result)
-# print ("=================================")
-
+print ("=================================")
+print ("RESULT overall_extracurricular:", result_overall)
+print ("=================================")
 
 # ===========================================================================================================
 
+# 실행결과 : 순서대로 Dedication, Leadership, Description, Major Fit, Overall Strength
 
-#################     실행테트스   ##################
-
-# result_total  = total_desci_score(total_actvity, hrs_per_week, weeks_per_year, period_years_of_activity)
-
-# print ("=================================")
-# print ("RESULT dedecation strength :", result_total)
-# print ("=================================")
-
-
-# ===========================================================================================================
+# =================================
+# RESULT overall_extracurricular: [3.38, 4.0, 1.58, 1.0, 1.27]
+# =================================

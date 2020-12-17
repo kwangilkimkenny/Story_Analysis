@@ -67,7 +67,7 @@ def dedication_analysis(hrs_per_week, weeks_per_year, period_years_of_activity):
 
     #######   Dedication 계산 (활동별 / 전체적) 
 
-    dedecation_cal = py_score * ((ws_score + wy_score)/2)
+    dedecation_cal = round(py_score * ((ws_score + wy_score)/2),2)
 
 
     return dedecation_cal
@@ -76,7 +76,7 @@ def dedication_analysis(hrs_per_week, weeks_per_year, period_years_of_activity):
 
 ############## 코드테스트 ###############
 
-result = dedication_analysis(hrs_per_week, weeks_per_year, period_years_of_activity)
+# result = dedication_analysis(hrs_per_week, weeks_per_year, period_years_of_activity)
 
 #print ("=================================")
 #print ("RESULT :", result)

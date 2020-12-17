@@ -32,41 +32,53 @@ from nltk.tokenize import word_tokenize
 from nltk.tokenize import RegexpTokenizer
 
 
-# 3개의 입력: 전공 3개
-majors = """ mechanical engineering, Film Studies, Psychology  """
+# # 3개의 입력: 전공 3개
+# majors = """ mechanical engineering, Film Studies, Psychology  """
 
 
 
-# 일단 3개의 EXTRACURRICULAR ACTIVITY EXAMPLES  입력, 추가로 활동을 입력할 수 있음. 최대 10개, 그 이상도 가능하지만 비율로 게산
-input_text_1 = """ deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter
-We are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.""" # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
+# # 일단 3개의 EXTRACURRICULAR ACTIVITY EXAMPLES  입력, 추가로 활동을 입력할 수 있음. 최대 10개, 그 이상도 가능하지만 비율로 게산
+# input_text_1 = """ deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter
+# We are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.""" # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
 
-input_text_2 = """ Leader/Concertmaster (10th-12th)
-AMAC Youth Chamber Ensemble (AYCE), audition-based community choir 
-Lead ensemble in rehearsal and performance, coordinate rehearsal times, aid younger  """
+# input_text_2 = """ Leader/Concertmaster (10th-12th)
+# AMAC Youth Chamber Ensemble (AYCE), audition-based community choir 
+# Lead ensemble in rehearsal and performance, coordinate rehearsal times, aid younger  """
 
-input_text_3 = """"""
+# input_text_3 = """"""
 
-input_text_4 = """"""
+# input_text_4 = """"""
 
-input_text_5 = """"""
+# input_text_5 = """"""
 
-input_text_6 = """"""
+# input_text_6 = """"""
 
-input_text_7 = """"""
+# input_text_7 = """"""
 
-input_text_8 = """"""
+# input_text_8 = """"""
 
-input_text_9 =  """"""
+# input_text_9 =  """"""
 
-input_text_10 = """""" #이것은 값이 없기 때문에 null로 처리해 보자
+# input_text_10 = """""" #이것은 값이 없기 때문에 null로 처리해 보자
 
 
-## 활동입력 값 리스트에 담기
-total_actvity = [input_text_1, input_text_2, input_text_3, input_text_4, input_text_5, input_text_6,input_text_7, input_text_9, input_text_10]
+# ## 활동입력 값 리스트에 담기
+# total_actvity = [input_text_1, input_text_2, input_text_3, input_text_4, input_text_5, input_text_6,input_text_7, input_text_9, input_text_10]
 
-total_activity_num = len(total_actvity)
-#print'(total_activity_num :' total_activity_num)
+# total_activity_num = len(total_actvity)
+# #print'(total_activity_num :' total_activity_num)
+
+
+# 총 활동 수 계산
+def tot_input_act_number(inp_acti_list):
+    total_activity_num = 0
+    for a_item in inp_acti_list:
+        if a_item:
+            total_activity_num += 1
+        else:
+            pass
+    return total_activity_num
+
 
 # 활동내역을 모두 토큰화해서 리스트로 담는 코드
 def tokenized(text):
@@ -195,78 +207,102 @@ def mjr_act_analy(input_text, input_activitys):
         result_fit.extend(re_mjr_)
 
     # 총 활동 수
-    act_numb = total_activity_num
+    act_numb = tot_input_act_number(input_activitys)
     
     #각 활동의 전공 적합성 분석 결과 수
     major_fit = len(result_fit)
 
+    result_fit_ = ''
     # 점수 계산 로직
     if act_numb == 0:
         print ("weak: 1")
-        result_fit = '1'
+        result_fit_ = '1'
     elif act_numb >= 1 and act_numb <= 2:
         if major_fit == 1:
             print ('average : 2')
-            result_fit = '2'
+            result_fit_ = '2'
         elif major_fit == 0:
             print ('weak : 1')
-            result_fit = '1'
+            result_fit_ = '1'
         else:
             print ('N/A')
     elif act_numb >= 3 and act_numb <=4:
         if major_fit >= 2:
             print ('superb : 5')
-            result_fit = '5'
+            result_fit_ = '5'
         elif major_fit == 1:
             print ('average : 3')
-            result_fit = '3'
+            result_fit_ = '3'
         else:
             print ('N/A')
     elif act_numb >= 6 and act_numb <= 7:
         if major_fit >= 3:
             print ('superb : 5')
-            result_fit = '5'
+            result_fit_ = '5'
         elif major_fit == 2:
             print ('strong : 2')
-            result_fit = '2'
+            result_fit_ = '2'
         elif major_fit == 1:
             print ('mediocre')
-            result_fit = '1'
+            result_fit_ = '1'
         else:
             print ('N/A')
     elif act_numb >= 8 and act_numb <= 10:
         if major_fit >= 4:
             print ('superb: 5')
-            result_fit = '5'
+            result_fit_ = '5'
         elif major_fit == 3:
             print ('strong : 4')
-            result_fit = '4'
+            result_fit_ = '4'
         elif major_fit == 2:
             print ('average : 3')
-            result_fit = '3'
+            result_fit_ = '3'
         elif major_fit == 1:
             print ('mediocre : 1')
-            result_fit = '1'
+            result_fit_ = '1'
         else:
             print ('weak : 1')
-            result_fit = '1'
+            result_fit_ = '1'
     else:
         pass
 
 
 
-    return result_fit
+    return result_fit_
 
+
+
+# ai_each_all_extra.... 실행했을 경우 에러 발생ㄷ
+
+# ===================>  mechanical engineering, Film Studies, Psychology  
+# ===================> [' deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter\nWe are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.']
+# ===================> 1
+
+# ===================>  mechanical engineering, Film Studies, Psychology  
+# ===================>  [' deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter\nWe are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.', ' Leader/Concertmaster (10th-12th)\nAMAC Youth Chamber Ensemble (AYCE), audition-based community choir \nLead ensemble in rehearsal and performance, coordinate rehearsal times, aid younger  ', '', '', '', '', '', '', '']
+# ===================>  9
 
 
 def each_mjr_act_fit_analysis(majors, total_actvity):
+
+    total_activity_num = tot_input_act_number(total_actvity)
+
+
+    print("========== majors ", majors)
+    print("========== total_actvity ", total_actvity)
+    print("========== total_activity_num ", total_activity_num)
+
+
+
     each_m_a_result = []
     for i in total_actvity:
         result_each_mjr_act = mjr_act_analy(majors, i)
         each_m_a_result.append(result_each_mjr_act)
 
-
+    
     result_ = [element for array in each_m_a_result for element in array]
+    
+
     #문자를 숫자로 변환
     re = list(map(float,result_))
 
@@ -292,8 +328,12 @@ def each_mjr_act_fit_analysis(majors, total_actvity):
 ############  실행 테스트 ##################################
 
 
-re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
-print('RESULT major - activity fit :', re_each_M_A)
+# re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
+# print('RESULT major - activity fit :', re_each_M_A)
+
+
+
+
 
 
 
