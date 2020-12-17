@@ -32,39 +32,39 @@ from nltk.tokenize import word_tokenize
 from nltk.tokenize import RegexpTokenizer
 
 
-# 3개의 입력: 전공 3개
-majors = """ mechanical engineering, Film Studies, Psychology  """
+# # 3개의 입력: 전공 3개
+# majors = """ mechanical engineering, Film Studies, Psychology  """
 
 
 
-# 일단 3개의 EXTRACURRICULAR ACTIVITY EXAMPLES  입력, 추가로 활동을 입력할 수 있음. 최대 10개, 그 이상도 가능하지만 비율로 게산
-input_text_1 = """ deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter
-We are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.""" # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
+# # 일단 3개의 EXTRACURRICULAR ACTIVITY EXAMPLES  입력, 추가로 활동을 입력할 수 있음. 최대 10개, 그 이상도 가능하지만 비율로 게산
+# input_text_1 = """ deputy Member (9th/10th) Treasurer (11th/12th) National Honors Society, Ridgefield High School Chapter
+# We are amongst the highest academically achieving students at our school, who collectively and consistently participate in community service projects.""" # 실제 값은 문장이 입력되어야 함, 현재는 테스트용 단어입력
 
-input_text_2 = """"""
+# input_text_2 = """"""
 
-input_text_3 = """"""
+# input_text_3 = """"""
 
-input_text_4 = """"""
+# input_text_4 = """"""
 
-input_text_5 = """"""
+# input_text_5 = """"""
 
-input_text_6 = """"""
+# input_text_6 = """"""
 
-input_text_7 = """"""
+# input_text_7 = """"""
 
-input_text_8 = """"""
+# input_text_8 = """"""
 
-input_text_9 =  """"""
+# input_text_9 =  """"""
 
-input_text_10 = """""" #이것은 값이 없기 때문에 null로 처리해 보자
+# input_text_10 = """""" #이것은 값이 없기 때문에 null로 처리해 보자
 
 
-## 활동입력 값 리스트에 담기
-total_actvity = [input_text_1, input_text_2, input_text_3, input_text_4, input_text_5, input_text_6,input_text_7, input_text_9, input_text_10]
+# ## 활동입력 값 리스트에 담기
+# total_actvity = [input_text_1, input_text_2, input_text_3, input_text_4, input_text_5, input_text_6,input_text_7, input_text_9, input_text_10]
 
-total_activity_num = len(total_actvity)
-#print'(total_activity_num :' total_activity_num)
+# total_activity_num = len(total_actvity)
+# #print'(total_activity_num :' total_activity_num)
 
 
 # 총 활동 수 계산
@@ -348,9 +348,9 @@ def each_mjr_act_fit_analysis(majors, total_actvity):
 ############  실행 테스트 ##################################
 
 
-re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
+# re_each_M_A = each_mjr_act_fit_analysis(majors, total_actvity)
 
-print('RESULT major - activity fit :', re_each_M_A)
+# print('RESULT major - activity fit :', re_each_M_A)
 
 
 
