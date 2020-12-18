@@ -5,6 +5,9 @@ import math
 import pickle
 import string
 
+import numpy as np
+import pandas as pd
+
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import style
@@ -402,144 +405,11 @@ def FeatureExtration(text, winSize, step):
 
     chunks = slidingWindow(text, winSize, step)
 
-    # #문장분석 특징 출력
-    # #평균 단어 길이 등등...
-    # avgWordLength = []
-
-    # #문장수 계산
-    # avgSentLength = []
-
-    # #문장에 단어가 평균적으로 몇개가 있는지 계산
-    # avgSentLengthByWord = []
-
-    # # 불용어 제거하고 단어당 음절 수를 파악하여 가독성 계산에 반영  >> 가독성판단
-    # avgSyllablePerWord = []
-
-    # # 문장에 특수문자가 얼마나 포함되었는지 계산
-    # count_spcial_chr_nums = []
-
-    # # 구두점 수 계산
-    # cont_punc_numbers = []
-
-    # # 문법적 구조를 표현하는데 사용하는 function word의 사용 수
-    # cont_func_word = []
-
-    # # 총 단어를 토큰화하여 중복되지 않는 토큰의 비율 계산
-    # token_ratio = []
-
-    # #표현다양성 파악(전체 단어에서 유일한 단어 사용비율)
-    # HonoreMeasureR__ = []
-    # hapax__ = []
-
-    # #동일한 단어가 얼마나 사용되는지 파악
-    # SichelesMeasureS__ = []
-
-    # dihapax__ = []
-
-    # #Yule's index
-    # YuleK__ = []
-
-    # #Shannon과 Simpsons 다양성 지수 활용
-    # Shannon__ = []
-
-    # # 문장 표현의 다양성 지수로 0으로 가까우면 다양한 표현이 되고, 1에 가까우면 다양하지 않은, 즉 독창적인 단어들로 구성되 있다는 의미
-    # S__ = []
-
-    # # 문장내 다른 단어(unique 단어)들을 파악하기 위해서 설정
-    # B__ = []
-
-    # # 가독성 파악 지수
-    # FR__ = []
-
-    # #The Flesch Reading Ease formula will output a number from 0 to 100 - a higher score indicates easier reading. 
-    # #An average document has a Flesch Reading Ease score between 6 - 70. As a rule of thumb, scores of 90-100 can be understood by an average 5th grader. 
-    # #8th and 9th grade students can understand documents with a score of 60-70; and college graduates can understand documents with a score of 0-30.
-    # FC__ = []
-
-    # # 표현이 다른 특징들 추출하여 수집
-    # # 점수	                    설명
-    # # 4.9 이하	평균 4 학년 이하 학생이 쉽게 이해할 수 있음
-    # # 5.0 ~ 5.9	평균 5 학년 또는 6 학년 학생이 쉽게 이해할 수 있음
-    # # 6.0 ~ 6.9	평균 7 학년 또는 8 학년 학생이 쉽게 이해할 수 있음
-    # # 7.0 ~ 7.9	평균 9 학년 또는 10 학년 학생이 쉽게 이해할 수 있음
-    # # 8.0 ~ 8.9	평균 11 학년 또는 12 학년 학생이 쉽게 이해할 수 있음
-    # # 9.0 ~ 9.9	평균 13 ~ 15 학년 (대학) 학생이 쉽게 이해할 수 있음
-    # D__ = []
-
-    # #가독성 분석
-    # # Fog Index	Reading level by grade
-    # # 17	    College graduate
-    # # 16	    College senior
-    # # 15	    College junior
-    # # 14	    College sophomore
-    # # 13	    College freshman
-    # # 12	    High school senior
-    # # 11	    High school junior
-    # # 10	    High school sophomore
-    # # 9	    High school freshman
-    # # 8	    Eighth grade
-    # # 7	    Seventh grade
-    # # 6	    Sixth grade
-    # G__ = []
-
     vector = []
-    # extracted_features =[]
+
     for chunk in chunks:
-        ###########특징들 별도 저장 후 출력
-        # avgWordLength = []
-        # avgSentLength = []
-        # avgSentLengthByWord = []
-        # avgSyllablePerWord = []
-        # count_spcial_chr_nums = []
-        # cont_punc_numbers = []
-        # cont_func_word = []
-        # token_ratio = []
-        # HonoreMeasureR__ = []
-        # hapax__ = []
-        # SichelesMeasureS__ = []
-        # dihapax__ = []
-        # YuleK__ = []
-        # Shannon__ = []
-        # S__ = []
-        # B__ = []
-        # FR__ = []
-        # FC__ = []
-        # D__ = []
-        # G__ = []
-        ########################
+
         feature = []
-
-        # LEXICAL 특징들
-
-        # meanwl = (Avg_wordLength(chunk))
-        # feature.append(meanwl)
-        # # avgWordLength.append(meanwl)
-
-        # meansl = (Avg_SentLenghtByCh(chunk))
-        # feature.append(meansl)
-        # # avgSentLength.append(meansl)
-
-        # 문장에 단어가 평균적으로 몇개가 있는지 계산
-        # mean = (Avg_SentLenghtByWord(chunk))
-        # feature.append(mean)
-        # # avgSentLengthByWord.append(mean)
-
-        # #불용어 제거하고 단어당 음절 수를 파악하여 가독성 계산에 반영
-        # meanSyllable = Avg_Syllable_per_Word(chunk)
-        # feature.append(meanSyllable)
-        # avgSyllablePerWord.append(meanSyllable)
-
-        # means = CountSpecialCharacter(chunk)
-        # feature.append(means)
-        # count_spcial_chr_nums.append(means)
-
-        # p = CountPuncuation(chunk)
-        # feature.append(p)
-        # cont_punc_numbers.append(p)
-
-        # f = CountFunctionalWords(text)
-        # feature.append(f)
-        # # cont_func_word.append(f)
 
         # VOCABULARY 풍부성 특징들 파악
         # 총 단어를 토큰화하여 중복되지 않는 토큰의 비율 계산
@@ -554,14 +424,7 @@ def FeatureExtration(text, winSize, step):
         print('HonoreMeasureR 표현다양성 :', HonoreMeasureR)
         feature.append(hapax)
         print('hapax 표현다양성 :', hapax )
-        # hapax__.append(hapax)
-        # HonoreMeasureR__.append(HonoreMeasureR)
 
-        # SichelesMeasureS, dihapax = hapaxDisLegemena(chunk)
-        # feature.append(dihapax)
-        # feature.append(SichelesMeasureS)
-        # # SichelesMeasureS__.append(SichelesMeasureS)
-        # dihapax__.append(dihapax)
 
         #다양성 지수 분석
         YuleK = round(YulesCharacteristicK(chunk),2)
@@ -575,10 +438,6 @@ def FeatureExtration(text, winSize, step):
         print('SimpsonIndex 다양성지수', S)
         # S__.append(S)
 
-        # B = BrunetsMeasureW(chunk)
-        # feature.append(B)
-        # # B__.append(B)
-
         Shannon = round(ShannonEntropy(text),2)
         feature.append(Shannon)
         # Shannon__.append(Shannon)
@@ -588,21 +447,6 @@ def FeatureExtration(text, winSize, step):
         FR = round(FleschReadingEase(chunk, winSize),2)
         feature.append(FR)
         print("FR_readerablity :", FR)
-        # FR__.append(FR)
-
-        # FC = round(FleschCincadeGradeLevel(chunk, winSize),2)
-        # feature.append(FC)
-        # # FC__.append(FC)
-
-        # # 표현이 다른 특징들 추출하여 수집
-        # D = dale_chall_readability_formula(chunk, winSize)
-        # feature.append(D)
-        # # D__.append(D)
-
-        # # 다른 특징들 추출하여 수집
-        # G = GunningFoxIndex(chunk, winSize)
-        # feature.append(G)
-        # # G__.append(G)
 
         vector.append(feature)
 
@@ -612,132 +456,123 @@ def FeatureExtration(text, winSize, step):
 
 
 
-# # ELBOW METHOD - 분류값을 계산하기 위해서 적용, 현재는 분류하지 않음. 1개의 에세이만 분석할 것
-# def ElbowMethod(data):
-#     X = data  # <your_data>
-#     distorsions = []
-#     for k in range(1, 10): #최대 10개의 군집까지 분류할 수 있도록
-#         kmeans = KMeans(n_clusters=k)
-#         kmeans.fit(X)
-#         distorsions.append(kmeans.inertia_)
-
-#     fig = plt.figure(figsize=(15, 5))
-#     plt.plot(range(1, 10), distorsions, 'bo-')
-#     plt.grid(True)
-#     plt.ylabel("Square Root Error")
-#     plt.xlabel("Number of Clusters")
-#     plt.title('Elbow curve')
-#     plt.savefig("ElbowCurve.png")
-#     plt.show()
-
-
-# -----------------------------------------------------------------------------------------
-# ANALYSIS PART
-
-# 엘보우 그래프를 이용해서 몇개의 k 값을 넣을 것이지 파악하여 계산에 적용, 현재는 1개의 에세이 스타일만 파악할 것임
-# # 1000의 에세이를 파악하여 공통점을 찾을 계획임
-# def Analysis(vector, K=1):
-#     arr = (np.array(vector))
-#     # mean normalization of the data . converting into normal distribution having mean=0 , -0.1<x<0.1
-#     sc = StandardScaler()
-#     x = sc.fit_transform(arr)
-
-#     # Breaking into principle components
-#     pca = PCA(n_components=2)
-#     components = (pca.fit_transform(x))
-#     # Applying kmeans algorithm for finding centroids
-
-#     kmeans = KMeans(n_clusters=K, n_jobs=-1)
-#     kmeans.fit_transform(components)
-#     #print("labels: ", kmeans.labels_)
-#     centers = kmeans.cluster_centers_
-
-#     # lables are assigned by the algorithm if 2 clusters then lables would be 0 or 1
-#     lables = kmeans.labels_
-#     colors = ["r.", "g.", "b.", "y.", "c."]
-#     colors = colors[:K + 1]
-
-#     return components
-
-#     # for i in range(len(components)):
-#     #     plt.plot(components[i][0], components[i][1], colors[lables[i]], markersize=10)
-
-#     # plt.scatter(centers[:, 0], centers[:, 1], marker="x", s=150, linewidths=10, zorder=15)
-#     # plt.xlabel("1st Principle Component")
-#     # plt.ylabel("2nd Principle Component")
-#     # title = "Styles Clusters"
-#     # plt.title(title)
-#     # plt.savefig("Results" + ".png")
-#     # plt.show()
-
-
-##################################
-
-# if __name__ == '__main__':
-
-#     text = open("/Users/kimkwangil/Documents/001_ESSAYFITAI/01_WEB_2020-10-17/essayfitaiproject/essayai/data/essay_sample.txt").read()
-
-#     vector = FeatureExtration(text, winSize=10, step=10)
-#     #ElbowMethod(np.array(vector)) 사용하지 않을 것임(이미 적용함 K=1)
-#     Analysis(vector)
-
-##################################
-# 모든 분석 항목을 개별 결과로 추출하여 리스트에 담고 이것을 테이블로 result_all.html 에 구현할것
-
-### [
-#     [5.417910447761194, 62.0, 10.9, 1.7761194029850746, 0.0, 0.03656597774244833, 0.5493133583021224, 0.6946564885496184, 0.6607142857142857, 471.8498871295094, 0.05357142857142857, 0.06976744186046512, 4529.655612244898, 0.9911518661518661, 18.190107138129314, 7.9451896491259655, 66.30092857142861, 6.794071428571428, 9.549341428571429, 9.48], [5.21875, 49.2, 8.6, 1.625, 0.0, 0.03792415169660679, 0.5493133583021224, 0.6601941747572816, 0.6022727272727273, 447.7336814478207, 0.07954545454545454, 0.1076923076923077, 3959.194214876033, 0.9879832810867294, 14.479589695008315, 7.9451896491259655, 71.96436363636367, 5.40790909090909, 10.711957272727274, 6.247272727272727], 
-#     [5.390625, 57.0, 9.9, 1.703125, 0.0, 0.0535405872193437, 0.5493133583021224, 0.6935483870967742, 0.6831683168316832, 461.512051684126, 0.06930693069306931, 0.0875, 4879.913733947652, 0.9914851485148515, 17.297489785735493, 7.9451896491259655, 73.4528069306931, 5.523257425742575, 9.452905544554456, 8.000396039603961], 
-#     [5.579710144927536, 125.5, 22.0, 1.7826086956521738, 0.0, 0.03322784810126582, 0.5493133583021224, 0.6126482213438735, 0.5223214285714286, 541.164605185504, 0.08035714285714286, 0.12080536912751678, 3124.6014030612246, 0.9906710442024343, 27.501798634628567, 7.9451896491259655, 57.5766785714286, 10.793321428571428, 9.75240607142857, 13.96], 
-#     [5.623762376237623, 97.0, 17.0, 1.7722772277227723, 0.0, 0.03575076608784474, 0.5493133583021224, 0.655, 0.5885714285714285, 516.4785973923515, 0.09714285714285714, 0.13385826771653545, 3934.6938775510203, 0.9919868637110016, 24.556680691194547, 7.9451896491259655, 64.34792857142861, 8.631571428571426, 9.46707142857143, 11.114285714285714], [5.426229508196721, 54.5, 10.0, 1.7704918032786885, 0.0, 0.04332129963898917, 0.5493133583021224, 0.6446280991735537, 0.6039603960396039, 461.512051684126, 0.06930693069306931, 0.0945945945945946, 3911.3812371336144, 0.9889108910891089, 15.997415393722303, 7.9451896491259655, 70.10231188118814, 5.990584158415842, 9.29656891089109, 8.792475247524752]
-###  ]
-
-# def ext_each_features(text):
-#     my_posts = str(text)
-#     ext_features_re = FeatureExtration(text, winSize=10, step=10)
-    
-#     return ext_each_features
-
-
-# def writingstyle(text):
-#     my_posts = str(text)
-#     vector = FeatureExtration(text, winSize=10, step=10)
-#     #ElbowMethod(np.array(vector)) 사용하지 않을 것임(이미 적용함 K=1)
-#     result = Analysis(vector)
-#     return result
-
-
-# def writestyleResult(input_text__) :
-
-#     #input_text__ = """A window into the soul.For most people, this would be the eyes. The eyes cannot lie; they often tell more about a person's emotions than their words. What distinguishes a fake smile from a genuine one? The eyes. What shows sadness? The eyes. What gives away a liar? The eyes.But are the eyes the only window into the soul?Recently, I began painting with watercolors. With watercolors, there is no turning back: if one section is too dark, it is nearly impossible to lighten the area again. Every stroke must be done purposefully, every color mixed to its exact value.I laid my materials before me, preparing myself for the worst. I checked my list of supplies, making sure my setup was perfect.I wet my brush, dipped it into some yellow ochre, and dabbed off the excess paint. Too little water on my brush. I dipped my brush back into my trusty water jar; the colors swirled beautifully, forming an abstract art piece before my eyes. \u2014It's a shame that I couldn't appreciate it.I continued mixing colors to their exact value. More alizarin crimson. More water. More yellow ochre. Less water. More phthalo blue. The cycle continued. Eventually, I was satisfied. The colors looked good, there was enough contrast between facial features, and the watercolors stayed inside the lines.Craving feedback, I posted my art to Snapchat. I got a few messages such as 'wow' and 'pretty,' but one message stood out. 'You were anxious with this one, huh? Anyways, love the hair!'I was caught off guard. Was it a lucky guess? Did they know something I didn't? I immediately responded: 'Haha, how could you tell?' No response.What I didn't know at the time was that my response would come a few months later while babysitting. Since the girl I was babysitting loved art, I took out some Crayola watercolors and some watercolor paper for her to play with. After I went to the bathroom and came back, the watercolors were doused with water. 'You were impatient with this one, huh? Anyways, love the little dog you drew!'The little girl looked up at me, confused. 'How could you tell?' 'You used a lot of water for a brighter color, but you couldn't wait for it to slowly soak in.''Oh.'Now, I would be lying if I said I realized the connection between the two events immediately.Instead, I made the connection when I decided to sit down one day and objectively critique my art. The piece that I once loved now seemed like a nervous wreck: the paper was overworked, the brushstrokes were undecided, the facial features blended together, and each drop of water was bound inside the lines as if it was a prisoner in a cage.From then on, I started noticing pieces of personality in additional creations surrounding me: website designs, solutions to math problems, code written for class, and even the preparation of a meal.When I peer around at people's projects during Code Club, I notice the clear differences between their code. Some people break it up by commenting in every possible section. Others breeze through the project, not caring to comment or organize their code. I could also see clear differences in personalities when our club members began coding the Arduino for the first time. Some followed the tutorials to the letter, while others immediately started experimenting with different colored LEDs and ways of wiring the circuit.It became clear to me that, as humans, we leave pieces of our souls in everything we do, more than we intend to. If we entertain this thought, perhaps the key to better understanding others around us is simply noticing the subtler clues under our noses?Perhaps there are endless windows to the soul, and we simply need to peer through them. I shakily rose my hand. 'We should create workshops of our own,' I suggested.I got a few strange looks. 'It's a good idea, but it's too much work.' 'We just don't have enough free time to make it work.' 'Maybe we could, but I don't know how to make workshops.' My suggestion was shot down. I shuffled in my seat. 'I could make them.' A few people stared at me in disbelief. I glanced over at the club advisor, Mr. C, nervous to hear his response.'If you're willing to take on the work, we can try it.' Mr. C replied. And so I embarked on my quest. I researched different workshops on the internet, learning the information myself at first. Then, I transitioned into creating workshops of my own, making sure that the information was easy to understand for even a beginner. I was exhausted; my first workshop took 16 cumulative hours to create."""
-#     #input_text__ = open("/Users/kimkwangil/Documents/001_ESSAYFITAI/01_WEB_2020-10-17/essayfitaiproject/essayai/data/essay_sample.txt").read()
-#     print("input_text__:", input_text__)
-#     result__ = writingstyle(input_text__)
-#     print (result__)
-#     print (type(result__)) #numpy array
-
-#     return result__
-
-# result__  이것으로 그래프를 그리게 되는 거임
-
-# [[-1.53070217 -1.96372503]
-#  [-2.97194764  3.56488797]
-#  [-3.16646339 -1.8099431 ]
-#  [ 5.75572062  0.63072175]
-#  [ 3.17393929 -0.5196705 ]
-#  [-1.2605467   0.0977289 ]]
-
 text_input = """A window into the soul.For most people, this would be the eyes. The eyes cannot lie; they often tell more about a person's emotions than their words. What distinguishes a fake smile from a genuine one? The eyes. What shows sadness? The eyes. What gives away a liar? The eyes.But are the eyes the only window into the soul?Recently, I began painting with watercolors. With watercolors, there is no turning back: if one section is too dark, it is nearly impossible to lighten the area again. Every stroke must be done purposefully, every color mixed to its exact value.I laid my materials before me, preparing myself for the worst. I checked my list of supplies, making sure my setup was perfect.I wet my brush, dipped it into some yellow ochre, and dabbed off the excess paint. Too little water on my brush. I dipped my brush back into my trusty water jar; the colors swirled beautifully, forming an abstract art piece before my eyes. \u2014It's a shame that I couldn't appreciate it.I continued mixing colors to their exact value. More alizarin crimson. More water. More yellow ochre. Less water. More phthalo blue. The cycle continued. Eventually, I was satisfied. The colors looked good, there was enough contrast between facial features, and the watercolors stayed inside the lines.Craving feedback, I posted my art to Snapchat. I got a few messages such as 'wow' and 'pretty,' but one message stood out. 'You were anxious with this one, huh? Anyways, love the hair!'I was caught off guard. Was it a lucky guess? Did they know something I didn't? I immediately responded: 'Haha, how could you tell?' No response.What I didn't know at the time was that my response would come a few months later while babysitting. Since the girl I was babysitting loved art, I took out some Crayola watercolors and some watercolor paper for her to play with. After I went to the bathroom and came back, the watercolors were doused with water. 'You were impatient with this one, huh? Anyways, love the little dog you drew!'The little girl looked up at me, confused. 'How could you tell?' 'You used a lot of water for a brighter color, but you couldn't wait for it to slowly soak in.''Oh.'Now, I would be lying if I said I realized the connection between the two events immediately.Instead, I made the connection when I decided to sit down one day and objectively critique my art. The piece that I once loved now seemed like a nervous wreck: the paper was overworked, the brushstrokes were undecided, the facial features blended together, and each drop of water was bound inside the lines as if it was a prisoner in a cage.From then on, I started noticing pieces of personality in additional creations surrounding me: website designs, solutions to math problems, code written for class, and even the preparation of a meal.When I peer around at people's projects during Code Club, I notice the clear differences between their code. Some people break it up by commenting in every possible section. Others breeze through the project, not caring to comment or organize their code. I could also see clear differences in personalities when our club members began coding the Arduino for the first time. Some followed the tutorials to the letter, while others immediately started experimenting with different colored LEDs and ways of wiring the circuit.It became clear to me that, as humans, we leave pieces of our souls in everything we do, more than we intend to. If we entertain this thought, perhaps the key to better understanding others around us is simply noticing the subtler clues under our noses?Perhaps there are endless windows to the soul, and we simply need to peer through them. I shakily rose my hand. 'We should create workshops of our own,' I suggested.I got a few strange looks. 'It's a good idea, but it's too much work.' 'We just don't have enough free time to make it work.' 'Maybe we could, but I don't know how to make workshops.' My suggestion was shot down. I shuffled in my seat. 'I could make them.' A few people stared at me in disbelief. I glanced over at the club advisor, Mr. C, nervous to hear his response.'If you're willing to take on the work, we can try it.' Mr. C replied. And so I embarked on my quest. I researched different workshops on the internet, learning the information myself at first. Then, I transitioned into creating workshops of my own, making sure that the information was easy to understand for even a beginner. I was exhausted; my first workshop took 16 cumulative hours to create."""
 
 
 
 extracted_features_result = FeatureExtration(text_input, winSize=10, step=10) #특징들을 모두 추출하여 출력할 거임
-print("type:>>>>>",type(extracted_features_result))
-print ('extracted_features_result', extracted_features_result) 
+
+df = pd.DataFrame(extracted_features_result, columns = ['TTratio_WD', 'HonoreMeasureR_WD', 'hapax_WD', 'YuleK_WD', 'SimpsonIndex_WD', 'Shannon_WD', 'FR_readerablity'])
+print(df)
+
+#표현의 다양성
+TTratio_WD_mean = [df['TTratio_WD'].mean()] * 100
+HonoreMeasureR_WD_mean = df['HonoreMeasureR_WD'].mean()
+hapax_WD_mean = df['hapax_WD'].mean() * 1000
+YuleK_WD_mean = df['YuleK_WD'].mean() * 0.1
+SimpsonIndex_WD_mean = df['SimpsonIndex_WD'].mean() * 100
+Shannon_WD_mean = df['Shannon_WD'].mean() * 100
 
 
-[[0.69, 471.8498871295094, 0.6607142857142857, 4529.66, 0.99, 7.95, 66.3], 
-[0.66, 447.7336814478207, 0.6022727272727273, 3959.19, 0.99, 7.95, 71.96], 
-[0.69, 461.512051684126, 0.6831683168316832, 4879.91, 0.99, 7.95, 73.45], 
-[0.61, 541.164605185504, 0.5223214285714286, 3124.6, 0.99, 7.95, 57.58], 
-[0.66, 516.4785973923515, 0.5885714285714285, 3934.69, 0.99, 7.95, 64.35], 
-[0.64, 461.512051684126, 0.6039603960396039, 3911.38, 0.99, 7.95, 70.1]]
+# Writing Diversity ratio
+wri_div_mean = (TTratio_WD_mean + HonoreMeasureR_WD_mean + 
+                hapax_WD_mean + YuleK_WD_mean + HonoreMeasureR_WD_mean + 
+                SimpsonIndex_WD_mean + Shannon_WD_mean)/6 
+wri_div_result = wri_div_mean[0]
+print('Writing Diversity ratio :', wri_div_result)     
+
+# 가독성
+FR_readerablity_mean = df['FR_readerablity'].mean()
+print('Readablity:', FR_readerablity_mean)  
+
+
+#==== 비교계산 시작 ==== writing diversity
+one_ps_char_desc_wri_div = wri_div_result  # 이하 -13 ~ +17 이상 범위로 Lacking , Ideal, Overboard 
+ideal_mean_wri_div = 477.8039583 # 1000명의 평균값 (writing diversity)
+
+#==== 비교계산 시작 ==== readablity
+one_ps_char_desc_readablity = FR_readerablity_mean  # 이하 -13 ~ +17 이상 범위로 Lacking , Ideal, Overboard 
+ideal_mean_readablity = 50.71931 # 1000명의 평균값 (readablity
+
+
+
+def cal_laking_ideal_overboard(one_ps_char_desc, ideal_mean):
+    min_ = int(ideal_mean-ideal_mean*0.6)
+    print('min_', min_)
+    max_ = int(ideal_mean+ideal_mean*0.6)
+    print('max_: ', max_)
+    div_ = int(((ideal_mean+ideal_mean*0.6)-(ideal_mean-ideal_mean*0.6))/3)
+    print('div_:', div_)
+
+
+    cal_abs = abs(ideal_mean - one_ps_char_desc) # 개인 - 단체 값의 절대값계산
+
+    print('cal_abs 절대값 :', cal_abs)
+    compare = (one_ps_char_desc + ideal_mean)/7
+    print('compare :', compare)
+
+    if one_ps_char_desc > ideal_mean: # 개인점수가 평균보다 클 경우는 overboard
+        if cal_abs > compare: # 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
+            print("Overboard")
+            result = 2
+        else: #차이가 많이 안나면
+            print("Ideal")
+            result = 1
+            
+        
+    elif one_ps_char_desc < ideal_mean: # 개인점수가 평균보다 작을 경우 lacking
+        if cal_abs > compare: #차이가 많이나면 # 개인점수가  평균보다 작을 경우 Lacking이고 
+            print("Lacking")
+            result = 0
+        else: #차이가 많이 안나면
+            print ("Ideal")
+            result = 1
+            
+    else:
+        print("Ideal")
+        result = 1
+    
+    return result
+
+#######################################################################################################
+
+
+# WRITING DIVERSITY  실행  - 결과
+
+writing_diversity_result_fin = cal_laking_ideal_overboard(one_ps_char_desc_wri_div, ideal_mean_wri_div)
+
+print("==================================================")
+print("WRITING DIVERSITY :", writing_diversity_result_fin)
+print("==================================================")
+
+
+
+# READABLITY 실행 - 결과
+readablity_cal_result_fin = cal_laking_ideal_overboard(one_ps_char_desc_readablity, ideal_mean_readablity)
+print("==================================================")
+print("READABLITY :", readablity_cal_result_fin)
+print("==================================================")
+
+
+
+
+# Writing Diversity ratio : 479.53898144577875
+# Readablity: 67.29
+# min_ 191
+# max_:  764
+# div_: 191
+# cal_abs 절대값 : 1.7350231457787686
+# compare : 136.76327710653982
+# Ideal
+# ==================================================
+# WRITING DIVERSITY : 1  --------> 0: lacking, 1: ideal, 2: overboard
+# ==================================================
+# min_ 20
+# max_:  81
+# div_: 20
+# cal_abs 절대값 : 16.570690000000006
+# compare : 16.858472857142857
+# Ideal
+# ==================================================
+# READABLITY : 1 --------> 0: lacking, 1: ideal, 2: overboard
+# ==================================================
