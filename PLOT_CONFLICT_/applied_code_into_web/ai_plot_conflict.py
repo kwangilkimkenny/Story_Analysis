@@ -23,19 +23,6 @@
 # 감정기복비율 : 25.0
 # 셋팅비율 계산 :  12.34
 # Degree of Conflict : 27.59764663879875
-# ===============================================================================
-# ======================      Degree of Conflict   ==============================
-# ===============================================================================
-# ideal_mean: 36.0
-# 18~ 30 : you are here!
-# 30~ 42 : not here!
-# 42~ 54 : not here!
-
-
-
-
-
-
 
 #conflict
 import nltk
@@ -74,6 +61,10 @@ from collections import defaultdict
 
 #########################################################################
 input_text = """Bloomington Normal is almost laughably cliché for a midwestern city. Vast swathes of corn envelop winding roads and the heady smell of BBQ smoke pervades the countryside every summer. Yet, underlying the trite norms of Normal is the prescriptive force of tradition—the expectation to fulfill my role as a female Filipino by playing Debussy in the yearly piano festival and enrolling in multivariable calculus instead of political philosophy.So when I discovered the technical demand of bebop, the triplet groove, and the intricacies of chordal harmony after ten years of grueling classical piano, I was fascinated by the music's novelty. Jazz guitar was not only evocative and creative, but also strangely liberating. I began to explore different pedagogical methods, transcribe solos from the greats, and experiment with various approaches until my own unique sound began to develop. And, although I did not know what would be the 'best' route for me to follow as a musician, the freedom to forge whatever path I felt was right seemed to be exactly what I needed; there were no expectations for me to continue in any particular way—only the way that suited my own desires.While journeying this trail, I found myself at Interlochen Arts Camp the summer before my junior year. Never before had I been immersed in an environment so conducive to musical growth: I was surrounded by people intensely passionate about pursuing all kinds of art with no regard for ideas of what art 'should' be. I knew immediately that this would be a perfect opportunity to cultivate my sound, unbounded by the limits of confining tradition. On the first day of camp, I found that my peer guitarist in big band was another Filipino girl from Illinois. Until that moment, my endeavors in jazz guitar had been a solitary effort; I had no one with whom to collaborate and no one against whom I could compare myself, much less someone from a background mirroring my own. I was eager to play with her, but while I quickly recognized a slew of differences between us—different heights, guitars, and even playing styles—others seemed to have trouble making that distinction during performances. Some even went as far as calling me 'other-Francesca.' Thus, amidst the glittering lakes and musky pine needles of Interlochen, I once again confronted Bloomington's frustrating expectations.After being mistaken for her several times, I could not help but view Francesca as a standard of what the 'female Filipino jazz guitarist' should embody. Her improvisatory language, comping style and even personal qualities loomed above me as something I had to live up to. Nevertheless, as Francesca and I continued to play together, it was not long before we connected through our creative pursuit. In time, I learned to draw inspiration from her instead of feeling pressured to follow whatever precedent I thought she set. I found that I grew because of, rather than in spite of, her presence; I could find solace in our similarities and even a sense of comfort in an unfamiliar environment without being trapped by expectation. Though the pressure to conform was still present—and will likely remain present in my life no matter what genre I'm playing or what pursuits I engage in—I learned to eschew its corrosive influence and enjoy the rewards that it brings. While my encounter with Francesca at first sparked a feeling of pressure to conform in a setting where I never thought I would feel its presence, it also carried the warmth of finding someone with whom I could connect. Like the admittedly trite conditions of my hometown, the resemblances between us provided comfort to me through their familiarity. I ultimately found that I can embrace this warmth while still rejecting the pressure to succumb to expectations, and that, in the careful balance between these elements, I can grow in a way that feels both like discove"""
+
+
+graph_calculation_list =[0]
+
 
 
 def ai_plot_conf(essay_input_):
@@ -134,19 +125,20 @@ def ai_plot_conf(essay_input_):
         filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
         #print (filtered_chr_text__) # 중복값 제거 확인
         
-        for i in filtered_chr_text__:
-            ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
+#         for i in filtered_chr_text__:
+#             ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
         
-        char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 표현 수
-        char_count_ = len(filtered_chr_text__) #중복제거된  표현 총 수
+#         char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 표현 수
+#         char_count_ = len(filtered_chr_text__) #중복제거된  표현 총 수
             
-        result_char_ratio = round(char_total_count/total_words * 100, 2)
+#         result_char_ratio = round(char_total_count/total_words * 100, 2)
 
-        import pandas as pd
+#         import pandas as pd
 
-        df_conf_words = pd.DataFrame(ext_sim_words_key, columns=['words','values']) #데이터프레임으로 변환
-        df_r = df_conf_words['words'] #words 컬럼 값 추출
-        ext_sim_words_key = df_r.values.tolist() # 유사단어 추출
+#         df_conf_words = pd.DataFrame(ext_sim_words_key, columns=['words','values']) #데이터프레임으로 변환
+#         df_r = df_conf_words['words'] #words 컬럼 값 추출
+#         ext_sim_words_key = df_r.values.tolist() # 유사단어 추출
+        ext_sim_words_key = filtered_chr_text__
 
         #return result_char_ratio, total_sentences, total_words, char_total_count, char_count_, ext_sim_words_key
         return ext_sim_words_key
@@ -235,15 +227,19 @@ def ai_plot_conf(essay_input_):
     #########################################################################
     # 5. 그래프로 그려보자. 이 코드는 matplotlib 로 그린것임. 종필은 highcharts로 표현할 것
     #########################################################################
+    
+ 
+    
+    
+    
+    # from matplotlib import pyplot as plt
 
-    from matplotlib import pyplot as plt
-
-    plt.plot(df_sent)
-    plt.xlabel('STORY')
-    plt.ylabel('CONFLICT')
-    plt.title('FLOW ANALYSIS')
-    plt.legend(['neg','neu','pos','compound','reslult'])
-    plt.show()
+    # plt.plot(df_sent)
+    # plt.xlabel('STORY')
+    # plt.ylabel('CONFLICT')
+    # plt.title('FLOW ANALYSIS')
+    # plt.legend(['neg','neu','pos','compound','reslult'])
+    # plt.show()
 
     #########################################################################
     # 6.ACTION VERB로 그래프 그리기
@@ -273,7 +269,7 @@ def ai_plot_conf(essay_input_):
     import pandas as pd
 
     #Awards 데이터 불러오기
-    data_action_verbs = pd.read_csv('actionverbs.csv')
+    data_action_verbs = pd.read_csv('./essayai/ai_plot/actionverbs.csv')
     data_ac_verbs_list = data_action_verbs.values.tolist()
     verbs_list = [y for x in data_ac_verbs_list for y in x]
 
@@ -328,19 +324,20 @@ def ai_plot_conf(essay_input_):
         filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
         #print (filtered_chr_text__) # 중복값 제거 확인
         
-        for i in filtered_chr_text__:
-            ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
+#         for i in filtered_chr_text__:
+#             ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
         
-        char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 표현 수
-        char_count_ = len(filtered_chr_text__) #중복제거된  표현 총 수
+#         char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 표현 수
+#         char_count_ = len(filtered_chr_text__) #중복제거된  표현 총 수
             
-        result_char_ratio = round(char_total_count/total_words * 100, 2)
+#         result_char_ratio = round(char_total_count/total_words * 100, 2)
         
-        df_conf_words = pd.DataFrame(ext_sim_words_key, columns=['words','values']) #데이터프레임으로 변환
-        df_r = df_conf_words['words'] #words 컬럼 값 추출
-        ext_sim_words_key = df_r.values.tolist() # 유사단어 추출
+#         df_conf_words = pd.DataFrame(ext_sim_words_key, columns=['words','values']) #데이터프레임으로 변환
+#         df_r = df_conf_words['words'] #words 컬럼 값 추출
+#         ext_sim_words_key = df_r.values.tolist() # 유사단어 추출
 
         #return result_char_ratio, total_sentences, total_words, char_total_count, char_count_, ext_sim_words_key
+        ext_sim_words_key = filtered_chr_text__
         return ext_sim_words_key
 
 
@@ -353,34 +350,57 @@ def ai_plot_conf(essay_input_):
     # Action Verbs를 모두 모음(직접적인 단어, 문맥상 유사어 포함)
     all_ac_verbs_list = verbs_list + ext_action_verbs
 
-    #입력한 수생내역의 리스트 값을 하나씩 불러와서 데이터프레이에 있는지 비교 찾아내서 해당 점수를 가져오기
-    graph_calculation_list = []
+    #입력한 리스트 값을 하나씩 불러와서 데이터프레이에 있는지 비교 찾아내서 해당 점수를 가져오기
+    
     get_words__ = []
-    for each_verb in all_ac_verbs_list: #데이터프레임에서 인덱스의 값과 비교하여
-        for h in input_text_list: #df에 특정 단어가 있다면, 해당하는 컬럼의 값을 가져오기
-            if each_verb == h:
-                get_words__.append(h) # 동일하면 저장하기
-                graph_calculation_list.append(1)
-            
+    counter= 0
+    for h in input_text_list: #데이터프레임에서 인덱스의 값과 비교하여
+        if h in all_ac_verbs_list: #df에 특정 단어가 있다면, 해당하는 컬럼의 값을 가져오기
+            get_words__.append(h) # 동일하면 저장하기
+            #print('counter :', counter)
+            graph_calculation_list.append(round(graph_calculation_list[counter]+2,2))
+            #print ('graph_calculation_list[counter]:', graph_calculation_list[counter])
+            #graph_calculation_list.append(random.randrange(1,10))
+            counter += 1
         else: #없다면
-            graph_calculation_list.append(-1)
-
+            #print('counter :', counter)
+            graph_calculation_list.append(round(graph_calculation_list[counter]-0.1,2)) 
+            counter += 1
     #문장에 Action Verbs 추출확인
     #get_words__ 
 
+
+    def divide_list(l, n): 
+        # 리스트 l의 길이가 n이면 계속 반복
+        for i in range(0, int(len(l)), int(n)): 
+            yield l[i:i + int(n)] 
+        
+    # 한 리스트에 몇개씩 담을지 결정 = 20개씩
+
+    n = len(graph_calculation_list)/20
+
+    result_gr = list(divide_list(graph_calculation_list, n))
+
+    gr_cal = []
+    for regr in result_gr:
+        avg_gr = sum(regr,0.0)/len(regr) #묶어서 평균을 내고 
+        gr_cal.append(abs(round(avg_gr,2))) #절대값을 전환해서
+
+
+    graph_calculation_list = gr_cal  ## 그래프를 위한 최종결과 계산 후, 이것을 딕셔너리로 반환하여 > 그래프로 표현하기
     #########################################################################
     # 9. 그래프 출력 : 문장 전체를 단어로 분리하고, Action verbs가 사용된 부분을 그래프로 표시
 
-    # 전체 글에서 Action verbs가 언급된 부분을 리스트로 계산(있다 : 1, 없다: -1)
-    graph_calculation_list 
+    # 전체 글에서 Action verbs가 언급된 부분을 리스트로 계산
+    # graph_calculation_list 
 
     #그래프로 표시됨
-    plt.plot(graph_calculation_list)
-    plt.xlabel('STORY')
-    plt.ylabel('ACTON VERBS')
-    plt.title('USAGE OF ACTION VERBS ANALYSIS')
-    plt.legend(['action verbs'])
-    plt.show()
+    # plt.plot(graph_calculation_list)
+    # plt.xlabel('STORY')
+    # plt.ylabel('ACTON VERBS')
+    # plt.title('USAGE OF ACTION VERBS ANALYSIS')
+    # plt.legend(['action verbs'])
+    # plt.show()
 
     #########################################################################
     # 10.입력한 에세이 문장에서 Action Verbs가 얼마나 포함되어 있는지 포함비율 분석
@@ -392,8 +412,8 @@ def ai_plot_conf(essay_input_):
     #########################################################################
     # 11. 글속에 감정이 얼마나 표현되어 있는지 분석 - origin (Bert pre trained model 활용)
     from transformers import BertTokenizer
-    from model import BertForMultiLabelClassification
-    from multilabel_pipeline import MultiLabelPipeline
+    from essayai.ai_plot.model import BertForMultiLabelClassification
+    from essayai.ai_plot.multilabel_pipeline import MultiLabelPipeline
     from pprint import pprint
 
 
@@ -546,7 +566,7 @@ def ai_plot_conf(essay_input_):
                     'cove', 'shoals', 'lagoon', 'firth', 'bight', 'sound', 'strait', 'gulf', 'inlet', 'loch', 
                     'bayou','dock', 'pier', 'anchorage', 'jetty', 'wharf', 'marina', 'landing', 'mooring', 'berth', 
                     'quay', 'staith','river', 'stream', 'creek', 'brook', 'waterway', 'rill','delta', 'bank', 'runoff',
-                    'channel', 'bend', 'meander', 'backwater','lake', 'pool', 'pond', 'dugout', 'fountain', 'spring', 
+                    'bend', 'meander', 'backwater','lake', 'pool', 'pond', 'dugout', 'fountain', 'spring', 
                     'watering-hole', 'oasis','well', 'cistern', 'reservoir','waterfall', 'falls', 'rapids', 'cataract', 
                     'cascade','bridge', 'crossing', 'causeway', 'viaduct', 'aquaduct', 'ford', 'ferry','dam', 'dike', 
                     'bar', 'canal', 'ditch','peninsula', 'isthmus', 'island', 'isle', 'sandbar', 'reef', 'atoll', 
@@ -636,8 +656,8 @@ def ai_plot_conf(essay_input_):
         filtered_setting_text__ = list(filtered_setting_text_) #다시 리스트로 변환
         print (filtered_setting_text__) # 중복값 제거 확인
         
-        for i in filtered_setting_text__:
-            ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
+#         for i in filtered_setting_text__:
+#             ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
         
         setting_total_count = len(filtered_setting_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현 수
         setting_count_ = len(filtered_setting_text__) #중복제거된 setting표현 총 수
@@ -654,9 +674,9 @@ def ai_plot_conf(essay_input_):
     print("====================================================================")
 
 
-    ############################################################################
+    ###################################################################################
     # 13. PLOT COMPLEXITY 계산¶ - 캐릭터 20% + conflict 40% + 감정기복 30% + setting 10%
-    ############################################################################
+    ###################################################################################
 
     def character(text):
 
@@ -710,7 +730,7 @@ def ai_plot_conf(essay_input_):
         #print (filtered_chr_text__) # 중복값 제거 확인
         
         for i in filtered_chr_text__:
-            ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
+            ext_sim_words_key = model.wv.most_similar_cosmul(i) #모델적용
         
         char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 캐릭터 표현 수
         char_count_ = len(filtered_chr_text__) #중복제거된 캐릭터 표현 총 수
@@ -722,7 +742,7 @@ def ai_plot_conf(essay_input_):
 
 
     #######################################################################
-    ##########################   Degree of Conflict  ######################
+    ##########################   Plot complexity  ######################
     #######################################################################
     # 이제 최종 계산을 해보자.
     # character_ratio_result #캐릭터 비율 20%
@@ -735,11 +755,18 @@ def ai_plot_conf(essay_input_):
     character_ratio_result
     print("전체 문장에서 캐릭터를 의미하는 단어나 유사어 비율 :", character_ratio_result)
 
-    # CONFLICT 비율 계산
-    conflict_word_ratio = round(len(count_conflict_list) / len(input_text_list) * 100, 1)
-    print("conflict 단어가 전체 문장(단어)에서 차지하는 비율 계산 :", conflict_word_ratio)
+    ###########################################################
+    ############# Degree of Conflict  비율 계산 #################
+    conflict_word_ratio = round(len(count_conflict_list) / len(input_text_list) * 1000, 1)  
+    print("Degree of conflict  단어가 전체 문장(단어)에서 차지하는 비율 계산 :", conflict_word_ratio)
 
-    # 감정기복 비율 계산
+    global coflict_ratio
+    coflict_ratio = [conflict_word_ratio] #그래프로 표현하는 값
+
+
+
+    ###########################################################
+    ############# Emotional Rollercoaster  비율 계산 #################
     print("감정기복비율 :", result_emo_swings) 
 
     # 셋팅비율 계산
@@ -754,74 +781,295 @@ def ai_plot_conf(essay_input_):
     numpy.var(de_flt_list) #분산
     numpy.std(de_flt_list) #표준편차
 
-    #가중치 적용
+    #######################################################################
+    ############# Plot complexity  st_input 표준편차 비율 계산 #################
     de_flt_list_ = [character_ratio_result*2, result_emo_swings*3, conflict_word_ratio*4, settig_ratio_re]
     numpy.mean(de_flt_list_) # 평균
     numpy.var(de_flt_list_) # 분산
     st_input = numpy.std(de_flt_list_) # 표준편차 ----> 이 값으로 계산
-    print("Degree of Conflict :", st_input )
+    print("Plot Complxity :", st_input )
+
+    global plot_comp_ratio
+
+    plot_comp_ratio = [round(st_input, 2)]
+    
+    
+    
 
     print("===============================================================================")
     print("======================      Degree of Conflict   ==============================")
     print("===============================================================================")
-    ##########  1000명의 평균값 표준편차 random 값을 추출 for test ##############
-    ######## ideal_mena 값은 1000명의 평균값에 가져와야 함.지금은 radom value 넣었음 
-    import random
+
+    
+    # return 값 설명  ====  plot complexity :st_input , emotion rollercoster: result_emo_swings, degree of conflict: conflict_word_ratio
+    return st_input, result_emo_swings, conflict_word_ratio,df_sent
 
 
-    ideal_mean = float(random.randint(10,100))  #1000명의 평균점수가 30~60 사이에 있다고 가정하고
-    print("ideal_mean:", ideal_mean)
+#     return { 
 
-    #구간값을 구분한다. lacking의 경우 min_, over의 경우 max_ 구간으로 3등분 균등 분할
-    min_ = int(ideal_mean-ideal_mean*0.5)
-    max_ = int(ideal_mean+ideal_mean*0.5)
-    div_ = int(((ideal_mean+ideal_mean*0.5)-(ideal_mean-ideal_mean*0.5))/3)
+#             "result_all_plot":result_all_avg, 
+#             "emotional_rollercoaster":result_emo_swings, 
+#             "plot_complexity":st_input, 
+#             "degree_conflict": conflict_word_ratio, 
+#             "result_emotional_rollercoaster": result_emotional_rollwercoaster,
+#             "result_plot_complexity" : result_plot_complexity,
+#             "result_degree_conflict" : result_degree_conflict,
+            
+#             "neg" : df_sent["neg"],
+#             "neu" : df_sent["neu"],
+#             "pos" : df_sent["pos"],
+#             "compound" : df_sent["compound"],
+#             "graph_calculation_list" : graph_calculation_list
+            
+#             }
 
-    #이제 최종 결과값을 계산해보자. 3개의 값이 나오는데, 순서대로 lacking fit over 로 구분됨
-    for x in range(min_, max_, div_):
-        start = x
-        end = x+div_
-        temp = (st_input >= start) & (st_input < end)
-        if temp == True:
-            temp = "you are here!"
-            print("{}~ {} : {}".format(start, end, temp))
+
+
+def ai_plot_coflict_total_analysis(input_text):
+
+    plot_conf_re = ai_plot_conf(input_text)
+    
+    
+
+    print("1명의 에세이 결과 계산점수 :", plot_conf_re)
+    #1명의 에세이 결과 계산점수 : (28.602484157848945, 25.0, 0.3,df_sent)
+
+    # 위에서 계산한 총 4개의 값을 개인, 그룹의 값과 비교하여 lacking, ideal, overboard 계산
+    
+    
+    
+    
+    # 개인에세이 값 계산 4가지 결과 추출 >>> personal_value 로 입력됨
+    plot_complexity = plot_conf_re[0]
+    emotional_rollercoaster = plot_conf_re[1]
+    degree_conflict = plot_conf_re[2]
+
+
+    ########################################################
+    ## 1000명 데이터의 각 값(char_desc_mean)의 평균 값 전달.>>> 고정값으로 미리 계산하여 입력 ai_plot_coflict_1000data_preprocessing 코드 참조
+    plot_conflict_all_mean = [80, 64, 0.314]
+    group_db_fin_result_plot = [5.0]
+    ########################################################
+
+
+
+
+    plot_complexity_mean = plot_conflict_all_mean[0] #첫번째 값을 가져옴
+    emotional_rollercoaster_mean = plot_conflict_all_mean[1] #
+    degree_conflict_mean = plot_conflict_all_mean[2] #
+
+
+    def lackigIdealOverboard(group_mean, personal_value): # group_mean: 1000명 평균, personal_value|:개인값
+        ideal_mean = group_mean
+        one_ps_char_desc = personal_value
+        #최대, 최소값 기준으로 구간설정. 구간비율 30% => 0.3으로 설정
+        min_ = int(ideal_mean-ideal_mean*0.6)
+        print('min_', min_)
+        max_ = int(ideal_mean+ideal_mean*0.6)
+        print('max_: ', max_)
+        div_ = int(((ideal_mean+ideal_mean*0.6)-(ideal_mean-ideal_mean*0.6))/3)
+        print('div_:', div_)
+
+        #결과 판단 Lacking, Ideal, Overboard
+        cal_abs = abs(ideal_mean - one_ps_char_desc) # 개인 - 단체 값의 절대값계산
+
+        print('cal_abs 절대값 :', cal_abs)
+        compare7 = (one_ps_char_desc + ideal_mean)/6
+        compare6 = (one_ps_char_desc + ideal_mean)/5
+        compare5 = (one_ps_char_desc + ideal_mean)/4
+        compare4 = (one_ps_char_desc + ideal_mean)/3
+        compare3 = (one_ps_char_desc + ideal_mean)/2
+        print('compare7 :', compare7)
+        print('compare6 :', compare6)
+        print('compare5 :', compare5)
+        print('compare4 :', compare4)
+        print('compare3 :', compare3)
+
+
+
+        if one_ps_char_desc > ideal_mean: # 개인점수가 평균보다 클 경우는 overboard
+            if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
+                print("Overboard: 2")
+                result = 2 #overboard
+                score = 1
+            elif cal_abs > compare4: # 28
+                print("Overvoard: 2")
+                result = 2
+                score = 2
+            elif cal_abs > compare5: # 22
+                print("Overvoard: 2")
+                result = 2
+                score = 3
+            elif cal_abs > compare6: # 18
+                print("Overvoard: 2")
+                result = 2
+                score = 4
+            else:
+                print("Ideal: 1")
+                result = 1
+                score = 5
+        elif one_ps_char_desc < ideal_mean: # 개인점수가 평균보다 작을 경우 lacking
+            if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
+                print("Lacking: 2")
+                result = 0
+                score = 1
+            elif cal_abs > compare4: # 28
+                print("Lacking: 2")
+                result = 0
+                score = 2
+            elif cal_abs > compare5: # 22
+                print("Lacking: 2")
+                result = 0
+                score = 3
+            elif cal_abs > compare6: # 18
+                print("Lacking: 2")
+                result = 0
+                score = 4
+            else:
+                print("Ideal: 1")
+                result = 1
+                score = 5
+                
         else:
-            temp = "not here!"
-            print("{}~ {} : {}".format(start, end, temp))
+            print("Ideal: 1")
+            result = 1
+            score = 5
+
+        return result, score
+
+
+    plot_complexity_result = lackigIdealOverboard(plot_complexity_mean, plot_complexity)
+    emotional_rollercoaster_result = lackigIdealOverboard(emotional_rollercoaster_mean, emotional_rollercoaster)
+    degree_conflict_result = lackigIdealOverboard(degree_conflict_mean, degree_conflict)
+
+    fin_result = [plot_complexity_result, emotional_rollercoaster_result, degree_conflict_result]
+    print("fin_result:", fin_result)  # [(0:lacking, 1:score), (0:lacking, 2:score), (2:overboard, 1:score)]
+
+    each_fin_result = [fin_result[0][0], fin_result[1][0], fin_result[2][0]]
+
+    # 최종 character  전체 점수 계산
+    overall_character_rating = [round((fin_result[0][1]+ fin_result[1][1] + fin_result[2][1])/3,2)]
+
+    result_final = each_fin_result + overall_character_rating + group_db_fin_result_plot + coflict_ratio + plot_comp_ratio
+
+    df_sent = plot_conf_re[3]
+    
+    neg =  list(map(float, df_sent["neg"]))
+    neu =  list(map(float, df_sent["neu"]))
+    pos =  list(map(float, df_sent["pos"]))
+    compound =  list(map(float, df_sent["compound"]))
+    
+    print(df_sent)
+    
+    print("neg>>>>>",neg)
+    print("neu>>>>>",neu)
+    print("pos>>>>>",pos)
+    print("componud>>>",compound)
+    
+
+    print ( "graph_calculation_list" , graph_calculation_list) 
+
+
+    data = {
+        
+            "result_all_plot":result_final[3], 
+            
+            "emotional_rollercoaster":round(emotional_rollercoaster,2), 
+            "plot_complexity":round(plot_complexity,2), 
+            "degree_conflict": round(degree_conflict,2), 
+            
+            "result_plot_complexity" : result_final[0],
+            "result_emotional_rollercoaster": result_final[1],
+            "result_degree_conflict" : result_final[2],
+            
+            "neg" : neg,
+            "neu" : neu,
+            "pos" : pos,
+            "compound" : compound,
+            "graph_calculation_list" : graph_calculation_list
+        }
+    
+    
+    
+    return data 
+
+    #  [0, 0, 2, 1.33, 5.0, 3.0, 26.52]
+
+    # [0: plot_complexity_result-lacking, 
+    #  0: emotional_rollercoaster_result - lacking, 
+    #  2: degree_conflict_result-overboard, 
+    #  1.3: overall_character_rating,
+    #  5.0: group_db_fin_result_plot(1000명 평균값), 
+    #  3.0: conflict_ratio] ----------------> Conflict
+    #  26.52] : ----------------------------> Plot
 
 
 
 
-####### 실행 테스트  ########
 
-# 1.ai_plot_conf(input_text) 실행하면, 
+####### 실행 테스트  ######
+#print("result\n\n",ai_plot_coflict_total_analysis(input_text))
+
+
+### {'result_all_plot': 1.33, 'emotional_rollercoaster': 25.0, 'plot_complexity': 26.52, 'degree_conflict': 3.0, 'result_plot_complexity': 0, 'result_emotional_rollercoaster': 0, 'result_degree_conflict': 2, 'neg': [0.0, 0.0, 0.041, 0.044, 0.19, 0.0, 0.04, 0.0, 0.054, 0.0, 0.0, 0.118, 0.101, 0.0, 0.239, 0.133, 0.104, 0.0, 0.083, 0.09, 0.092, 0.058, 0.079, 0.121], 'neu': [0.808, 1.0, 0.778, 0.787, 0.678, 1.0, 0.884, 1.0, 0.79, 0.723, 1.0, 0.882, 0.739, 1.0, 0.761, 0.867, 0.896, 0.762, 0.702, 0.77, 0.667, 0.822, 0.702, 0.65], 'pos': [0.192, 0.0, 0.181, 0.169, 0.132, 0.0, 0.076, 0.0, 0.155, 0.277, 0.0, 0.0, 0.161, 0.0, 0.0, 0.0, 0.0, 0.238, 0.215, 0.14, 0.242, 0.119, 0.219, 0.23], 'compound': [0.228, 0.0, 0.7269, 0.6486, -0.2144, 0.0, 0.4588, 0.0, 0.624, 0.7579, 0.0, -0.5267, 0.0258, 0.0, -0.5719, -0.3354, -0.2732, 0.6486, 0.4588, 0.2206, 0.7351, 0.3182, 0.4939, 0.5719], 'graph_calculation_list': [0, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1.0, -1.1, -1.2, -1.3, -1.4, -1.5, -1.6, -1.7, -1.8, -1.9, -2.0, 0.0, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1.0, -1.1, -1.2, -1.3, -1.4, -1.5, -1.6, -1.7, -1.8, 0.2, 0.1, 0.0, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1.0, -1.1, -1.2, -1.3, -1.4, -1.5, -1.6, -1.7, -1.8, -1.9, -2.0, -2.1, -2.2, -2.3, -2.4, -2.5, -2.6, -2.7, -2.8, -2.9, -3.0, -3.1, -3.2, -3.3, -3.4, -3.5, -3.6, -3.7, -3.8, -3.9, -4.0, -4.1, -4.2, -4.3, -4.4, -4.5, -4.6, -4.7, -4.8, -4.9, -5.0, -5.1, -5.2, -5.3, -5.4, -5.5, -5.6, -5.7, -5.8, -5.9, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -5.5, -5.6, -5.7, -5.8, -3.8, -3.9, -4.0, -4.1, -4.2, -4.3, -2.3, -2.4, -2.5, -2.6, -2.7, -2.8, -2.9, -3.0, -3.1, -3.2, -3.3, -1.3, -1.4, -1.5, -1.6, -1.7, -1.8, -1.9, -2.0, -2.1, -2.2, -2.3, -2.4, -2.5, -2.6, -2.7, -2.8, -2.9, -3.0, -3.1, -3.2, -3.3, -3.4, -3.5, -1.5, -1.6, -1.7, -1.8, -1.9, -2.0, -2.1, -2.2, -2.3, -2.4, -2.5, -2.6, -2.7, -2.8, -2.9, -3.0, -3.1, -3.2, -3.3, -3.4, -3.5, -3.6, -3.7, -3.8, -3.9, -4.0, -4.1, -4.2, -4.3, -4.4, -4.5, -4.6, -4.7, -4.8, -4.9, -5.0, -5.1, -5.2, -5.3, -3.3, -3.4, -3.5, -3.6, -3.7, -3.8, -3.9, -4.0, -4.1, -4.2, -4.3, -4.4, -4.5, -4.6, -4.7, -4.8, -4.9, -5.0, -5.1, -5.2, -5.3, -5.4, -5.5, -5.6, -5.7, -5.8, -5.9, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -8.1, -8.2, -8.3, -8.4, -8.5, -8.6, -8.7, -8.8, -8.9, -6.9, -7.0, -7.1, -5.1, -5.2, -5.3, -5.4, -5.5, -5.6, -5.7, -5.8, -5.9, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -4.7, -4.8, -4.9, -5.0, -5.1, -5.2, -5.3, -5.4, -5.5, -5.6, -5.7, -5.8, -5.9, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -8.1, -8.2, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -8.1, -8.2, -8.3, -8.4, -8.5, -8.6, -8.7, -8.8, -8.9, -9.0, -9.1, -9.2, -9.3, -9.4, -9.5, -9.6, -9.7, -9.8, -9.9, -10.0, -10.1, -10.2, -10.3, -10.4, -10.5, -10.6, -10.7, -10.8, -10.9, -11.0, -11.1, -11.2, -11.3, -11.4, -11.5, -11.6, -11.7, -11.8, -11.9, -12.0, -12.1, -12.2, -12.3, -12.4, -12.5, -12.6, -12.7, -12.8, -12.9, -13.0, -13.1, -11.1, -11.2, -11.3, -11.4, -11.5, -11.6, -11.7, -11.8, -11.9, -12.0, -12.1, -12.2, -12.3, -12.4, -12.5, -12.6, -12.7, -12.8, -12.9, -13.0, -13.1, -13.2, -13.3, -13.4, -13.5, -13.6, -13.7, -13.8, -13.9, -14.0, -14.1, -14.2, -14.3, -14.4, -14.5, -14.6, -14.7, -14.8, -14.9, -15.0, -15.1, -15.2, -15.3, -13.3, -13.4, -13.5, -13.6, -13.7, -13.8, -13.9, -14.0, -14.1, -14.2, -14.3, -14.4, -14.5, -14.6, -14.7, -14.8, -14.9, -15.0, -13.0, -13.1, -13.2, -13.3, -13.4, -13.5, -13.6, -13.7, -13.8, -13.9, -14.0, -14.1, -14.2, -14.3, -14.4, -12.4, -12.5, -10.5, -10.6, -10.7, -10.8, -10.9, -11.0, -11.1, -11.2, -11.3, -11.4, -11.5, -11.6, -11.7, -11.8, -11.9, -9.9, -10.0, -10.1, -10.2, -10.3, -10.4, -10.5, -10.6, -8.6, -8.7, -8.8, -8.9, -9.0, -9.1, -9.2, -9.3, -9.4, -9.5, -9.6, -9.7, -9.8, -9.9, -10.0, -10.1, -10.2, -10.3, -10.4, -8.4, -8.5, -8.6, -8.7, -8.8, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -8.1, -8.2, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -4.9, -5.0, -5.1, -5.2, -5.3, -5.4, -5.5, -5.6, -5.7, -5.8, -5.9, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -5.9, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -8.1, -8.2, -8.3, -8.4, -8.5, -8.6, -8.7, -8.8, -8.9, -9.0, -9.1, -9.2, -9.3, -9.4, -9.5, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -8.1, -8.2, -8.3, -8.4, -8.5, -8.6, -8.7, -8.8, -8.9, -9.0, -9.1, -9.2, -9.3, -9.4, -9.5, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8]}
+
+
+
+
+# 1.ai_plot_coflict_total_analysis(input_text) 실행하면, 
 
 # 2.결과 나옴!(그래프 2개, 적합성, 복잡성 등등 값 도출됨)
 
-# ACTION VERBS RATIO : 6.25
+# ACTION VERBS RATIO : 8.537
 # ====================================================================
 # 에세이에 표현된 다양한 감정 수: 7
 # ====================================================================
 # 문장에 표현된 감정 비율 :  25.0
 # ====================================================================
-# ['trail', 'view', 'city', 'camp', 'until', 'on', 'way', 'in', 'through', 'after', 'up', 'during', 'by', 'from', 'sound', 'to', 'path', 'above', 'against', 'before', 'route', 'forge']
-# ai_plot_conflict.py:601: DeprecationWarning: Call to deprecated `most_similar_cosmul` (Method will be removed in 4.0.0, use self.wv.most_similar_cosmul() instead).
-#   ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
+# ['before', 'above', 'sound', 'trail', 'by', 'way', 'until', 'city', 'from', 'to', 'after', 'against', 'forge', 'on', 'path', 'view', 'during', 'through', 'in', 'up', 'camp', 'route']
 # ====================================================================
 # SETTING RATIO :  12.34
 # ====================================================================
-# ai_plot_conflict.py:674: DeprecationWarning: Call to deprecated `most_similar_cosmul` (Method will be removed in 4.0.0, use self.wv.most_similar_cosmul() instead).
-#   ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
 # 전체 문장에서 캐릭터를 의미하는 단어나 유사어 비율 : 8.79
-# conflict 단어가 전체 문장(단어)에서 차지하는 비율 계산 : 1.5
+# Degree of conflict  단어가 전체 문장(단어)에서 차지하는 비율 계산 : 3.0
 # 감정기복비율 : 25.0
 # 셋팅비율 계산 :  12.34
-# Degree of Conflict : 27.59764663879875
+# Plot Complxity : 26.517731803455586
 # ===============================================================================
 # ======================      Degree of Conflict   ==============================
 # ===============================================================================
-# ideal_mean: 36.0
-# 18~ 30 : you are here!
-# 30~ 42 : not here!
-# 42~ 54 : not here!
+# 1명의 에세이 결과 계산점수 : (26.517731803455586, 25.0, 3.0)
+# min_ 32
+# max_:  128
+# div_: 32
+# cal_abs 절대값 : 53.48226819654441
+# compare7 : 17.75295530057593
+# compare6 : 21.30354636069112
+# compare5 : 26.629432950863897
+# compare4 : 35.50591060115186
+# compare3 : 53.258865901727795
+# Lacking: 2
+# min_ 25
+# max_:  102
+# div_: 25
+# cal_abs 절대값 : 39.0
+# compare7 : 14.833333333333334
+# compare6 : 17.8
+# compare5 : 22.25
+# compare4 : 29.666666666666668
+# compare3 : 44.5
+# Lacking: 2
+# min_ 0
+# max_:  0
+# div_: 0
+# cal_abs 절대값 : 2.686
+# compare7 : 0.5523333333333333
+# compare6 : 0.6628000000000001
+# compare5 : 0.8285
+# compare4 : 1.1046666666666667
+# compare3 : 1.657
+# Overboard: 2
+# fin_result: [(0, 1), (0, 2), (2, 1)]
+# result
 
+#  [0, 0, 2, 1.33, 5.0, 3.0, 26.52]
