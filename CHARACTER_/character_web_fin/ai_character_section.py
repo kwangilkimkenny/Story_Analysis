@@ -105,16 +105,10 @@ from torch.optim import Adam
 import torch.nn.functional as F
 import time
 
-
-
 nltk.download('averaged_perceptron_tagger')
 
 
-
-
-
 def character_all_section(text):
-
 
     # Number of Characters
     def NumberofCharacters(text):
@@ -157,7 +151,7 @@ def character_all_section(text):
         #우선 토큰화한다.
         retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
         token_input_text = retokenize.tokenize(essay_input_corpus)
-        #print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
+        ##print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
         #리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
         filtered_chr_text = []
         for k in token_input_text:
@@ -165,11 +159,11 @@ def character_all_section(text):
                 if k == j:
                     filtered_chr_text.append(j)
         
-        #print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
+        ##print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
         
         filtered_chr_text_ = set(filtered_chr_text) #중복제거
         filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
-        print (filtered_chr_text__) # 중복값 제거 확인
+        #print (filtered_chr_text__) # 중복값 제거 확인
         
         # for i in filtered_chr_text__:
         #     ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
@@ -184,9 +178,9 @@ def character_all_section(text):
 
     # number_of_characters = NumberofCharacters(input_text) # 문장에서 키워드와 관련된 단어을 모두 추출하면 이런 결과가 나옴, 이 결과를 모두 합쳐서 캐릭터 총 값 계산해서 숫자로 출력
     # number_of_characters
-    # print ('=============================================')
-    # print ('Number of Characters :', number_of_characters)
-    # print ('=============================================')
+    # #print ('=============================================')
+    # #print ('Number of Characters :', number_of_characters)
+    # #print ('=============================================')
 
     ####################################
     #### Character Descriptiveness #####
@@ -240,9 +234,9 @@ def character_all_section(text):
                 data = [new_label, input_text_df[i]]
                 test.append(data)
 
-            #print(test)
+            ##print(test)
             dataf = pd.DataFrame(test, columns=['label', 'text'])
-            #print(dataf)
+            ##print(dataf)
             return dataf
 
 
@@ -293,21 +287,21 @@ def character_all_section(text):
 
 
             # for text, label in test_loader :
-            #     print("text:",text)
-            #     print("label:",label)
+            #     #print("text:",text)
+            #     #print("label:",label)
 
 
             #저장된 모델을 불러온다.
             #J:\Django\EssayFit_Django\essayfitaiproject\essayfitapp\model.pt
             #time.sleep(1)
             #model = torch.load("model.pt", map_location=torch.device('cpu'))
-            model = torch.load("model.pt", map_location=torch.device('cpu'))
-            print("model loadling~")
+            model = torch.load("./essayai/data/model.pt", map_location=torch.device('cpu'))
+            # #print("model loadling~")
             model.eval()
 
 
             pred_loader = test_loader
-            print("pred_loader:", pred_loader)
+            # #print("pred_loader:", pred_loader)
             total_loss = 0
             total_len = 0
             total_showing__ = 0
@@ -315,10 +309,10 @@ def character_all_section(text):
 
             showing_conunter = [] #문장에 해당하는 SHOWING을 계산한다.
             
-            print("check!")
+            # #print("check!")
             for text, label in pred_loader:
-                print("text:",text)
-                #print("label:",label)
+                # #print("text:",text)
+                ##print("label:",label)
                 encoded_list = [tokenizer.encode(t, add_special_tokens=True) for t in text] #text to tokenize
                 padded_list =  [e + [0] * (512-len(e)) for e in encoded_list] #padding
                 sample = torch.tensor(padded_list) #torch tensor로 변환
@@ -331,19 +325,18 @@ def character_all_section(text):
                 _, logits = outputs #outputs를 로짓에 넣음 이것을 softmax에 넣으면 0~1 사이로 결과가 출력됨
                 
                 pred = torch.argmax(F.softmax(logits), dim=1) #드디어 예측한다. argmax는 리스트(계산된 값)에서 가장 큰 값을 추출하여 pred에 넣는다. 0 ~1 사이의 값이 나올거임
-                print('pred :', pred)
+                # #print('pred :', pred)
                 # correct = pred.eq(labels) 
                 showing__ = pred.eq(1) # 예측한 결과가 1과 같으면 showing이다   >> TRUE   SHOWING을 추출하려면 이것만 카운드하면 된다. 
                 telling__ = pred.eq(0) # 예측한 결과가 0과 같으면 telling이다   >> FALSE
                 
-                #print('showing : ', showing__)
-                #print('telling : ', telling__)
+                ##print('showing : ', showing__)
+                ##print('telling : ', telling__)
                 
                 
                 showing_conunter.append(text)        
                 #pred_ = round(float(pred))
                 showing_conunter.append(pred)
-
 
 
             return showing_conunter 
@@ -366,9 +359,9 @@ def character_all_section(text):
         list(df_fin)
         showing_sentence_with_char = max(round(df_fin*100))
 
-        # print("===============================================================")
-        # print ('Character Descriptiveness : ', showing_sentence_with_char)
-        # print("===============================================================")
+        # #print("===============================================================")
+        # #print ('Character Descriptiveness : ', showing_sentence_with_char)
+        # #print("===============================================================")
 
         return showing_sentence_with_char
 
@@ -408,7 +401,7 @@ def character_all_section(text):
         #우선 토큰화한다.
         retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
         token_input_text = retokenize.tokenize(essay_input_corpus)
-        #print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
+        ##print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
         #리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
         filtered_chr_text = []
         for k in token_input_text:
@@ -416,11 +409,11 @@ def character_all_section(text):
                 if k == j:
                     filtered_chr_text.append(j)
         
-        #print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
+        ##print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
         
         filtered_chr_text_ = set(filtered_chr_text) #중복제거
         filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
-        print (filtered_chr_text__) # 중복값 제거 확인
+        # #print (filtered_chr_text__) # 중복값 제거 확인
         
         # for i in filtered_chr_text__:
         #     ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
@@ -434,9 +427,9 @@ def character_all_section(text):
 
     # EmphasisOnYou_ = EmphasisOnYou(input_text) # 문장에서 키워드와 관련된 단어을 모두 추출하면 이런 결과가 나옴, 이 결과를 모두 합쳐서 캐릭터 총 값 계산해서 숫자로 출력
     # EmphasisOnYou_
-    # print ('=============================================')
-    # print ('Emphasis on You :', EmphasisOnYou_)
-    # print ('=============================================')
+    # #print ('=============================================')
+    # #print ('Emphasis on You :', EmphasisOnYou_)
+    # #print ('=============================================')
 
 
 
@@ -484,7 +477,7 @@ def character_all_section(text):
         #우선 토큰화한다.
         retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
         token_input_text = retokenize.tokenize(essay_input_corpus)
-        #print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
+        ##print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
         #리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
         filtered_chr_text = []
         for k in token_input_text:
@@ -492,11 +485,11 @@ def character_all_section(text):
                 if k == j:
                     filtered_chr_text.append(j)
         
-        #print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
+        ##print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
         
         filtered_chr_text_ = set(filtered_chr_text) #중복제거
         filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
-        print (filtered_chr_text__) # 중복값 제거 확인
+        #print (filtered_chr_text__) # 중복값 제거 확인
         
         # for i in filtered_chr_text__:
         #     ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
@@ -512,33 +505,33 @@ def character_all_section(text):
 
     # EmphasisOnOthers_ = EmphasisOnOthers(input_text) # 문장에서 키워드와 관련된 단어을 모두 추출하면 이런 결과가 나옴, 이 결과를 모두 합쳐서 캐릭터 총 값 계산해서 숫자로 출력
     # EmphasisOnOthers_
-    # print ('=============================================')
-    # print ('Emphasis on Others :', EmphasisOnOthers_)
-    # print ('=============================================')
+    # #print ('=============================================')
+    # #print ('Emphasis on Others :', EmphasisOnOthers_)
+    # #print ('=============================================')
 
 
     character_descriptiveness = character_descrip(text)
-    print("===============================================================")
-    print ('Character Descriptiveness : ' , character_descriptiveness)
-    print("===============================================================")
+    # #print("===============================================================")
+    # #print ('Character Descriptiveness : ' , character_descriptiveness)
+    # #print("===============================================================")
 
 
     number_of_characters = NumberofCharacters(text) 
-    print ('=============================================')
-    print ('Number of Characters :' , number_of_characters)
-    print ('=============================================')
+    # #print ('=============================================')
+    # #print ('Number of Characters :' , number_of_characters)
+    # #print ('=============================================')
 
 
     EmphasisOnYou_ = EmphasisOnYou(text)
-    print ('=============================================')
-    print ('Emphasis on You :' , EmphasisOnYou_)
-    print ('=============================================')
+    # #print ('=============================================')
+    # #print ('Emphasis on You :' , EmphasisOnYou_)
+    # #print ('=============================================')
 
 
     EmphasisOnOthers_ = EmphasisOnOthers(text) 
-    print ('=============================================')
-    print ('Emphasis on Others :' , EmphasisOnOthers_)
-    print ('=============================================')
+    # #print ('=============================================')
+    # #print ('Emphasis on Others :' , EmphasisOnOthers_)
+    # #print ('=============================================')
 
 
     return character_descriptiveness, number_of_characters, EmphasisOnYou_, EmphasisOnOthers_
@@ -559,9 +552,12 @@ text= """A window into the soul.For most people, this would be the eyes. The eye
 
 def character_total_analysis(text):
 
+    ##### 주석 처리 ##########################
+    ########################################
     char_sec_re = character_all_section(text)
+    #char_sec_re = (67.0, 145, 66, 33)   ### dummy Data 
 
-    print("1명의 에세이 결과 계산점수 :", char_sec_re)
+    # #print("1명의 에세이 결과 계산점수 :", char_sec_re)
 
     # 위에서 계산한 총 4개의 값을 개인, 그룹의 값과 비교하여 lacking, ideal, overboard 계산
     
@@ -573,7 +569,8 @@ def character_total_analysis(text):
 
     ##############################################################################################################################
     ## 1000명 데이터의 각 값(char_desc_mean)의 평균 값 전달. >>>> group_mean 으로 입력됨
-    char_desc_mean = [77, 478, 14, 50] # 현재 계산 완료한 1000명의 평균 값(고정값)  
+    char_desc_mean = [77, 478, 14, 50] # 현재 계산 완료한 1000명의 평균 값(고정값) 
+    group_db_fin_result = [5.0] #레이다차트의 1000명 평균값 기준설정
     ##############################################################################################################################
 
 
@@ -588,74 +585,74 @@ def character_total_analysis(text):
         one_ps_char_desc = personal_value
         #최대, 최소값 기준으로 구간설정. 구간비율 30% => 0.3으로 설정
         min_ = int(ideal_mean-ideal_mean*0.6)
-        print('min_', min_)
+        # #print('min_', min_)
         max_ = int(ideal_mean+ideal_mean*0.6)
-        print('max_: ', max_)
+        # #print('max_: ', max_)
         div_ = int(((ideal_mean+ideal_mean*0.6)-(ideal_mean-ideal_mean*0.6))/3)
-        print('div_:', div_)
+        # #print('div_:', div_)
 
         #결과 판단 Lacking, Ideal, Overboard
         cal_abs = abs(ideal_mean - one_ps_char_desc) # 개인 - 단체 값의 절대값계산
 
-        print('cal_abs 절대값 :', cal_abs)
+        # #print('cal_abs 절대값 :', cal_abs)
         compare7 = (one_ps_char_desc + ideal_mean)/6
         compare6 = (one_ps_char_desc + ideal_mean)/5
         compare5 = (one_ps_char_desc + ideal_mean)/4
         compare4 = (one_ps_char_desc + ideal_mean)/3
         compare3 = (one_ps_char_desc + ideal_mean)/2
-        print('compare7 :', compare7)
-        print('compare6 :', compare6)
-        print('compare5 :', compare5)
-        print('compare4 :', compare4)
-        print('compare3 :', compare3)
+        # #print('compare7 :', compare7)
+        # #print('compare6 :', compare6)
+        # #print('compare5 :', compare5)
+        # #print('compare4 :', compare4)
+        # #print('compare3 :', compare3)
 
 
 
         if one_ps_char_desc > ideal_mean: # 개인점수가 평균보다 클 경우는 overboard
             if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
-                print("Overboard: 2")
+                # #print("Overboard: 2")
                 result = 2 #overboard
                 score = 1
             elif cal_abs > compare4: # 28
-                print("Overvoard: 2")
+                # #print("Overvoard: 2")
                 result = 2
                 score = 2
             elif cal_abs > compare5: # 22
-                print("Overvoard: 2")
+                # #print("Overvoard: 2")
                 result = 2
                 score = 3
             elif cal_abs > compare6: # 18
-                print("Overvoard: 2")
+                # #print("Overvoard: 2")
                 result = 2
                 score = 4
             else:
-                print("Ideal: 1")
+                # #print("Ideal: 1")
                 result = 1
                 score = 5
         elif one_ps_char_desc < ideal_mean: # 개인점수가 평균보다 작을 경우 lacking
             if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
-                print("Lacking: 2")
+                # #print("Lacking: 2")
                 result = 0
                 score = 1
             elif cal_abs > compare4: # 28
-                print("Lacking: 2")
+                # #print("Lacking: 2")
                 result = 0
                 score = 2
             elif cal_abs > compare5: # 22
-                print("Lacking: 2")
+                # #print("Lacking: 2")
                 result = 0
                 score = 3
             elif cal_abs > compare6: # 18
-                print("Lacking: 2")
+                # #print("Lacking: 2")
                 result = 0
                 score = 4
             else:
-                print("Ideal: 1")
+                # #print("Ideal: 1")
                 result = 1
                 score = 5
                 
         else:
-            print("Ideal: 1")
+            # #print("Ideal: 1")
             result = 1
             score = 5
 
@@ -675,26 +672,46 @@ def character_total_analysis(text):
     # 최종 character  전체 점수 계산
     overall_character_rating = [(fin_result[0][1]+ fin_result[1][1] + fin_result[2][1]+ fin_result[3][1])/4]
 
-    result_final = each_fin_result + overall_character_rating
+    result_final = each_fin_result + overall_character_rating + group_db_fin_result
+    
+    data = {
+        "number_of_chracters":one_ps_char_desc, 
+        "character_description":one_ps_num_of_char,
+        "emaphasis_on_you":one_ps_emp_on_you,
+        "emaphasis_on_others":one_ps_emp_on_others,
+        
+        "result_number_of_chracters": result_final[0],
+        "result_character_description": result_final[1],
+        "result_emaphasis_on_you" : result_final[2],
+        "result_emaphasis_on_others" : result_final[3],
+        
+        "avg_character": result_final[4]
+    }
+    
 
-    return result_final
+    return data 
 
 
 
 #################### 테스트~~~~!!!! ###################
-character_total_analysis(text)
+# character_total_analysis(text)
 
-print("최종결과 : ", character_total_analysis(text))
+# print("최종결과 : ", character_total_analysis(text))
 
-# 최종결과 :  [1, 0, 2, 0, 2.75]
+## 최종결과 :  {'number_of_chracters': 67.0, 'character_description': 145, 'emaphasis_on_you': 66, 
+#             'emaphasis_on_others': 33, 'result_number_of_chracters': 1, 'result_character_description': 0, 
+#             'result_emaphasis_on_you': 2, 'result_emaphasis_on_others': 0, 'avg_character': 2.75}
+
+# 최종결과 :  [1, 0, 2, 0, 2.75, 5.0]
 # 
-# 결과 설명 : ideal, ideal, lacking, lacking, overall_character_rating
+# 결과 설명 : ideal, ideal, lacking, lacking, overall_character_rating, group_db_fin_result
 
 # Character Descriptiveness: ideal
 # Number of Characters : ideal
 # Emphasis on You : lacking
 # Emphasis on Others : lacking
-
+# overall_character_rating : 2.75
+# group_db_fin_result : 5.0  
 
 
 ## 실제 출력결과(확인용)
@@ -761,4 +778,4 @@ print("최종결과 : ", character_total_analysis(text))
 # compare4 : 27.666666666666668
 # compare3 : 41.5
 # Lacking: 2
-# 최종결과 :  [1, 0, 2, 0, 2.75]
+# 최종결과 :  [1, 0, 2, 0, 2.75, 5.0]
