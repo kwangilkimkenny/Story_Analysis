@@ -59,11 +59,10 @@ from nltk.tokenize import word_tokenize
 from nltk.tokenize import RegexpTokenizer
 from collections import defaultdict
 
-#########################################################################
+# #########################################################################
 input_text = """Bloomington Normal is almost laughably cliché for a midwestern city. Vast swathes of corn envelop winding roads and the heady smell of BBQ smoke pervades the countryside every summer. Yet, underlying the trite norms of Normal is the prescriptive force of tradition—the expectation to fulfill my role as a female Filipino by playing Debussy in the yearly piano festival and enrolling in multivariable calculus instead of political philosophy.So when I discovered the technical demand of bebop, the triplet groove, and the intricacies of chordal harmony after ten years of grueling classical piano, I was fascinated by the music's novelty. Jazz guitar was not only evocative and creative, but also strangely liberating. I began to explore different pedagogical methods, transcribe solos from the greats, and experiment with various approaches until my own unique sound began to develop. And, although I did not know what would be the 'best' route for me to follow as a musician, the freedom to forge whatever path I felt was right seemed to be exactly what I needed; there were no expectations for me to continue in any particular way—only the way that suited my own desires.While journeying this trail, I found myself at Interlochen Arts Camp the summer before my junior year. Never before had I been immersed in an environment so conducive to musical growth: I was surrounded by people intensely passionate about pursuing all kinds of art with no regard for ideas of what art 'should' be. I knew immediately that this would be a perfect opportunity to cultivate my sound, unbounded by the limits of confining tradition. On the first day of camp, I found that my peer guitarist in big band was another Filipino girl from Illinois. Until that moment, my endeavors in jazz guitar had been a solitary effort; I had no one with whom to collaborate and no one against whom I could compare myself, much less someone from a background mirroring my own. I was eager to play with her, but while I quickly recognized a slew of differences between us—different heights, guitars, and even playing styles—others seemed to have trouble making that distinction during performances. Some even went as far as calling me 'other-Francesca.' Thus, amidst the glittering lakes and musky pine needles of Interlochen, I once again confronted Bloomington's frustrating expectations.After being mistaken for her several times, I could not help but view Francesca as a standard of what the 'female Filipino jazz guitarist' should embody. Her improvisatory language, comping style and even personal qualities loomed above me as something I had to live up to. Nevertheless, as Francesca and I continued to play together, it was not long before we connected through our creative pursuit. In time, I learned to draw inspiration from her instead of feeling pressured to follow whatever precedent I thought she set. I found that I grew because of, rather than in spite of, her presence; I could find solace in our similarities and even a sense of comfort in an unfamiliar environment without being trapped by expectation. Though the pressure to conform was still present—and will likely remain present in my life no matter what genre I'm playing or what pursuits I engage in—I learned to eschew its corrosive influence and enjoy the rewards that it brings. While my encounter with Francesca at first sparked a feeling of pressure to conform in a setting where I never thought I would feel its presence, it also carried the warmth of finding someone with whom I could connect. Like the admittedly trite conditions of my hometown, the resemblances between us provided comfort to me through their familiarity. I ultimately found that I can embrace this warmth while still rejecting the pressure to succumb to expectations, and that, in the careful balance between these elements, I can grow in a way that feels both like discove"""
 
 
-graph_calculation_list =[0]
 
 
 
@@ -203,26 +202,26 @@ def ai_plot_conf(essay_input_):
 
     # df_sent 의 값은 아래와 같다.
 
-    # neg	neu	pos	compound	comp_score
-    # 0	0.000	0.808	0.192	0.2280	pos
-    # 1	0.000	1.000	0.000	0.0000	pos
-    # 2	0.041	0.778	0.181	0.7269	pos
-    # 3	0.044	0.787	0.169	0.6486	pos
-    # 4	0.190	0.678	0.132	-0.2144	neg
-    # 5	0.000	1.000	0.000	0.0000	pos
+    # neg   neu   pos   compound   comp_score
+    # 0   0.000   0.808   0.192   0.2280   pos
+    # 1   0.000   1.000   0.000   0.0000   pos
+    # 2   0.041   0.778   0.181   0.7269   pos
+    # 3   0.044   0.787   0.169   0.6486   pos
+    # 4   0.190   0.678   0.132   -0.2144   neg
+    # 5   0.000   1.000   0.000   0.0000   pos
 
     #comp_score를 1 -1 변환
     df_sent.loc[df_sent["comp_score"] == "pos","comp_score"] = 1
     df_sent.loc[df_sent["comp_score"] == "neg","comp_score"] = -1
 
     # df_sent 의 변환된 값은 아래와 같다.
-    # neg	neu	pos	compound	comp_score
-    # 0	0.000	0.808	0.192	0.2280	1
-    # 1	0.000	1.000	0.000	0.0000	1
-    # 2	0.041	0.778	0.181	0.7269	1
-    # 3	0.044	0.787	0.169	0.6486	1
-    # 4	0.190	0.678	0.132	-0.2144	-1
-    # 5	0.000	1.000	0.000	0.0000	
+    # neg   neu   pos   compound   comp_score
+    # 0   0.000   0.808   0.192   0.2280   1
+    # 1   0.000   1.000   0.000   0.0000   1
+    # 2   0.041   0.778   0.181   0.7269   1
+    # 3   0.044   0.787   0.169   0.6486   1
+    # 4   0.190   0.678   0.132   -0.2144   -1
+    # 5   0.000   1.000   0.000   0.0000   
 
     #########################################################################
     # 5. 그래프로 그려보자. 이 코드는 matplotlib 로 그린것임. 종필은 highcharts로 표현할 것
@@ -351,7 +350,7 @@ def ai_plot_conf(essay_input_):
     all_ac_verbs_list = verbs_list + ext_action_verbs
 
     #입력한 리스트 값을 하나씩 불러와서 데이터프레이에 있는지 비교 찾아내서 해당 점수를 가져오기
-    
+    graph_calculation_list =[0]
     get_words__ = []
     counter= 0
     for h in input_text_list: #데이터프레임에서 인덱스의 값과 비교하여
@@ -802,7 +801,7 @@ def ai_plot_conf(essay_input_):
 
     
     # return 값 설명  ====  plot complexity :st_input , emotion rollercoster: result_emo_swings, degree of conflict: conflict_word_ratio
-    return st_input, result_emo_swings, conflict_word_ratio,df_sent
+    return st_input, result_emo_swings, conflict_word_ratio,df_sent, graph_calculation_list
 
 
 #     return { 
@@ -843,6 +842,8 @@ def ai_plot_coflict_total_analysis(input_text):
     plot_complexity = plot_conf_re[0]
     emotional_rollercoaster = plot_conf_re[1]
     degree_conflict = plot_conf_re[2]
+    
+    graph_calculation_list = plot_conf_re[4]
 
 
     ########################################################
@@ -1007,8 +1008,8 @@ def ai_plot_coflict_total_analysis(input_text):
 
 
 
-####### 실행 테스트  ######
-#print("result\n\n",ai_plot_coflict_total_analysis(input_text))
+###### 실행 테스트  ######
+# print("result\n\n",ai_plot_coflict_total_analysis(input_text))
 
 
 ### {'result_all_plot': 1.33, 'emotional_rollercoaster': 25.0, 'plot_complexity': 26.52, 'degree_conflict': 3.0, 'result_plot_complexity': 0, 'result_emotional_rollercoaster': 0, 'result_degree_conflict': 2, 'neg': [0.0, 0.0, 0.041, 0.044, 0.19, 0.0, 0.04, 0.0, 0.054, 0.0, 0.0, 0.118, 0.101, 0.0, 0.239, 0.133, 0.104, 0.0, 0.083, 0.09, 0.092, 0.058, 0.079, 0.121], 'neu': [0.808, 1.0, 0.778, 0.787, 0.678, 1.0, 0.884, 1.0, 0.79, 0.723, 1.0, 0.882, 0.739, 1.0, 0.761, 0.867, 0.896, 0.762, 0.702, 0.77, 0.667, 0.822, 0.702, 0.65], 'pos': [0.192, 0.0, 0.181, 0.169, 0.132, 0.0, 0.076, 0.0, 0.155, 0.277, 0.0, 0.0, 0.161, 0.0, 0.0, 0.0, 0.0, 0.238, 0.215, 0.14, 0.242, 0.119, 0.219, 0.23], 'compound': [0.228, 0.0, 0.7269, 0.6486, -0.2144, 0.0, 0.4588, 0.0, 0.624, 0.7579, 0.0, -0.5267, 0.0258, 0.0, -0.5719, -0.3354, -0.2732, 0.6486, 0.4588, 0.2206, 0.7351, 0.3182, 0.4939, 0.5719], 'graph_calculation_list': [0, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1.0, -1.1, -1.2, -1.3, -1.4, -1.5, -1.6, -1.7, -1.8, -1.9, -2.0, 0.0, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1.0, -1.1, -1.2, -1.3, -1.4, -1.5, -1.6, -1.7, -1.8, 0.2, 0.1, 0.0, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1.0, -1.1, -1.2, -1.3, -1.4, -1.5, -1.6, -1.7, -1.8, -1.9, -2.0, -2.1, -2.2, -2.3, -2.4, -2.5, -2.6, -2.7, -2.8, -2.9, -3.0, -3.1, -3.2, -3.3, -3.4, -3.5, -3.6, -3.7, -3.8, -3.9, -4.0, -4.1, -4.2, -4.3, -4.4, -4.5, -4.6, -4.7, -4.8, -4.9, -5.0, -5.1, -5.2, -5.3, -5.4, -5.5, -5.6, -5.7, -5.8, -5.9, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -5.5, -5.6, -5.7, -5.8, -3.8, -3.9, -4.0, -4.1, -4.2, -4.3, -2.3, -2.4, -2.5, -2.6, -2.7, -2.8, -2.9, -3.0, -3.1, -3.2, -3.3, -1.3, -1.4, -1.5, -1.6, -1.7, -1.8, -1.9, -2.0, -2.1, -2.2, -2.3, -2.4, -2.5, -2.6, -2.7, -2.8, -2.9, -3.0, -3.1, -3.2, -3.3, -3.4, -3.5, -1.5, -1.6, -1.7, -1.8, -1.9, -2.0, -2.1, -2.2, -2.3, -2.4, -2.5, -2.6, -2.7, -2.8, -2.9, -3.0, -3.1, -3.2, -3.3, -3.4, -3.5, -3.6, -3.7, -3.8, -3.9, -4.0, -4.1, -4.2, -4.3, -4.4, -4.5, -4.6, -4.7, -4.8, -4.9, -5.0, -5.1, -5.2, -5.3, -3.3, -3.4, -3.5, -3.6, -3.7, -3.8, -3.9, -4.0, -4.1, -4.2, -4.3, -4.4, -4.5, -4.6, -4.7, -4.8, -4.9, -5.0, -5.1, -5.2, -5.3, -5.4, -5.5, -5.6, -5.7, -5.8, -5.9, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -8.1, -8.2, -8.3, -8.4, -8.5, -8.6, -8.7, -8.8, -8.9, -6.9, -7.0, -7.1, -5.1, -5.2, -5.3, -5.4, -5.5, -5.6, -5.7, -5.8, -5.9, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -4.7, -4.8, -4.9, -5.0, -5.1, -5.2, -5.3, -5.4, -5.5, -5.6, -5.7, -5.8, -5.9, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -8.1, -8.2, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -8.1, -8.2, -8.3, -8.4, -8.5, -8.6, -8.7, -8.8, -8.9, -9.0, -9.1, -9.2, -9.3, -9.4, -9.5, -9.6, -9.7, -9.8, -9.9, -10.0, -10.1, -10.2, -10.3, -10.4, -10.5, -10.6, -10.7, -10.8, -10.9, -11.0, -11.1, -11.2, -11.3, -11.4, -11.5, -11.6, -11.7, -11.8, -11.9, -12.0, -12.1, -12.2, -12.3, -12.4, -12.5, -12.6, -12.7, -12.8, -12.9, -13.0, -13.1, -11.1, -11.2, -11.3, -11.4, -11.5, -11.6, -11.7, -11.8, -11.9, -12.0, -12.1, -12.2, -12.3, -12.4, -12.5, -12.6, -12.7, -12.8, -12.9, -13.0, -13.1, -13.2, -13.3, -13.4, -13.5, -13.6, -13.7, -13.8, -13.9, -14.0, -14.1, -14.2, -14.3, -14.4, -14.5, -14.6, -14.7, -14.8, -14.9, -15.0, -15.1, -15.2, -15.3, -13.3, -13.4, -13.5, -13.6, -13.7, -13.8, -13.9, -14.0, -14.1, -14.2, -14.3, -14.4, -14.5, -14.6, -14.7, -14.8, -14.9, -15.0, -13.0, -13.1, -13.2, -13.3, -13.4, -13.5, -13.6, -13.7, -13.8, -13.9, -14.0, -14.1, -14.2, -14.3, -14.4, -12.4, -12.5, -10.5, -10.6, -10.7, -10.8, -10.9, -11.0, -11.1, -11.2, -11.3, -11.4, -11.5, -11.6, -11.7, -11.8, -11.9, -9.9, -10.0, -10.1, -10.2, -10.3, -10.4, -10.5, -10.6, -8.6, -8.7, -8.8, -8.9, -9.0, -9.1, -9.2, -9.3, -9.4, -9.5, -9.6, -9.7, -9.8, -9.9, -10.0, -10.1, -10.2, -10.3, -10.4, -8.4, -8.5, -8.6, -8.7, -8.8, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -8.1, -8.2, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -4.9, -5.0, -5.1, -5.2, -5.3, -5.4, -5.5, -5.6, -5.7, -5.8, -5.9, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -5.9, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8, -6.9, -7.0, -7.1, -7.2, -7.3, -7.4, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -8.1, -8.2, -8.3, -8.4, -8.5, -8.6, -8.7, -8.8, -8.9, -9.0, -9.1, -9.2, -9.3, -9.4, -9.5, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -8.1, -8.2, -8.3, -8.4, -8.5, -8.6, -8.7, -8.8, -8.9, -9.0, -9.1, -9.2, -9.3, -9.4, -9.5, -7.5, -7.6, -7.7, -7.8, -7.9, -8.0, -6.0, -6.1, -6.2, -6.3, -6.4, -6.5, -6.6, -6.7, -6.8]}
