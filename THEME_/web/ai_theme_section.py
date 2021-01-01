@@ -1,43 +1,3 @@
-#  6개의 질문중 택 1의 경우 한명의 학생데이터와 1000명의 학생 데이터를 비교하여 상, 중, 하를 구분하는 코드임. 
-
-# 실행에 필요한 사전 계산파일은 모두 2종류로 csv 1개, pickle 7개임
-# 1) actionverbs.csv
-# 2) question_one_1000_dataset.pickle ~ question_seven_1000_dataset.pickle
-
-
-
-# 입력데이터 :  학생에세이(input_text), 질문 7개중 1개 선택(question_num)
-# 실행 함수 :  theme_total_analysis(input_text, question_num)  
-
-
-#  결과에서 맨 마지막 최종결과만 확인하면 됨   4개의 결과로  return result_final, emo_result, topic_result, topic_result
-
-# 1명의 에세이 결과 계산점수 : [9.45423856180526, 3.97]
-# min_ 30
-# max_:  123
-# div_: 30
-# cal_abs 절대값 : 67.54576143819475
-# compare7 : 14.409039760300876
-# compare6 : 17.29084771236105
-# compare5 : 21.613559640451314
-# compare4 : 28.818079520601753
-# compare3 : 43.22711928090263
-# Lacking: 2
-# min_ 191
-# max_:  764
-# div_: 191
-# cal_abs 절대값 : 474.03
-# compare7 : 80.32833333333333
-# compare6 : 96.394
-# compare5 : 120.4925
-# compare4 : 160.65666666666667
-# compare3 : 240.985
-# Lacking: 2
-
-# return result_final(Contextual Semantic Search, Narrativity, Overall Theme Rating), emo_result(감정분석워드클라우드 결과 딕셔너리), topic_result(주제추출 워드클라우드 결과 딕셔너리)
-# 최종결과 :  ([0, 0, 1.0], {'approval': 7, 'admiration': 3, 'realization': 3, 'amusement': 1, 'confusion': 1, 'excitement': 1, 'annoyance': 1}, {'i': 27, 'filipino': 3, 'expectations': 3, 'way': 3, 'francesca': 3, 'pressure': 3, 'summer': 2, 'tradition': 2, 'expectation': 2, 'piano': 2, 's': 2, 'guitar': 2, 'sound': 2, 'interlochen': 2, 'environment': 2, 'art': 2, 'guitarist': 2, 'jazz': 2, 'one': 2, 'someone': 2, 'presence': 2, 'comfort': 2, 'warmth': 2, "'bloomington": 1, 'city': 1, 'swathes': 1, 'corn': 1, 'envelop': 1, 'roads': 1, 'smell': 1, 'bbq': 1, 'smoke': 1, 'countryside': 1, 'norms': 1, 'force': 1, 'role': 1, 'debussy': 1, 'festival': 1, 'philosophy': 1, 'demand': 1, 'triplet': 1, 'groove': 1, 'intricacies': 1, 'chordal': 1, 'harmony': 1, 'years': 1, 'music': 1, 'novelty': 1, 'methods': 1, 'solos': 1, 'greats': 1, 'experiment': 1, 'approaches': 1, 'route': 1, 'freedom': 1, 'path': 1, 'desires': 1, 'trail': 1, 'arts': 1, 'year': 1, 'growth': 1, 'people': 1, 'kinds': 1, 'regard': 1, 'ideas': 1, 'opportunity': 1, 'limits': 1, 'day': 1, 'camp': 1, 'peer': 1, 'band': 1, 'girl': 1, 'illinois': 1, 'moment': 1, 'endeavors': 1, 'effort': 1, 'background': 1, 'slew': 1, 'differences': 1, 'heights': 1, 'guitars': 1, 'styles': 1, 'others': 1, 'trouble': 1, 'distinction': 1, 'performances': 1, 'glittering': 1, 'lakes': 1, 'pine': 1, 'needles': 1, 'bloomington': 1, 'mistaken': 1, 'times': 1, 'standard': 1, 'language': 1, 'style': 1, 'qualities': 1, 'something': 1, 'pursuit': 1, 'time': 1, 'inspiration': 1, 'precedent': 1, 'spite': 1, 'solace': 1, 'similarities': 1, 'sense': 1, 'life': 1, 'matter': 1, 'm': 1, 'engage': 1, 'influence': 1, 'rewards': 1, 'encounter': 1, 'feeling': 1, 'setting': 1, 'conditions': 1, 'hometown': 1, 'resemblances': 1, 'familiarity': 1, 'balance': 1, 'elements': 1, 'discove': 1, ']': 1}, {'i': 27, 'filipino': 3, 'expectations': 3, 'way': 3, 'francesca': 3, 'pressure': 3, 'summer': 2, 'tradition': 2, 'expectation': 2, 'piano': 2, 's': 2, 'guitar': 2, 'sound': 2, 'interlochen': 2, 'environment': 2, 'art': 2, 'guitarist': 2, 'jazz': 2, 'one': 2, 'someone': 2, 'presence': 2, 'comfort': 2, 'warmth': 2, "'bloomington": 1, 'city': 1, 'swathes': 1, 'corn': 1, 'envelop': 1, 'roads': 1, 'smell': 1, 'bbq': 1, 'smoke': 1, 'countryside': 1, 'norms': 1, 'force': 1, 'role': 1, 'debussy': 1, 'festival': 1, 'philosophy': 1, 'demand': 1, 'triplet': 1, 'groove': 1, 'intricacies': 1, 'chordal': 1, 'harmony': 1, 'years': 1, 'music': 1, 'novelty': 1, 'methods': 1, 'solos': 1, 'greats': 1, 'experiment': 1, 'approaches': 1, 'route': 1, 'freedom': 1, 'path': 1, 'desires': 1, 'trail': 1, 'arts': 1, 'year': 1, 'growth': 1, 'people': 1, 'kinds': 1, 'regard': 1, 'ideas': 1, 'opportunity': 1, 'limits': 1, 'day': 1, 'camp': 1, 'peer': 1, 'band': 1, 'girl': 1, 'illinois': 1, 'moment': 1, 'endeavors': 1, 'effort': 1, 'background': 1, 'slew': 1, 'differences': 1, 'heights': 1, 'guitars': 1, 'styles': 1, 'others': 1, 'trouble': 1, 'distinction': 1, 'performances': 1, 'glittering': 1, 'lakes': 1, 'pine': 1, 'needles': 1, 'bloomington': 1, 'mistaken': 1, 'times': 1, 'standard': 1, 'language': 1, 'style': 1, 'qualities': 1, 'something': 1, 'pursuit': 1, 'time': 1, 'inspiration': 1, 'precedent': 1, 'spite': 1, 'solace': 1, 'similarities': 1, 'sense': 1, 'life': 1, 'matter': 1, 'm': 1, 'engage': 1, 'influence': 1, 'rewards': 1, 'encounter': 1, 'feeling': 1, 'setting': 1, 'conditions': 1, 'hometown': 1, 'resemblances': 1, 'familiarity': 1, 'balance': 1, 'elements': 1, 'discove': 1, ']': 1})
-
-
 
 import numpy as np
 import gensim
@@ -95,8 +55,8 @@ import pickle
 
 # 글속에 감정이 얼마나 표현되어 있는지 분석 - origin (Bert pre trained model 활용)
 from transformers import BertTokenizer
-from model import BertForMultiLabelClassification
-from multilabel_pipeline import MultiLabelPipeline
+from essayai.ai_theme.model import BertForMultiLabelClassification
+from essayai.ai_theme.multilabel_pipeline import MultiLabelPipeline
 from pprint import pprint
 
 
@@ -139,7 +99,7 @@ def theme_all_section(input_text, question_num):
         # st_data_txt = json.dumps(json_data)
 
         # #데이터 확인완료
-        #print(st_data_txt)
+        ##print(st_data_txt)
 
 
 
@@ -285,7 +245,7 @@ def theme_all_section(input_text, question_num):
             #우선 토큰화한다.
             retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
             token_input_text = retokenize.tokenize(essay_input_corpus)
-            #print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
+            ##print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
             #리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
             filtered_chr_text = []
             for k in token_input_text:
@@ -293,11 +253,11 @@ def theme_all_section(input_text, question_num):
                     if k == j:
                         filtered_chr_text.append(j)
 
-            #print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
+            ##print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
 
             filtered_chr_text_ = set(filtered_chr_text) #중복제거
             filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
-            #print (filtered_chr_text__) # 중복값 제거 확인
+            ##print (filtered_chr_text__) # 중복값 제거 확인
 
             # for i in filtered_chr_text__:
             #     ext_sim_words_key = model.most_similar_cosmul(i,topn=50) #모델적용
@@ -325,72 +285,72 @@ def theme_all_section(input_text, question_num):
         if 'ques_one' == question_num: #선택한 질문이 ques_one 이면
 
             result_ques_ = sim_words_quesiton(input_text, qst_one_words_list) #입력한 에세이에 관하여 관련단어를 추출을 시작하라
-            print("질문 1에 해당하는 1명 데이터 관련어 :", result_ques_)
+            #print("질문 1에 해당하는 1명 데이터 관련어 :", result_ques_)
             
             # load
-            with open('question_one_1000_dataset.pickle', 'rb') as f:
+            with open('./essayai/ai_theme/question_one_1000_dataset.pickle', 'rb') as f:
                 result_most_simWords = pickle.load(f)
-            print("1000명 관련 data loaded :", result_most_simWords)
+            #print("1000명 관련 data loaded :", result_most_simWords)
 
         elif 'ques_two' == question_num:
 
             result_ques_ = sim_words_quesiton(input_text, qst_two_words_list)
-            print("result_ques_two :", result_ques_)
+            #print("result_ques_two :", result_ques_)
             
             # load
-            with open('question_two_1000_dataset.pickle', 'rb') as f:
+            with open('./essayai/ai_theme/question_two_1000_dataset.pickle', 'rb') as f:
                 result_most_simWords = pickle.load(f)
-            print("1000명 관련 data loaded :", result_most_simWords)
+            #print("1000명 관련 data loaded :", result_most_simWords)
 
         elif 'ques_three' == question_num:
 
             result_ques_ = sim_words_quesiton(input_text, qst_three_words_list)
-            print("result_ques_three :", result_ques_)
+            #print("result_ques_three :", result_ques_)
             
             # load
-            with open('question_three_1000_dataset.pickle', 'rb') as f:
+            with open('./essayai/ai_theme/question_three_1000_dataset.pickle', 'rb') as f:
                 result_most_simWords = pickle.load(f)
-            print("1000명 관련 data loaded :", result_most_simWords)
+            #print("1000명 관련 data loaded :", result_most_simWords)
 
 
         elif 'ques_four' == question_num:
 
             result_ques_ = sim_words_quesiton(input_text, qst_four_words_list)
-            print("result_ques_four :", result_ques_)
+            #print("result_ques_four :", result_ques_)
             
             # load
-            with open('question_four_1000_dataset.pickle', 'rb') as f:
+            with open('./essayai/ai_theme/question_four_1000_dataset.pickle', 'rb') as f:
                 result_most_simWords = pickle.load(f)
-            print("1000명 관련 data loaded :", result_most_simWords)
+            #print("1000명 관련 data loaded :", result_most_simWords)
             
         elif 'ques_five' == question_num:
 
             result_ques_ = sim_words_quesiton(input_text, qst_five_words_list)
-            print("result_ques_five :", result_ques_)
+            #print("result_ques_five :", result_ques_)
             
             # load
-            with open('question_five_1000_dataset.pickle', 'rb') as f:
+            with open('./essayai/ai_theme/question_five_1000_dataset.pickle', 'rb') as f:
                 result_most_simWords = pickle.load(f)
-            print("1000명 관련 data loaded :", result_most_simWords)
+            #print("1000명 관련 data loaded :", result_most_simWords)
             
         elif 'ques_six' == question_num:
 
             result_ques_ = sim_words_quesiton(input_text, qst_six_words_list)
-            print("result_ques_six :", result_ques_)
+            #print("result_ques_six :", result_ques_)
             
             # load
-            with open('question_six_1000_dataset.pickle', 'rb') as f:
+            with open('./essayai/ai_theme/question_six_1000_dataset.pickle', 'rb') as f:
                 result_most_simWords = pickle.load(f)
-            print("1000명 관련 data loaded :", result_most_simWords)    
+            #print("1000명 관련 data loaded :", result_most_simWords)    
 
         elif 'ques_seven' == question_num:
-            print("let me think...")
+            #print("let me think...")
             result_ques_ = sim_words_quesiton(input_text, qst_seven_words_list)
            
             # load
-            with open('question_seven_1000_dataset.pickle', 'rb') as f:
+            with open('./essayai/ai_theme/question_seven_1000_dataset.pickle', 'rb') as f:
                 result_most_simWords = pickle.load(f)
-            print("1000명 관련 data loaded :", result_most_simWords)
+            #print("1000명 관련 data loaded :", result_most_simWords)
 
         else :
             pass
@@ -425,9 +385,9 @@ def theme_all_section(input_text, question_num):
 
 
         def most_similar(doc_id,similarity_matrix, matrix):
-            ##print (f'대표 WORD: {ps_documents_df.iloc[doc_id]["documents_cleaned"]}')
-            ##print ('\n')
-            ##print (f'Similar Words using {matrix}:')
+            ###print (f'대표 WORD: {ps_documents_df.iloc[doc_id]["documents_cleaned"]}')
+            ###print ('\n')
+            ###print (f'Similar Words using {matrix}:')
             if matrix=='Cosine Similarity':
                 similar_ix=np.argsort(similarity_matrix[doc_id])[::-1]
             elif matrix=='Euclidean Distance':
@@ -438,13 +398,13 @@ def theme_all_section(input_text, question_num):
             for ix in similar_ix:
                 if ix==doc_id:
                     continue
-                #print('\n')
-                #print (f'{ps_documents_df.iloc[ix]["documents_cleaned"]} {similarity_matrix[doc_id][ix]}')
+                ##print('\n')
+                ##print (f'{ps_documents_df.iloc[ix]["documents_cleaned"]} {similarity_matrix[doc_id][ix]}')
                 re_simil_words.append(ps_documents_df.iloc[ix]["documents_cleaned"])
                 re_simil_words.append(similarity_matrix[doc_id][ix])
-        #        print (f'{matrix} : {similarity_matrix[doc_id][ix]}')
-        #         print (f'Word: {ps_documents_df.iloc[ix]["documents_cleaned"]}')
-        #         print (f'{matrix} : {similarity_matrix[doc_id][ix]}')
+        #        #print (f'{matrix} : {similarity_matrix[doc_id][ix]}')
+        #         #print (f'Word: {ps_documents_df.iloc[ix]["documents_cleaned"]}')
+        #         #print (f'{matrix} : {similarity_matrix[doc_id][ix]}')
             return re_simil_words,re_simil_cos
 
 
@@ -474,7 +434,7 @@ def theme_all_section(input_text, question_num):
 
             re_most_simWords = most_similar(0,pairwise_similarities,'Cosine Similarity',ps_documents_df)
             
-            ##print("re_most_sim_words :" , re_most_simWords)
+            ###print("re_most_sim_words :" , re_most_simWords)
             
             return re_most_simWords
 
@@ -501,8 +461,8 @@ def theme_all_section(input_text, question_num):
         for j in tqdm(result_ques_): #학생데이터를 하나씩 가져와서
             for k in tqdm(input_data_preprocessed): # 합친데이터를 하나씩 꺼내서
                 if j == k: #같으면, 그 위치로부터 시작해서 비교 구간까지의 데이터를 꺼내온다.
-                    ##print('j',j)
-                    ##print('k',k)
+                    ###print('j',j)
+                    ###print('k',k)
 
                     input_data_preprocessed  #1명과 1000명데이터 분석결과 합친결과(1단어:1000명단어)
 
@@ -510,10 +470,10 @@ def theme_all_section(input_text, question_num):
 
 
                     end_numb = input_data_preprocessed.index(j) + len(result_most_simWords) + 1
-                    ##print("input_data_preprocessed.index(j) : ", input_data_preprocessed.index(j))
-                    ##print("end_numb :", end_numb)
+                    ###print("input_data_preprocessed.index(j) : ", input_data_preprocessed.index(j))
+                    ###print("end_numb :", end_numb)
                     in_text = input_data_preprocessed[input_data_preprocessed.index(j):end_numb]
-                    ##print('분석할 단어 그룹', in_text)
+                    ###print('분석할 단어 그룹', in_text)
                     # 첫 계산(학생 키워드와 전체 키워드 데이터의 거리를 각각 계산)을 하고, 다음 구간으로 넘어가자
 
                     #doctovec_run(in_text) #함수실행
@@ -538,12 +498,12 @@ def theme_all_section(input_text, question_num):
 
 
                     pairwise_similarities=cosine_similarity(document_embeddings)
-                    ##print('pairwise_similarities ::::::::::' , pairwise_similarities)
+                    ###print('pairwise_similarities ::::::::::' , pairwise_similarities)
 
                     re_most_simWords = most_similar(cont, pairwise_similarities,'Cosine Similarity')
                     cont += 1
                     result_most_simWords.append(re_most_simWords)
-                    ##print('re_most_simWords :', re_most_simWords)
+                    ###print('re_most_simWords :', re_most_simWords)
 
 
         rlt = [x[0] for x in result_most_simWords]
@@ -566,7 +526,7 @@ def theme_all_section(input_text, question_num):
 def narrative_ratio(text):
 
     #데이터 불러오기
-    data_action_verbs = pd.read_csv('actionverbs.csv')
+    data_action_verbs = pd.read_csv('./essayai/ai_theme/actionverbs.csv')
     data_ac_verbs_list = data_action_verbs.values.tolist()
     verbs_list = [y for x in data_ac_verbs_list for y in x]
 
@@ -604,7 +564,7 @@ def narrative_ratio(text):
     #우선 토큰화한다.
     retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
     token_input_text = retokenize.tokenize(essay_input_corpus)
-    #print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
+    ##print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
     #리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
     filtered_chr_text = []
     for k in token_input_text:
@@ -612,11 +572,11 @@ def narrative_ratio(text):
             if k == j:
                 filtered_chr_text.append(j)
     
-    #print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
+    ##print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
     
     filtered_chr_text_ = set(filtered_chr_text) #중복제거
     filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
-    #print (filtered_chr_text__) # 중복값 제거 확인
+    ##print (filtered_chr_text__) # 중복값 제거 확인
       
     char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 표현 수
     char_count_ = len(filtered_chr_text__) #중복제거된  표현 총 수
@@ -644,7 +604,7 @@ def emo_analysis(input_text):
     )
 
     #결과확인
-    #print(goemotions(texts))
+    ##print(goemotions(texts))
     ########## 여기서는 최초 입력 에세이를 적용한다. input_text !!!!!!!!
     re_text = input_text.split(".")
 
@@ -669,7 +629,7 @@ def emo_analysis(input_text):
 
     emo_all = []
     for list_val in range(0, len(emo_re)):
-        #print(emo_re[list_val]['labels'],emo_re[list_val]['scores'])
+        ##print(emo_re[list_val]['labels'],emo_re[list_val]['scores'])
         #mo_all.append((emo_re[list_val]['labels'],emo_re[list_val]['scores'])) #KEY, VALUE만 추출하여 리스트로 저장
         #emo_all.append(emo_re[list_val]['scores'])
         emo_all.append((emo_re[list_val]['labels']))
@@ -782,7 +742,7 @@ def theme_total_analysis(input_text, question_num):
     ### 핵심주제어 워드크라라우드 데이터 추출 ###
     topic_result = topic_wordcloud(input_text)
 
-    print("1명의 에세이 결과 계산점수 :", char_sec_re)
+    #print("1명의 에세이 결과 계산점수 :", char_sec_re)
 
     # 위에서 계산한 총 4개의 값을 개인, 그룹의 값과 비교하여 lacking, ideal, overboard 계산
     
@@ -807,74 +767,74 @@ def theme_total_analysis(input_text, question_num):
         one_ps_char_desc = personal_value
         #최대, 최소값 기준으로 구간설정. 구간비율 30% => 0.3으로 설정
         min_ = int(ideal_mean-ideal_mean*0.6)
-        print('min_', min_)
+        #print('min_', min_)
         max_ = int(ideal_mean+ideal_mean*0.6)
-        print('max_: ', max_)
+        #print('max_: ', max_)
         div_ = int(((ideal_mean+ideal_mean*0.6)-(ideal_mean-ideal_mean*0.6))/3)
-        print('div_:', div_)
+        #print('div_:', div_)
 
         #결과 판단 Lacking, Ideal, Overboard
         cal_abs = abs(ideal_mean - one_ps_char_desc) # 개인 - 단체 값의 절대값계산
 
-        print('cal_abs 절대값 :', cal_abs)
+        #print('cal_abs 절대값 :', cal_abs)
         compare7 = (one_ps_char_desc + ideal_mean)/6
         compare6 = (one_ps_char_desc + ideal_mean)/5
         compare5 = (one_ps_char_desc + ideal_mean)/4
         compare4 = (one_ps_char_desc + ideal_mean)/3
         compare3 = (one_ps_char_desc + ideal_mean)/2
-        print('compare7 :', compare7)
-        print('compare6 :', compare6)
-        print('compare5 :', compare5)
-        print('compare4 :', compare4)
-        print('compare3 :', compare3)
+        #print('compare7 :', compare7)
+        #print('compare6 :', compare6)
+        #print('compare5 :', compare5)
+        #print('compare4 :', compare4)
+        #print('compare3 :', compare3)
 
 
 
         if one_ps_char_desc > ideal_mean: # 개인점수가 평균보다 클 경우는 overboard
             if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
-                print("Overboard: 2")
+                #print("Overboard: 2")
                 result = 2 #overboard
                 score = 1
             elif cal_abs > compare4: # 28
-                print("Overvoard: 2")
+                #print("Overvoard: 2")
                 result = 2
                 score = 2
             elif cal_abs > compare5: # 22
-                print("Overvoard: 2")
+                #print("Overvoard: 2")
                 result = 2
                 score = 3
             elif cal_abs > compare6: # 18
-                print("Overvoard: 2")
+                #print("Overvoard: 2")
                 result = 2
                 score = 4
             else:
-                print("Ideal: 1")
+                #print("Ideal: 1")
                 result = 1
                 score = 5
         elif one_ps_char_desc < ideal_mean: # 개인점수가 평균보다 작을 경우 lacking
             if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
-                print("Lacking: 2")
+                #print("Lacking: 2")
                 result = 0
                 score = 1
             elif cal_abs > compare4: # 28
-                print("Lacking: 2")
+                #print("Lacking: 2")
                 result = 0
                 score = 2
             elif cal_abs > compare5: # 22
-                print("Lacking: 2")
+                #print("Lacking: 2")
                 result = 0
                 score = 3
             elif cal_abs > compare6: # 18
-                print("Lacking: 2")
+                #print("Lacking: 2")
                 result = 0
                 score = 4
             else:
-                print("Ideal: 1")
+                #print("Ideal: 1")
                 result = 1
                 score = 5
                 
         else:
-            print("Ideal: 1")
+            #print("Ideal: 1")
             result = 1
             score = 5
 
@@ -893,9 +853,18 @@ def theme_total_analysis(input_text, question_num):
     # 최종 character  전체 점수 계산
     overall_character_rating = [(fin_result[0][1]+ fin_result[1][1])/2]
 
-    result_final = each_fin_result + overall_character_rating
+    data = {
+        
+       "theme_topics" :  fin_result[0][0],
+       "theme_sentiments": fin_result[1][0],
+       "avg_theme": overall_character_rating[0],
+       
+       "emotion_wordcloud": emo_result,
+       "topic_wordcloud": topic_result
+        
+    }
 
-    return result_final, emo_result, topic_result, topic_result
+    return data
 
 
 
@@ -906,5 +875,6 @@ def theme_total_analysis(input_text, question_num):
 
 #################### 테스트~~~~!!!! ###################
 
-print("최종결과 : ", theme_total_analysis(input_text, question_num))
+# #print("최종결과 : ", theme_total_analysis(input_text, question_num))
 
+### 최종결과 :  {'theme_topics': 1, 'theme_sentiments': 1, 'avg_theme': 5.0, 'emotion_wordcloud': {'approval': 7, 'admiration': 3, 'realization': 3, 'amusement': 1, 'confusion': 1, 'excitement': 1, 'annoyance': 1}, 'topic_wordcloud': {'i': 27, 'filipino': 3, 'expectations': 3, 'way': 3, 'francesca': 3, 'pressure': 3, 'summer': 2, 'tradition': 2, 'expectation': 2, 'piano': 2, 's': 2, 'guitar': 2, 'sound': 2, 'interlochen': 2, 'environment': 2, 'art': 2, 'guitarist': 2, 'jazz': 2, 'one': 2, 'someone': 2, 'presence': 2, 'comfort': 2, 'warmth': 2, "'bloomington": 1, 'city': 1, 'swathes': 1, 'corn': 1, 'envelop': 1, 'roads': 1, 'smell': 1, 'bbq': 1, 'smoke': 1, 'countryside': 1, 'norms': 1, 'force': 1, 'role': 1, 'debussy': 1, 'festival': 1, 'philosophy': 1, 'demand': 1, 'triplet': 1, 'groove': 1, 'intricacies': 1, 'chordal': 1, 'harmony': 1, 'years': 1, 'music': 1, 'novelty': 1, 'methods': 1, 'solos': 1, 'greats': 1, 'experiment': 1, 'approaches': 1, 'route': 1, 'freedom': 1, 'path': 1, 'desires': 1, 'trail': 1, 'arts': 1, 'year': 1, 'growth': 1, 'people': 1, 'kinds': 1, 'regard': 1, 'ideas': 1, 'opportunity': 1, 'limits': 1, 'day': 1, 'camp': 1, 'peer': 1, 'band': 1, 'girl': 1, 'illinois': 1, 'moment': 1, 'endeavors': 1, 'effort': 1, 'background': 1, 'slew': 1, 'differences': 1, 'heights': 1, 'guitars': 1, 'styles': 1, 'others': 1, 'trouble': 1, 'distinction': 1, 'performances': 1, 'glittering': 1, 'lakes': 1, 'pine': 1, 'needles': 1, 'bloomington': 1, 'mistaken': 1, 'times': 1, 'standard': 1, 'language': 1, 'style': 1, 'qualities': 1, 'something': 1, 'pursuit': 1, 'time': 1, 'inspiration': 1, 'precedent': 1, 'spite': 1, 'solace': 1, 'similarities': 1, 'sense': 1, 'life': 1, 'matter': 1, 'm': 1, 'engage': 1, 'influence': 1, 'rewards': 1, 'encounter': 1, 'feeling': 1, 'setting': 1, 'conditions': 1, 'hometown': 1, 'resemblances': 1, 'familiarity': 1, 'balance': 1, 'elements': 1, 'discove': 1, ']': 1}}
