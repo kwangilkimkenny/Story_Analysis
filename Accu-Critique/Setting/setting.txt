@@ -1,0 +1,7 @@
+개발완료!
+
+# ILO Value, Setting Num Words, Words:  (1, [3, ['Illinois', 'Interlochen', 'Bloomington']])
+# 결과 설명
+# 0:Not a big factor, 1:Somewhat important, 2:Surroundings matter a lot  >>> 1
+# Setting Num Words >>> 3
+# setting words list >>> ['Illinois', 'Interlochen', 'Bloomington']
