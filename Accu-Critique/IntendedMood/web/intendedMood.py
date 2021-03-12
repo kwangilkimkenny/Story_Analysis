@@ -37,21 +37,43 @@ def cleaning(datas):
 def ai_emotion_analysis(input_text):
     # . 로 구분하여 리스트로 변환
     re_text = input_text.split(".")
-    print("re_text type: ", type(re_text))
+    #print("re_text type: ", type(re_text))
         
     texts = cleaning(re_text)
     re_emot =  goemotions(texts)
     df = pd.DataFrame(re_emot)
+    #print("dataframe:", df)
+    label_cnt = df.count()
+    #print(label_cnt)
+ 
+    #추출된 감성중 레이블만 다시 추출하고, 이것을 리스트로 변환 후, 이중리스트 flatten하고, 가장 많이 추출된 대표감성을 카운트하여 산출한다.
+    result_emotion = list(df['labels'])
+    #이중리스트 flatten
+    all_emo_types = sum(result_emotion, [])
+    #대표감성 추출 : 리스트 항목 카운트하여 가장 높은 값 산출
+    ext_emotion = {}
+    for i in all_emo_types:
+        if i == 'neutral': # neutral 감정은 제거함
+            pass
+        else:
+            try: ext_emotion[i] += 1
+            except: ext_emotion[i]=1    
+    #print(ext_emotion)
+    #결과값 오름차순 정렬 : 추출된 감성 결과가 높은 순서대로 정려하기
+    key_emo = sorted(ext_emotion.items(), key=lambda x: x[1], reverse=True)
+    #print("Key extract emoitons: ", key_emo)
     
-    #결과물을 다시 감정유형별 비율로 계산하여 새로운 데이터프레임을 만들자!
-    #result_emotion = df['labels'].value_counts(normalize=True, sort=True, ascending=False, dropna=True) #문장 전체에서 각 값의 상대적 비율을 게산
-    result_emotion = df['labels']
-    print("result_emotion dtype :", type(list(result_emotion)))
-    print(result_emotion)
-    
+    #가장 많이 추출된 감성 1개
+    key_emo[0]
+    #가장 많이 추출된 감성 3개
+    key_emo[:2]
     result_emo_list = [*sum(zip(re_text, result_emotion),())]
     
-    return result_emo_list
+    #결과해석
+    # result_emo_list >>> 문장, 분석감성
+    # key_emo[0] >>> 가장 많이 추출된 감성 1개로 이것이 에세이이 포함된 대표감성
+    # key_emo[:2] 가장 많이 추출된 감성 3개
+    return result_emo_list, key_emo[0], key_emo[:2]
 
 
 ###### Run ######
@@ -61,7 +83,12 @@ result_ = ai_emotion_analysis(input_text)
 
 print(result_)
 
-##### 실행하며 결과는 [문장, [감정]]으로 출력됨 ####
+##### 실행하며 결과는 [문장, [감정]]으로 출력됨, 대표감성 1대, 대표감성 3개 ####
+
+    #결과해석
+    # result_emo_list >>> 문장, 분석감성
+    # key_emo[0] >>> 가장 많이 추출된 감성 1개로 이것이 에세이이 포함된 대표감성
+    # key_emo[:2] 가장 많이 추출된 감성 3개
 
 # 이 결과를 토대로  html 페이지에서 동일한 문장을 찾아서 javascript로 decoration하고 
 # mouseover하면 감성분석 메시지 띄우면 됨##
