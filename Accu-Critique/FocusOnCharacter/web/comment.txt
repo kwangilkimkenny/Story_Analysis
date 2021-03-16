@@ -1,1 +1,34 @@
-웹 적용!
+###### Run ######
+# ++++++   값 입력방법   ++++++
+# input_text : 입력에세이
+# promt_no : 선택질문  >> ex) 'prompt_1'...
+# intended_character : mostly me >> 'me' = 1, me & some others : 'meAndOtehrs' = 2, other characters: 'others' = 3
+# intended_character의 입력은 'me', 'meAndOtehrs', 'others'
+
+
+input_text = """Bloomington Normal is almost laughably cliché for a midwestern city. Vast swathes of corn envelop winding roads and the heady smell of BBQ smoke pervades the countryside every summer. Yet, underlying the trite norms of Normal is the prescriptive force of tradition—the expectation to fulfill my role as a female Filipino by playing Debussy in the yearly piano festival and enrolling in multivariable calculus instead of political philosophy.So when I discovered the technical demand of bebop, the triplet groove, and the intricacies of chordal harmony after ten years of grueling classical piano, I was fascinated by the music's novelty. Jazz guitar was not only evocative and creative, but also strangely liberating. I began to explore different pedagogical methods, transcribe solos from the greats, and experiment with various approaches until my own unique sound began to develop. And, although I did not know what would be the 'best' route for me to follow as a musician, the freedom to forge whatever path I felt was right seemed to be exactly what I needed; there were no expectations for me to continue in any particular way—only the way that suited my own desires.While journeying this trail, I found myself at Interlochen Arts Camp the summer before my junior year. Never before had I been immersed in an environment so conducive to musical growth: I was surrounded by people intensely passionate about pursuing all kinds of art with no regard for ideas of what art 'should' be. I knew immediately that this would be a perfect opportunity to cultivate my sound, unbounded by the limits of confining tradition. On the first day of camp, I found that my peer guitarist in big band was another Filipino girl from Illinois. Until that moment, my endeavors in jazz guitar had been a solitary effort; I had no one with whom to collaborate and no one against whom I could compare myself, much less someone from a background mirroring my own. I was eager to play with her, but while I quickly recognized a slew of differences between us—different heights, guitars, and even playing styles—others seemed to have trouble making that distinction during performances. Some even went as far as calling me 'other-Francesca.' Thus, amidst the glittering lakes and musky pine needles of Interlochen, I once again confronted Bloomington's frustrating expectations.After being mistaken for her several times, I could not help but view Francesca as a standard of what the 'female Filipino jazz guitarist' should embody. Her improvisatory language, comping style and even personal qualities loomed above me as something I had to live up to. Nevertheless, as Francesca and I continued to play together, it was not long before we connected through our creative pursuit. In time, I learned to draw inspiration from her instead of feeling pressured to follow whatever precedent I thought she set. I found that I grew because of, rather than in spite of, her presence; I could find solace in our similarities and even a sense of comfort in an unfamiliar environment without being trapped by expectation. Though the pressure to conform was still present—and will likely remain present in my life no matter what genre I'm playing or what pursuits I engage in—I learned to eschew its corrosive influence and enjoy the rewards that it brings. While my encounter with Francesca at first sparked a feeling of pressure to conform in a setting where I never thought I would feel its presence, it also carried the warmth of finding someone with whom I could connect. Like the admittedly trite conditions of my hometown, the resemblances between us provided comfort to me through their familiarity. I ultimately found that I can embrace this warmth while still rejecting the pressure to succumb to expectations, and that, in the careful balance between these elements, I can grow in a way that feels both like discove"""
+promt_no = "promt_2"
+intended_character = "meAndOtehrs"
+
+result = focusOnCharacters(input_text, promt_no, intended_character)
+
+print(result)
+
+# 결과해석
+
+# admitted_student_for : 문장완성을 위한 값 'Focus on Character(s) by Admitted Students for _선택한 Prompt # 문항_'
+# intended_character :  1~3의 결과가 나옴 1: Mostly Me , 2: Me & some others, 3: Other characters
+# result:  'Detected characters from essay' 1~3의 결과가 나옴 1: Mostly Me , 2: Me & some others, 3: Other characters
+# sentence1 ~5 : 이것은 문장생성 결과
+
+## << Chart 표현 부분 >> ##
+# total_character_descriptors_personal:  개인 에세이에서 분석 추출한 총 캐릭터 표현 수
+# descriptors_about_yourself : 개인 에세이 추출 표현 about i
+# total_character_descriptors_group: 1000명의 에세이에서 공통적으로 추출계산한 캐릭터 총 평균값(임의로 정함, 계산후 넣어야 함)
+# descriptors_about_others_group: 1000명의 에세이 추출 others 캐릭터 평균값(임의로 정했음, 계산후 넣어야 함)
+
+## << Emphasis on You vs. Others >> 그래프 표현 부분 ##
+# admitted_case_avg : ex) [35. 65] 
+# your_essay_you_vs_others : ex) [49, 13] 개인 에세이 계산 결과
+
+# emp_sentence1~4 : Emphasis on You vs. Others의 비교분석값 Sentece 4 커멘트 부분임
