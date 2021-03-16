@@ -1,3 +1,8 @@
+
+# Focus on Character 분석 : PPT 10~12 pages 내용을 코드로 구현한 거임
+# 문장을 입력하면 Character part의 모든 분석이 가능
+
+
 # 아나콘다 가상환경 office:  py37TF2
 # home : py37Keras
 
@@ -75,6 +80,9 @@ def characters(input_text):
     #I 관련 캐릭터 표현하는 단어들의 총 개수        
     get_others = len(ext_you_characters)
 
+    #### 결과값 해석 ####
+    # get_i : i에 관련한 캐릭터 표현 단어의 총 수
+    # get_others : others에 관련한 캐릭터 표현 단어의 총 수(except for 'i')
     return get_i, get_others
 
 
@@ -476,20 +484,23 @@ def focusOnCharacters(input_text, promt_no, intended_character):
     elif intended_character_ == 2 and result == 1: # Me and some others (#2가 Mostly Me 인 경우)
         sentence3 = ['If you wish to shift the essay’s direction towards your original intention, you may consider increasing the number of characters and including more interactions between a few core members.']
     elif intended_character_ == 2 and result == 3: # Me and some others (#2가 Other characters 인 경우)
-        sentence3 - ['If you wish to shift the essay’s direction towards your original intention, you may consider reducing the number of characters. You may focus more on your own thoughts and interaction between a few core characters in the story.']
+        sentence3 = ['If you wish to shift the essay’s direction towards your original intention, you may consider reducing the number of characters. You may focus more on your own thoughts and interaction between a few core characters in the story.']
     elif intended_character_ == 3: #Other characters
         sentence3 = ['If you wish to shift the essay’s direction towards your original intention, you may consider increasing the number of characters and including more interactions between members.']
     else:
         pass
-    
-    #합격케이스의 평균값 입력
+
+    ################################
+    # ---- 합격케이스의 평균값 입력 ---- #
     adm_mean_result = 2 # 합격케이스 평균값 설정(이것은 1000명의 통계를 돌려서 결과를 반영해야함. 지금은 임의값 적용하였음)
     
     #비교항목
-    admit_mean_value_mostly_me = 1
-    admit_mean_value_me_and_a_few_others = 2
-    admit_mean_value_multiple_characters = 3
+    admit_mean_value_mostly_me = 1 # 합격케이스 평균값 설정(이것은 1000명의 통계를 돌려서 결과를 반영해야함. 지금은 임의값 적용하였음)
+    admit_mean_value_me_and_a_few_others = 2 # 합격케이스 평균값 설정(이것은 1000명의 통계를 돌려서 결과를 반영해야함. 지금은 임의값 적용하였음)
+    admit_mean_value_multiple_characters = 3 # 합격케이스 평균값 설정(이것은 1000명의 통계를 돌려서 결과를 반영해야함. 지금은 임의값 적용하였음)
     
+
+
     # 4nd sentence  합격케이스 평균값 적용
     if adm_mean_result == admit_mean_value_mostly_me:
         sentence4 = ['The admitted case trend indicates many applicants tend to focus on themselves for', selected_prompt_number]
@@ -551,23 +562,27 @@ def focusOnCharacters(input_text, promt_no, intended_character):
     # Intro / Body 1 / Body 2 / Body 3 / Conclusion (두번째로 캐릭 설명 많은 Section)
     emp_char_sec_sentence2 = section[4]
     
-    # admitted_student_for : 문장완성을 위한 값 Focus on Character(s) by Admitted Students for ________
-    # result:  #1~3의 결과가 나옴 1: Mostly Me , 2: Me & some others, 3: Other characters
+
+    # <<<<<< 결과 해석 >>>>>>> #
+
+    # admitted_student_for : 문장완성을 위한 값 'Focus on Character(s) by Admitted Students for _선택한 Prompt # 문항_'
+    # intended_character :  1~3의 결과가 나옴 1: Mostly Me , 2: Me & some others, 3: Other characters
+    # result:  'Detected characters from essay' 1~3의 결과가 나옴 1: Mostly Me , 2: Me & some others, 3: Other characters
     # sentence1 ~5 : 이것은 문장생성 결과
-    
+
     ## << Chart 표현 부분 >> ##
     # total_character_descriptors_personal:  개인 에세이에서 분석 추출한 총 캐릭터 표현 수
     # descriptors_about_yourself : 개인 에세이 추출 표현 about i
     # total_character_descriptors_group: 1000명의 에세이에서 공통적으로 추출계산한 캐릭터 총 평균값(임의로 정함, 계산후 넣어야 함)
     # descriptors_about_others_group: 1000명의 에세이 추출 others 캐릭터 평균값(임의로 정했음, 계산후 넣어야 함)
-    
+
     ## << Emphasis on You vs. Others >> 그래프 표현 부분 ##
     # admitted_case_avg : ex) [35. 65] 
     # your_essay_you_vs_others : ex) [49, 13] 개인 에세이 계산 결과
-    
+
     # emp_sentence1~4 : Emphasis on You vs. Others의 비교분석값 Sentece 4 커멘트 부분임
-    # emp_char_sec_sentence1, emp_char_sec_sentence2 : Emphasis Character by Section (# of Character Descriptors) 문장 생성 부분
-    return admitted_student_for, result, sentence1, sentence2, sentence3, sentence4, sentence5, total_character_descriptors_personal,descriptors_about_yourself,total_character_descriptors_group, descriptors_about_others_group, admitted_case_avg, your_essay_you_vs_others, emp_sentence1, emp_sentence2, emp_sentence3, emp_sentence4, emp_char_sec_sentence1, emp_char_sec_sentence2
+    
+    return admitted_student_for, intended_character_, result, sentence1, sentence2, sentence3, sentence4, sentence5, total_character_descriptors_personal,descriptors_about_yourself,total_character_descriptors_group, descriptors_about_others_group, admitted_case_avg, your_essay_you_vs_others, emp_sentence1, emp_sentence2, emp_sentence3, emp_sentence4, emp_char_sec_sentence1,emp_char_sec_sentence2
 
 
 
@@ -578,7 +593,7 @@ def focusOnCharacters(input_text, promt_no, intended_character):
 
 
 ###### Run ######
-
+# ++++++   값 입력방법   ++++++
 # input_text : 입력에세이
 # promt_no : 선택질문  >> ex) 'prompt_1'...
 # intended_character : mostly me >> 'me' = 1, me & some others : 'meAndOtehrs' = 2, other characters: 'others' = 3
@@ -593,8 +608,22 @@ result = focusOnCharacters(input_text, promt_no, intended_character)
 
 print(result)
 
-# 결과분석
+# 결과해석
 
-# admitted_student_for ____ : seletec prompt no. 문장완성을 위한 값 Focus on Character(s) by Admitted Students for ________
-# result:  #1~3의 결과가 나옴 1: Mostly Me , 2: Me & some others, 3: Other characters
+# admitted_student_for : 문장완성을 위한 값 'Focus on Character(s) by Admitted Students for _선택한 Prompt # 문항_'
+# intended_character :  1~3의 결과가 나옴 1: Mostly Me , 2: Me & some others, 3: Other characters
+# result:  'Detected characters from essay' 1~3의 결과가 나옴 1: Mostly Me , 2: Me & some others, 3: Other characters
 # sentence1 ~5 : 이것은 문장생성 결과
+
+## << Chart 표현 부분 >> ##
+# total_character_descriptors_personal:  개인 에세이에서 분석 추출한 총 캐릭터 표현 수
+# descriptors_about_yourself : 개인 에세이 추출 표현 about i
+# total_character_descriptors_group: 1000명의 에세이에서 공통적으로 추출계산한 캐릭터 총 평균값(임의로 정함, 계산후 넣어야 함)
+# descriptors_about_others_group: 1000명의 에세이 추출 others 캐릭터 평균값(임의로 정했음, 계산후 넣어야 함)
+
+## << Emphasis on You vs. Others >> 그래프 표현 부분 ##
+# admitted_case_avg : ex) [35. 65] 
+# your_essay_you_vs_others : ex) [49, 13] 개인 에세이 계산 결과
+
+# emp_sentence1~4 : Emphasis on You vs. Others의 비교분석값 Sentece 4 커멘트 부분임
+    
