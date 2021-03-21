@@ -1,7 +1,26 @@
 개발완료!
 
-# ILO Value, Setting Num Words, Words:  (1, [3, ['Illinois', 'Interlochen', 'Bloomington']])
-# 결과 설명
-# 0:Not a big factor, 1:Somewhat important, 2:Surroundings matter a lot  >>> 1
-# Setting Num Words >>> 3
-# setting words list >>> ['Illinois', 'Interlochen', 'Bloomington']
+###### run #######
+
+# 입력
+
+
+input_text = """Bloomington Normal is almost laughably cliché for a midwestern city. Vast swathes of corn envelop winding roads and the heady smell of BBQ smoke pervades the countryside every summer. Yet, underlying the trite norms of Normal is the prescriptive force of tradition—the expectation to fulfill my role as a female Filipino by playing Debussy in the yearly piano festival and enrolling in multivariable calculus instead of political philosophy.So when I discovered the technical demand of bebop, the triplet groove, and the intricacies of chordal harmony after ten years of grueling classical piano, I was fascinated by the music's novelty. Jazz guitar was not only evocative and creative, but also strangely liberating. I began to explore different pedagogical methods, transcribe solos from the greats, and experiment with various approaches until my own unique sound began to develop. And, although I did not know what would be the 'best' route for me to follow as a musician, the freedom to forge whatever path I felt was right seemed to be exactly what I needed; there were no expectations for me to continue in any particular way—only the way that suited my own desires.While journeying this trail, I found myself at Interlochen Arts Camp the summer before my junior year. Never before had I been immersed in an environment so conducive to musical growth: I was surrounded by people intensely passionate about pursuing all kinds of art with no regard for ideas of what art 'should' be. I knew immediately that this would be a perfect opportunity to cultivate my sound, unbounded by the limits of confining tradition. On the first day of camp, I found that my peer guitarist in big band was another Filipino girl from Illinois. Until that moment, my endeavors in jazz guitar had been a solitary effort; I had no one with whom to collaborate and no one against whom I could compare myself, much less someone from a background mirroring my own. I was eager to play with her, but while I quickly recognized a slew of differences between us—different heights, guitars, and even playing styles—others seemed to have trouble making that distinction during performances. Some even went as far as calling me 'other-Francesca.' Thus, amidst the glittering lakes and musky pine needles of Interlochen, I once again confronted Bloomington's frustrating expectations.After being mistaken for her several times, I could not help but view Francesca as a standard of what the 'female Filipino jazz guitarist' should embody. Her improvisatory language, comping style and even personal qualities loomed above me as something I had to live up to. Nevertheless, as Francesca and I continued to play together, it was not long before we connected through our creative pursuit. In time, I learned to draw inspiration from her instead of feeling pressured to follow whatever precedent I thought she set. I found that I grew because of, rather than in spite of, her presence; I could find solace in our similarities and even a sense of comfort in an unfamiliar environment without being trapped by expectation. Though the pressure to conform was still present—and will likely remain present in my life no matter what genre I'm playing or what pursuits I engage in—I learned to eschew its corrosive influence and enjoy the rewards that it brings. While my encounter with Francesca at first sparked a feeling of pressure to conform in a setting where I never thought I would feel its presence, it also carried the warmth of finding someone with whom I could connect. Like the admittedly trite conditions of my hometown, the resemblances between us provided comfort to me through their familiarity. I ultimately found that I can embrace this warmth while still rejecting the pressure to succumb to expectations, and that, in the careful balance between these elements, I can grow in a way that feels both like discove"""
+
+result_emp = EmphasisOnSetting('promt_3', input_text, 'alot')
+
+print('셋팅 결과 : ', result_emp)
+
+    # 결과해석
+    # intended_re : intended setting by you
+    # dct_result : detected setting value of personal essay
+    # group_setting_mean_value_for_prompt : 합격한 학생들의 셋팅 평균값(임의 임력값, 계산해서 적용해야 함) --- 두 값의 비교 부분에서 저굥ㅇ
+    # personal_setting_mean_value_for_prompt : 개입입력값에 대한 결과 --- 두 값의 비교 부분에 적용
+    # selected_prompt_number : 선택한 프롬프트 질문
+    # Sentence_1 ~ 4: 1~4번째 문장
+    # sa_re[3] : # 3. setting_total_count : # 개인 에세이 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현'단어' 수 -----> 그래프로 표현 * PPT 14page 참고
+    # sa_re[7] : # 7. setting_total_sentences_number_re : 개인 에세이 셋팅 단어가 포함된 총 '문장' 수 ------> 그래프로 표현 * PPT 14page 참고
+    # sa_re[10] : # 10. group_total_cnt : # Admitted Case Avg. 부분으로 합격학생들의 셋팅'단어' 평균값 ---> 그래프로 표현 * PPT 14page 참고
+    # sa_re[11] : # 11. group_total_setting_descriptors : Setting Descriptors 합격학생들의 셋팅 '문장'수 평균값 ---> 그래프로 표현 * PPT 14page 참고
+    # sa_re[6] : 6. totalSettingSentences : setting description 문장 추출
+    # sa_re[9] : 9. tot_setting_words : 총 문장에서 셋팅 단어 추출  ---- 웹에 표시할 부분임
