@@ -1403,7 +1403,7 @@ def shifts_Bt_PoNe(prompt_no, input_val):
     group_pmt_no_7 = 20
 
     
-    sentense_1_PN = ['The admitted cases tend to display', , 'fluctuations between polarizing sentiments throughout the story for this type of essay prompt.']
+    sentense_1_PN = ['The admitted cases tend to display', 'fluctuations between polarizing sentiments throughout the story for this type of essay prompt.']
 
 
 
@@ -1519,12 +1519,12 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
     # 개인, 그룹의 결과 비교,  컨플릭단어와 액션동사 사용량 비교
     if nums_conflict_words_re == group_conflict_word_num and nums_action_verbs_re == group_action_verbs_num:
         stm_sentence_1 = ['Compared to the accepted case average for this prompt, you have spent', 'similar number of', 'conflict oriented words and', 'similar number of', 'action verbs in your story.']
-        stm_sentence_2 = ['Overall, your plot's tension level looks good compared with the accepted average.']
+        stm_sentence_2 = ['''Overall, your plot's tension level looks good compared with the accepted average.''']
     elif nums_conflict_words_re > (group_conflict_word_num - group_conflict_word_num * 0.3)  and nums_conflict_words_re < (group_conflict_word_num + group_conflict_word_num * 0.3): 
                                                                                                                 
         if nums_action_verbs_re > (group_action_verbs_num - group_action_verbs_num * 0.3) and nums_action_verbs_re < (group_action_verbs_num + group_action_verbs_num * 0.3):
             stm_sentence_1 = ['Compared to the accepted case average for this prompt, you have spent', 'similar number of', 'conflict oriented words and', 'similar number of', 'action verbs in your story.']
-            stm_sentence_2 = ['Overall, your plot's tension level looks good compared with the accepted average.']
+            stm_sentence_2 = ['''Overall, your plot's tension level looks good compared with the accepted average.''']
         else:
             pass
                                                                                                                     
@@ -1532,7 +1532,7 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
         
         if nums_action_verbs_re < (group_action_verbs_num + group_action_verbs_num * 0.3) and nums_action_verbs_re > (group_action_verbs_num - group_action_verbs_num * 0.3):                                                                                                           
             stm_sentence_1 = ['Compared to the accepted case average for this prompt, you have spent', 'similar number of', 'conflict oriented words and', 'similar number of', 'action verbs in your story.']
-            stm_sentence_2 = ['Overall, your plot's tension level looks good compared with the accepted average.']
+            stm_sentence_2 = ['''Overall, your plot's tension level looks good compared with the accepted average.''']
         else:
             pass
 
@@ -1540,25 +1540,25 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
         first_value = abs(nums_conflict_words_re - group_conflict_word_num)
         second_value = abs(nums_action_verbs_re - group_action_verbs_num)
         stm_sentence_1 = ['Compared to the accepted case average for this prompt, you have spent', first_value, 'more', 'conflict oriented words and', second_value,'more', 'action verbs in your story.']
-        stm_sentence_2 = ['Overall, you may consider', 'using less' , 'words to', 'alleviate', 'the plot's tension]
+        stm_sentence_2 = ['Overall, you may consider', 'using less' , 'words to', 'alleviate', '''the plot's tension''']
 
     elif nums_conflict_words_re > group_conflict_word_num and nums_action_verbs_re < group_action_verbs_num:
         first_value = abs(nums_conflict_words_re - group_conflict_word_num)
         second_value = abs(nums_action_verbs_re - group_action_verbs_num)
         stm_sentence_1 = ['Compared to the accepted case average for this prompt, you have spent', first_value, 'more', 'conflict oriented words and', second_value,'fewer', 'action verbs in your story.']
-        stm_sentence_2 = ['Overall, you may consider', 'using less' , 'words to', 'intensify', 'the plot's tension]
+        stm_sentence_2 = ['Overall, you may consider', 'using less' , 'words to', 'intensify', '''the plot's tension''']
 
     elif nums_conflict_words_re < group_conflict_word_num and nums_action_verbs_re > group_action_verbs_num:
         first_value = abs(nums_conflict_words_re - group_conflict_word_num)
         second_value = abs(nums_action_verbs_re - group_action_verbs_num)
         stm_sentence_1 = ['Compared to the accepted case average for this prompt, you have spent', first_value, 'fewer', 'conflict oriented words and', second_value,'more', 'action verbs in your story.']
-        stm_sentence_2 = ['Overall, you may consider', 'adding more' , 'words to', 'alleviate', 'the plot's tension]
+        stm_sentence_2 = ['Overall, you may consider', 'adding more' , 'words to', 'alleviate', '''the plot's tension''']
 
     elif nums_conflict_words_re < group_conflict_word_num and nums_action_verbs_re < group_action_verbs_num:
         first_value = abs(nums_conflict_words_re - group_conflict_word_num)
         second_value = abs(nums_action_verbs_re - group_action_verbs_num)
         stm_sentence_1 = ['Compared to the accepted case average for this prompt, you have spent', first_value, 'fewer', 'conflict oriented words and', second_value,'fewer', 'action verbs in your story.']
-        stm_sentence_2 = ['Overall, you may consider', 'adding more' , 'words to', 'intensify', 'the plot's tension]
+        stm_sentence_2 = ['Overall, you may consider', 'adding more' , 'words to', 'intensify', '''the plot's tension''']
     else:
         pass
     
