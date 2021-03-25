@@ -1859,6 +1859,7 @@ def feedback_plot_conflict(prompt_no, ps_input_text, shift_neg_pos_value):
     # 10. sentense_2_PN : 문장생성
     # 11. sentence_1_STS : 문장생성
     # 12. sentence_2_STS : 문장생성
+    # 12. sentence_3_STS : 문장생성
         
     return pc_intended_mood_result, pc_tension, intended_mood, detected_mood, comp_int_dtc, sentence_1, sentence_2, stm_sentence_1, stm_sentence_2, sentense_1_PN, sentense_2_PN, sentence_1_STS, sentence_2_STS, sentence_3_STS
 
