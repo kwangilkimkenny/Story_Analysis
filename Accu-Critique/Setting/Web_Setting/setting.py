@@ -639,6 +639,7 @@ def EmphasisOnSetting(prompt_no, input_text, intended_setting_by_you):
     
     adding_more_using_less_person = detected_setting_value_re + sa_re[7] # 8번째 리스트값이 셋팅단어가 포함된 문장임
     # print('adding_more_using_less_person :',adding_more_using_less_person)
+    ######################################################################################################
     ############### 합격자 평균값(계산해서 적용할 것, 현재값은 임의로 넣었음)
     adding_more_using_less_group = 27
     # 비교하여 overall_sentence_2 를 계산하기
@@ -739,7 +740,7 @@ print('셋팅 결과 : ', result_emp)
     # 결과해석
     # intended_re : intended setting by you
     # dct_result : detected setting value of personal essay
-    # group_setting_mean_value_for_prompt : 합격한 학생들의 셋팅 평균값(임의 임력값, 계산해서 적용해야 함) --- 두 값의 비교 부분에서 저굥ㅇ
+    # group_setting_mean_value_for_prompt : 합격한 학생들의 셋팅 평균값(임의 임력값, 계산해서 적용해야 함) --- 두 값의 비교 부분에서 적용
     # personal_setting_mean_value_for_prompt : 개입입력값에 대한 결과 --- 두 값의 비교 부분에 적용
     # selected_prompt_number : 선택한 프롬프트 질문
     # Sentence_1 ~ 4: 1~4번째 문장
