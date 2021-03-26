@@ -88,8 +88,10 @@ with open('data_tokenizer.pickle', 'rb') as f:
     tokenizer = pickle.load(f)
 
 # open model  --------> 이거새으 400MB 가 넘어서 git에 올라가지 않음, 그럴경우 아래 코드의 주석을 풀어서 사용해야 함
-######----- model 주석 해제하여 사용할 것 ----####
+######----- model 주석 해제하여 사용할 것  ----####
 # model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
+#############################################
+
 with open('data_model.pickle', 'rb') as g:
     model = pickle.load(g)
 
