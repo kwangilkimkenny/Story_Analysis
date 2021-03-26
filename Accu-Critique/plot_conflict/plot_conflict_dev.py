@@ -163,7 +163,7 @@ def ai_plot_conf(essay_input_):
     token_list_str = text_to_word_sequence(contents) #tokenize
     # 원본문장 단어 중복제거
     token_list_str_set = set(token_list_str)
-    print('token_list_str:', token_list_str)
+    #print('token_list_str:', token_list_str)
     confict_words_list_basic = ['clash', 'incompatible', 'inconsistent', 'incongruous', 'opposition', 'variance','vary', 'odds', 
                             'differ', 'diverge', 'disagree', 'contrast', 'collide', 'contradictory', 'incompatible', 'conflict',
                             'inconsistent','irreconcilable','incongruous','contrary','opposite','opposing','opposed', 'fight',
@@ -179,7 +179,7 @@ def ai_plot_conf(essay_input_):
     confict_words_list = confict_words_list_basic + conflict_sim_words_ratio_result #유사단어를 계산결과 반영!
     #중복제거
     confict_words_list_set = set(confict_words_list)
-    print('confict_words_list:', confict_words_list_set)
+    #print('confict_words_list:', confict_words_list_set)
     
     # 문장에 들어있는 추출된 conflict 단어들 : count_conflict_list ==================> conflict 단어가 없음(겹치는 단어 없나?)
     count_conflict_list = []
@@ -187,11 +187,11 @@ def ai_plot_conf(essay_input_):
         if ittm in token_list_str_set:
             count_conflict_list.append(ittm)
             
-    print('문장에 들어있는 추출된 conflict 단어들:', count_conflict_list)
+    #print('문장에 들어있는 추출된 conflict 단어들:', count_conflict_list)
     
     # 전체문장에 들어있는 conflict 단어 수
     nums_conflict_words =  len(count_conflict_list)
-    print('전체문장에 들어있는 conflict 단어 수:', nums_conflict_words)
+    #print('전체문장에 들어있는 conflict 단어 수:', nums_conflict_words)
     
     list_str = contents.split(".")  # 문장별로 분리한다. 분리는 .를 기준으로 한다.   
 
@@ -388,9 +388,9 @@ def ai_plot_conf(essay_input_):
             counter += 1
             
     #문장에 Action Verbs 추출확인
-    print('Action Verbs:', get_words__)
+    #print('Action Verbs:', get_words__)
     nums_action_verbs = len(get_words__)
-    print('Number of Action Verbs:', nums_action_verbs)
+    #print('Number of Action Verbs:', nums_action_verbs)
 
 
     def divide_list(l, n): 
@@ -429,7 +429,7 @@ def ai_plot_conf(essay_input_):
     # 10.입력한 에세이 문장에서 Action Verbs가 얼마나 포함되어 있는지 포함비율 분석
     action_verbs_ratio = round(len(get_words__)/len(input_text_list) *100, 3)
 
-    print ("ACTION VERBS RATIO :", action_verbs_ratio )
+    #print ("ACTION VERBS RATIO :", action_verbs_ratio )
 
 
     #########################################################################
@@ -565,18 +565,18 @@ def ai_plot_conf(essay_input_):
 
     ############################################################################
     # 글에 표현된 감정이 얼마나 다양한지 분석 결과!!!¶
-    print("====================================================================")
-    print("에세이에 표현된 다양한 감정 수:", len(unique_re))
-    print("====================================================================")
+    # print("====================================================================")
+    # print("에세이에 표현된 다양한 감정 수:", len(unique_re))
+    # print("====================================================================")
 
     #분석가능한 감정 총 감정 수 - Bert origin model 적용시 28개 감정 추출돰
     total_num_emotion_analyzed = 28
 
     # 감정기복 비율 계산 !!!
     result_emo_swings =round(len(unique_re)/total_num_emotion_analyzed *100,1) #소숫점 첫째자리만 표현
-    result_emo_swings
-    print("문장에 표현된 감정 비율 : ", result_emo_swings)
-    print("====================================================================")
+    #result_emo_swings
+    # print("문장에 표현된 감정 비율 : ", result_emo_swings)
+    # print("====================================================================")
 
 
     #########################################################################
@@ -731,9 +731,9 @@ def ai_plot_conf(essay_input_):
 
     # 셋팅 비율 계산
     settig_ratio_re = setting_anaysis(input_text)
-    print("====================================================================")
-    print("SETTING RATIO : ", settig_ratio_re)
-    print("====================================================================")
+    #print("====================================================================")
+    #print("SETTING RATIO : ", settig_ratio_re)
+    #print("====================================================================")
 
 
     ###################################################################################
@@ -815,12 +815,12 @@ def ai_plot_conf(essay_input_):
 
     character_ratio_result = character(input_text)
     character_ratio_result
-    print("전체 문장에서 캐릭터를 의미하는 단어나 유사어 비율 :", character_ratio_result)
+    #print("전체 문장에서 캐릭터를 의미하는 단어나 유사어 비율 :", character_ratio_result)
 
     ###########################################################
     ############# Degree of Conflict  비율 계산 #################
     conflict_word_ratio = round(len(count_conflict_list) / len(input_text_list) * 1000, 1)  
-    print("Degree of conflict  단어가 전체 문장(단어)에서 차지하는 비율 계산 :", conflict_word_ratio)
+    #print("Degree of conflict  단어가 전체 문장(단어)에서 차지하는 비율 계산 :", conflict_word_ratio)
 
     global coflict_ratio
     coflict_ratio = [conflict_word_ratio] #그래프로 표현하는 값
@@ -829,10 +829,10 @@ def ai_plot_conf(essay_input_):
 
     ###########################################################
     ############# Emotional Rollercoaster  비율 계산 #################
-    print("감정기복비율 :", result_emo_swings) 
+    #print("감정기복비율 :", result_emo_swings) 
 
     # 셋팅비율 계산
-    print("셋팅비율 계산 : ", settig_ratio_re)
+    #print("셋팅비율 계산 : ", settig_ratio_re)
 
     # 4개의 값을 리스트로 담는다.
     de_flt_list = [character_ratio_result, result_emo_swings, conflict_word_ratio, settig_ratio_re]
@@ -849,7 +849,7 @@ def ai_plot_conf(essay_input_):
     numpy.mean(de_flt_list_) # 평균
     numpy.var(de_flt_list_) # 분산
     st_input = numpy.std(de_flt_list_) # 표준편차 ----> 이 값으로 계산
-    print("Plot Complxity :", st_input )
+    #print("Plot Complxity :", st_input )
 
     global plot_comp_ratio
 
@@ -859,9 +859,9 @@ def ai_plot_conf(essay_input_):
     ## 감정기복 분석 --> plot & conflict 의 문장 생성부분으로 (결정된 값 frequent, moderate, sparse 중 하나, 숫자)숫자가 작으면 변통폭이 큼
     ext_shift_emoiton_re = ext_shift_emoiton_ratio(unique)
 
-    print("===============================================================================")
-    print("======================      Degree of Conflict   ==============================")
-    print("===============================================================================")
+    #print("===============================================================================")
+    #print("======================      Degree of Conflict   ==============================")
+    #print("===============================================================================")
 
     
     ### return 값 설명 ###
@@ -890,22 +890,13 @@ def ai_plot_coflict_total_analysis(input_text):
     #get_words__re = plot_conf_re[7] # Action Verbs list
     #nums_action_verbs_re = plot_conf_re[8] # Action verbs number
     
-
-
     #Shifts Between Positive and Negative Sentiments의 감정기복 값 계산 결과로 문장생성 frequent / moderate / sparse , 숫자값
     shifts_btw_neg_pos = plot_conf_re[9]
     
-
-
-
-
-    print("1명의 에세이 결과 계산점수 :", plot_conf_re)
+    #print("1명의 에세이 결과 계산점수 :", plot_conf_re)
     #1명의 에세이 결과 계산점수 : (28.602484157848945, 25.0, 0.3,df_sent)
 
     # 위에서 계산한 총 4개의 값을 개인, 그룹의 값과 비교하여 lacking, ideal, overboard 계산
-    
-    
-    
     
     # 개인에세이 값 계산 4가지 결과 추출 >>> personal_value 로 입력됨
     plot_complexity = plot_conf_re[0]
@@ -914,16 +905,11 @@ def ai_plot_coflict_total_analysis(input_text):
     
     graph_calculation_list = plot_conf_re[4]
     
-
-
     ########################################################
     ## 1000명 데이터의 각 값(char_desc_mean)의 평균 값 전달.>>> 고정값으로 미리 계산하여 입력 ai_plot_coflict_1000data_preprocessing 코드 참조
     plot_conflict_all_mean = [80, 64, 0.314]
     group_db_fin_result_plot = [5.0]
     ########################################################
-
-
-
 
     plot_complexity_mean = plot_conflict_all_mean[0] #첫번째 값을 가져옴
     emotional_rollercoaster_mean = plot_conflict_all_mean[1] #
@@ -935,65 +921,65 @@ def ai_plot_coflict_total_analysis(input_text):
         one_ps_char_desc = personal_value
         #최대, 최소값 기준으로 구간설정. 구간비율 30% => 0.3으로 설정
         min_ = int(ideal_mean-ideal_mean*0.6)
-        print('min_', min_)
+        #print('min_', min_)
         max_ = int(ideal_mean+ideal_mean*0.6)
-        print('max_: ', max_)
+        #print('max_: ', max_)
         div_ = int(((ideal_mean+ideal_mean*0.6)-(ideal_mean-ideal_mean*0.6))/3)
-        print('div_:', div_)
+        #print('div_:', div_)
 
         #결과 판단 Lacking, Ideal, Overboard
         cal_abs = abs(ideal_mean - one_ps_char_desc) # 개인 - 단체 값의 절대값계산
 
-        print('cal_abs 절대값 :', cal_abs)
+        #print('cal_abs 절대값 :', cal_abs)
         compare7 = (one_ps_char_desc + ideal_mean)/6
         compare6 = (one_ps_char_desc + ideal_mean)/5
         compare5 = (one_ps_char_desc + ideal_mean)/4
         compare4 = (one_ps_char_desc + ideal_mean)/3
         compare3 = (one_ps_char_desc + ideal_mean)/2
-        print('compare7 :', compare7)
-        print('compare6 :', compare6)
-        print('compare5 :', compare5)
-        print('compare4 :', compare4)
-        print('compare3 :', compare3)
+        #print('compare7 :', compare7)
+        #print('compare6 :', compare6)
+        #print('compare5 :', compare5)
+        #print('compare4 :', compare4)
+        #print('compare3 :', compare3)
 
 
 
         if one_ps_char_desc > ideal_mean: # 개인점수가 평균보다 클 경우는 overboard
             if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
-                print("Overboard: 2")
+                #print("Overboard: 2")
                 result = 2 #overboard
                 score = 1
             elif cal_abs > compare4: # 28
-                print("Overvoard: 2")
+                #print("Overvoard: 2")
                 result = 2
                 score = 2
             elif cal_abs > compare5: # 22
-                print("Overvoard: 2")
+                #print("Overvoard: 2")
                 result = 2
                 score = 3
             elif cal_abs > compare6: # 18
-                print("Overvoard: 2")
+                #print("Overvoard: 2")
                 result = 2
                 score = 4
             else:
-                print("Ideal: 1")
+                #print("Ideal: 1")
                 result = 1
                 score = 5
         elif one_ps_char_desc < ideal_mean: # 개인점수가 평균보다 작을 경우 lacking
             if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
-                print("Lacking: 2")
+                #print("Lacking: 2")
                 result = 0
                 score = 1
             elif cal_abs > compare4: # 28
-                print("Lacking: 2")
+                #print("Lacking: 2")
                 result = 0
                 score = 2
             elif cal_abs > compare5: # 22
-                print("Lacking: 2")
+                #print("Lacking: 2")
                 result = 0
                 score = 3
             elif cal_abs > compare6: # 18
-                print("Lacking: 2")
+                #print("Lacking: 2")
                 result = 0
                 score = 4
             else:
@@ -1002,7 +988,7 @@ def ai_plot_coflict_total_analysis(input_text):
                 score = 5
                 
         else:
-            print("Ideal: 1")
+            #print("Ideal: 1")
             result = 1
             score = 5
 
@@ -1014,7 +1000,7 @@ def ai_plot_coflict_total_analysis(input_text):
     degree_conflict_result = lackigIdealOverboard(degree_conflict_mean, degree_conflict)
 
     fin_result = [plot_complexity_result, emotional_rollercoaster_result, degree_conflict_result]
-    print("fin_result:", fin_result)  # [(0:lacking, 1:score), (0:lacking, 2:score), (2:overboard, 1:score)]
+    #print("fin_result:", fin_result)  # [(0:lacking, 1:score), (0:lacking, 2:score), (2:overboard, 1:score)]
 
     each_fin_result = [fin_result[0][0], fin_result[1][0], fin_result[2][0]]
 
@@ -1030,16 +1016,14 @@ def ai_plot_coflict_total_analysis(input_text):
     pos =  list(map(float, df_sent["pos"]))
     compound =  list(map(float, df_sent["compound"]))
     
-    print(df_sent)
+    #print(df_sent)
     
-    print("neg>>>>>",neg)
-    print("neu>>>>>",neu)
-    print("pos>>>>>",pos)
-    print("componud>>>",compound)
+    #print("neg>>>>>",neg)
+    #print("neu>>>>>",neu)
+    #print("pos>>>>>",pos)
+    #print("componud>>>",compound)
     
-
-    print ( "graph_calculation_list" , graph_calculation_list) 
-
+    #print ( "graph_calculation_list" , graph_calculation_list) 
 
     data = {
         
@@ -1073,7 +1057,7 @@ def ai_plot_coflict_total_analysis(input_text):
 
 
 ###### 실행 테스트  ######
-print("result of ai_plot_coflict_total_analysis : ", ai_plot_coflict_total_analysis(input_text))
+#print("result of ai_plot_coflict_total_analysis : ", ai_plot_coflict_total_analysis(input_text))
 
 
 # result of ai_plot_coflict_total_analysis :  {'result_all_plot': 1.67, 'emotional_rollercoaster': 28.6, 'plot_complexity': 30.27, 'degree_conflict': 4.6, 'result_plot_complexity': 0, 'result_emotional_rollercoaster': 0, 'result_degree_conflict': 2, 'neg': [0.0, 0.0, 0.041, 0.044, 0.19, 0.0, 0.04, 0.0, 0.054, 0.0, 0.0, 0.118, 0.101, 0.0, 0.239, 0.133, 0.104, 0.0, 0.083, 0.09, 0.092, 0.058, 0.079, 0.121], 'neu': [0.808, 1.0, 0.778, 0.787, 0.678, 1.0, 0.884, 1.0, 0.79, 0.723, 1.0, 0.882, 0.739, 1.0, 0.761, 0.867, 0.896, 0.762, 0.702, 0.77, 0.667, 0.822, 0.702, 0.65], 'pos': [0.192, 0.0, 0.181, 0.169, 0.132, 0.0, 0.076, 0.0, 0.155, 0.277, 0.0, 0.0, 0.161, 0.0, 0.0, 0.0, 0.0, 0.238, 0.215, 0.14, 0.242, 0.119, 0.219, 0.23], 'compound': [0.228, 0.0, 0.7269, 0.6486, -0.2144, 0.0, 0.4588, 0.0, 0.624, 0.7579, 0.0, -0.5267, 0.0258, 0.0, -0.5719, -0.3354, -0.2732, 0.6486, 0.4588, 0.2206, 0.7351, 0.3182, 0.4939, 0.5719], 'graph_calculation_list': [0.83, 1.07, 3.75, 5.9, 2.47, 2.98, 4.54, 7.15, 5.95, 6.72, 7.23, 9.45, 11.93, 13.75, 13.93, 10.7, 8.58, 6.21, 7.17, 8.6, 7.24], 'Shifts Between Positive and Negative Sentiments': 'frequent'}
@@ -1358,13 +1342,13 @@ def ai_emotion_analysis(input_text, promt_number):
         #print(itm[0])
         ps_ext_emo.append(itm[0])
  
-    print(ps_ext_emo)
+    #print(ps_ext_emo)
     
     group_ext_emo = [] # 그룹 에세이에서 추출한 5개의 평균 대표감성 5개
     for item_2 in accepted_essay_av_value:
         group_ext_emo.append(item_2[0])
     
-    print(group_ext_emo)
+    #print(group_ext_emo)
     
     #두 값을 비교하여 very close / somewhat close / weak 결정
     #중복요소를 추출하여 카운팅하면 두 총 리스트의 값 중에서 중복요소가 몇개 있는지 알 수 있을때 유사도를 계산할 수 있음
@@ -1373,7 +1357,7 @@ def ai_emotion_analysis(input_text, promt_number):
     for m in sum_emo:
         try: count[m] += 1
         except: count[m] = 1
-    print('중복값:', count)
+    #print('중복값:', count)
     
     compare_re = []
     for value in count.values(): # 딕셔너리의 벨류 값을 하나씩 가져와서 
@@ -1385,7 +1369,7 @@ def ai_emotion_analysis(input_text, promt_number):
     sum_compare_re = sum(compare_re) 
     # 리스트의 숫자를 모두 더해서 최종 비교를 할거임,
     # 총 리스틔 수는 10개이고 중복 최대값은 5개 모두가 중복되는 10이고 최소값은 0(아무것도 중복되지 않음)   0~10까지의 수로 표현됨
-    print(sum_compare_re)
+    #print(sum_compare_re)
     
     if sum_compare_re >= 0 and sum_compare_re <= 3:
         in_depth_sent_result = 'weak'
@@ -1408,39 +1392,30 @@ def ai_emotion_analysis(input_text, promt_number):
                     
                     
 
+def run_first(input_text):
+        # 실행하면 : ai_plot_coflict_total_analysis(input_text)  ===>  "Shifts Between Positive and Negative Sentiments" : shifts_btw_neg_pos  ---> 딕셔너리의 값을 어떻게 가져오지?
+        ai_plot_coflict_value = ai_plot_coflict_total_analysis(input_text)
+
+        shift_neg_pos_value_re = list(ai_plot_coflict_value.get('Shifts Between Positive and Negative Sentiments'))
+        shift_neg_pos_value = shift_neg_pos_value_re[0]
+        # print('#############++++++++++++++++++++++++++#########')
+        # print('shift_neg_pos_value_re_key : ', shift_neg_pos_value_re[0]) # 키만 가져옴, 이것을 아래 함수에 넣음
+        # print('shift_neg_pos_value_re_value : ', shift_neg_pos_value_re[1]) # 값만 가져옴, 이것을 아래 함수에 넣음
+        # print('#############++++++++++++++++++++++++++#########')
+        # colfict 단어들이 각 문단의 구간에서 얼마나 포함되었는지 계산하여 최대구간, 두번째 많은 구간을 추출할 것
+        # conflict 단어 추출
+        conflict_words_li_re = list(ai_plot_coflict_value.get("conflict words list"))
+        # print('#############++++++++++++++++++++++++++#########')
+        # print('conflict_words_li_re: ', conflict_words_li_re) # conflict words 추출한 리스트
+        # print('#############++++++++++++++++++++++++++#########')
+
+        return conflict_words_li_re, shift_neg_pos_value
 
 
+def paragraph_divide_ratio(input_text):
 
-
-
-# 실행하면 : ai_plot_coflict_total_analysis(input_text)  ===>  "Shifts Between Positive and Negative Sentiments" : shifts_btw_neg_pos  ---> 딕셔너리의 값을 어떻게 가져오지?
-ai_plot_coflict_value = ai_plot_coflict_total_analysis(input_text)
-
-shift_neg_pos_value_re = list(ai_plot_coflict_value.get('Shifts Between Positive and Negative Sentiments'))
-shift_neg_pos_value = shift_neg_pos_value_re[0]
-print('#############++++++++++++++++++++++++++#########')
-print('shift_neg_pos_value_re_key : ', shift_neg_pos_value_re[0]) # 키만 가져옴, 이것을 아래 함수에 넣음
-print('shift_neg_pos_value_re_value : ', shift_neg_pos_value_re[1]) # 값만 가져옴, 이것을 아래 함수에 넣음
-print('#############++++++++++++++++++++++++++#########')
-
-
-
-# colfict 단어들이 각 문단의 구간에서 얼마나 포함되었는지 계산하여 최대구간, 두번째 많은 구간을 추출할 것
-# conflict 단어 추출
-conflict_words_li_re = list(ai_plot_coflict_value.get("conflict words list"))
-print('#############++++++++++++++++++++++++++#########')
-print('conflict_words_li_re: ', conflict_words_li_re) # conflict words 추출한 리스트
-print('#############++++++++++++++++++++++++++#########')
-
-
-
-##########################################################
-# 650단어에서 또는 전체 단어에서 단락별 셋팅단어 활용 수 분석
-# 20% intro, 60% body1,2,3 20% conclusion
-##########################################################
-# input_text : 에세이 입력
-# conflict_words_li_re : conflict 단어 리스트 입력
-def paragraph_divide_ratio(input_text, conflict_words_li_re):
+    run_first_result = run_first(input_text)
+    conflict_words_li_re = run_first_result[0]
 
     essay_input_corpus = str(input_text) #문장입력
     essay_input_corpus = essay_input_corpus.lower()#소문자 변환
@@ -1510,15 +1485,15 @@ def paragraph_divide_ratio(input_text, conflict_words_li_re):
 
     # 구간별 셋팅 단어가 몇개씩 포함되어 있는지 계산 
     intro_s_num = set_wd_conunter_each_parts(tot_setting_words, intro)
-    print('intor:', intro_s_num)
+    #print('intor:', intro_s_num)
     body_1_s_num = set_wd_conunter_each_parts(tot_setting_words, body_1_)
-    print('body1:', body_1_s_num)
+    #print('body1:', body_1_s_num)
     body_2_s_num = set_wd_conunter_each_parts(tot_setting_words, body_2_)
-    print('body2:', body_2_s_num)
+    #print('body2:', body_2_s_num)
     body_3_s_num = set_wd_conunter_each_parts(tot_setting_words, body_3_)
-    print('body3',body_3_s_num)
+    #rint('body3',body_3_s_num)
     conclusion_s_num = set_wd_conunter_each_parts(tot_setting_words, conclusion)
-    print('conclusion:',conclusion_s_num)
+    #print('conclusion:',conclusion_s_num)
 
     
     # 가장 많이 포함된 구간을 순서대로 추출
@@ -1548,23 +1523,23 @@ def paragraph_divide_ratio(input_text, conflict_words_li_re):
     
     #compare_parts_grup_nums_and_parts =compare_parts_grup_nums_and_parts.sort(reverse=True)
     
-    print('compare_parts_grup: ', compare_parts_grup_nums) # [7, 'intro', 11, 'body #1', 9, 'body #2', 9, 'body #3', 4, 'conclusion']
+    #print('compare_parts_grup: ', compare_parts_grup_nums) # [7, 'intro', 11, 'body #1', 9, 'body #2', 9, 'body #3', 4, 'conclusion']
     
     #순서정렬
     compare_parts_grup_nums_and_parts_sorted = sorted(compare_parts_grup_nums_and_parts, reverse=True)
-    print('compare_parts_grup_nums_and_parts(sorted)', compare_parts_grup_nums_and_parts_sorted) # [11, 9, 9, 7, 4]
-    print('compare_parts_grup_nums_and_parts :',compare_parts_grup_nums_and_parts)
+    #print('compare_parts_grup_nums_and_parts(sorted)', compare_parts_grup_nums_and_parts_sorted) # [11, 9, 9, 7, 4]
+    #print('compare_parts_grup_nums_and_parts :',compare_parts_grup_nums_and_parts)
     
     first_result = compare_parts_grup_nums_and_parts_sorted[0]
     second_result = compare_parts_grup_nums_and_parts_sorted[1]
     
     get_first_re = compare_parts_grup_nums.index(first_result) #인덱스 위치찾기
-    print('get_firtst_re:',get_first_re)
+    #print('get_firtst_re:',get_first_re)
     #가장 많은 표현이 들어간 부분 추출(최종값)
     first_snt_part = compare_parts_grup_nums[get_first_re + 1]
     
     get_second_re = compare_parts_grup_nums.index(second_result)
-    print('get_second_re:',get_second_re)
+    #print('get_second_re:',get_second_re)
     second_snt_part = compare_parts_grup_nums[get_second_re + 1] # 인덱스 다음 항목이 최종값
 
     # 결과해석
@@ -1573,9 +1548,21 @@ def paragraph_divide_ratio(input_text, conflict_words_li_re):
     # 2.first_snt_part: 문단중 가장 conflict 관련 단어가 많은 부분 -> Strength of Tension by Section 문장으로 표현
     # 3.second_snt_part: 문잔중 conflict 관련 단어가 두번째고 많은 부분 -> Strength of Tension by Section 문장으로 표현
     # 4.compare_parts_grup_nums_and_parts : intro body_1 body_2 body_3 conclusion 의 개인 에세이 계산 값
-    
-    return df_sentences, tot_setting_words, first_snt_part, second_snt_part, compare_parts_grup_nums_and_parts
+    # 5.conflict_words_li_re[1] : 컨플릭단어추출 분석 결과 리스트
 
+    return df_sentences, tot_setting_words, first_snt_part, second_snt_part, compare_parts_grup_nums_and_parts, conflict_words_li_re[1]
+
+
+
+
+
+
+
+
+
+
+result_=paragraph_divide_ratio(input_text)
+shift_neg_pos_value = result_[5]
 
 
 
@@ -1596,9 +1583,9 @@ def feedback_plot_conflict(prompt_no, ps_input_text, shift_neg_pos_value):
     # detected mood
     dtc = ai_emotion_analysis(ps_input_text, prompt_no)
     intended_mood = dtc[1] # intended Mood 
-    print('intended_mood:', intended_mood)
+    #print('intended_mood:', intended_mood)
     detected_mood = dtc[2] # detected Mood
-    print('detected_mood:', detected_mood)
+    #print('detected_mood:', detected_mood)
     
     # print("추출된 감성 5개: ", dtc[7])
     
@@ -1681,16 +1668,20 @@ def feedback_plot_conflict(prompt_no, ps_input_text, shift_neg_pos_value):
     ################# 합격한 학생의 평균값 ###################
     group_conflict_word_num = 5 # Conflict words numbers
     group_action_verbs_num = 20 # 
-    
+    #####################################################
+    #####################################################
+
     count_conflict_list_re = plot_conf_re[5] # conflict words list
-    print('count_conflict_list_re', count_conflict_list_re)
+    #print('count_conflict_list_re', count_conflict_list_re)
     nums_conflict_words_re = plot_conf_re[6] # conflict words number
-    print('nums_conflict_words_re', nums_conflict_words_re)
+    #print('nums_conflict_words_re', nums_conflict_words_re)
     get_words__re = plot_conf_re[7] # Action Verbs list
-    print('get_words__re', get_words__re)
+    #print('get_words__re', get_words__re)
     nums_action_verbs_re = plot_conf_re[8] # Action verbs number
-    print('nums_action_verbs_re', nums_action_verbs_re)
+    #print('nums_action_verbs_re', nums_action_verbs_re)
     
+
+
     # 개인, 그룹의 결과 비교,  컨플릭단어와 액션동사 사용량 비교
     if nums_conflict_words_re == group_conflict_word_num and nums_action_verbs_re == group_action_verbs_num:
         stm_sentence_1 = ['Compared to the accepted case average for this prompt, you have spent', 'similar number of', 'conflict oriented words and', 'similar number of', 'action verbs in your story.']
@@ -1799,7 +1790,7 @@ def feedback_plot_conflict(prompt_no, ps_input_text, shift_neg_pos_value):
 
     sentence_1_STS = ['Both physical and emotional conflicts and fluctuations in the plot constitute the ‘ups-and-downs’ which add excitement to the story.']
     
-    result_conf_part_1st_2nd = paragraph_divide_ratio(input_text, conflict_words_li_re) #[2], [3]이 순서대로 많은 구간임
+    result_conf_part_1st_2nd = paragraph_divide_ratio(input_text) #[2], [3]이 순서대로 많은 구간임
    
     first = result_conf_part_1st_2nd[2] # conflict 값이 가장 많은 구간
     second = result_conf_part_1st_2nd[3] # conflict 값이 두번째로 많은 구간
@@ -1844,24 +1835,35 @@ def feedback_plot_conflict(prompt_no, ps_input_text, shift_neg_pos_value):
     # 최종 문장생성
     sentence_3_STS = comp_each_parts(each_parts_of_conflict_words_used, group_conflict_words_parts_mean_value)
 
+    ###############
+    ###  결과해석 ###
+    ###############
 
-    # 결과해석 #
-    # 1.pc_intended_mood_result : 개인이 선택한 intended mood 선택 결과
-    # 2.pc_tension : 개인의 선택한 tension 결과
-    
-    # 3.intended_mood : 개인의 에세이를 prompt 문항에 의해 분석한 결과 ---> 이 값을 적용할 것
-    # 4.detected_mood : 개인의 에세이를 감성분석한 결과
-    # 5.comp_int_dtc : Intended Mood vs. Plot & Conflict 부분의 두 값 비교로 같거(=)나 같지 않음(!=)
-    # 6.sentence_1 : 문장생성
-    # 7.sentence_1 : 문장생성
-    # 8. stm_sent2ce_1 : number of stimulus words
-    # 9. sentense_1_PN : 문장생성
-    # 10. sentense_2_PN : 문장생성
-    # 11. sentence_1_STS : 문장생성
-    # 12. sentence_2_STS : 문장생성
-    # 13. sentence_3_STS : 문장생성
+    ## option  - 추가분석 시 아래 두개의 분석결과 사용해도됨, 현재코드에서는 불필요함 ##
+    # pc_tension : 개인의 선택한 tension 결과
+    # intended_mood : 개인의 에세이를 prompt 문항에 의해 분석한 결과 
+
+
+    result_data = {
+        "pc_intended_mood_result" : pc_intended_mood_result, #intended mood by you  --> 개인이 선택한 intended mood 선택 결과
+        "detected_mood" : detected_mood, #Detected Plot Complexity & Conflicts --> 개인의 에세이를 감성분석한 결과
+        "comp_int_dtc" : comp_int_dtc, #intended Mood vs. Plot & Conflict 부분의 두 값 비교로 --> 같거(=)나 같지 않음(!=)
+        "group_conflict_word_num" : group_conflict_word_num,#합격한 학생들의 컨플릭 단어 사용량
+        "nums_conflict_words_re" : nums_conflict_words_re, #개인의 컨플릭 단어 사용량
+        "group_action_verbs_num" : group_action_verbs_num, #합격한 학생들의 Action Verbs 사용량
+        "nums_action_verbs_re" : nums_action_verbs_re, #개인의 Action Verbs 사용량
+        "sentence_1" : sentence_1, #문장생성
+        "sentence_2" : sentence_2, #문장생성
+        "stm_sentence_1" : stm_sentence_1,#문장생성
+        "stm_sentence_2" : stm_sentence_2,#문장생성
+        "sentense_1_PN" : sentense_1_PN,#문장생성
+        "sentense_2_PN" : sentense_2_PN,#문장생성
+        "sentence_1_STS" : sentence_1_STS,#문장생성
+        "sentence_2_STS" : sentence_2_STS,#문장생성
+        "sentence_3_STS" : sentence_3_STS#문장생성
+    }
         
-    return pc_intended_mood_result, pc_tension, intended_mood, detected_mood, comp_int_dtc, sentence_1, sentence_2, stm_sentence_1, stm_sentence_2, sentense_1_PN, sentense_2_PN, sentence_1_STS, sentence_2_STS, sentence_3_STS
+    return result_data
 
 
 ### 실행 ###
@@ -1869,6 +1871,7 @@ def feedback_plot_conflict(prompt_no, ps_input_text, shift_neg_pos_value):
 prompt_no = 'prompt_1' #이런 형식으로 넣어야 함
 ps_input_text = input_text # 위에서 이미 입력
 
-result_feedback = feedback_plot_conflict(prompt_no, ps_input_text, shift_neg_pos_value)
+result_feedback = feedback_plot_conflict(prompt_no, ps_input_text, shift_neg_pos_value[1])
 
-print('resut:', result_feedback)
+print("===============================================================================")
+print('result:', result_feedback)
