@@ -1,9 +1,32 @@
 
 #conflict
+import pickle
 import nltk
-nltk.download('punkt')
-nltk.download('vader_lexicon')
-nltk.download('averaged_perceptron_tagger')
+
+# 다운로드 이미 완료, 실행시 사용하지 않음
+# punkt = nltk.download('punkt')
+# with open('nltk_punkt.pickle', 'wb') as f:
+#     pickle.dump(punkt, f, pickle.HIGHEST_PROTOCOL)
+
+with open('nltk_punkt.pickle', 'rb') as f:
+    punkt = pickle.load(f)
+
+# 다운로드 이미 완료, 실행시 사용하지 않음
+# vader_lexicon = nltk.download('vader_lexicon')
+# with open('vader_lexicon.pickle', 'wb') as f:
+#     pickle.dump(punkt, f, pickle.HIGHEST_PROTOCOL)
+
+with open('vader_lexicon.pickle', 'rb') as f:
+    vader_lexicon = pickle.load(f)
+
+# 다운로드 이미 완료, 실행시 사용하지 않음
+# averaged_perceptron_tagger  = nltk.download('averaged_perceptron_tagger')
+# with open('averaged_perceptron_tagger.pickle', 'wb') as f:
+#     pickle.dump(punkt, f, pickle.HIGHEST_PROTOCOL)
+    
+with open('averaged_perceptron_tagger.pickle', 'rb') as f:
+    averaged_perceptron_tagger = pickle.load(f)
+
 from nltk.sentiment.vader import SentimentIntensityAnalyzer 
 import pandas as pd
 from pandas import DataFrame as df
@@ -17,7 +40,15 @@ from tensorflow.keras.preprocessing.text import text_to_word_sequence
 import numpy as np
 import gensim
 import nltk
-nltk.download('stopwords')
+
+#다운로드 이미 완료, 실행시 사용하지 않음
+# stopwords = nltk.download('stopwords')
+# with open('stopwords.pickle', 'wb') as f:
+#     pickle.dump(stopwords, f, pickle.HIGHEST_PROTOCOL)
+    
+with open('stopwords.pickle', 'rb') as f:
+    stopwords = pickle.load(f)
+
 from nltk.corpus import stopwords
 import re
 import matplotlib.pyplot as plt
@@ -40,8 +71,26 @@ from transformers import BertTokenizer
 from model import BertForMultiLabelClassification
 from multilabel_pipeline import MultiLabelPipeline
 
-tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-original")
-model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
+# 다운로드했기 때문에 실행시는 사용하지 않음
+# tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-original")
+# model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
+
+# # save tokenizer ---> 계산속도 줄이기위해서 미리 저장, 저장했기 때문에 실행시는 사용하지 않음
+# with open('data_tokenizer.pickle', 'wb') as f:
+#     pickle.dump(tokenizer, f, pickle.HIGHEST_PROTOCOL)
+
+# # save model ---> 계산속도 줄이기위해서 미리 저장, 저장했기 때문에 실행시는 사용하지 않음
+# with open('data_model.pickle', 'wb') as g:
+#     pickle.dump(model, g, pickle.HIGHEST_PROTOCOL)
+
+# open tokenizer
+with open('data_tokenizer.pickle', 'rb') as f:
+    tokenizer = pickle.load(f)
+
+# open model
+with open('data_model.pickle', 'rb') as g:
+    model = pickle.load(g)
+
 
 goemotions = MultiLabelPipeline(
     model=model,
@@ -432,9 +481,9 @@ def ai_plot_conf(essay_input_):
     from multilabel_pipeline import MultiLabelPipeline
     from pprint import pprint
 
-
-    tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-original")
-    model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
+    # 다운로드 했기 때문에 실행시는 사용하지 않음
+    #tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-original")
+    #model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
 
     goemotions = MultiLabelPipeline(
         model=model,
@@ -709,7 +758,7 @@ def ai_plot_conf(essay_input_):
         
         filtered_setting_text_ = set(filtered_setting_text) #중복제거
         filtered_setting_text__ = list(filtered_setting_text_) #다시 리스트로 변환
-        print (filtered_setting_text__) # 중복값 제거 확인
+        #print (filtered_setting_text__) # 중복값 제거 확인
         
 #         for i in filtered_setting_text__:
 #             ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
@@ -1770,7 +1819,9 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
         "sentense_2_PN" : sentense_2_PN,#문장생성
         "sentence_1_STS" : sentence_1_STS,#문장생성
         "sentence_2_STS" : sentence_2_STS,#문장생성
-        "sentence_3_STS" : sentence_3_STS#문장생성
+        "sentence_3_STS" : sentence_3_STS,#문장생성
+        "count_conflict_list_re" :  count_conflict_list_re, # conflict words list ------> 웹페이지에 표시해야 함
+        "get_words__re" : get_words__re, #Action Verbs list -------> 웹페이지에 표시해야 함
     }
         
     return result_data
