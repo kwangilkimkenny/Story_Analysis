@@ -660,7 +660,11 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
             else:
                 pass
 
-        return result, result_2 
+        # 결과해석
+        # fit_ratio : 계산한 매칭 점수(확률로 높을 수록 fit 하다는 의미임)
+        # result : fit_ratio를 5가지 기준으로 계산한 최종 결과값 ex) Superb, Storng, Goodl, Mediocre, Weak 중 하나가 나옴
+        # result_2 : 문장생성
+        return fit_ratio, result, result_2 
         
 
     # 대학정보, 입력에세이의 연관성 분석
@@ -670,19 +674,40 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
     #### College & Department Fit ### 
     coll_dept_fit_ratio = sent_sim_analysis(coll_dept_result, ps_supp_result_)
     coll_dept_result = fit_cal(coll_dept_fit_ratio, coll_dept_result)
+    # 점수 1 ---> 가중치 40%
+    coll_dept_re_score = coll_dept_result[0]
 
     #### Major Fit ####
     mjr_fit_ratio = sent_sim_analysis(mjr_result, ps_supp_result_)
     mjr_fit_result = fit_cal(mjr_fit_ratio, mjr_result)
+    # 점수 2  ---> 40%
+    mjr_fit_re_score = mjr_fit_result[0]
 
     ### Prompt Oriented Sentiments ###
     PmtOrientedSentments_result = PmtOrientedSentments(select_pmt_type, coll_supp_essay_input_data)
+    # 점수 3 ---> 가중치 20%
+    pmt_sent_re_score = PmtOrientedSentments_result[2]
 
     # 첫 문장 생성
     TopComment = fixedTopComment(select_pmt_type)
+    
+
+    # Overall 결과 산출하기
+    overall_drft_sum = coll_dept_re_score * 0.4 + mjr_fit_re_score * 0.4  + pmt_sent_re_score * 0.2
+    if overall_drft_sum >= 80:
+        overall_result = 'Superb'
+    elif overall_drft_sum < 80 and overall_drft_sum >= 60:
+        overall_result = 'Strong'
+    elif overall_drft_sum < 60 and overall_drft_sum >= 40:
+        overall_result = 'Good'
+    elif overall_drft_sum < 40 and overall_drft_sum >= 20:
+        overall_result = 'Mediocre'
+    else: #overall_result < 20
+        overall_result = 'Weak'
+
+    print('overall_drft_sum :', overall_drft_sum)
 
     ### 결과해석 ###
-
     # coll_dept_result : College & Department Fit ex)Weak, 생성한 문장
 
     # mjr_fit_result : Major Fit ex)Weak, 생성한 문장
@@ -696,8 +721,10 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
         # match_result : 감성비교 최종 결과 산출
 
     # PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
+    # overall_drft_sum : overall sum score(계산용 값)
+    # overall_reault : Overall 최종 산출값
 
-    return coll_dept_result, mjr_fit_result, TopComment, PmtOrientedSentments_result, PmtOrientedSentments_result[3]
+    return coll_dept_result, mjr_fit_result, TopComment, PmtOrientedSentments_result, PmtOrientedSentments_result[3], overall_drft_sum, overall_result
 
 
 
@@ -716,10 +743,13 @@ re_sent_sim_analy = sent_sim_analysis_with_bert_summarizer('Why us', 'Brown', 'B
 
 print('Result : ', re_sent_sim_analy)
 
-# 결과값 : Result : 
-#  (('Weak', 
-# 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.',
-#  "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."), 
 
-# ('Weak', 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.', 
-# "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."))
+# 결과값 #
+
+# Result :  
+
+# (('Weak', 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.'), 
+# ('Weak', "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."), 
+# 'There are two key factors to consider when writing the “why us” school & major interest essay. First, you should define yourself through your intellectual interests, intended major, role in the community, and more. Secondly, you need thorough research about the college, major, and department to show strong interest. After all, it would be best if you created the “fit” between you and the college you are applying to. Meanwhile, it would help show positive sentiments such as admiration, excitement, and curiosity towards the school of your dreams.', 
+# (3, ['excitement', 'realization', 'admiration'], 60.0, 'Strong'), 
+# 'Strong')

@@ -32,6 +32,8 @@ from nltk.tokenize import word_tokenize
 from nltk.tokenize import RegexpTokenizer
 from gensim import corpora, models, similarities
 
+### sentence_simility.py ###
+from sentence_similarity import sent_sim_analysis_with_bert_summarizer
 
 
 
@@ -181,11 +183,12 @@ def general_keywords(College_text_data):
 
 
 
-### college_dept text data와 입력한 에세이의 데이터를 비교하여 TFD-IDF 유사도를 추출한다. ###
+### 첫번째 방법: college_dept text data와 입력한 에세이의 데이터를 비교하여 TFD-IDF 유사도를 추출한다. ###
 # 입력값 #
 # College_dept_data : 대학별 수집된 '개별대학의 정보'입력
 # Essay_input_data : 학생의 College Supp Essay 입력
-def college_n_dept_fit(College_dept_data, Essay_input_data):
+# 이 코드는 완벽하게 일치하는 결과로 나오기때문에 사용하지 않고 새로운 코드를 적용해볼 것
+def college_n_dept_fit(College_dept_data, Essay_input_data): # ----> 사용하지 말것, 하지만 백업코드
 
     documents = [College_dept_data]
     
@@ -249,14 +252,14 @@ def college_n_dept_fit(College_dept_data, Essay_input_data):
     # 결과: 're_coll_n_dept_fit': {0: 1.0}}  로 입력한 두개의 문장 일치도가 1.0은 100% 같다는 의미다.
 
 
+### 두 번째 방법 유사도 측정 ####
 
 
 
 
-
-# Selected College
-# 입력값:  대학, 전공 ex) 'why_us', 'Browon', 'AfricanStudies'
-def selected_college(select_pmt_type, select_college, select_major, coll_supp_essay_input_data):
+# Selected College 외 다양한 것을 계산하는 코드(최종계산코드)
+# 입력값:  대학, 전공 ex) ('Why us', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
+def selected_college(select_pmt_type, select_college, select_college_dept, select_major, coll_supp_essay_input_data):
 
     pmt_sent_etc_re = select_prompt_type(select_pmt_type)
     prompt_type_sentence = pmt_sent_etc_re[0] # prompt 문장 ex) Prompt Type : Intellectual interest 이렇게 20가지가 있음
@@ -324,10 +327,29 @@ def selected_college(select_pmt_type, select_college, select_major, coll_supp_es
     
 
 
-
+    # 아래 코드는 사용하지 않음, 대신 sentence_similiarity.py 코드를 사용함
     # college_dept text data와 입력한 에세이의 데이터를 비교하여 유사도를 추출한다. ex) result ==> 're_coll_n_dept_fit': {0: 1.0}}
-    re_coll_n_dept_fit = college_n_dept_fit(College_text_data, coll_supp_essay_input_data)
+    # re_coll_n_dept_fit = college_n_dept_fit(College_text_data, coll_supp_essay_input_data)
 
+    #######################################################################################
+    # sentence_similiarity.py 코드
+    ### 결과해석 ###
+    # coll_dept_result : College & Department Fit ex)Weak, 생성한 문장
+    # mjr_fit_result : Major Fit ex)Weak, 생성한 문장
+    # TopComment : 첫번째 Selected Prompt 에 의한 고정 문장 생성
+
+    # PmtOrientedSentments_result : 감성분석결과
+        # counter : 선택한 prompt에 해당하는 coll supp essay의 대표적 감성 5개중 일치하는 상대적인 총 개수
+        # matching_sentment : 매칭되는 감성 추출값
+        # matching_ratio : 매칭 비율
+        # match_result : 감성비교 최종 결과 산출
+
+    # PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
+    # overall_drft_sum : overall sum score(계산용 값)
+    # overall_reault : Overall 최종 산출값
+    #######################################################################################
+
+    re_coll_n_dept_fit = sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, select_college_dept, select_major, coll_supp_essay_input_data)
 
     # 0. gen_keywd_college : 선택한 대학의 General Keywords on college로 wordcloud로 출력됨
     # 1. gen_keywd_college_major : 선택 대학의 전공에 대한 keywords 를 WrodCloud 로 출력
@@ -335,6 +357,7 @@ def selected_college(select_pmt_type, select_college, select_major, coll_supp_es
     # 3. pmt_sent_etc_re : 선택한 prompt 질문
     # 4. prompt_type_sentence : 선택한 prompt에 해당하는 질문 문장 전체
     # 5. pmt_sent_re : 선택한 prompt에 해당하는 sentiment 리스트
+    # 6. re_coll_n_dept_fit : sentence_similiarity.py 코드의 결과값임
 
     data_result = {
         'gen_keywd_college' : gen_keywd_college, # 선택한 대학의 General Keywords on college로 wordcloud로 출력됨
@@ -356,18 +379,32 @@ def selected_college(select_pmt_type, select_college, select_major, coll_supp_es
 # input College Supp Essay 
 essay_input = """I inhale deeply and blow harder than I thought possible, pushing the tiny ember from its resting place on the candle out into the air. The room erupts around me, and 'Happy Birthday!' cheers echo through the halls. It's time to make a wish. In my mind, that new Limited Edition Deluxe Ben 10 watch will soon be mine. My parents and the aunties and uncles around me attempt to point me in a different direction. 'Wish that you get to go to the temple every day when you're older! Wish that you memorize all your Sanskrit texts before you turn 6! Wish that you can live in India after college!' My ears listen, but my mind tunes them out, as nothing could possibly compare to that toy watch! What I never realized on my third birthday is that those wishes quietly tell the story of how my family hopes my life will play out. In this version of my life, there wasn't much room for change, personal growth, or 'rocking the boat.' A vital aspect of my family's cultural background is their focus on accepting things as they are. Growing up, I was discouraged from questioning others or asking questions that didn't have definitive yes or no answers. If I innocently asked my grandma why she expected me to touch her feet, my dad would grab my hand in a sudden swoop, look me sternly in the eye, and tell me not to disrespect her like that again. At home, if I mentioned that I had tried eggs for breakfast at a friend's house, I'd be looked at like I had just committed a felony for eating what my parents considered meat. If I asked the priest at the temple why he had asked an Indian man and his white wife to leave, I'd be met with a condescending glare and told that I should also leave for asking such questions.In direct contrast, my curiosity was invited and encouraged at school. After an environmental science lesson, I stayed for a few minutes after class to ask my 4th-grade science teacher with wide eyes how it was possible that Niagara Falls doesn't run out of flowing water. Instead of scolding me for asking her a 'dumb question,' she smiled and explained the intricacy of the water cycle. Now, if a teacher mentions that we'll learn about why a certain proof or idea works only in a future class, I'll stay after to ask more or pour through an advanced textbook to try to understand it. While my perspective was widening at school, the receptiveness to raising complex questions at home was diminishing. After earning my driver's license, I registered as an organ donor. My small checkmark on a piece of paper led to an intense clash between my and my parents' moral platform. I wanted to ensure that I positively contributed to society, while my parents believed that organ donation was an unfamiliar and unnecessary cultural taboo. I would often ask for clarity or for reasons that supported their ideologies. Their response would usually entail feeling a deep, visceral sense that traditions must be followed exactly as taught, without objection. Told in one language to keep asking questions and in another to ask only the right ones, I chose exploring questions that don't have answers, rather than accepting answers that don't get questioned. When it comes to the maze of learning, even when I take a wrong turn and encounter roadblocks that are meant to stop me, I've learned to climb over them and keep moving forward. My curiosity strengthens with each hurdle and has expanded into a pure love of learning new things. I've become someone who seeks to understand things at a fundamental level and who finds excitement in taking on big questions that have yet to be solved. I'm no longer afraid to rock the boat. "},{"index":1,"personal_essay":"Ever since I first held a small foam Spiderman basketball in my tiny hands and watched my idol Kobe Bryant hit every three-pointer he attempted, I've wanted to understand and replicate his flawless jump shot. As my math education progressed in school, I began to realize I had the tools to create a perfect shot formula. After learning about variables for the first time in 5th grade Algebra, I began to treat each aspect of Kobe's jump shot as a different variable, each combination of variables resulting in a unique solution. While in 7th-grade geometry, I graphed the arc of his shot, and after learning about quadratic equations in 8th grade, I expressed his shot as a parabolic function that would ensure a swish when shooting from any spot. After calculus lessons in 10th and 11th grade, I was excited to finally solve for the perfect velocity and acceleration needed on my release. At Brown, I hope to explore this intellectual pursuit through a different lens. What if I could maximize the odds of making shots if I understood the science behind one's mental mindset and focus through CLPS 500: Perception and Action? Or use astrophysics to account for drag and gravitational force anywhere in the universe? Or use data science to break down the analytics of the NBA's best shooters? Through the Open Curriculum, I see myself not only becoming a more complete learner, but also a more complete thinker, applying a flexible mindset to any problem I encounter. Brown's Open Curriculum allows students to explore broadly while also diving deeply into their academic pursuits. Tell us about an academic interest (or interests) that excites you, and how you might use the Open Curriculum to pursue it. I've been playing the Mridangam since I was five years old. It's a simple instrument: A wood barrel covered on two ends by goatskin with leather straps surrounding the hull. This instrument serves as a connection between me and one of the most beautiful aspects of my culture: Carnatic music. As a young child, I'd be taken to the temple every weekend for three-hour-long Carnatic music concerts, where the most accomplished teenagers and young adults in our local Indian community would perform. I would watch in awe as the mridangists' hands moved gracefully, flowing across the goatskin as if they weren't making contact, while simultaneously producing sharp rhythmic patterns that never failed to fall on the beat. Hoping to be like these idols on the stage, I trained intensely with my teacher, a strict man who taught me that the simple drum I was playing had thousands of years of culture behind it. Building up from simple strokes, I realized that the finger speed I'd had been awestruck by wasn't some magical talent, it was instead a science perfected by repeated practice."""
 
-sc_re = selected_college('why_us', 'Brown', 'African Studies', essay_input)
+sc_re = selected_college('Why us', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 print('Select_College:', sc_re)
 
-# 에세이 입력
-#input_text = """Bloomington Normal is almost laughably cliché for a midwestern city. Vast swathes of corn envelop winding roads and the heady smell of BBQ smoke pervades the countryside every summer. Yet, underlying the trite norms of Normal is the prescriptive force of tradition—the expectation to fulfill my role as a female Filipino by playing Debussy in the yearly piano festival and enrolling in multivariable calculus instead of political philosophy.So when I discovered the technical demand of bebop, the triplet groove, and the intricacies of chordal harmony after ten years of grueling classical piano, I was fascinated by the music's novelty. Jazz guitar was not only evocative and creative, but also strangely liberating. I began to explore different pedagogical methods, transcribe solos from the greats, and experiment with various approaches until my own unique sound began to develop. And, although I did not know what would be the 'best' route for me to follow as a musician, the freedom to forge whatever path I felt was right seemed to be exactly what I needed; there were no expectations for me to continue in any particular way—only the way that suited my own desires.While journeying this trail, I found myself at Interlochen Arts Camp the summer before my junior year. Never before had I been immersed in an environment so conducive to musical growth: I was surrounded by people intensely passionate about pursuing all kinds of art with no regard for ideas of what art 'should' be. I knew immediately that this would be a perfect opportunity to cultivate my sound, unbounded by the limits of confining tradition. On the first day of camp, I found that my peer guitarist in big band was another Filipino girl from Illinois. Until that moment, my endeavors in jazz guitar had been a solitary effort; I had no one with whom to collaborate and no one against whom I could compare myself, much less someone from a background mirroring my own. I was eager to play with her, but while I quickly recognized a slew of differences between us—different heights, guitars, and even playing styles—others seemed to have trouble making that distinction during performances. Some even went as far as calling me 'other-Francesca.' Thus, amidst the glittering lakes and musky pine needles of Interlochen, I once again confronted Bloomington's frustrating expectations.After being mistaken for her several times, I could not help but view Francesca as a standard of what the 'female Filipino jazz guitarist' should embody. Her improvisatory language, comping style and even personal qualities loomed above me as something I had to live up to. Nevertheless, as Francesca and I continued to play together, it was not long before we connected through our creative pursuit. In time, I learned to draw inspiration from her instead of feeling pressured to follow whatever precedent I thought she set. I found that I grew because of, rather than in spite of, her presence; I could find solace in our similarities and even a sense of comfort in an unfamiliar environment without being trapped by expectation. Though the pressure to conform was still present—and will likely remain present in my life no matter what genre I'm playing or what pursuits I engage in—I learned to eschew its corrosive influence and enjoy the rewards that it brings. While my encounter with Francesca at first sparked a feeling of pressure to conform in a setting where I never thought I would feel its presence, it also carried the warmth of finding someone with whom I could connect. Like the admittedly trite conditions of my hometown, the resemblances between us provided comfort to me through their familiarity. I ultimately found that I can embrace this warmth while still rejecting the pressure to succumb to expectations, and that, in the careful balance between these elements, I can grow in a way that feels both like discove"""
 
 ### 결과 ###
-# Select_College: {'gen_keywd_college': None, 
-# 'gen_keywd_college_major': None, 
+# Select_College: {'gen_keywd_college': None,  ---> 이부분은 워드클라우드로 표현
+# 'gen_keywd_college_major': None, ---> 이부분은 워드클라우드로 표현
 # 'intended_mjr': 'African Studies', 
 # 'pmt_sent_etc_re': ([" 'Why us' school & major interest (select major, by college & department) "], 
 # ['Admiration', 'Excitement', 'Pride', 'Realization', 'Curiosity']), 
 # 'prompt_type_sentence': [" 'Why us' school & major interest (select major, by college & department) "], 
 # 'pmt_sent_re': ['Admiration', 'Excitement', 'Pride', 'Realization', 'Curiosity'], 're_coll_n_dept_fit': {0: 1.0}}
+# 're_coll_n_dept_fit': ((17.0, 'Weak', 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.'), (15.0, 'Weak', "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."), 'There are two key factors to consider when writing the “why us” school & major interest essay. First, you should define yourself through your intellectual interests, intended major, role in the community, and more. Secondly, you need thorough research about the college, major, and department to show strong interest. After all, it would be best if you created the “fit” between you and the college you are applying to. Meanwhile, it would help show positive sentiments such as admiration, excitement, and curiosity towards the school of your dreams.', (3, ['excitement', 'realization', 'admiration'], 60.0, 'Strong'), 'Strong', 24.8, 'Mediocre')
 
+
+   ### re_coll_n_dept_fit : 결과해석 ###
+    # coll_dept_result : College & Department Fit ex)Weak, 생성한 문장
+    # mjr_fit_result : Major Fit ex)Weak, 생성한 문장
+    # TopComment : 첫번째 Selected Prompt 에 의한 고정 문장 생성
+
+    # PmtOrientedSentments_result : 감성분석결과
+        # counter : 선택한 prompt에 해당하는 coll supp essay의 대표적 감성 5개중 일치하는 상대적인 총 개수
+        # matching_sentment : 매칭되는 감성 추출값
+        # matching_ratio : 매칭 비율
+        # match_result : 감성비교 최종 결과 산출
+
+    # PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
+    # overall_drft_sum : overall sum score(계산용 값)
+    # overall_reault : Overall 최종 산출값
