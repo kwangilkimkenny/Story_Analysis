@@ -19,7 +19,44 @@ sbert_model = SentenceTransformer('stsb-roberta-large')
 
 from summarizer import Summarizer
 
-# 데이터 전처리 
+
+# Sentiments analysis of prompt
+from transformers import BertTokenizer
+from model import BertForMultiLabelClassification
+from multilabel_pipeline import MultiLabelPipeline
+import pandas as pd
+import re
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+import numpy as np
+
+tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-original")
+model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
+
+goemotions = MultiLabelPipeline(
+    model=model,
+    tokenizer=tokenizer,
+    threshold=0.3
+)
+
+
+#데이터 전처리 for Sentiment Analysis
+def cleaning(datas):
+
+    fin_datas = []
+    for data in datas:
+        # 영문자 이외 문자는 공백으로 변환
+        only_english = re.sub('[^a-zA-Z]', ' ', data)
+    
+        # 데이터를 리스트에 추가 
+        fin_datas.append(only_english)
+
+    return fin_datas
+
+
+
+# 데이터 전처리 for Sentence Summery
 def cleaning_for_sent_sim(data):
     fin_data = []
     for data_itm in data:
@@ -164,6 +201,343 @@ def sent_sim_analysis(college_info_data, ps_supp_esssay_data):
 #### ------------ end ------------- ####
 ########################################
 
+# Prompt Oriented Sentiments 
+# 입력: 선택한 prompt type, 학생의 Coll Supp Essay
+def PmtOrientedSentments(select_pmt_type, coll_supp_essay_input_data):
+    # 학생의 Coll Supp Essay 감성 분석 결과 대표감성 5개
+    ps_supp_essay_sentment_re = sentmentAnalysis_essay(coll_supp_essay_input_data)
+
+    # sentment types by prompt
+    why_us = ['admiration', 'excitement', 'pride', 'realization', 'curiosity']   
+    intellectual_interest = ['curiosity', 'realization']
+    meaningful_experience_n_lesson_learned = ['realization', 'approval', 'gratitude', 'admiration']
+    achievement_you_are_proud_of = ['realization', 'approval', 'gratitude', 'admiration', 'pride', 'desire', 'optimism']
+    social_issue_contribution_solution = ['anger', 'fear', 'disapproval', 'disappointment', 'realization', 'approval', 'gratitude', 'admiration']
+    summer_activity = ['pride', 'realization', 'curiosity', 'excitement', 'amusement', 'caring']
+    unique_qulity_passion_talent = ['pride', 'excitement', 'amusement', 'approval', 'admiration', 'curiosity']
+    extracurricular_activity_work_experience = ['pride', 'realization', 'curiosity', 'joy', 'excitement', 'amusement', 'caring', 'optimism']
+    your_community_roal_contribution = ['admiration', 'caring', 'approval', 'pride', 'gratitude', 'love']
+    college_community_involvement_contirb = ['admiration', 'caring', 'approval', 'excitement', 'pride', 'gratitude']
+    overcomming_challenge_ethical_dilemma = ['anger', 'fear', 'disapproval', 'disappointment', 'confusion', 'annoyed', 'realization', 'approval', 'gratitude', 'admiration', 'relief', 'optimism']
+    culture_diversity = ['admiration', 'realization', 'love', 'approval', 'pride', 'gratitude']
+    collaboration_teamwork = ['admiration', 'caring', 'approval', 'optimism', 'gratitude', 'love']
+    creativity_projects= ['excitement', 'realization', 'curiosity', 'desire', 'amusement', 'suprise']
+    leadership_experience = ['admiration', 'caring', 'approval', 'optimism', 'gratitude', 'love', 'fear', 'confusion', 'nervouseness']
+    value_perspectives_beliefs = ['anger', 'fear', 'disapproval', 'disappointment', 'realization', 'approval', 'gratitude', 'admiration']
+    person_who_influenced_you = ['realization', 'approval', 'gratitude', 'admiration', 'caring', 'love', 'curiosity', 'pride', 'joy']
+    favorite_book_movie_quote = ['excitement', 'realization', 'curiosity', 'admiration', 'amusement', 'joy']
+    write_to_future_roommate = ['admiration', 'realization', 'love', 'excitement', 'approval', 'pride', 'gratitude', 'amusement', 'curiosity', 'joy']
+    diversity_inclusion_stmt = ['anger', 'fear', 'disapproval', 'disappointment', 'confusion', 'annoyed', 'realization', 'approval', 'gratitude', 'admiration','relief','optimism']
+    future_goals_lesson_for_learning = ['realization', 'approval', 'gratitude', 'admiration', 'pride', 'desire', 'optimism']
+    what_you_do_for_fun = ['admiration', 'excitement', 'curiosity', 'amusement','pride','joy']
+
+    # 겹치는 감성추출값 초기화
+    counter = 0
+    # 겹치는 감성정보를 추출
+    matching_sentment = []
+    if select_pmt_type == 'Why us':
+        for i in ps_supp_essay_sentment_re:
+            if i in why_us:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(why_us) * 100
+
+    elif select_pmt_type == 'Intellectual interest':
+        for i in ps_supp_essay_sentment_re:
+            if i in intellectual_interest:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(intellectual_interest) * 100
+
+    elif select_pmt_type == 'Meaningful experience & lesson learned':
+        for i in ps_supp_essay_sentment_re:
+            if i in meaningful_experience_n_lesson_learned:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(meaningful_experience_n_lesson_learned) * 100
+
+    elif select_pmt_type == 'Achievement you are proud of':
+        for i in ps_supp_essay_sentment_re:
+            if i in achievement_you_are_proud_of:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(achievement_you_are_proud_of) * 100
+
+    elif select_pmt_type == 'Social issues: contribution & solution':
+        for i in ps_supp_essay_sentment_re:
+            if i in social_issue_contribution_solution:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(social_issue_contribution_solution) * 100
+
+    elif select_pmt_type == 'Summer activity':
+        for i in ps_supp_essay_sentment_re:
+            if i in summer_activity:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(summer_activity) * 100
+
+    elif select_pmt_type == 'Unique quality, passion, or talent':
+        for i in ps_supp_essay_sentment_re:
+            if i in unique_qulity_passion_talent:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(unique_qulity_passion_talent) * 100
+
+    elif select_pmt_type == 'Extracurricular activity or work experience':
+        for i in ps_supp_essay_sentment_re:
+            if i in extracurricular_activity_work_experience:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(extracurricular_activity_work_experience) * 100
+
+    elif select_pmt_type == 'Your community: role and contribution in your community':
+        for i in ps_supp_essay_sentment_re:
+            if i in your_community_roal_contribution:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(your_community_roal_contribution) * 100
+
+    elif select_pmt_type == 'College community: intended role, involvement, and contribution in college community':
+        for i in ps_supp_essay_sentment_re:
+            if i in college_community_involvement_contirb:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(college_community_involvement_contirb) * 100
+
+    elif select_pmt_type == 'Overcoming a Challenge or ethical dilemma':
+        for i in ps_supp_essay_sentment_re:
+            if i in overcomming_challenge_ethical_dilemma:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(overcomming_challenge_ethical_dilemma) * 100
+
+    elif select_pmt_type == 'Culture & diversity':
+        for i in ps_supp_essay_sentment_re:
+            if i in culture_diversity:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(culture_diversity) * 100
+
+    elif select_pmt_type == 'Collaboration & teamwork':
+        for i in ps_supp_essay_sentment_re:
+            if i in collaboration_teamwork:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(collaboration_teamwork) * 100
+
+    elif select_pmt_type == 'Creativity/creative projects':
+        for i in ps_supp_essay_sentment_re:
+            if i in creativity_projects:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(creativity_projects) * 100
+
+    elif select_pmt_type == 'Leadership experience':
+        for i in ps_supp_essay_sentment_re:
+            if i in leadership_experience:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(leadership_experience) * 100
+
+    elif select_pmt_type == 'Values, perspectives, or beliefs':
+        for i in ps_supp_essay_sentment_re:
+            if i in value_perspectives_beliefs:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(value_perspectives_beliefs) * 100
+
+    elif select_pmt_type == 'Person who influenced you':
+        for i in ps_supp_essay_sentment_re:
+            if i in person_who_influenced_you:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(person_who_influenced_you) * 100
+
+    elif select_pmt_type == 'Favorite book/movie/quote':
+        for i in ps_supp_essay_sentment_re:
+            if i in favorite_book_movie_quote:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(favorite_book_movie_quote) * 100
+
+    elif select_pmt_type == 'Write to future roommate':
+        for i in ps_supp_essay_sentment_re:
+            if i in write_to_future_roommate:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(write_to_future_roommate) * 100
+
+    elif select_pmt_type == 'Diversity & Inclusion Statement':
+        for i in ps_supp_essay_sentment_re:
+            if i in diversity_inclusion_stmt:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(diversity_inclusion_stmt) * 100
+
+    elif select_pmt_type == 'Future goals or reasons for learning':
+        for i in ps_supp_essay_sentment_re:
+            if i in future_goals_lesson_for_learning:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = counter / len(future_goals_lesson_for_learning) * 100
+
+    else: # select_pmt_type == 'What you do for fun':
+        for i in ps_supp_essay_sentment_re:
+            if i in what_you_do_for_fun:
+                counter += 1
+                matching_sentment.append(i)
+        matching_ratio = round(counter / len(what_you_do_for_fun) * 100, 2)
+
+    # prompt oriented sentiment 최종 결과값 계산하기
+    if matching_ratio >= 80:
+        match_result = "Superb"
+    elif matching_ratio < 80 and matching_ratio >= 60:
+        match_result = "Strong"
+    elif matching_ratio < 60 and matching_ratio >= 40:
+        match_result = "Good"
+    elif matching_ratio < 40 and matching_ratio >= 20:
+        match_result = "Mediocre"
+    else: # matching_ratio < 20:
+        match_result = "Weak"
+    
+    # 결과해석
+    # counter : 선택한 prompt에 해당하는 coll supp essay의 대표적 감성 5개중 일치하는 상대적인 총 개수
+    # matching_sentment : 매칭되는 감성 추출값
+    # matching_ratio : 매칭 비율
+    # match_result : 감성비교 최종 결과 산출
+    return counter, matching_sentment, matching_ratio, match_result
+
+
+
+# 학생이 입력한 에세이의 감성 분석
+def sentmentAnalysis_essay(coll_supp_essay_input_data):
+    # . 로 구분하여 리스트로 변환
+    re_text = coll_supp_essay_input_data.split(".")
+    #print("re_text type: ", type(re_text))
+        
+    texts = cleaning(re_text)
+    re_emot =  goemotions(texts)
+    df = pd.DataFrame(re_emot)
+    #print("dataframe:", df)
+    label_cnt = df.count()
+    #print(label_cnt)
+ 
+    #추출된 감성중 레이블만 다시 추출하고, 이것을 리스트로 변환 후, 이중리스트 flatten하고, 가장 많이 추출된 대표감성을 카운트하여 산출한다.
+    result_emotion = list(df['labels'])
+    #이중리스트 flatten
+    all_emo_types = sum(result_emotion, [])
+    #대표감성 추출 : 리스트 항목 카운트하여 가장 높은 값 산출
+    ext_emotion = {}
+    for i in all_emo_types:
+        if i == 'neutral': # neutral 감정은 제거함
+            pass
+        else:
+            try: ext_emotion[i] += 1
+            except: ext_emotion[i]=1    
+    #print(ext_emotion)
+    #결과값 오름차순 정렬 : 추출된 감성 결과가 높은 순서대로 정려하기
+    key_emo = sorted(ext_emotion.items(), key=lambda x: x[1], reverse=True)
+    #print("Key extract emoitons: ", key_emo)
+    
+    #가장 많이 추출된 감성 1개
+    #key_emo[0]
+    
+    #가장 많이 추출된 감성 3개
+    #key_emo[:2]
+    
+    #가장 많이 추출된 감성 5개
+    key_emo[:5]
+    
+    result_emo_list = [*sum(zip(re_text, result_emotion),())]
+    
+    # 결과해석
+    # result_emo_list >>> 문장, 분석감성
+    # key_emo[0] >>> 가장 많이 추출된 감성 1개로 이것이 에세이이 포함된 대표감성
+    # key_emo[:2] 가장 많이 추출된 감성 3개
+    # key_emo[:5] 가장 많이 추출된 감성 5개
+    top5Emo = key_emo[:5]
+    #print('top5Emo : ', top5Emo)
+    top5Emotions = [] # ['approval', 'realization', 'admiration', 'excitement', 'amusement']
+    top5Emotions.append(top5Emo[0][0])
+    top5Emotions.append(top5Emo[1][0])
+    top5Emotions.append(top5Emo[2][0])
+    top5Emotions.append(top5Emo[3][0])
+    top5Emotions.append(top5Emo[4][0])
+
+    return top5Emotions
+
+# fixed Top Comment
+def fixedTopComment(select_pmt_type):
+    if select_pmt_type == 'Why us':
+        fixed_Top_comt = """There are two key factors to consider when writing the “why us” school & major interest essay. First, you should define yourself through your intellectual interests, intended major, role in the community, and more. Secondly, you need thorough research about the college, major, and department to show strong interest. After all, it would be best if you created the “fit” between you and the college you are applying to. Meanwhile, it would help show positive sentiments such as admiration, excitement, and curiosity towards the school of your dreams."""
+
+    elif select_pmt_type == 'Intellectual interest':
+        fixed_Top_comt = """An intellectual interest essay may deal with any topic as long as it demonstrates the writer’s knowledge, analytical thinking, and creativity. Nonetheless, experts advise that displaying the depth of knowledge in your intended major area in a curious and insightful manner could provide a more precise focal point for the reviewer. Engaging ideas can be demonstrated through a healthy level of cohesion and academically-oriented verbs, while how you connect the dots between seemingly distant ideas can show how original your thoughts are."""
+
+    elif select_pmt_type == 'Meaningful experience & lesson learned':
+        fixed_Top_comt = """For meaningful experience and lessons learned, you may write about any occasion in your life as long as it had an impact on your life. One can assume that they are looking for a unique story, your own perspective, and a lesson that presented you with a positive outlook in life."""
+
+    elif select_pmt_type == 'Achievement you are proud of':
+        fixed_Top_comt = """Writing about an achievement you are proud of entails multiple elements. You may consider including words that are closely related to a noteworthy achievement. Usually, concepts like leadership, cooperation, overcoming a hardship, triumph, and more would suit such a topic. Also, there should be sentiments that convey a sense of pride, realization, appreciation, and determination while highlighting the course of your action to reach the end result."""
+
+    elif select_pmt_type == 'Social issues: contribution & solution':
+        fixed_Top_comt = """Powerful essays about social issues involve multiple elements. Your knowledge of the given issue and activism will demonstrate social awareness. Meanwhile, you should be emotionally engaged, especially with the social problems that made you angry or disappointed. Then, your realization of the issues should be backed up by your action – to bring about changes."""
+
+    elif select_pmt_type == 'Summer activity':
+        fixed_Top_comt = """Summer is a great time to pursue your diverse interests. Your summer activities may be a popular summer program held at various colleges or an internship, or a unique project you have initiated. Regardless, there should be a sense of excitement, curiosity, and realization from these meaningful summer activities. Also, intellectual endeavors relevant to your intended major may help you stand out."""
+
+    elif select_pmt_type == 'Unique quality, passion, or talent':
+        fixed_Top_comt = """To define a unique quality, passion, or talent, you should find something about you that is not considered cliché. It should be a quality that excites you and makes you proud, while demonstrating your dedication and knowledge towards such passion would be appropriate."""
+
+    elif select_pmt_type == 'Extracurricular activity or work experience':
+        fixed_Top_comt = """For the extracurricular or work experience essay, you should select an enjoyable topic that demonstrates positive qualities about you, such as dedication, passion, leadership, contribution, and more. If you’ve chosen an intellectual engagement, establishing a major fit may help you to show your focus."""
+
+    elif select_pmt_type == 'Your community: role and contribution in your community':
+        fixed_Top_comt = """Writing about one’s community involves multiple elements because it is a broad topic. It is also a crucial topic for college admissions to evaluate an applicant’s future contribution to the campus community. Therefore, your essay should demonstrate a sense of affection and pride towards the community you are a part of while defining your role and contribution to it."""
+
+    elif select_pmt_type == 'College community: intended role, involvement, and contribution in college community':
+        fixed_Top_comt = """When writing the college community essay, there are two key factors to consider. First, you should define your interest and role in the community as of today. Then, it would be best if you had thorough research about the college’s diverse student groups, facilities, and so on. After all, you want to create the “fit” between you and the college’s community for the admissions officer to imagine your role in it. Meanwhile, it would help to show positive sentiments such as admiration, excitement, and curiosity towards the school of your dreams."""
+
+    elif select_pmt_type == 'Overcoming a Challenge or ethical dilemma':
+        fixed_Top_comt = """A challenge or dilemma in your life can be a complex mix of sentiments. Usually, it starts with negative sentiments, as this type of uncertainty can stress you out. However, since the prompt intends to see how you’ve overcome such a challenge, the essay should end on a positive note with the lessons you’ve gained from the experience."""
+
+    elif select_pmt_type == 'Culture & diversity':
+        fixed_Top_comt = """Culture and diversity may involve various elements in your life, and your understanding of such variety is essential. Meanwhile, you should be able to demonstrate how you uniquely define your own culture and diversity, ultimately, to explain how you are engaged both mentally and physically."""
+
+    elif select_pmt_type == 'Collaboration & teamwork':
+        fixed_Top_comt = """Good collaboration and teamwork essays usually demonstrate one’s appreciation towards peers and ability to solve problems. This type of essay helps colleges to gauge an applicant’s capacity to work with others. It would be a good idea to describe your actions to tackle a problem together as a team."""
+
+    elif select_pmt_type == 'Creativity/creative projects':
+        fixed_Top_comt = """Creativity is difficult to define since one can apply it to all aspects of academic fields, social interactions, or our life in general. You may choose to utilize words that are commonly associated with creative activities like inventing, designing, expressing, and so on. Often, creativity is displayed through the act of connecting-the-dots between seemingly distant topics in an unexpected way. For this prompt, AI analysis will carefully examine all of the factors align in your essay."""
+
+    elif select_pmt_type == 'Leadership experience':
+        fixed_Top_comt = """Leadership-oriented essays usually demonstrate appreciation towards peers, decisiveness, and the ability to solve problems through guidance. Often, leaders also need to work up the courage to overcome the fear and nervousness that arise from the responsibility. This type of essay helps colleges to gauge an applicant’s capacity to work with others. It would be a good idea to describe your actions to tackle a problem together as a team."""
+
+    elif select_pmt_type == 'Values, perspectives, or beliefs':
+        fixed_Top_comt = """While everyone’s values, perspectives, or beliefs may vary, it’s safe to assume that the college is looking for core values that constitute a good person. To make the essay more interesting, you may consider including the struggles and dilemmas during the process of solidifying the positive values you honor. A vivid description of the learning process and clearly stating the values you believe in would make the essay more engaging for the readers."""
+
+    elif select_pmt_type == 'Person who influenced you':
+        fixed_Top_comt = """This type of essay usually focuses on the relationship between you and the person who influenced you. Although the experience you’ve had with the other can be positive or negative, the lesson learned is likely to convey a positive influence on your set of values and viewpoint."""
+
+    elif select_pmt_type == 'Favorite book/movie/quote':
+        fixed_Top_comt = """A good essay on one’s favorite book, movie, or quote should be more than just a synopsis. Beyond your knowledge about the subject, you should convey your emotions and opinion towards the topics and main idea of the story. It will highlight your distinct taste if the book, movie, or quote you have chosen is a unique one."""
+
+    elif select_pmt_type == 'Write to future roommate':
+        fixed_Top_comt = """The ‘write to your future roommate’ essay should be a candid and casual letter form that usually starts with ‘Dear Roomie.’ Nonetheless, showing that you can be a likable roommate in writing can be mindboggling. Genuinely sharing your fond memories, unique interests, bucket list in college, and even insecurities would get your future roommate excited about meeting you. On the other hand, bragging about your achievements and credentials in this essay may work against you in the admissions process."""
+
+    elif select_pmt_type == 'Diversity & Inclusion Statement':
+        fixed_Top_comt = """Commitment to diversity and inclusion is an essential value at colleges today. Sharing your identity and the experience and lessons you’ve gained in your life is crucial to show the admissions who you are and what you believe in. Whether you identify as LGBTQIA+, ethnic minority, or religious minority, the colleges will appreciate you as diversity truly matters."""
+
+    elif select_pmt_type == 'Future goals or reasons for learning':
+        fixed_Top_comt = """Future goals or reason for learning can be explained in many forms, including your future profession, role in society, self-fulfillment, and more. You may consider including words that are closely related to a type of achievement you aim for while explaining why learning is an essential part of achieving your dream. Specifying your direction through the intended major may be an effective way to pinpoint what you wish to learn in college."""
+
+    else: # select_pmt_type == 'What you do for fun':
+        fixed_Top_comt = """What you do for fun essay is an excellent opportunity to share something about you without bragging about an award or a big leadership position. Experts say that it is better to be down-to-earth with this type of prompt and write about your favorite pastime, even if it may sound trivial."""
+
+    return fixed_Top_comt
+
+
 
 def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, select_college_dept, select_major, coll_supp_essay_input_data):
     College_data = open_data_for_sent_sim(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
@@ -218,21 +592,80 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
     print('===========================================================================================')
     print('에세이 요약 : ', ps_supp_result_)
 
-
-    # 결과 계산하기
-    def fit_cal(fit_ratio):
+    # 결과 계산하기, 문장 생성은 입력 값에 따라서 선택(컬리지, 전공적합성, 감성정보)
+    def fit_cal(fit_ratio, col_mjr_sentment_input):
         if fit_ratio >= 80:
             result = 'Superb'
+            if col_mjr_sentment_input == coll_dept_result:
+                col_n_dept_fit_sentence = "Your essay shows that you have done a great job researching the college and showing your strong interest. You demonstrate a high level of understanding of the school and department you wish to study in."
+                result_2 = col_n_dept_fit_sentence
+            elif col_mjr_sentment_input == mjr_result:
+                mjr_fit_sentence = "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems quite extensive."
+                result_2 = mjr_fit_sentence
+            elif col_mjr_sentment_input == sentiment_result:
+                sentiment_sentence = "Your essay's vibe makes you sound very interested and excited about attending the college, which is important for the admissions officials to see."
+                result_2 = sentiment_sentence
+            else:
+                pass
+
         elif fit_ratio >= 60 and fit_ratio < 80:
             result = 'Strong'
+            if col_mjr_sentment_input == coll_dept_result:
+                col_n_dept_fit_sentence = "Your essay shows that you have done a great job researching the college and showing your strong interest. You demonstrate a high level of understanding of the school and department you wish to study in."
+                result_2 = col_n_dept_fit_sentence
+            elif col_mjr_sentment_input == mjr_result:
+                mjr_fit_sentence = "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems quite extensive."
+                result_2 = mjr_fit_sentence
+            elif col_mjr_sentment_input == sentiment_result:
+                sentiment_sentence = "Your essay's vibe makes you sound very interested and excited about attending the college, which is important for the admissions officials to see."
+                result_2 = sentiment_sentence
+            else:
+                pass
+
         elif fit_ratio < 60 and fit_ratio >= 40:
-            result = 'Average'
+            result = 'Good'
+            if col_mjr_sentment_input == coll_dept_result:
+                col_n_dept_fit_sentence = "Your essay shows that you have done a good job researching the college and showing your interest. You demonstrate a satisfactory level of understanding of the school and department you wish to study in."
+                result_2 = col_n_dept_fit_sentence
+            elif col_mjr_sentment_input == mjr_result:
+                mjr_fit_sentence = "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems good."
+                result_2 = mjr_fit_sentence
+            elif col_mjr_sentment_input == sentiment_result:
+                sentiment_sentence = "The vibe of your essay makes you sound interested in attending the college. You may want to include more emotions of admiration and excitement for the admissions officials to see."
+                result_2 = sentiment_sentence
+            else:
+                pass
+
         elif fit_ratio < 40 and fit_ratio >= 20:
             result = 'Mediocre'
+            if col_mjr_sentment_input == coll_dept_result:
+                col_n_dept_fit_sentence = "Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in."
+                result_2 = col_n_dept_fit_sentence
+            elif col_mjr_sentment_input == mjr_result:
+                mjr_fit_sentence = "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."
+                result_2 = mjr_fit_sentence
+            elif col_mjr_sentment_input == sentiment_result:
+                sentiment_sentence = "The vibe of your essay may not demonstrate enough interest or excitement about attending the college. You may want to include more emotions of admiration and excitement for the admissions officials to see."
+                result_2 = sentiment_sentence
+            else:
+                pass
+
         else: # fit_ratio < 20
             result = 'Weak'
-        return result
+            if col_mjr_sentment_input == coll_dept_result:
+                col_n_dept_fit_sentence = "Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in."
+                result_2 = col_n_dept_fit_sentence
+            elif col_mjr_sentment_input == mjr_result:
+                mjr_fit_sentence = "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."
+                result_2 = mjr_fit_sentence
+            elif col_mjr_sentment_input == sentiment_result:
+                sentiment_sentence = "The vibe of your essay may not demonstrate enough interest or excitement about attending the college. You may want to include more emotions of admiration and excitement for the admissions officials to see."
+                result_2 = sentiment_sentence
+            else:
+                pass
 
+        return result, result_2 
+        
 
     # 대학정보, 입력에세이의 연관성 분석
     # 이 결과는 개발중간 확인 위한 값들임
@@ -240,14 +673,35 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
 
     #### College & Department Fit ### 
     coll_dept_fit_ratio = sent_sim_analysis(coll_dept_result, ps_supp_result_)
-    coll_dept_result = fit_cal(coll_dept_fit_ratio)
+    coll_dept_result = fit_cal(coll_dept_fit_ratio, coll_dept_result)
 
     #### Major Fit ####
     mjr_fit_ratio = sent_sim_analysis(mjr_result, ps_supp_result_)
-    mjr_fit_result = fit_cal(mjr_fit_ratio)
+    mjr_fit_result = fit_cal(mjr_fit_ratio, mjr_result)
 
+    ### Prompt Oriented Sentiments ###
+    PmtOrientedSentments_result = PmtOrientedSentments(select_pmt_type, coll_supp_essay_input_data)
 
-    return coll_dept_result, mjr_fit_result
+    # 첫 문장 생성
+    TopComment = fixedTopComment(select_pmt_type)
+
+    ### 결과해석 ###
+
+    # coll_dept_result : College & Department Fit ex)Weak, 생성한 문장
+
+    # mjr_fit_result : Major Fit ex)Weak, 생성한 문장
+
+    # TopComment : 첫번째 Selected Prompt 에 의한 고정 문장 생성
+
+    # PmtOrientedSentments_result : 감성분석결과
+        # counter : 선택한 prompt에 해당하는 coll supp essay의 대표적 감성 5개중 일치하는 상대적인 총 개수
+        # matching_sentment : 매칭되는 감성 추출값
+        # matching_ratio : 매칭 비율
+        # match_result : 감성비교 최종 결과 산출
+
+    # PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
+
+    return coll_dept_result, mjr_fit_result, TopComment, PmtOrientedSentments_result, PmtOrientedSentments_result[3]
 
 
 
@@ -266,4 +720,4 @@ re_sent_sim_analy = sent_sim_analysis_with_bert_summarizer('why_us', 'Brown', 'B
 
 print('Result : ', re_sent_sim_analy)
 
-# 결과값 : Result :  ('Weak', 'Weak')
+# 결과값 : Result :  (('Weak', 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.', "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."), ('Weak', 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.', "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."))
