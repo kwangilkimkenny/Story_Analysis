@@ -39,7 +39,7 @@ from sentence_similarity import sent_sim_analysis_with_bert_summarizer
 
 def select_prompt_type(prompt_type):
     
-    if prompt_type == 'why_us':
+    if prompt_type == 'Why us':
         pmt_typ = [""" 'Why us' school & major interest (select major, by college & department) """]
         pmt_sentiment = ['Admiration', 'Excitement', 'Pride', 'Realization', 'Curiosity']
     elif prompt_type == 'Intellectual interest':

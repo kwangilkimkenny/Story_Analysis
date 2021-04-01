@@ -748,6 +748,8 @@ print('Result : ', re_sent_sim_analy)
 
 # Result :  
 
+# Result :  
+
 # (('Weak', 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.'), 
 # ('Weak', "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."), 
 # 'There are two key factors to consider when writing the “why us” school & major interest essay. First, you should define yourself through your intellectual interests, intended major, role in the community, and more. Secondly, you need thorough research about the college, major, and department to show strong interest. After all, it would be best if you created the “fit” between you and the college you are applying to. Meanwhile, it would help show positive sentiments such as admiration, excitement, and curiosity towards the school of your dreams.', 
