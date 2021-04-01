@@ -716,7 +716,7 @@ essay_input = """I inhale deeply and blow harder than I thought possible, pushin
 
 # 입력: (prompt, college name, select_college_dept, intended major, supp_essay)
 
-re_sent_sim_analy = sent_sim_analysis_with_bert_summarizer('why_us', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
+re_sent_sim_analy = sent_sim_analysis_with_bert_summarizer('Why us', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 
 print('Result : ', re_sent_sim_analy)
 
