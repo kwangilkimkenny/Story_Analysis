@@ -283,7 +283,6 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
         gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
         gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
-
     elif select_college == 'Cornell':
         pass
     elif select_college == 'Dartmouth':
