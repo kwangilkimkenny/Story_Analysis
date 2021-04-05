@@ -15,11 +15,99 @@ from nltk.tag import pos_tag
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import RegexpTokenizer
 from collections import defaultdict
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
+stop = stopwords.words('english')
 import spacy
-
 nlp = spacy.load('en_core_web_lg')
 
 
+# 입력문장의 토픽을 추출한다. 대학, 전공관련 정보, 입력한 에세이 등의 문맥상 토픽을 추출하여 다양한 분석에 적용할 수 있음
+def extractTopicByLDA(text):
+    essay_input_corpus = str(text) #문장입력
+    essay_input_corpus = essay_input_corpus.lower()#소문자 변환
+    #print('essay_input_corpus :', essay_input_corpus)
+
+    sentences  = sent_tokenize(essay_input_corpus) #문장 토큰화 > 문장으로 구분
+    total_sentences = len(sentences)#토큰으로 처리된 총 문장 수
+    total_words = len(word_tokenize(essay_input_corpus))# 총 단어수
+    #print(total_words)
+    split_sentences = []
+    for sentence in sentences:
+        processed = re.sub("[^a-zA-Z]"," ", sentence)
+        words = processed.split()
+        split_sentences.append(words)
+    #print(split_sentences)
+
+    lemmatizer = WordNetLemmatizer()
+    preprossed_sent_all = []
+    for i in split_sentences:
+        preprossed_sent = []
+        for i_ in i:
+            if i_ not in stop: #remove stopword
+                lema_re = lemmatizer.lemmatize(i_, pos='v') #표제어 추출, 동사는 현재형으로 변환, 3인칭 단수는 1인칭으로 변환
+                if len(lema_re) > 3: # 단어 길이가 3 초과단어만 저장(길이가 3 이하는 제거)
+                    preprossed_sent.append(lema_re)
+        preprossed_sent_all.append(preprossed_sent)
+
+    # 역토큰화
+    detokenized = []
+    for i_token in range(len(preprossed_sent_all)):
+        for tk in preprossed_sent_all:
+            t = ' '.join(tk)
+            detokenized.append(t)
+            
+    # print(detokenized)
+
+    #  TF-IDF 행렬로 변환
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    vectorizer = TfidfVectorizer(stop_words='english', max_features=None)
+    X = vectorizer.fit_transform(detokenized)
+    # print(X.shape)
+
+    # LDA 적용
+    from sklearn.decomposition import LatentDirichletAllocation
+    lda_model = LatentDirichletAllocation(n_components=10, learning_method='online', random_state=777, max_iter=1)
+    lda_top = lda_model.fit_transform(X)
+    # print(lda_model.components_)
+    # print(lda_model.components_.shape)
+
+    terms = vectorizer.get_feature_names() 
+    # 단어 집합. 1,000개의 단어가 저장되어있음.
+    topics_ext = []
+    def get_topics(components, feature_names, n=5):
+        for idx, topic in enumerate(components):
+            #print("Topic %d :" % (idx+1), [(feature_names[i], topic[i].round(2)) for i in topic.argsort()[:-n -1:-1]])
+            topics_ext.append([(feature_names[i], topic[i].round(2)) for i in topic.argsort()[:-n -1:-1]])
+
+    topics_ext.append(get_topics(lda_model.components_, terms))
+    # 리스트에 빈 값이 있다면 필터링하자    
+    topics_ext = list(filter(None, topics_ext))
+
+    # 단어만 추출하자
+    result_ = []
+    cnt = 0
+    cnt_ = 0
+    for ittm in range(len(topics_ext)):
+        #print('ittm:', ittm)
+        cnt_ = 0
+        for t in range(len(topics_ext[ittm])-1):
+            
+            #print('t:', t)
+            add = topics_ext[ittm][cnt_][0]
+            result_.append(add)
+            #print('result_:', result_)
+            cnt_ += 1
+    #중복값을 제거하자
+    result_fin = list(set(result_))
+
+    # 최종 결과값 반환  ---> 이것은 입력한 문장에 해당하는 토픽을 모두 추출한 단어이다. 
+    ##### 활용방안 ####
+    # 입력문장의 토픽을 추출한다. 대학, 전공관련 정보, 입력한 에세이 등의 문맥상 토픽을 추출하여 다양한 분석에 적용할 수 있음
+    return result_fin
+
+
+# 본격 분선 코드
 def GeneralAcademicKnowledge(text):
 
     essay_input_corpus = str(text) #문장입력
@@ -35,17 +123,14 @@ def GeneralAcademicKnowledge(text):
         words = processed.split()
         split_sentences.append(words)
 
+    #유사한 단어 추출을 위한 모델 설계 완료  --> 비교하고자하는 lexicon이 충분하지 않기 때문에 문맥상에서 유사한 단어도 추출하여 적용해 보자는 의미로 구현하였음
     skip_gram = 1
     workers = multiprocessing.cpu_count()
     bigram_transformer = Phrases(split_sentences)
-
     model = gensim.models.word2vec.Word2Vec(bigram_transformer[split_sentences], workers=workers, sg=skip_gram, min_count=1)
-
-    model.train(split_sentences, total_examples=sum([len(sentence) for sentence in sentences]), epochs=100)
+    model.train(split_sentences, total_examples=sum([len(sentence) for sentence in sentences]), epochs=500)
     
-    #모델 설계 완료
-
-    #setting을 표현하는 단어들을 리스트에 넣어서 필터로 만들고
+    #academic을 표현하는 단어들을 리스트에 넣어서 필터로 만들고
     academic_word_list = ['Cybersecurity','E-business','Ethics','Glass ceiling','Online retail','Outsourcing'
                         ,'Sweatshops','White collar crime','Acquaintance rape','Animal rights','Assisted suicide','Campus violence'
                         ,'Capital punishment','Civil rights','Drinking age, legal','Drug legalization','Gun control','Hate crimes'
@@ -85,35 +170,37 @@ def GeneralAcademicKnowledge(text):
                         ,'Prostitution','LGBT (lesbian, gay, bisexual, transgender)','Sex and Sexuality','Sports','Stereotypes','Substance abuse'
                         ,'Violence and Rape','Work']
 
-    
+    #소문자 변환하여 정확한 비교를 한다. 대소문자 모두 적용한 글을 합쳐서 필터로 만들거임
     lower_academic_words = []
     for a_itm in academic_word_list:
         lower_a_itm = a_itm.lower()
         lower_academic_words.append(lower_a_itm)
 
-    academic_words_filter_list = academic_word_list + lower_academic_words
-    print('academic_words_filter_list :' , academic_words_filter_list)
+    academic_words_filter_list = academic_word_list + lower_academic_words # 대소문자 모두 포함한 필터 제작
+    #print('academic_words_filter_list :' , academic_words_filter_list)
     ####문장에 ords_filter_list의 단어들이 있는지 확인하고, 있다면 유사단어를 추출한다.
+
+    #입력한 에세이처리
     #우선 토큰화한다.
     retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
+
     token_input_text = retokenize.tokenize(essay_input_corpus)
     # print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
     # 리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
-    filtered_setting_text = []
+    filtered_academic_words = []
     for k in token_input_text:
         for j in academic_words_filter_list:
             if k == j:
-                filtered_setting_text.append(j)
+                filtered_academic_words.append(j)
     
     # print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
     
-    filtered_setting_text_ = set(filtered_setting_text) #중복제거
-    filtered_setting_text__ = list(filtered_setting_text_) #다시 리스트로 변환
+    filtered_academic_words_ = set(filtered_academic_words) #중복제거
+    filtered_academic_words__ = list(filtered_academic_words_) #다시 리스트로 변환
     # print (filtered_setting_text__) # 중복값 제거 확인
     
-   
     # 문장내 모든 academic 단어 추출
-    tot_setting_words = filtered_setting_text__
+    tot_academic_words = filtered_academic_words__
     
     # academic 단어가 포함된 문장을 찾아내서 추출하기
     # if academic단어가 문장에 있다면, 그 문장을 추출(.로 split한 문장 리스트)해서 리스트로 저장한다.
@@ -127,7 +214,7 @@ def GeneralAcademicKnowledge(text):
     extrace_sentence_and_setting_words = [] # 이것은 "문장", 'academic단어' ... 합쳐서 리스트로 저장
     extract_only_sentences_include_setting_words = [] # academic 단어가 포함된 문장만 리스트로 저장
     for sentence in sentences: # 문장을 하나씩 꺼내온다.
-        for item in tot_setting_words: # academic단어를 하나씩 꺼내온다.
+        for item in tot_academic_words: # academic단어를 하나씩 꺼내온다.
             if item in word_tokenize(sentence): # 꺼낸 문장을 단어로 나누고, 그 안에 academic 단어가 있다면
                 extrace_sentence_and_setting_words.append(sentence) # academic 단어가 포함된 문장을 별도로 저장한다.
                 extrace_sentence_and_setting_words.append(item) # academic 단어도 추가로 저장한다. 
@@ -245,25 +332,31 @@ def GeneralAcademicKnowledge(text):
     else:
         pass
         
-        
+    # 앞서 추출한 Academic words와 유사한 의미의 단어를 모두 추출하여 Academic 관련 포함율 계산
     ext_setting_sim_words_key_list = []
-    for i in filtered_setting_text__:
-        ext_setting_sim_words_key = model.most_similar_cosmul(i) # 모델적용
-        ext_setting_sim_words_key_list.append.ext_setting_sim_words_key
-    setting_total_count = len(filtered_setting_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현 수
-    setting_count_ = len(filtered_setting_text__) # 중복제거된 setting표현 총 수
+    for i in filtered_academic_words__:
+        ext_setting_sim_words_key = model.wv.most_similar(i)# 모델적용
+        ext_setting_sim_words_key_list.append(ext_setting_sim_words_key)
+    setting_total_count = len(filtered_academic_words) # 중복이 제거되지 않은 에세이 총 문장에 사용된 Academic 표현 수
+    setting_count_ = len(filtered_academic_words__) # 중복제거된 Academic 표현 총 수
         
     result_setting_words_ratio = round(setting_total_count/total_words * 100, 2)
-    #return result_setting_words_ratio
+ 
+
+
+
+
+    ## 문장 유사도 분석 - 에세이에 아카데믹 단어들이 얼마나 포함되어 있는지 추출하여 비교분석해보자, 그리고 합격생기준과 비교하여 수준평가할 것
+    # 에세이에 포함된 핵심 키워드 추출 by LDA
+    topicEssay = extractTopicByLDA(text)
+    print('topicEssay:', topicEssay)
+
+
+
     
-    ##### Overall Emphasis on Setting : 그래프 표현 부분. #####
-    # Setting Indicators 계산으로 문장 전체에 사용된 총 academic표현 값과 합격한 학생들의 academic 평균값을 비교하여 비율로 계산
-    # Yours essay 부분
-    # setting_total_count : Setting Indicators - Yours essay 부분으로, 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현 수
-    # setting_total_sentences_number_re : academic 단어가 포함된 총 문장 수 ---> 그래프 표현 부분 * PPT 14page 참고
     ###############################################################################################
     group_total_cnt  = 70 # group_total_cont # Admitted Case Avg. 부분으로 합격학생들의 academic단어 평균값(임의 입력, 계산해서 입력해야 함)
-    group_total_setting_descriptors = 20 # Setting Descriptors 합격학생들의 academic 문장수 평균값
+    group_total_setting_descriptors = 20 # academic Descriptors 합격학생들의 academic 문장수 평균값
     ###############################################################################################
     
     
@@ -271,17 +364,16 @@ def GeneralAcademicKnowledge(text):
     # 0. result_setting_words_ratio : 전체 문장에서 academic관련 단어의 사용비율(포함비율)
     # 1. total_sentences : 총 문장 수
     # 2. total_words : 총 단어 수
-    # 3. setting_total_count : # 개인 에세이 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현'단어' 수 -----> 그래프로 표현 * PPT 14page 참고
-    # 4. setting_count_ : # 중복제거된 setting표현 총 수
+    # 3. setting_total_count : # 개인 에세이 중복이 제거되지 않은 에세이 총 문장에 사용된 academic 표현'단어' 수 
+    # 4. setting_count_ : # 중복제거된 academic표현 총 수
     # 5. ext_setting_sim_words_key_list : academic설정과 유사한 단어들 추출
     # 6. totalSettingSentences : academic 단어가 포함된 모든 문장을 추출
-    # 7. setting_total_sentences_number_re : 개인 에세이 academic 단어가 포함된 총 '문장' 수 ------> 그래프로 표현 * PPT 14page 참고
-    # 8. over_all_sentence_1 : 문장생성 
-    # 9. tot_setting_words : 총 문장에서 academic 단어 추출  ---- 웹에 표시할 부분임
-    # 10. group_total_cnt : # Admitted Case Avg. 부분으로 합격학생들의 academic'단어' 평균값 ---> 그래프로 표현 * PPT 14page 참고
-    # 11. group_total_setting_descriptors : Setting Descriptors 합격학생들의 academic '문장'수 평균값 ---> 그래프로 표현 * PPT 14page 참고
+    # 7. setting_total_sentences_number_re : 개인 에세이 academic 단어가 포함된 총 '문장' 수 
+    # 8. tot_academic_words : 총 문장에서 academic 단어 추출  
+    # 9. group_total_cnt : # Admitted Case Avg. 부분으로 합격학생들의 academic'단어' 평균값 
+    # 10. group_total_setting_descriptors : Setting Descriptors 합격학생들의 academic '문장'수 평균값 
     
-    return result_setting_words_ratio, total_sentences, total_words, setting_total_count, setting_count_, ext_setting_sim_words_key_list, totalSettingSentences, setting_total_sentences_number_re, over_all_sentence_1, tot_setting_words, group_total_cnt, group_total_setting_descriptors
+    return result_setting_words_ratio, total_sentences, total_words, setting_total_count, setting_count_, ext_setting_sim_words_key_list, totalSettingSentences, setting_total_sentences_number_re, tot_academic_words, group_total_cnt, group_total_setting_descriptors
 
 
 ###### run #######
@@ -289,11 +381,10 @@ def GeneralAcademicKnowledge(text):
 # 입력
 
 
-input_text = """Bloomington Normal is almost laughably cliché for a midwestern city. Vast swathes of corn envelop winding roads and the heady smell of BBQ smoke pervades the countryside every summer. Yet, underlying the trite norms of Normal is the prescriptive force of tradition—the expectation to fulfill my role as a female Filipino by playing Debussy in the yearly piano festival and enrolling in multivariable calculus instead of political philosophy.So when I discovered the technical demand of bebop, the triplet groove, and the intricacies of chordal harmony after ten years of grueling classical piano, I was fascinated by the music's novelty. Jazz guitar was not only evocative and creative, but also strangely liberating. I began to explore different pedagogical methods, transcribe solos from the greats, and experiment with various approaches until my own unique sound began to develop. And, although I did not know what would be the 'best' route for me to follow as a musician, the freedom to forge whatever path I felt was right seemed to be exactly what I needed; there were no expectations for me to continue in any particular way—only the way that suited my own desires.While journeying this trail, I found myself at Interlochen Arts Camp the summer before my junior year. Never before had I been immersed in an environment so conducive to musical growth: I was surrounded by people intensely passionate about pursuing all kinds of art with no regard for ideas of what art 'should' be. I knew immediately that this would be a perfect opportunity to cultivate my sound, unbounded by the limits of confining tradition. On the first day of camp, I found that my peer guitarist in big band was another Filipino girl from Illinois. Until that moment, my endeavors in jazz guitar had been a solitary effort; I had no one with whom to collaborate and no one against whom I could compare myself, much less someone from a background mirroring my own. I was eager to play with her, but while I quickly recognized a slew of differences between us—different heights, guitars, and even playing styles—others seemed to have trouble making that distinction during performances. Some even went as far as calling me 'other-Francesca.' Thus, amidst the glittering lakes and musky pine needles of Interlochen, I once again confronted Bloomington's frustrating expectations.After being mistaken for her several times, I could not help but view Francesca as a standard of what the 'female Filipino jazz guitarist' should embody. Her improvisatory language, comping style and even personal qualities loomed above me as something I had to live up to. Nevertheless, as Francesca and I continued to play together, it was not long before we connected through our creative pursuit. In time, I learned to draw inspiration from her instead of feeling pressured to follow whatever precedent I thought she set. I found that I grew because of, rather than in spite of, her presence; I could find solace in our similarities and even a sense of comfort in an unfamiliar environment without being trapped by expectation. Though the pressure to conform was still present—and will likely remain present in my life no matter what genre I'm playing or what pursuits I engage in—I learned to eschew its corrosive influence and enjoy the rewards that it brings. While my encounter with Francesca at first sparked a feeling of pressure to conform in a setting where I never thought I would feel its presence, it also carried the warmth of finding someone with whom I could connect. Like the admittedly trite conditions of my hometown, the resemblances between us provided comfort to me through their familiarity. I ultimately found that I can embrace this warmth while still rejecting the pressure to succumb to expectations, and that, in the careful balance between these elements, I can grow in a way that feels both like discove"""
-
+input_text = """This past summer, I had the privilege of participating in the University of Notre Dame’s Research Experience for Undergraduates (REU) program . Under the mentorship of Professor Wendy Bozeman and Professor Georgia Lebedev from the department of Biological Sciences, my goal this summer was to research the effects of cobalt iron oxide cored (CoFe2O3) titanium dioxide (TiO2) nanoparticles as a scaffold for drug delivery, specifically in the delivery of a compound known as curcumin, a flavonoid known for its anti-inflammatory effects. As a high school student trying to find a research opportunity, it was very difficult to find a place that was willing to take me in, but after many months of trying, I sought the help of my high school biology teacher, who used his resources to help me obtain a position in the program. Using equipment that a high school student could only dream of using, I was able to map apoptosis (programmed cell death) versus necrosis (cell death due to damage) in HeLa cells, a cervical cancer line, after treating them with curcumin-bound nanoparticles. Using flow cytometry to excite each individually suspended cell with a laser, the scattered light from the cells helped to determine which cells were living, had died from apoptosis or had died from necrosis. Using this collected data, it was possible to determine if the curcumin and/or the nanoparticles had played any significant role on the cervical cancer cells. Later, I was able to image cells in 4D through con-focal microscopy. From growing HeLa cells to trying to kill them with different compounds, I was able to gain the hands-on experience necessary for me to realize once again why I love science.	Living on the Notre Dame campus with other REU students, UND athletes, and other summer school students was a whole other experience that prepared me for the world beyond high school. For 9 weeks, I worked, played and bonded with the other students, and had the opportunity to live the life of an independent college student. Along with the individually tailored research projects and the housing opportunity, there were seminars on public speaking, trips to the Fermi National Accelerator Laboratory, and one-on-one writing seminars for the end of the summer research papers we were each required to write. By the end of the summer, I wasn’t ready to leave the research that I was doing. While my research didn’t yield definitive results for the effects of curcumin on cervical cancer cells, my research on curcumin-functionalized CoFe2O4/TiO2 core-shell nanoconjugates indicated that there were many unknown factors affecting the HeLa cells, and spurred the lab to expand their research into determining whether or not the timing of the drug delivery mattered and whether or not the position of the binding site of the drugs would alter the results. Through this summer experience, I realized my ambition to pursue a career in research. I always knew that I would want to pursue a future in science, but the exciting world of research where the discoveries are limitless has captured my heart. This school year, the REU program has offered me a year-long job, and despite my obligations as a high school senior preparing for college, I couldn’t give up this offer, and so during this school year, I will be able to further both my research and interest in nanotechnology. """
 result = GeneralAcademicKnowledge(input_text)
 
-print('셋팅 결과 : ', result)
+print('GeneralAcademicKnowledge 분석결과: ', result)
 
 
 
