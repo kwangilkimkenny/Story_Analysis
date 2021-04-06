@@ -35,6 +35,8 @@ from gensim import corpora, models, similarities
 ### sentence_simility.py ###
 from sentence_similarity import sent_sim_analysis_with_bert_summarizer
 
+### General Academic Knowledge ###
+from general_academic_knowledge import GeneralAcademicKnowledge
 
 
 def select_prompt_type(prompt_type):
@@ -129,7 +131,7 @@ def cleaning(data):
 # txt 문서 정보 불러오기 : 대학정보
 def open_data(select_college):
     # 폴더 구조, 대학이름 입력 명칭을 통일해야 함
-    file_path = "./college_info/colleges_dataset/"
+    file_path = "./college_info/college_dataset/"
     college_name = select_college
     file_name = "_college_general_info.txt"
     # file = open("./college_info/colleges_dataset/brown_college_general_info.txt", 'r')
@@ -350,6 +352,14 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
 
     re_coll_n_dept_fit = sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, select_college_dept, select_major, coll_supp_essay_input_data)
 
+
+    ###############  General Academic Knowledge ############# 
+    GAC_re = GeneralAcademicKnowledge(essay_input) # 이 함수 값에서
+    GAC_Sentences = GAC_re[6] # 6. totalSettingSentences : academic 단어가 포함된 모든 문장을 추출 -------> 웹에 표시할 문장(아카데믹 단어가 포함된 문장)
+    GAC_Words = GAC_re[11] # 11. topic_academic_word --------> 이 값을 가지고 비교할 것 - 웹에 표시할 단어들(아카데믹 단어)
+    GAC_words_usage_rate = GAC_re[12]   # 12. topic_academic_word_counter  ---------> 이 값을 가지고 비교할 것 - 아카데믹 단서 사용 비율
+    GAK_rate = GAC_re[13] # 14. GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
+
     # 0. gen_keywd_college : 선택한 대학의 General Keywords on college로 wordcloud로 출력됨
     # 1. gen_keywd_college_major : 선택 대학의 전공에 대한 keywords 를 WrodCloud 로 출력
     # 2. intended_mjr : intended major
@@ -357,6 +367,10 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     # 4. prompt_type_sentence : 선택한 prompt에 해당하는 질문 문장 전체
     # 5. pmt_sent_re : 선택한 prompt에 해당하는 sentiment 리스트
     # 6. re_coll_n_dept_fit : sentence_similiarity.py 코드의 결과값임
+    # 7. GAC_Sentences = GAC_re[6] # 6. totalSettingSentences : academic 단어가 포함된 모든 문장을 추출 -------> 웹에 표시할 문장(아카데믹 단어가 포함된 문장)
+    # 8. GAC_Words = GAC_re[11] # 11. topic_academic_word --------> 이 값을 가지고 비교할 것 - 웹에 표시할 단어들(아카데믹 단어)
+    # 9. GAC_words_usage_rate = GAC_re[12]   # 12. topic_academic_word_counter  ---------> 이 값을 가지고 비교할 것 - 아카데믹 단서 사용 비율
+    # 10. GAK_rate = GAC_re[13] # 14. GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
 
     data_result = {
         'gen_keywd_college' : gen_keywd_college, # 선택한 대학의 General Keywords on college로 wordcloud로 출력됨
@@ -365,7 +379,11 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'pmt_sent_etc_re' : pmt_sent_etc_re, #선택한 prompt 질문
         'prompt_type_sentence' : prompt_type_sentence, #선택한 prompt에 해당하는 질문 문장 전체
         'pmt_sent_re' : pmt_sent_re, # 선택한 prompt에 해당하는 sentiment 리스트
-        're_coll_n_dept_fit' : re_coll_n_dept_fit # College & Dept.Fit으로 입력한 Supplyment Essay와 비교하여 적합성  TFD-IDF로 계산해볼 것(우선 lexicon 사용하지 않고 계산해보자)
+        're_coll_n_dept_fit' : re_coll_n_dept_fit, # College & Dept.Fit으로 입력한 Supplyment Essay와 비교하여 적합성  TFD-IDF로 계산해볼 것(우선 lexicon 사용하지 않고 계산해보자)
+        'GAC_Sentences' : GAC_re[6], # 6. totalSettingSentences : academic 단어가 포함된 모든 문장을 추출 -------> 웹에 표시할 문장(아카데믹 단어가 포함된 문장)
+        'GAC_Words' : GAC_re[11], # 11. topic_academic_word --------> 이 값을 가지고 비교할 것 - 웹에 표시할 단어들(아카데믹 단어)
+        'GAC_words_usage_rate' : GAC_re[12],   # 12. topic_academic_word_counter  ---------> 이 값을 가지고 비교할 것 - 아카데믹 단서 사용 비율
+        'GAK_rate' : GAC_re[14] # 14. GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
     }
 
     return data_result

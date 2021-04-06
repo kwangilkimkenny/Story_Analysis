@@ -70,10 +70,11 @@ def cleaning_for_sent_sim(data):
 # txt 문서 정보 불러오기 : 대학정보
 def open_data_for_sent_sim(select_college):
     # 폴더 구조, 대학이름 입력 명칭을 통일해야 함
-    file_path = "./college_info/colleges_dataset/"
+    file_path = "./college_info/college_dataset/"
     college_name = select_college
     file_name = "_college_general_info.txt"
-    # file = open("./college_info/colleges_dataset/brown_college_general_info.txt", 'r')
+    # file = open("./college_info/college_dataset/Brown_college_general_info.txt", 'r')
+    #              ./college_info/colleges_dataset/Brown_college_general_info.txt'
     file = open(file_path + college_name + file_name, 'r')
     lists = file.readlines()
     file.close()

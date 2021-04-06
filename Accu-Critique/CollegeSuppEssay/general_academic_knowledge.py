@@ -21,6 +21,8 @@ stop = stopwords.words('english')
 import spacy
 nlp = spacy.load('en_core_web_lg')
 
+nltk.download('wordnet')
+
 
 # 입력문장의 토픽을 추출한다. 대학, 전공관련 정보, 입력한 에세이 등의 문맥상 토픽을 추출하여 다양한 분석에 적용할 수 있음
 def extractTopicByLDA(text):
@@ -177,7 +179,7 @@ def GeneralAcademicKnowledge(text):
         lower_academic_words.append(lower_a_itm)
 
     academic_words_filter_list = academic_word_list + lower_academic_words # 대소문자 모두 포함한 필터 제작
-    #print('academic_words_filter_list :' , academic_words_filter_list)
+    print('academic_words_filter_list :' , academic_words_filter_list)
     ####문장에 ords_filter_list의 단어들이 있는지 확인하고, 있다면 유사단어를 추출한다.
 
     #입력한 에세이처리
@@ -199,7 +201,7 @@ def GeneralAcademicKnowledge(text):
     filtered_academic_words__ = list(filtered_academic_words_) #다시 리스트로 변환
     # print (filtered_setting_text__) # 중복값 제거 확인
     
-    # 문장내 모든 academic 단어 추출
+    # 문장내 모든 academic 단어 추출(중복제거)
     tot_academic_words = filtered_academic_words__
     
     # academic 단어가 포함된 문장을 찾아내서 추출하기
@@ -349,7 +351,28 @@ def GeneralAcademicKnowledge(text):
     ## 문장 유사도 분석 - 에세이에 아카데믹 단어들이 얼마나 포함되어 있는지 추출하여 비교분석해보자, 그리고 합격생기준과 비교하여 수준평가할 것
     # 에세이에 포함된 핵심 키워드 추출 by LDA
     topicEssay = extractTopicByLDA(text)
-    print('topicEssay:', topicEssay)
+    #print('topicEssay:', topicEssay)
+    # 에세이에서 추출된 토픽이 문장에서 추출된 아카데믹키워드 포함비율 계산  --> 추출토픽은 주제어로 문장에서 아카데믹단어와의 연관성 분석
+    topic_academic_word = []
+    topic_academic_word_counter = 0
+    for t in topicEssay:
+        if t in academic_words_filter_list: #아카데믹 관련 총 단어 리스트와 개별 비교하여 겹치는 단어 추출 및 수량 계산
+            topic_academic_word.append(t)
+            topic_academic_word_counter += 1
+    ###################################################################################################################
+    ##############################  5 ~ 0 사이의 기준값을 합격한 학생들의 아카데믹 단어표현 값과 유사하게 적용해야 함 ####################
+    # General Academic Knowledge
+    if topic_academic_word_counter >= 5:
+         GAK_rate = "Superb"
+    elif topic_academic_word_counter < 5 and topic_academic_word_counter >= 4:
+        GAK_rate =  "Strong"
+    elif topic_academic_word_counter < 4 and topic_academic_word_counter >= 3:
+        GAK_rate = 'Good'
+    elif topic_academic_word_counter < 3 and topic_academic_word_counter >= 2:
+        GAK_rate = "Mediocre"
+    else: #topic_academic_word_counter < 2
+        GAK_rate = "Weak"
+
 
 
 
@@ -367,19 +390,22 @@ def GeneralAcademicKnowledge(text):
     # 3. setting_total_count : # 개인 에세이 중복이 제거되지 않은 에세이 총 문장에 사용된 academic 표현'단어' 수 
     # 4. setting_count_ : # 중복제거된 academic표현 총 수
     # 5. ext_setting_sim_words_key_list : academic설정과 유사한 단어들 추출
-    # 6. totalSettingSentences : academic 단어가 포함된 모든 문장을 추출
+    # 6. totalSettingSentences : academic 단어가 포함된 모든 문장을 추출 -------> 웹에 표시할 문장(아카데믹 단어가 포함된 문장)
     # 7. setting_total_sentences_number_re : 개인 에세이 academic 단어가 포함된 총 '문장' 수 
     # 8. tot_academic_words : 총 문장에서 academic 단어 추출  
     # 9. group_total_cnt : # Admitted Case Avg. 부분으로 합격학생들의 academic'단어' 평균값 
     # 10. group_total_setting_descriptors : Setting Descriptors 합격학생들의 academic '문장'수 평균값 
+    # 11. topic_academic_word --------> 이 값을 가지고 비교할 것 - 웹에 표시할 단어들(아카데믹 단어)
+    # 12. topic_academic_word_counter  ---------> 이 값을 가지고 비교할 것 - 아카데믹 단서 사용 비율
+    # 13. filtered_academic_words : 아카데믹 관련 단어의 총 수
+    # 14. GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
     
-    return result_setting_words_ratio, total_sentences, total_words, setting_total_count, setting_count_, ext_setting_sim_words_key_list, totalSettingSentences, setting_total_sentences_number_re, tot_academic_words, group_total_cnt, group_total_setting_descriptors
+    return result_setting_words_ratio, total_sentences, total_words, setting_total_count, setting_count_, ext_setting_sim_words_key_list, totalSettingSentences, setting_total_sentences_number_re, tot_academic_words, group_total_cnt, group_total_setting_descriptors, topic_academic_word, topic_academic_word_counter, filtered_academic_words, GAK_rate
 
 
 ###### run #######
 
-# 입력
-
+# 입력 #
 
 input_text = """This past summer, I had the privilege of participating in the University of Notre Dame’s Research Experience for Undergraduates (REU) program . Under the mentorship of Professor Wendy Bozeman and Professor Georgia Lebedev from the department of Biological Sciences, my goal this summer was to research the effects of cobalt iron oxide cored (CoFe2O3) titanium dioxide (TiO2) nanoparticles as a scaffold for drug delivery, specifically in the delivery of a compound known as curcumin, a flavonoid known for its anti-inflammatory effects. As a high school student trying to find a research opportunity, it was very difficult to find a place that was willing to take me in, but after many months of trying, I sought the help of my high school biology teacher, who used his resources to help me obtain a position in the program. Using equipment that a high school student could only dream of using, I was able to map apoptosis (programmed cell death) versus necrosis (cell death due to damage) in HeLa cells, a cervical cancer line, after treating them with curcumin-bound nanoparticles. Using flow cytometry to excite each individually suspended cell with a laser, the scattered light from the cells helped to determine which cells were living, had died from apoptosis or had died from necrosis. Using this collected data, it was possible to determine if the curcumin and/or the nanoparticles had played any significant role on the cervical cancer cells. Later, I was able to image cells in 4D through con-focal microscopy. From growing HeLa cells to trying to kill them with different compounds, I was able to gain the hands-on experience necessary for me to realize once again why I love science.	Living on the Notre Dame campus with other REU students, UND athletes, and other summer school students was a whole other experience that prepared me for the world beyond high school. For 9 weeks, I worked, played and bonded with the other students, and had the opportunity to live the life of an independent college student. Along with the individually tailored research projects and the housing opportunity, there were seminars on public speaking, trips to the Fermi National Accelerator Laboratory, and one-on-one writing seminars for the end of the summer research papers we were each required to write. By the end of the summer, I wasn’t ready to leave the research that I was doing. While my research didn’t yield definitive results for the effects of curcumin on cervical cancer cells, my research on curcumin-functionalized CoFe2O4/TiO2 core-shell nanoconjugates indicated that there were many unknown factors affecting the HeLa cells, and spurred the lab to expand their research into determining whether or not the timing of the drug delivery mattered and whether or not the position of the binding site of the drugs would alter the results. Through this summer experience, I realized my ambition to pursue a career in research. I always knew that I would want to pursue a future in science, but the exciting world of research where the discoveries are limitless has captured my heart. This school year, the REU program has offered me a year-long job, and despite my obligations as a high school senior preparing for college, I couldn’t give up this offer, and so during this school year, I will be able to further both my research and interest in nanotechnology. """
 result = GeneralAcademicKnowledge(input_text)
