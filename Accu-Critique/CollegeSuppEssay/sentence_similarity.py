@@ -84,37 +84,69 @@ def open_data_for_sent_sim(select_college):
     return result
 
 
-# txt 문서 정보 불러오기 : college Department 정보 불러오기
-def open_dept_data_for_sent_sim(select_college_dept):
-    # 폴더 구조, 대학이름, department 입력 명칭을 통일해야 함
-    file_path = "./college_info/dept_info_dataset/"
-    college_dept_name = select_college_dept
-    file_name = "_info.txt"
-    # file = open("./college_info/dept_info_dataset/Brown_African Studies_dept_info.txt", 'r')
-    file = open(file_path + college_dept_name + file_name, 'r')
-    lists = file.readlines()
-    file.close()
-    
-    tokenized_sentences = sent_tokenize(str(lists)) # 문장으로 토큰화
-    result = ' '.join(tokenized_sentences)
-    print("대학 dept 정보 불러오기 : ", result)
+# txt 문서 정보 불러오기 : college Department 정보 불러오기, 여기서 추가로 Undecided를 선택했을 경우
+# ***Undecided의 경우 대학별 major info data (해당 대학의 모든 전공) + 전공관련 general data (모든 대학 전공 관련 terms + 웹에서 전공별 키워드 모아놓은 것)에 비교 X -10% 차산점  적용할 것
+def open_dept_data_for_sent_sim(select_college_dept): # College Department 선택 or Undecided 선택
+    if select_college_dept == "Undecided":
+        # 폴더 구조, 대학이름, department 입력 명칭을 통일해야 함
+        file_path = "./college_info/dept_info_dataset/"
+        college_dept_name = 'dept_general'
+        file_name = "_data.txt"
+        # file = open("./college_info/dept_info_dataset/Brown_African Studies_dept_info.txt", 'r')
+        file = open(file_path + college_dept_name + file_name, 'r')
+        lists = file.readlines()
+        file.close()
+        
+        tokenized_sentences = sent_tokenize(str(lists)) # 문장으로 토큰화
+        result = ' '.join(tokenized_sentences)
+        print("Undecide일 경우 대학의 모든 dept 정보 불러오기 : ", result)
+    else: # college department 선택했을 경우
+        # 폴더 구조, 대학이름, department 입력 명칭을 통일해야 함
+        file_path = "./college_info/dept_info_dataset/"
+        college_dept_name = select_college_dept
+        file_name = "_info.txt"
+        # file = open("./college_info/dept_info_dataset/Brown_African Studies_dept_info.txt", 'r')
+        file = open(file_path + college_dept_name + file_name, 'r')
+        lists = file.readlines()
+        file.close()
+        
+        tokenized_sentences = sent_tokenize(str(lists)) # 문장으로 토큰화
+        result = ' '.join(tokenized_sentences)
+        print("대학 dept 정보 불러오기 : ", result)
     return result
 
 
 # txt 문서 정보 불러오기 : 선택한 전공관련 정보 추출 
-# 입력값은 대학, 전공 ex) 'Browon', 'AfricanStudies'
+# 입력값은 대학, 전공 ex) 'Browon', 'AfricanStudies'  중요!) 전공을 선택하지 않을 수 있음. 그래서 입력값이 'Unselected'이 될 수도 있음
 def open_major_data_for_sent_sim(select_college, select_major):
-    # 폴더 구조, 대학이름 입력 명칭을 통일해야 함
-    file_path = "./major_info/major_dataset/"
-    college_name = select_college
-    mjr_name = select_major
-    file_name = "_major_info.txt"
-    # file = open("./major_info/major_dataset/Brown_AfricanStudies_major_info.txt", 'r')
-    file = open(file_path + college_name + "_" + mjr_name + file_name, 'r')
-    lists = file.readlines()
-    file.close()
-    tokenized_sentences = sent_tokenize(str(lists)) # 문장으로 토큰화
-    result = ' '.join(tokenized_sentences)
+
+    # 입력선택 전공이 Undecided 된다면,
+    if select_major  == 'Undecided':
+        # 대학별 major info data (해당 대학의 모든 전공) + 전공관련 general data (모든 대학 전공 관련 terms + 웹에서 전공별 키워드 모아놓은 것)에 비교 X -10% 차산점 
+        # 폴더 구조, 대학이름 입력 명칭을 통일해야 함
+        file_path = "./major_info/major_dataset/"
+        mjr_name = 'mjr_general'
+        file_name = "_data.txt"
+        # file = open("./major_info/major_dataset/Brown_AfricanStudies_major_info.txt", 'r')
+        file = open(file_path + mjr_name + file_name, 'r')
+        lists = file.readlines()
+        file.close()
+        tokenized_sentences = sent_tokenize(str(lists)) # 문장으로 토큰화
+        result = ' '.join(tokenized_sentences)
+
+    else: # 전공을 선택하였다면
+        # 폴더 구조, 대학이름 입력 명칭을 통일해야 함
+        file_path = "./major_info/major_dataset/"
+        college_name = select_college
+        mjr_name = select_major
+        file_name = "_major_info.txt"
+        # file = open("./major_info/major_dataset/Brown_AfricanStudies_major_info.txt", 'r')
+        file = open(file_path + college_name + "_" + mjr_name + file_name, 'r')
+        lists = file.readlines()
+        file.close()
+        tokenized_sentences = sent_tokenize(str(lists)) # 문장으로 토큰화
+        result = ' '.join(tokenized_sentences)
+
     return result
    
 
@@ -536,6 +568,14 @@ def fixedTopComment(select_pmt_type):
 
 
 
+# 주 계산 함수 #
+# 입력값 #
+# select_pmt_type: prompt 질문 선택
+# select_college: 희망 컬리지 선택
+# select_college_dept: department 선택 혹은 'Undecided' 선택
+# select_major : 전공선택 혹은 'Undecided' 선택
+# coll_supp_essay_input_data: 에세이 입력
+
 def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, select_college_dept, select_major, coll_supp_essay_input_data):
     College_data = open_data_for_sent_sim(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
     #print('college_data:', College_data)
@@ -589,8 +629,18 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
     print('===========================================================================================')
     print('에세이 요약 : ', ps_supp_result_)
 
-    # 결과 계산하기, 문장 생성은 입력 값에 따라서 선택(컬리지, 전공적합성, 감성정보)
-    def fit_cal(fit_ratio, col_mjr_sentment_input):
+    # 감성정보계산
+    sentiment_result =  sentmentAnalysis_essay(coll_supp_essay_input_data)
+
+
+    # 결과 계산하기, 문장 생성은 입력 값에 따라서 선택(컬리지, 전공적합성, 감성정보)의 3개중 한개가 입력됨
+    def fit_cal(fit_ratio, col_mjr_sentment_input, select_college_dept, select_major):
+        # select_college_dept, select_major의 두 값이 Undecided 일 경우 차산점 - 10% 적용부분
+        if select_college_dept == 'Undecided' or select_major == 'Undecided':
+            fit_ratio = fit_ratio - fit_ratio * 0.1  # 차산점 - 10% 적용부분
+        else:
+            fit_ratio = fit_ratio # 입력값 원래 계산된값 적용하기
+
         if fit_ratio >= 80:
             result = 'Superb'
             if col_mjr_sentment_input == coll_dept_result:
@@ -674,13 +724,16 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
 
     #### College & Department Fit ### 
     coll_dept_fit_ratio = sent_sim_analysis(coll_dept_result, ps_supp_result_)
-    coll_dept_result = fit_cal(coll_dept_fit_ratio, coll_dept_result)
+    coll_dept_result = fit_cal(coll_dept_fit_ratio, coll_dept_result, select_college_dept, select_major)
     # 점수 1 ---> 가중치 40%
     coll_dept_re_score = coll_dept_result[0]
 
     #### Major Fit ####
     mjr_fit_ratio = sent_sim_analysis(mjr_result, ps_supp_result_)
-    mjr_fit_result = fit_cal(mjr_fit_ratio, mjr_result)
+
+    mjr_fit_ratio_result = round(mjr_fit_ratio, 2)
+
+    mjr_fit_result = fit_cal(mjr_fit_ratio, mjr_result, select_college_dept, select_major)
     # 점수 2  ---> 40%
     mjr_fit_re_score = mjr_fit_result[0]
 
@@ -706,9 +759,10 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
     else: #overall_result < 20
         overall_result = 'Weak'
 
-    print('overall_drft_sum :', overall_drft_sum)
+    # print('overall_drft_sum :', overall_drft_sum)
 
     ### 결과해석 ###
+
     # coll_dept_result : College & Department Fit ex)Weak, 생성한 문장
 
     # mjr_fit_result : Major Fit ex)Weak, 생성한 문장
@@ -724,8 +778,9 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
     # PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
     # overall_drft_sum : overall sum score(계산용 값)
     # overall_reault : Overall 최종 산출값
+    # mjr_fit_ratio_result : major fit 점수
 
-    return coll_dept_result, mjr_fit_result, TopComment, PmtOrientedSentments_result, PmtOrientedSentments_result[3], overall_drft_sum, overall_result
+    return coll_dept_result, mjr_fit_result, TopComment, PmtOrientedSentments_result, PmtOrientedSentments_result[3], overall_drft_sum, overall_result, mjr_fit_ratio_result
 
 
 
@@ -740,7 +795,11 @@ essay_input = """I inhale deeply and blow harder than I thought possible, pushin
 
 # 입력: (prompt, college name, select_college_dept, intended major, supp_essay)
 
-re_sent_sim_analy = sent_sim_analysis_with_bert_summarizer('Why us', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
+# Test 1 (학교, 부서, 전공을 입력했을 경우)
+# re_sent_sim_analy = sent_sim_analysis_with_bert_summarizer('Why us', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
+
+# Test 2 (학교, 부서는 Undecided, 전공도 Undecided를 입력했을 경우)
+re_sent_sim_analy = sent_sim_analysis_with_bert_summarizer('Why us', 'Brown', 'Undecided', 'Undecided', essay_input)
 
 print('Result : ', re_sent_sim_analy)
 
@@ -749,10 +808,8 @@ print('Result : ', re_sent_sim_analy)
 
 # Result :  
 
-# Result :  
-
 # (('Weak', 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.'), 
 # ('Weak', "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."), 
 # 'There are two key factors to consider when writing the “why us” school & major interest essay. First, you should define yourself through your intellectual interests, intended major, role in the community, and more. Secondly, you need thorough research about the college, major, and department to show strong interest. After all, it would be best if you created the “fit” between you and the college you are applying to. Meanwhile, it would help show positive sentiments such as admiration, excitement, and curiosity towards the school of your dreams.', 
 # (3, ['excitement', 'realization', 'admiration'], 60.0, 'Strong'), 
-# 'Strong')
+# 'Strong', 14.0)

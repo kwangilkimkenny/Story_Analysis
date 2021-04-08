@@ -448,3 +448,10 @@ print('최종결과:', sc_re)
     # PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
     # overall_drft_sum : overall sum score(계산용 값)
     # overall_reault : Overall 최종 산출값
+
+
+
+
+
+
+
