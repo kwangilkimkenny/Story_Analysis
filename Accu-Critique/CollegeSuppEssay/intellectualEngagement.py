@@ -2,6 +2,11 @@
 # General Academic Topics 30%
 # Prompt Oriented Sentiment 20%
 # Intellectual Engagement 20%(Cohesion level 40% + Academic Verbs 60%)
+
+# ohesion level >>> 계산 완료
+
+# 만약 특정 coherence가 너무 높아지면 정보의 양이 줄어들게 되고, coherence가 너무 낮아 정보들이 연관성이 없다면, 분석의 의미가 낮아짐 --- 적당해야 함... 적당?? 
+
 # ref: https://docs.google.com/document/d/1P0EP7-T4AL-btgIrOPUOeSaQ8qOmcoRpMEZXIgIcOBU/edit
 
 
@@ -32,6 +37,8 @@ from collections import defaultdict
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 stop = stopwords.words('english')
+
+from gensim.corpora import Dictionary
 
 
 
@@ -114,66 +121,80 @@ for ittm in range(len(topics_ext)):
 
 
 topics = list(set(result_))
+print("=== topics ==== :", topics) # === topics ==== : ['india', 'love', 'shoot', 'wish', 'different', ....
 
-# 입력문장에서 추출한 최종 키워드들(중복값을 제거한 값)
+# 입력문장에서 추출한 최종 키워드들(중복값을 제거한 값) -- 하지만 아래서 한번 더 처리할거임
 print('Ext Topic words: ',  topics)
-
-topics_ = [
-    ['wish', 'reason', 'excite', 'mridangam', 'support']
-]
-
-
 
 
 # dictionary 만들기
-def clean_text(text):
-    #영문, 숫자만 남기고 제거한다. :param text: :return: 
-    text = text.replace(".", " ").strip()
-    text = text.replace("·", " ").strip() 
-    pattern = '[^|0-9|a-zA-Z]+' 
-    text = re.sub(pattern=pattern, repl='', string=text) 
-    return text
+def make_dictionary(essay_input_data):
+    # tokenize sentence
+    sent_token_re = sent_tokenize(essay_input_data)
+    processed_data_re = []
+    for i in sent_token_re:
+        tokens_re = nltk.word_tokenize(i)
+        # stopwords 제거, 각 문장을 소문자로 변환하고, 명사, 동사만 추출, 문장별로 리스트 만들어서 리스트에 다시 담기
+        stop = set(stopwords.words('english'))
+        clean_tokens = [tok for tok in tokens_re if len(tok.lower())>1 and (tok.lower() not in stop)]
+        tagged = nltk.pos_tag(clean_tokens)
+        print('tagged:', tagged)
+        allnoun = [word for word, pos in tagged if pos in ['NN','NNP','VB']]
+        processed_data_re.append(allnoun)
+
+    return processed_data_re
 
 
-def get_nouns(sentence): 
-    tagged = nltk.pos_tag(sentence) 
-    nouns = [s for s, t in tagged if t in ['SL', 'NNG', 'NNP'] and len(s) > 1] 
-    return nouns
-
-
-def tokenize(txt): 
-    tokenizer = word_tokenize
-    processed_data = [] 
-    for sent in tqdm(txt): 
-        sentence = clean_text(sent.replace('\n', '').strip()) 
-        processed_data.append(get_nouns(sentence)) 
-    return processed_data
-
-
-processed_data = tokenize(sentences)
-print('processed_data:', processed_data)
-
-
-
-#참고 : https://www.lucypark.kr/courses/2015-dm/text-mining.html
-#참고 : https://joyhong.tistory.com/138
-
-####### processed_data 가 이상하게 나옴 이 부분 수정할 것!!!!
-
-
-
+processed_data =  make_dictionary(essay_input)
+print("=====================================")
+print('processed_data :', processed_data)
 
 # 정수 인코딩과 빈도수 생성 
 dictionary = corpora.Dictionary(processed_data)
-print('dictionary:', dictionary)
+print('dictionary:', dictionary) # dictionary: Dictionary(167 unique tokens: ['air', 'candle', 'ember', 'harder', 'place']...)
 
-dictionary.filter_extremes(no_below=10, no_above=0.05)
-corpus = [dictionary.doc2bow(text) for text in processed_data]
+#딕셔너리에서 빈도수 작은 값은 제거한다. 너무 많이 나오는 값도 제거한다.
+dictionary.filter_extremes(no_below=2, no_above=0.05) 
+corpus = [dictionary.doc2bow(text) for text in processed_data] 
+print('corpus:', corpus)
+
+# processed_data의 이중 리스트를 flatten하게 만들고, 여기서 앞서 추출한 Topic Keywords와 비교하여 겹치는 것만 추출하고, 이것의 Coherence Value를 계산하면 됨
+flatten_dic_list = [y for x in processed_data for y in x]
+#print("=====================================")
+#print('flatten_dic_list:', flatten_dic_list)
+
+# 비교하기
+ext_key_topic_for_cal_cohesion_value_list = [] # ----> 이 값이 최종 비교 토픽들임
+for tp in topics:
+    if tp in flatten_dic_list:
+        ext_key_topic_for_cal_cohesion_value_list.append(tp)
+
+# 이 값을 가지고 응집성(Cohesion) 계산
+ext_compare_topics = ext_key_topic_for_cal_cohesion_value_list
+print('+++++ ext_compare_topics +++++', ext_compare_topics)
+
+# 여기서 딕셔너리의 값과 다시 비교하여, 딕셔너리에 있는 값에서 topic keywords를 추출해야 함
+
+# 딕셔너리를 리스트로 변환
+dic_tuple_list = list(zip(dictionary.keys(),dictionary.values()))
+#print('dict_tuple_list:', dic_tuple_list)
+# 딕셔너리의 value만 리스트로 변환 ---> 이 값을 다시 ext_compare_topics 와 비교하여 겹치는 것만 계산한다.
+dict_value_list = list(dictionary.values())
+print('dict_value_list:', dict_value_list)
+
+fin_topic_re = [] #------> 최종적으로 이 값이 coherence value를 계산하는 단어들임
+for ttpitm in ext_compare_topics:
+    if ttpitm in dict_value_list:
+        fin_topic_re.append(ttpitm)
 
 
+final_topics = [fin_topic_re]
+print('final_topics:', final_topics)
 
 # coherence value
-cm = CoherenceModel(topics=topics_, corpus=corpus, dictionary=dictionary, coherence='u_mass')
+cm = CoherenceModel(topics=final_topics, corpus=corpus, dictionary=dictionary, coherence='u_mass')
 coherence = cm.get_coherence()
 
 print('Choerence Value:', coherence)
+
+# Choerence Value: -20.458978939301947  이렇게 추출됨, 의미는 높으면 일관성있게 문장을 작성했다는 의미, 낮으면 내용이 산만하다는 의미
