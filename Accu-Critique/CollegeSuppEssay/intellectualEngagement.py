@@ -341,22 +341,33 @@ def intellectualEnguagement(essay_input):
     academic_comp_result = aca_score * 0.6
     #print('최종 Acacdemic Verbs Usg Result:', academic_comp_result)
 
-    # 최종곟산
+    # 최종계산
     intell_eng_result = coherece_comp_result + academic_comp_result
 
     # 5단계로 계산(최대 80*0.4=32, 90*0.6=54 로 90점 만점으로 5단계로 나누면 18점 차이로 구분할 것)
     if intell_eng_result >=72:
         int_eng_re = 'Supurb'
+        intel_interest_score = 100 # Intellectual interest 를 최종 계산하기 위해 변화한 점수
     elif intell_eng_result < 72 and intell_eng_result >= 54:
         int_eng_re = 'Strong'
+        intel_interest_score = 80
     elif intell_eng_result < 54 and intell_eng_result >= 36:
         int_eng_re = 'Good'
+        intel_interest_score = 60
     elif intell_eng_result < 36 and intell_eng_result >= 18:
         int_eng_re = 'Mediocre'
+        intel_interest_score = 40
     else:
         int_eng_re = 'Lacking'
+        intel_interest_score = 20
 
-    return intell_eng_result, int_eng_re, intellectualEnguagement_words_for_web
+    # 결과해석
+    # 0. intell_eng_result : coherece와 academic 의 개별적 비교한 값을 합친 최종 계산결과
+    # 1. int_eng_re : 5가지 기준으로 산출한 값 (Supurb ~ Lacking)
+    # 2. intellectualEnguagement_words_for_web : 웹사이트에 표시할 intellectualEnguagement 단어들
+    # 3. intel_interest_score : Intellectual interest 를 최종 계산하기 위해 변화한 점수
+
+    return intell_eng_result, int_eng_re, intellectualEnguagement_words_for_web, intel_interest_score
 
 #### run ####
 

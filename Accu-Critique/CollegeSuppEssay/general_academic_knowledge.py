@@ -363,15 +363,20 @@ def GeneralAcademicKnowledge(text):
     ##############################  5 ~ 0 사이의 기준값을 합격한 학생들의 아카데믹 단어표현 값과 유사하게 적용해야 함 ####################
     # General Academic Knowledge
     if topic_academic_word_counter >= 5:
-         GAK_rate = "Superb"
+        GAK_rate = "Superb"
+        gak_words_score = 100 # 에세이 문장에 아카데믹단어의 사용율을 점수로 환산한 것
     elif topic_academic_word_counter < 5 and topic_academic_word_counter >= 4:
         GAK_rate =  "Strong"
+        gak_words_score = 80 # 에세이 문장에 아카데믹단어의 사용율을 점수로 환산한 것
     elif topic_academic_word_counter < 4 and topic_academic_word_counter >= 3:
         GAK_rate = 'Good'
+        gak_words_score = 60 # 에세이 문장에 아카데믹단어의 사용율을 점수로 환산한 것
     elif topic_academic_word_counter < 3 and topic_academic_word_counter >= 2:
         GAK_rate = "Mediocre"
+        gak_words_score = 40 # 에세이 문장에 아카데믹단어의 사용율을 점수로 환산한 것
     else: #topic_academic_word_counter < 2
         GAK_rate = "Weak"
+        gak_words_score = 20 # 에세이 문장에 아카데믹단어의 사용율을 점수로 환산한 것
 
 
 
@@ -399,8 +404,10 @@ def GeneralAcademicKnowledge(text):
     # 12. topic_academic_word_counter  ---------> 이 값을 가지고 비교할 것 - 아카데믹 단서 사용 비율
     # 13. filtered_academic_words : 아카데믹 관련 단어의 총 수
     # 14. GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
+    # 15. gak_words_score : 에세이 문장에 아카데믹단어의 사용율을 점수로 환산한 것
+
     
-    return result_setting_words_ratio, total_sentences, total_words, setting_total_count, setting_count_, ext_setting_sim_words_key_list, totalSettingSentences, setting_total_sentences_number_re, tot_academic_words, group_total_cnt, group_total_setting_descriptors, topic_academic_word, topic_academic_word_counter, filtered_academic_words, GAK_rate
+    return result_setting_words_ratio, total_sentences, total_words, setting_total_count, setting_count_, ext_setting_sim_words_key_list, totalSettingSentences, setting_total_sentences_number_re, tot_academic_words, group_total_cnt, group_total_setting_descriptors, topic_academic_word, topic_academic_word_counter, filtered_academic_words, GAK_rate, gak_words_score
 
 
 ###### run #######

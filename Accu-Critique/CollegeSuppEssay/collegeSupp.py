@@ -359,6 +359,7 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     GAC_Words = GAC_re[11] # 11. topic_academic_word --------> 이 값을 가지고 비교할 것 - 웹에 표시할 단어들(아카데믹 단어)
     GAC_words_usage_rate = GAC_re[12]   # 12. topic_academic_word_counter  ---------> 이 값을 가지고 비교할 것 - 아카데믹 단서 사용 비율
     GAK_rate = GAC_re[13] # 14. GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
+    GAC_Topics_score = GAC_re[15] #General Academic Topics Score --> intellectual interest 의 overall score 계산을 위해서 값 추출
 
     # 0. gen_keywd_college : 선택한 대학의 General Keywords on college로 wordcloud로 출력됨
     # 1. gen_keywd_college_major : 선택 대학의 전공에 대한 keywords 를 WrodCloud 로 출력
@@ -379,7 +380,7 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'pmt_sent_etc_re' : pmt_sent_etc_re, #선택한 prompt 질문
         'prompt_type_sentence' : prompt_type_sentence, #선택한 prompt에 해당하는 질문 문장 전체
         'pmt_sent_re' : pmt_sent_re, # 선택한 prompt에 해당하는 sentiment 리스트
-        're_coll_n_dept_fit' : re_coll_n_dept_fit, # College & Dept.Fit으로 입력한 Supplyment Essay와 비교하여 적합성  TFD-IDF로 계산해볼 것(우선 lexicon 사용하지 않고 계산해보자)
+        're_coll_n_dept_fit' : re_coll_n_dept_fit, # College & Dept.Fit으로 입력한 Supplyment Essay와 비교하여 적합성  TFD-IDF로 계산해볼 것(lexicon 사용하지 않고 계산하였음. 성능이 낮으면 lexicon 추가하여 계사할 거임)
         'GAC_Sentences' : GAC_re[6], # 6. totalSettingSentences : academic 단어가 포함된 모든 문장을 추출 -------> 웹에 표시할 문장(아카데믹 단어가 포함된 문장)
         'GAC_Words' : GAC_re[11], # 11. topic_academic_word --------> 이 값을 가지고 비교할 것 - 웹에 표시할 단어들(아카데믹 단어)
         'GAC_words_usage_rate' : GAC_re[12],   # 12. topic_academic_word_counter  ---------> 이 값을 가지고 비교할 것 - 아카데믹 단서 사용 비율
@@ -401,15 +402,6 @@ print('최종결과:', sc_re)
 
 
 ### 결과 ###
-# Select_College: {'gen_keywd_college': None,  ---> 이부분은 워드클라우드로 표현
-# 'gen_keywd_college_major': None, ---> 이부분은 워드클라우드로 표현
-# 'intended_mjr': 'African Studies', 
-# 'pmt_sent_etc_re': ([" 'Why us' school & major interest (select major, by college & department) "], 
-# ['Admiration', 'Excitement', 'Pride', 'Realization', 'Curiosity']), 
-# 'prompt_type_sentence': [" 'Why us' school & major interest (select major, by college & department) "], 
-# 'pmt_sent_re': ['Admiration', 'Excitement', 'Pride', 'Realization', 'Curiosity'], 're_coll_n_dept_fit': {0: 1.0}}
-# 're_coll_n_dept_fit': ((17.0, 'Weak', 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.'), (15.0, 'Weak', "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."), 'There are two key factors to consider when writing the “why us” school & major interest essay. First, you should define yourself through your intellectual interests, intended major, role in the community, and more. Secondly, you need thorough research about the college, major, and department to show strong interest. After all, it would be best if you created the “fit” between you and the college you are applying to. Meanwhile, it would help show positive sentiments such as admiration, excitement, and curiosity towards the school of your dreams.', (3, ['excitement', 'realization', 'admiration'], 60.0, 'Strong'), 'Strong', 24.8, 'Mediocre')
-
 
 # Select_College:  {'gen_keywd_college': None,  ---> 이부분은 워드클라우드로 표현
 # 'gen_keywd_college_major': None,  ---> 이부분은 워드클라우드로 표현
@@ -418,36 +410,36 @@ print('최종결과:', sc_re)
 # ['Admiration', 'Excitement', 'Pride', 'Realization', 'Curiosity']), 
 # 'prompt_type_sentence': [" 'Why us' school & major interest (select major, by college & department) "], 
 # 'pmt_sent_re': ['Admiration', 'Excitement', 'Pride', 'Realization', 'Curiosity'], 
+# 're_coll_n_dept_fit':  ---> 아래 결과 해석(1) 부분 참고(순서대로 설명)
+    # ((17.0, 
+    # 'Weak', 
+    # 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.'), 
+    # (15.0, 
+    # 'Weak', 
+    # "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."),  :mjr_fit_result : Major Fit ex)Weak, 생성한 문장
+    # 'There are two key factors to consider when writing the “why us” school & major interest essay. First, you should define yourself through your intellectual interests, intended major, role in the community, and more. Secondly, you need thorough research about the college, major, and department to show strong interest. After all, it would be best if you created the “fit” between you and the college you are applying to. Meanwhile, it would help show positive sentiments such as admiration, excitement, and curiosity towards the school of your dreams.', : TopComment : 첫번째 Selected Prompt 에 의한 고정 문장 생성
+    # (3, ['excitement', 'realization', 'admiration'], 60.0, 'Strong'), : PPmtOrientedSentments_result
+    # 'Strong', PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
+    # 24.8, : overall_drft_sum : overall sum score(계산용 값)
+    # 'Mediocre', :  : overall_reault : Overall 최종 산출값
+    #  18.0)} : mjr_fit_ratio_result : major fit 점수
 
-# 're_coll_n_dept_fit':  ---> 아래 결과 해석(1) 부분 참고
-# ((17.0, 
-# 'Weak', 
-# 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.'), 
-# (15.0, 
-# 'Weak', 
-# "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."), 
-# 'There are two key factors to consider when writing the “why us” school & major interest essay. First, you should define yourself through your intellectual interests, intended major, role in the community, and more. Secondly, you need thorough research about the college, major, and department to show strong interest. After all, it would be best if you created the “fit” between you and the college you are applying to. Meanwhile, it would help show positive sentiments such as admiration, excitement, and curiosity towards the school of your dreams.', 
-# (3, 
-# ['excitement', 'realization', 'admiration'], 
-# 60.0, 'Strong'), 
-# 'Strong', 
-# 24.8, 
-# 'Mediocre')}
 
-   ### re_coll_n_dept_fit : 결과 해석(1) ###
-    # coll_dept_result : College & Department Fit ex)Weak, 생성한 문장
-    # mjr_fit_result : Major Fit ex)Weak, 생성한 문장
-    # TopComment : 첫번째 Selected Prompt 에 의한 고정 문장 생성
+    ### re_coll_n_dept_fit : 결과 해석(1) ###
+        # coll_dept_result : College & Department Fit ex)Weak, 생성한 문장
+        # mjr_fit_result : Major Fit ex)Weak, 생성한 문장
+        # TopComment : 첫번째 Selected Prompt 에 의한 고정 문장 생성
 
-    # PmtOrientedSentments_result : 감성분석결과
-        # counter : 선택한 prompt에 해당하는 coll supp essay의 대표적 감성 5개중 일치하는 상대적인 총 개수
-        # matching_sentment : 매칭되는 감성 추출값
-        # matching_ratio : 매칭 비율
-        # match_result : 감성비교 최종 결과 산출
+        # PPmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과  - 리스트에서 4번째, 그러니까 [3]번째의 결과
+            # counter : 선택한 prompt에 해당하는 coll supp essay의 대표적 감성 5개중 일치하는 상대적인 총 개수
+            # matching_sentment : 매칭되는 감성 추출값
+            # matching_ratio : 매칭 비율
+            # match_result : 감성비교 최종 결과 산출
 
-    # PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
-    # overall_drft_sum : overall sum score(계산용 값)
-    # overall_reault : Overall 최종 산출값
+        # PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
+        # overall_drft_sum : overall sum score(계산용 값)
+        # overall_reault : Overall 최종 산출값
+        # mjr_fit_ratio_result : major fit 점수
 
 
 
