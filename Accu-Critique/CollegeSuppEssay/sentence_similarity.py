@@ -2,7 +2,6 @@
 # prompt, major, ps_supp_essay를 입력하면,
 # College %& Department Fit, Major Fit, Prompt Oriented Setiments 값을 계산해줌
 
-from CollegeSuppEssay.collegeSupp import select_prompt_type
 import nltk
 nltk.download('punkt')
 from nltk.tokenize import word_tokenize
@@ -753,7 +752,6 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
     
 
 
->>>>>>>>>>>>>  해당 prompt 에 해당하는 분석 결과를 개별적으로 적용해야 함  <<<<<<<<<<<<<<< 이 부분은 collegesupp.py 로 이전해야 함
 
     ############################################
     # 프롬프트 조건에 맞게 다양한 overall 값 계산해야 함 #
@@ -772,24 +770,20 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
         return overall_result
 
 
-    def getOverallScore(select_pmt_type, input_each_pmt_overall_sum): 
-        if select_pmt_type == 'Why us':
-            result_ov_sc = get_oa_score(input_each_pmt_overall_sum)
+    def getOverallScore(input_each_pmt_overall_sum): 
+        result_ov_sc = get_oa_score(input_each_pmt_overall_sum)
+        return result_ov_sc
 
-        return overAll_re
 
+    # Prompt 'Why us'에 해당하는 Overall 결과 산출하기
+    overall_drft_sum = coll_dept_re_score * 0.4 + mjr_fit_re_score * 0.4  + pmt_sent_re_score * 0.2 # 'Why us'에 계산을 위한 각 항목 가중치 적용
+    overAll_why_us_re = getOverallScore(overall_drft_sum)
 
     # Prompt 'Intellectual Interest'에 해당하는 Overall 결과 산출하기
     gak_topics_score = GeneralAcademicKnowledge(essay_input) # 함수 실행 결과리스트 15번 값임
     intell_eng_score = intellectualEnguagement(essay_input) # 함수 실행 결과리스트 3번 값임
     overall_sum_intellectual_interest = mjr_fit_re_score * 0.2 + gak_topics_score[15] * 0.3 + intell_eng_score[3] + pmt_sent_re_score * 0.2
-    overAll_re = getOverallScore(select_pmt_type, overall_sum_intellectual_interest)
-
-    # Prompt 'Why us'에 해당하는 Overall 결과 산출하기
-    overall_drft_sum = coll_dept_re_score * 0.4 + mjr_fit_re_score * 0.4  + pmt_sent_re_score * 0.2 # 'Why us'에 계산을 위한 각 항목 가중치 적용
-    overAll_re = getOverallScore(select_pmt_type, overall_drft_sum)
-
->>>>>>>>>>>>>  해당 prompt 에 해당하는 분석 결과를 개별적으로 적용해야 함  <<<<<<<<<<<<<<<
+    overAll_intellectual_interest_re = getOverallScore(overall_sum_intellectual_interest)
 
 
 
@@ -808,11 +802,13 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
         # match_result : 감성비교 최종 결과 산출
     # 4. PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
     # 5. overall_drft_sum : overall sum score(계산용 값)
-    # 6. overAll_re : Overall 최종 산출값 --- Prompt 질문에서 'Why us'를 선택했을 경우 Overall 값 계산, 다른 질문을 선택하면 해당 overall 값이 계산됨
+    # 6. overAll_why_us_re : Overall 최종 산출값 --- Prompt 질문에서 'Why us'를 선택했을 경우 Overall 값 계산, 다른 질문을 선택하면 해당 overall 값이 계산됨
     # 7. mjr_fit_ratio_result : major fit 점수
     # 8. PmtOrientedSentments_result[2] : 분석된 감성정보
+    # 9. overAll_intellectual_interest_re :  Overall 최종 산출값  - intellectual_interest
 
-    return coll_dept_result, mjr_fit_result, TopComment, PmtOrientedSentments_result, PmtOrientedSentments_result[3], overall_drft_sum, overAll_re, mjr_fit_ratio_result, PmtOrientedSentments_result[2]
+
+    return coll_dept_result, mjr_fit_result, TopComment, PmtOrientedSentments_result, PmtOrientedSentments_result[3], overall_drft_sum, overAll_why_us_re, mjr_fit_ratio_result, PmtOrientedSentments_result[2], overAll_intellectual_interest_re
 
 
 
