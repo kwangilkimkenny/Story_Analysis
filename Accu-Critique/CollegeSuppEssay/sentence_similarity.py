@@ -1,6 +1,7 @@
 # 개발완료 #
 # prompt, major, ps_supp_essay를 입력하면,
 # College %& Department Fit, Major Fit, Prompt Oriented Setiments 값을 계산해줌
+# 문장을 생성해줌
 
 import nltk
 nltk.download('punkt')
@@ -104,7 +105,7 @@ def open_dept_data_for_sent_sim(select_college_dept): # College Department 선�
         
         tokenized_sentences = sent_tokenize(str(lists)) # 문장으로 토큰화
         result = ' '.join(tokenized_sentences)
-        print("Undecide일 경우 대학의 모든 dept 정보 불러오기 : ", result)
+        #print("Undecide일 경우 대학의 모든 dept 정보 불러오기 : ", result)
     else: # college department 선택했을 경우
         # 폴더 구조, 대학이름, department 입력 명칭을 통일해야 함
         file_path = "./college_info/dept_info_dataset/"
@@ -117,7 +118,7 @@ def open_dept_data_for_sent_sim(select_college_dept): # College Department 선�
         
         tokenized_sentences = sent_tokenize(str(lists)) # 문장으로 토큰화
         result = ' '.join(tokenized_sentences)
-        print("대학 dept 정보 불러오기 : ", result)
+        #print("대학 dept 정보 불러오기 : ", result)
     return result
 
 
@@ -204,7 +205,7 @@ def sent_sim_analysis(college_info_data, ps_supp_esssay_data):
 
 
     re_mean = round((sim_sent_of_essay_score / counter), 2) * 100 # 일치율 추출하여 총평균 값 추출
-    print("re_mean:", re_mean) # 17.0 % 의 일치율이 확률료 표시됨
+    #print("re_mean:", re_mean) # 17.0 % 의 일치율이 확률료 표시됨
 
     return re_mean
 
@@ -599,8 +600,8 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
     coll_result = re.sub(r"[\n\\]", "", coll_result) # 공백문자 제거
     coll_result = coll_result.rstrip('\n')
     coll_result = sent_tokenize(coll_result)
-    print('===========================================================================================')
-    print('대학정보 요약 : ', coll_result)
+    # print('===========================================================================================')
+    # print('대학정보 요약 : ', coll_result)
 
     # Dept 정보 요약
     college_dept_result = model(Dept_data, min_length=60)
@@ -608,8 +609,8 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
     coll_dept_result = re.sub(r"[\n\\]", "", coll_dept_result) # 공백문자 제거
     coll_dept_result = coll_dept_result.rstrip('\n')
     coll_dept_result = sent_tokenize(coll_dept_result)
-    print('===========================================================================================')
-    print('대학 Dept 정보 요약 : ', coll_dept_result)
+    # print('===========================================================================================')
+    # print('대학 Dept 정보 요약 : ', coll_dept_result)
 
     # 전공정보 요약
     mjr_result = model(Mjr_data, min_length=60)
@@ -617,8 +618,8 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
     mjr_result = re.sub(r"[\n\\]", "", mjr_result) # 공백문자 제거
     mjr_result = mjr_result.rstrip('\n')
     mjr_result = sent_tokenize(mjr_result)
-    print('===========================================================================================')
-    print('전공정보 요약 : ', mjr_result)
+    # print('===========================================================================================')
+    # print('전공정보 요약 : ', mjr_result)
 
     # college info + dept info fit 게산하기위해 입력값 text 합치기
     coll_dept_result = coll_result + coll_dept_result
@@ -631,14 +632,15 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
     ps_supp_result_ = re.sub(r"[\n\\]", "", ps_supp_result_) # 공백문자 제거
     ps_supp_result_ = ps_supp_result_.rstrip('\n')
     ps_supp_result_ = sent_tokenize(ps_supp_result_)
-    print('===========================================================================================')
-    print('에세이 요약 : ', ps_supp_result_)
+    # print('===========================================================================================')
+    # print('에세이 요약 : ', ps_supp_result_)
 
     # 감성정보계산
     sentiment_result =  sentmentAnalysis_essay(coll_supp_essay_input_data)
 
 
     # 결과 계산하기, 문장 생성은 입력 값에 따라서 선택(컬리지, 전공적합성, 감성정보)의 3개중 한개가 입력됨
+    # 입력값 fit_ratio:
     def fit_cal(fit_ratio, col_mjr_sentment_input, select_college_dept, select_major):
         # select_college_dept, select_major의 두 값이 Undecided 일 경우 차산점 - 10% 적용부분
         if select_college_dept == 'Undecided' or select_major == 'Undecided':
@@ -735,9 +737,7 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
 
     #### Major Fit ####
     mjr_fit_ratio = sent_sim_analysis(mjr_result, ps_supp_result_)
-
     mjr_fit_ratio_result = round(mjr_fit_ratio, 2)
-
     mjr_fit_result = fit_cal(mjr_fit_ratio, mjr_result, select_college_dept, select_major)
     # 점수 2  ---> 40%
     mjr_fit_re_score = mjr_fit_result[0]
@@ -750,11 +750,13 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
     # 첫 문장 생성
     TopComment = fixedTopComment(select_pmt_type)
     
+
+
+
     ############################################
     # 프롬프트 조건에 맞게 다양한 overall 값 계산해야 함 #
     ############################################
-
-    def getOverallScore(input_each_pmt_overall_sum):    
+    def get_oa_score(input_each_pmt_overall_sum):
         if input_each_pmt_overall_sum >= 80:
             overall_result = 'Superb'
         elif input_each_pmt_overall_sum < 80 and input_each_pmt_overall_sum >= 60:
@@ -765,20 +767,25 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
             overall_result = 'Mediocre'
         else: #overall_result < 20
             overall_result = 'Weak'
+        return overall_result
+
+
+    def getOverallScore(input_each_pmt_overall_sum): 
+        result_ov_sc = get_oa_score(input_each_pmt_overall_sum)
+        return result_ov_sc
+
+
+    # Prompt 'Why us'에 해당하는 Overall 결과 산출하기
+    overall_drft_sum = coll_dept_re_score * 0.4 + mjr_fit_re_score * 0.4  + pmt_sent_re_score * 0.2 # 'Why us'에 계산을 위한 각 항목 가중치 적용
+    overAll_why_us_re = getOverallScore(overall_drft_sum)
 
     # Prompt 'Intellectual Interest'에 해당하는 Overall 결과 산출하기
     gak_topics_score = GeneralAcademicKnowledge(essay_input) # 함수 실행 결과리스트 15번 값임
     intell_eng_score = intellectualEnguagement(essay_input) # 함수 실행 결과리스트 3번 값임
     overall_sum_intellectual_interest = mjr_fit_re_score * 0.2 + gak_topics_score[15] * 0.3 + intell_eng_score[3] + pmt_sent_re_score * 0.2
-    overAll_re = getOverallScore(overall_sum_intellectual_interest)
+    overAll_intellectual_interest_re = getOverallScore(overall_sum_intellectual_interest)
 
-    # Prompt 'Why us'에 해당하는 Overall 결과 산출하기
-    overall_drft_sum = coll_dept_re_score * 0.4 + mjr_fit_re_score * 0.4  + pmt_sent_re_score * 0.2 # 'Why us'에 계산을 위한 각 항목 가중치 적용
-    overAll_re = getOverallScore(overall_drft_sum)
-
->>>>>>>>>>>>>  해당 prompt 에 해당하는 분석 결과를 개별적으로 적용해야 함  <<<<<<<<<<<<<<<
-
-
+/Users/kimkwangil/Documents/001_ESSAYFITAI/Story_Analysis-master 6/Accu-Critique/CollegeSuppEssay/sentence_similarity.py
 
 
     # print('overall_drft_sum :', overall_drft_sum)
@@ -795,11 +802,13 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
         # match_result : 감성비교 최종 결과 산출
     # 4. PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
     # 5. overall_drft_sum : overall sum score(계산용 값)
-    # 6. overAll_re : Overall 최종 산출값 --- Prompt 질문에서 'Why us'를 선택했을 경우 Overall 값 계산, 다른 질문을 선택하면 해당 overall 값이 계산됨
+    # 6. overAll_why_us_re : Overall 최종 산출값 ----------!!! Prompt 질문에서 'Why us'를 선택했을 경우 Overall 값 계산, 다른 질문을 선택하면 해당 overall 값이 계산됨
     # 7. mjr_fit_ratio_result : major fit 점수
     # 8. PmtOrientedSentments_result[2] : 분석된 감성정보
+    # 9. overAll_intellectual_interest_re :  Overall 최종 산출값  ---------!!! intellectual_interest
 
-    return coll_dept_result, mjr_fit_result, TopComment, PmtOrientedSentments_result, PmtOrientedSentments_result[3], overall_drft_sum, overAll_re, mjr_fit_ratio_result, PmtOrientedSentments_result[2]
+
+    return coll_dept_result, mjr_fit_result, TopComment, PmtOrientedSentments_result, PmtOrientedSentments_result[3], overall_drft_sum, overAll_why_us_re, mjr_fit_ratio_result, PmtOrientedSentments_result[2], overAll_intellectual_interest_re
 
 
 

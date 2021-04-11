@@ -353,6 +353,22 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     re_coll_n_dept_fit = sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, select_college_dept, select_major, coll_supp_essay_input_data)
 
 
+
+
+
+    # major fit result
+    mjr_fit_result_final = re_coll_n_dept_fit[7]
+
+    위 값을 intelletualeEnguagement.py 의
+        # 문장생성 !!!!! mar_score 값을 계산해야 함
+        mjr_score = 요기 값으로 계산 적용해야 함
+
+
+
+
+
+
+
     ###############  General Academic Knowledge ############# 
     GAC_re = GeneralAcademicKnowledge(essay_input) # 이 함수 값에서
     GAC_Sentences = GAC_re[6] # 6. totalSettingSentences : academic 단어가 포함된 모든 문장을 추출 -------> 웹에 표시할 문장(아카데믹 단어가 포함된 문장)
