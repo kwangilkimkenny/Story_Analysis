@@ -795,10 +795,10 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
     # 1. mjr_fit_result : Major Fit ex)Weak, 생성한 문장
     # 2. TopComment : 첫번째 Selected Prompt 에 의한 고정 문장 생성
     # 3. PmtOrientedSentments_result : 감성분석결과
-        # counter : 선택한 prompt에 해당하는 coll supp essay의 대표적 감성 5개중 일치하는 상대적인 총 개수
-        # matching_sentment : 매칭되는 감성 추출값
-        # matching_ratio : 매칭 비율
-        # match_result : 감성비교 최종 결과 산출
+        # [3][0] counter : 선택한 prompt에 해당하는 coll supp essay의 대표적 감성 5개중 일치하는 상대적인 총 개수
+        # [3][1] matching_sentment : 매칭되는 감성 추출값
+        # [3][2] matching_ratio : 매칭 비율
+        # [3][3] match_result : 감성비교 최종 결과 산출
     # 4. PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
     # 5. overall_drft_sum : overall sum score(계산용 값)
     # 6. overAll_why_us_re : Overall 최종 산출값 ----------!!! Prompt 질문에서 'Why us'를 선택했을 경우 Overall 값 계산, 다른 질문을 선택하면 해당 overall 값이 계산됨
@@ -833,10 +833,8 @@ print('Result : ', re_sent_sim_analy)
 
 # 결과값 #
 
-# Result :  
-
-# (('Weak', 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.'), 
-# ('Weak', "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."), 
+#Result :  
+# ((15.3, 'Weak', 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.'), 
+# (15.3, 'Weak', "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."), 
 # 'There are two key factors to consider when writing the “why us” school & major interest essay. First, you should define yourself through your intellectual interests, intended major, role in the community, and more. Secondly, you need thorough research about the college, major, and department to show strong interest. After all, it would be best if you created the “fit” between you and the college you are applying to. Meanwhile, it would help show positive sentiments such as admiration, excitement, and curiosity towards the school of your dreams.', 
-# (3, ['excitement', 'realization', 'admiration'], 60.0, 'Strong'), 
-# 'Strong', 14.0)
+# (3, ['excitement', 'realization', 'admiration'], 60.0, 'Strong'), 'Strong', 24.240000000000002, 'Mediocre', 17.0, 60.0, 'Strong')

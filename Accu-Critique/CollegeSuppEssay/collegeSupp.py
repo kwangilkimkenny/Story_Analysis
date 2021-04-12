@@ -358,9 +358,9 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     # Comment Generation
     # 입력 1번째 : score 는 각 입력부분에 해당하는 점수
     # 입력 2번째 : input_value는 4개중 하나로 major, general academic knowledge, pmt oriented sentments, intellectual enguagement 에서 1개 택 1
-    # 입력 3번째 :  input_mjr_score 는 sentence_similaty에서 에세이와 학교정보와의 전공 매칭 결과를 가져와서 입력
+    # 입력 3번째 : input_mjr_score 는 sentence_similaty에서 에세이와 학교정보와의 전공 매칭 결과를 가져와서 입력
+    
     def commentsGen(score, input_value):
-        fixedTopCmt = """An intellectual interest essay may deal with any topic as long as it demonstrates the writer’s knowledge, analytical thinking, and creativity. Nonetheless, experts advise that displaying the depth of knowledge in your intended major area in a curious and insightful manner could provide a more precise focal point for the reviewer. Engaging ideas can be demonstrated through a healthy level of cohesion and academically-oriented verbs, while how you connect the dots between seemingly distant ideas can show how original your thoughts are."""
         if score >= 65: #Superb & Strong 
             if input_value == 'majorFitCmt':
                 majorFitCmt = """Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems quite extensive."""
@@ -410,28 +410,38 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
                 pass
 
         # 조건에 의한 문장 추출
-        return fixedTopCmt, gen_comment
-
-    #문장생성 !!!!! mar_score 값을 계산해야 함
-    mjr_score = mjr_fit_result_final
-    # general_aca_score = 
-    # sentments_score = 
-    # intel_eng_score = 
-    
-    # 이하 값은 return으로 출력해서 문장을 생성한다.
-    mjr_comment_re = commentsGen(mjr_score, 'majorFitCmt')
-    # general_aca_comment_re = commentsGen(general_aca_score, 'General_Academic_Knowledge_cmt')
-    # pmt_ori_sentiments_re = commentsGen(sentments_score, 'Prompt_Oriented_Sentiments')
-    # intellectual_eng_re = commentsGen(intel_eng_score, 'Intellectual_Engagement')
+        return gen_comment
 
 
     ###############  General Academic Knowledge ############# 
+    # 첫번째 고정문장 
+    fixedTopCmt = """An intellectual interest essay may deal with any topic as long as it demonstrates the writer’s knowledge, analytical thinking, and creativity. Nonetheless, experts advise that displaying the depth of knowledge in your intended major area in a curious and insightful manner could provide a more precise focal point for the reviewer. Engaging ideas can be demonstrated through a healthy level of cohesion and academically-oriented verbs, while how you connect the dots between seemingly distant ideas can show how original your thoughts are."""
+
     GAC_re = GeneralAcademicKnowledge(essay_input) # 이 함수 값에서
     GAC_Sentences = GAC_re[6] # 6. totalSettingSentences : academic 단어가 포함된 모든 문장을 추출 -------> 웹에 표시할 문장(아카데믹 단어가 포함된 문장)
     GAC_Words = GAC_re[11] # 11. topic_academic_word --------> 이 값을 가지고 비교할 것 - 웹에 표시할 단어들(아카데믹 단어)
     GAC_words_usage_rate = GAC_re[12]   # 12. topic_academic_word_counter  ---------> 이 값을 가지고 비교할 것 - 아카데믹 단서 사용 비율
     GAK_rate = GAC_re[13] # 14. GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
     GAC_Topics_score = GAC_re[15] #General Academic Topics Score --> intellectual interest 의 overall score 계산을 위해서 값 추출
+    print('GAC_Topics_score ==========================> ', GAC_Topics_score )
+
+    #문장생성 !!!!! mjr_score 값을 계산해야 함
+    mjr_score = mjr_fit_result_final
+    general_aca_knowledge_score = GAC_Topics_score
+    # 감성 정보 계산 값
+    sentiments_score = re_coll_n_dept_fit[3][2]
+    # intellectualenguagement  값 계산
+    from intellectualEngagement import intellectualEnguagement
+    intel_eng_score_all = intellectualEnguagement(essay_input)
+    intel_eng_score = intel_eng_score_all[0] # 위 함수의 첫번재 값이 intell Eng Score 임
+    
+    # 이하 값은 return으로 출력해서 문장을 생성한다.
+    mjr_comment_re = commentsGen(mjr_score, 'majorFitCmt')
+    general_aca_comment_re = commentsGen(general_aca_knowledge_score, 'General_Academic_Knowledge_cmt')
+    pmt_ori_sentiments_re = commentsGen(sentiments_score, 'Prompt_Oriented_Sentiments')
+    intellectual_eng_re = commentsGen(intel_eng_score, 'Intellectual_Engagement')
+
+
 
     # 0. gen_keywd_college : 선택한 대학의 General Keywords on college로 wordcloud로 출력됨
     # 1. gen_keywd_college_major : 선택 대학의 전공에 대한 keywords 를 WrodCloud 로 출력
@@ -440,10 +450,16 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     # 4. prompt_type_sentence : 선택한 prompt에 해당하는 질문 문장 전체
     # 5. pmt_sent_re : 선택한 prompt에 해당하는 sentiment 리스트
     # 6. re_coll_n_dept_fit : sentence_similiarity.py 코드의 결과값임
-    # 7. GAC_Sentences = GAC_re[6] # 6. totalSettingSentences : academic 단어가 포함된 모든 문장을 추출 -------> 웹에 표시할 문장(아카데믹 단어가 포함된 문장)
-    # 8. GAC_Words = GAC_re[11] # 11. topic_academic_word --------> 이 값을 가지고 비교할 것 - 웹에 표시할 단어들(아카데믹 단어)
-    # 9. GAC_words_usage_rate = GAC_re[12]   # 12. topic_academic_word_counter  ---------> 이 값을 가지고 비교할 것 - 아카데믹 단서 사용 비율
-    # 10. GAK_rate = GAC_re[13] # 14. GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
+    # 7. GAC_Sentences = GAC_re[6] totalSettingSentences : academic 단어가 포함된 모든 문장을 추출 -------> 웹에 표시할 문장(아카데믹 단어가 포함된 문장)
+    # 8. GAC_Words = GAC_re[11] topic_academic_word --------> 이 값을 가지고 비교할 것 - 웹에 표시할 단어들(아카데믹 단어)
+    # 9. GAC_words_usage_rate = GAC_re[12]   topic_academic_word_counter  ---------> 이 값을 가지고 비교할 것 - 아카데믹 단서 사용 비율
+    # 10. GAK_rate = GAC_re[13] # GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
+    # 11. fixedTopCmt : 첫번째 고정문장 생성
+    # 12. mjr_comment_re : 전공적합성 문장생성 부분
+    # 13. general_aca_comment_re : general academic knowledge 문장생성 부분
+    # 14. pmt_ori_sentiments_re : sentiments 문장생성 부분
+    # 15. intellectual_eng_re : intellectual enguagement 문장생성 부분
+
 
     data_result = {
         'gen_keywd_college' : gen_keywd_college, # 선택한 대학의 General Keywords on college로 wordcloud로 출력됨
@@ -457,7 +473,11 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'GAC_Words' : GAC_re[11], # 11. topic_academic_word --------> 이 값을 가지고 비교할 것 - 웹에 표시할 단어들(아카데믹 단어)
         'GAC_words_usage_rate' : GAC_re[12],   # 12. topic_academic_word_counter  ---------> 이 값을 가지고 비교할 것 - 아카데믹 단서 사용 비율
         'GAK_rate' : GAC_re[14], # 14. GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
-        'mjr_comment_re' : mjr_comment_re # intellectualEngagemnet 부분의 major fit comment
+        'fixedTopCmt' : fixedTopCmt, # 첫번째 위치하는 고정문장 생성
+        'mjr_comment_re' : mjr_comment_re, # intellectualEngagemnet 부분의 major fit comment
+        'general_aca_comment_re' : general_aca_comment_re, # general academic knowledge 문장생성 부분
+        'pmt_ori_sentiments_re' : pmt_ori_sentiments_re, # sentiments 문장생성 부분
+        'intellectual_eng_re' : intellectual_eng_re # intellectual enguagement 문장생성 부분
     }
 
     return data_result
@@ -476,26 +496,23 @@ print('최종결과:', sc_re)
 
 ### 결과 ###
 
-# Select_College:  {'gen_keywd_college': None,  ---> 이부분은 워드클라우드로 표현
-# 'gen_keywd_college_major': None,  ---> 이부분은 워드클라우드로 표현
-# 'intended_mjr': 'African Studies', 
-# 'pmt_sent_etc_re': ([" 'Why us' school & major interest (select major, by college & department) "], 
-# ['Admiration', 'Excitement', 'Pride', 'Realization', 'Curiosity']), 
-# 'prompt_type_sentence': [" 'Why us' school & major interest (select major, by college & department) "], 
-# 'pmt_sent_re': ['Admiration', 'Excitement', 'Pride', 'Realization', 'Curiosity'], 
-# 're_coll_n_dept_fit':  ---> 아래 결과 해석(1) 부분 참고(순서대로 설명)
-    # ((17.0, 
-    # 'Weak', 
-    # 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.'), 
-    # (15.0, 
-    # 'Weak', 
-    # "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."),  :mjr_fit_result : Major Fit ex)Weak, 생성한 문장
-    # 'There are two key factors to consider when writing the “why us” school & major interest essay. First, you should define yourself through your intellectual interests, intended major, role in the community, and more. Secondly, you need thorough research about the college, major, and department to show strong interest. After all, it would be best if you created the “fit” between you and the college you are applying to. Meanwhile, it would help show positive sentiments such as admiration, excitement, and curiosity towards the school of your dreams.', : TopComment : 첫번째 Selected Prompt 에 의한 고정 문장 생성
-    # (3, ['excitement', 'realization', 'admiration'], 60.0, 'Strong'), : PPmtOrientedSentments_result
-    # 'Strong', PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
-    # 24.8, : overall_drft_sum : overall sum score(계산용 값)
-    # 'Mediocre', :  : overall_reault : Overall 최종 산출값
-    #  18.0)} : mjr_fit_ratio_result : major fit 점수
+    # 0. gen_keywd_college : 선택한 대학의 General Keywords on college로 wordcloud로 출력됨
+    # 1. gen_keywd_college_major : 선택 대학의 전공에 대한 keywords 를 WrodCloud 로 출력
+    # 2. intended_mjr : intended major
+    # 3. pmt_sent_etc_re : 선택한 prompt 질문
+    # 4. prompt_type_sentence : 선택한 prompt에 해당하는 질문 문장 전체
+    # 5. pmt_sent_re : 선택한 prompt에 해당하는 sentiment 리스트
+    # 6. re_coll_n_dept_fit : sentence_similiarity.py 코드의 결과값임
+
+    # 7. GAC_Sentences = GAC_re[6] totalSettingSentences : academic 단어가 포함된 모든 문장을 추출 -------> 웹에 표시할 문장(아카데믹 단어가 포함된 문장)
+    # 8. GAC_Words = GAC_re[11] topic_academic_word --------> 이 값을 가지고 비교할 것 - 웹에 표시할 단어들(아카데믹 단어)
+    # 9. GAC_words_usage_rate = GAC_re[12]   topic_academic_word_counter  ---------> 이 값을 가지고 비교할 것 - 아카데믹 단서 사용 비율
+    # 10. GAK_rate = GAC_re[13] # GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
+    # 11. fixedTopCmt : 첫번째 고정문장 생성
+    # 12. mjr_comment_re : 전공적합성 문장생성 부분
+    # 13. general_aca_comment_re : general academic knowledge 문장생성 부분
+    # 14. pmt_ori_sentiments_re : sentiments 문장생성 부분
+    # 15. intellectual_eng_re : intellectual enguagement 문장생성 부분
 
 
     ### re_coll_n_dept_fit : 결과 해석(1) ###
@@ -509,14 +526,35 @@ print('최종결과:', sc_re)
             # matching_ratio : 매칭 비율
             # match_result : 감성비교 최종 결과 산출
 
-        # PmtOrientedSentments_result[3] : 최종 감성 상대적 비교 결과
         # overall_drft_sum : overall sum score(계산용 값)
         # overall_reault : Overall 최종 산출값
         # mjr_fit_ratio_result : major fit 점수
 
 
 
+# 최종결과: {'gen_keywd_college': None, 
+# 'gen_keywd_college_major': None, 
+# 'intended_mjr': 'African Studies', 
+# 'pmt_sent_etc_re': ([" 'Why us' school & major interest (select major, by college & department) "], 
+# ['Admiration', 'Excitement', 'Pride', 'Realization', 'Curiosity']), 
+# 'prompt_type_sentence': [" 'Why us' school & major interest (select major, by college & department) "], 
+# 'pmt_sent_re': ['Admiration', 'Excitement', 'Pride', 'Realization', 'Curiosity'], 
+# 're_coll_n_dept_fit': ((17.0, 'Weak', 'Your essay seems to be lacking some details about the college and may not demonstrate a strong interest. You may consider doing more research on the college and department you wish to study in.'), 
+#     (15.0, 'Weak', "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."), 
+#     'There are two key factors to consider when writing the “why us” school & major interest essay. First, you should define yourself through your intellectual interests, intended major, role in the community, and more. Secondly, you need thorough research about the college, major, and department to show strong interest. After all, it would be best if you created the “fit” between you and the college you are applying to. Meanwhile, it would help show positive sentiments such as admiration, excitement, and curiosity towards the school of your dreams.', 
+#     (3, ['excitement', 'realization', 'admiration'], 
+#     60.0, 'Strong'), 
+#     'Strong', 
+#     24.8, 'Mediocre', 
+#     15.0, 
+#     60.0, 
+#     'Strong'), 
+#     'GAC_Sentences':{"It 's time to make a wish .", "After earning my driver 's license , i registered as an organ donor .", "What if i could maximize the odds of making shots if i understood the science behind one 's mental mindset and focus through clps 500 : perception and action ?", 'I would often ask for clarity or for reasons that supported their ideologies .', "Told in one language to keep asking questions and in another to ask only the right ones , i chose exploring questions that do n't have answers , rather than accepting answers that do n't get questioned .", "I would watch in awe as the mridangists ' hands moved gracefully , flowing across the goatskin as if they were n't making contact , while simultaneously producing sharp rhythmic patterns that never failed to fall on the beat .", 'My ears listen , but my mind tunes them out , as nothing could possibly compare to that toy watch !', 'My parents and the aunties and uncles around me attempt to point me in a different direction .', "Wish that you can live in india after college ! '", "A vital aspect of my family 's cultural background is their focus on accepting things as they are .", 'Or use astrophysics to account for drag and gravitational force anywhere in the universe ?', "`` } , { `` index '' :1 , '' personal_essay '' : '' ever since i first held a small foam spiderman basketball in my tiny hands and watched my idol kobe bryant hit every three-pointer he attempted , i 've wanted to understand and replicate his flawless jump shot .", "I 'm no longer afraid to rock the boat .", 'I inhale deeply and blow harder than i thought possible , pushing the tiny ember from its resting place on the candle out into the air .', "My small checkmark on a piece of paper led to an intense clash between my and my parents ' moral platform .", "'wish that you get to go to the temple every day when you 're older !", "Growing up , i was discouraged from questioning others or asking questions that did n't have definitive yes or no answers .", "I 've been playing the mridangam since i was five years old .", "I 've become someone who seeks to understand things at a fundamental level and who finds excitement in taking on big questions that have yet to be solved .", 'While in 7th-grade geometry , i graphed the arc of his shot , and after learning about quadratic equations in 8th grade , i expressed his shot as a parabolic function that would ensure a swish when shooting from any spot .', 'Through the open curriculum , i see myself not only becoming a more complete learner , but also a more complete thinker , applying a flexible mindset to any problem i encounter .', 'In my mind , that new limited edition deluxe ben 10 watch will soon be mine .', "Now , if a teacher mentions that we 'll learn about why a certain proof or idea works only in a future class , i 'll stay after to ask more or pour through an advanced textbook to try to understand it .", "At home , if i mentioned that i had tried eggs for breakfast at a friend 's house , i 'd be looked at like i had just committed a felony for eating what my parents considered meat .", "The room erupts around me , and 'happy birthday ! '", 'If i innocently asked my grandma why she expected me to touch her feet , my dad would grab my hand in a sudden swoop , look me sternly in the eye , and tell me not to disrespect her like that again .', "In this version of my life , there was n't much room for change , personal growth , or 'rocking the boat . '", 'Hoping to be like these idols on the stage , i trained intensely with my teacher , a strict man who taught me that the simple drum i was playing had thousands of years of culture behind it .', "After learning about variables for the first time in 5th grade algebra , i began to treat each aspect of kobe 's jump shot as a different variable , each combination of variables resulting in a unique solution .", "Building up from simple strokes , i realized that the finger speed i 'd had been awestruck by was n't some magical talent , it was instead a science perfected by repeated practice .", 'At brown , i hope to explore this intellectual pursuit through a different lens .', "As a young child , i 'd be taken to the temple every weekend for three-hour-long carnatic music concerts , where the most accomplished teenagers and young adults in our local indian community would perform .", 'As my math education progressed in school , i began to realize i had the tools to create a perfect shot formula .', 'After calculus lessons in 10th and 11th grade , i was excited to finally solve for the perfect velocity and acceleration needed on my release .', "After an environmental science lesson , i stayed for a few minutes after class to ask my 4th-grade science teacher with wide eyes how it was possible that niagara falls does n't run out of flowing water .", 'What i never realized on my third birthday is that those wishes quietly tell the story of how my family hopes my life will play out .', "It 's a simple instrument : a wood barrel covered on two ends by goatskin with leather straps surrounding the hull .", 'Wish that you memorize all your sanskrit texts before you turn 6 !', 'Their response would usually entail feeling a deep , visceral sense that traditions must be followed exactly as taught , without objection .', 'While my perspective was widening at school , the receptiveness to raising complex questions at home was diminishing .', 'My curiosity strengthens with each hurdle and has expanded into a pure love of learning new things .', "When it comes to the maze of learning , even when i take a wrong turn and encounter roadblocks that are meant to stop me , i 've learned to climb over them and keep moving forward .", "Or use data science to break down the analytics of the nba 's best shooters ?", "Brown 's open curriculum allows students to explore broadly while also diving deeply into their academic pursuits .", "Instead of scolding me for asking her a 'dumb question , ' she smiled and explained the intricacy of the water cycle .", 'This instrument serves as a connection between me and one of the most beautiful aspects of my culture : carnatic music .', 'Cheers echo through the halls .', "If i asked the priest at the temple why he had asked an indian man and his white wife to leave , i 'd be met with a condescending glare and told that i should also leave for asking such questions.in direct contrast , my curiosity was invited and encouraged at school .", 'Tell us about an academic interest ( or interests ) that excites you , and how you might use the open curriculum to pursue it .', 'I wanted to ensure that i positively contributed to society , while my parents believed that organ donation was an unfamiliar and unnecessary cultural taboo .'}, "'wish that you get to go to the temple every day when you 're older !", "Growing up , i was discouraged from questioning others or asking questions that did n't have definitive yes or no answers .", "I 've been playing the mridangam since i was five years old .", "I 've become someone who seeks to understand things at a fundamental level and who finds excitement in taking on big questions that have yet to be solved .", 'While in 7th-grade geometry , i graphed the arc of his shot , and after learning about quadratic equations in 8th grade , i expressed his shot as a parabolic function that would ensure a swish when shooting from any spot .', 'Through the open curriculum , i see myself not only becoming a more complete learner , but also a more complete thinker , applying a flexible mindset to any problem i encounter .', 'In my mind , that new limited edition deluxe ben 10 watch will soon be mine .', "Now , if a teacher mentions that we 'll learn about why a certain proof or idea works only in a future class , i 'll stay after to ask more or pour through an advanced textbook to try to understand it .", "At home , if i mentioned that i had tried eggs for breakfast at a friend 's house , i 'd be looked at like i had just committed a felony for eating what my parents considered meat .", "The room erupts around me , and 'happy birthday ! '", 'If i innocently asked my grandma why she expected me to touch her feet , my dad would grab my hand in a sudden swoop , look me sternly in the eye , and tell me not to disrespect her like that again .', "In this version of my life , there was n't much room for change , personal growth , or 'rocking the boat . '", 'Hoping to be like these idols on the stage , i trained intensely with my teacher , a strict man who taught me that the simple drum i was playing had thousands of years of culture behind it .', "After learning about variables for the first time in 5th grade algebra , i began to treat each aspect of kobe 's jump shot as a different variable , each combination of variables resulting in a unique solution .", "Building up from simple strokes , i realized that the finger speed i 'd had been awestruck by was n't some magical talent , it was instead a science perfected by repeated practice .", 'At brown , i hope to explore this intellectual pursuit through a different lens .', "As a young child , i 'd be taken to the temple every weekend for three-hour-long carnatic music concerts , where the most accomplished teenagers and young adults in our local indian community would perform .", 'As my math education progressed in school , i began to realize i had the tools to create a perfect shot formula .', 'After calculus lessons in 10th and 11th grade , i was excited to finally solve for the perfect velocity and acceleration needed on my release .', "After an environmental science lesson , i stayed for a few minutes after class to ask my 4th-grade science teacher with wide eyes how it was possible that niagara falls does n't run out of flowing water .", 'What i never realized on my third birthday is that those wishes quietly tell the story of how my family hopes my life will play out .', "It 's a simple instrument : a wood barrel covered on two ends by goatskin with leather straps surrounding the hull .", 'Wish that you memorize all your sanskrit texts before you turn 6 !', 'Their response would usually entail feeling a deep , visceral sense that traditions must be followed exactly as taught , without objection .', 'While my perspective was widening at school , the receptiveness to raising complex questions at home was diminishing .', 'My curiosity strengthens with each hurdle and has expanded into a pure love of learning new things .', "When it comes to the maze of learning , even when i take a wrong turn and encounter roadblocks that are meant to stop me , i 've learned to climb over them and keep moving forward .", "Or use data science to break down the analytics of the nba 's best shooters ?", "Brown 's open curriculum allows students to explore broadly while also diving deeply into their academic pursuits .", "Instead of scolding me for asking her a 'dumb question , ' she smiled and explained the intricacy of the water cycle .", 'This instrument serves as a connection between me and one of the most beautiful aspects of my culture : carnatic music .', 'Cheers echo through the halls .', "If i asked the priest at the temple why he had asked an indian man and his white wife to leave , i 'd be met with a condescending glare and told that i should also leave for asking such questions.in direct contrast , my curiosity was invited and encouraged at school .", 'Tell us about an academic interest ( or interests ) that excites you , and how you might use the open curriculum to pursue it .', 'I wanted to ensure that i positively contributed to society , while my parents believed that organ donation was an unfamiliar and unnecessary cultural taboo .'}, 
 
-
-
-
+# 'GAC_Words': [], 'GAC_words_usage_rate': 0, 
+# 'GAK_rate': 'Weak', 
+# 'fixedTopCmt': 'An intellectual interest essay may deal with any topic as long as it demonstrates the writer’s knowledge, analytical thinking, and creativity. Nonetheless, experts advise that displaying the depth of knowledge in your intended major area in a curious and insightful manner could provide a more precise focal point for the reviewer. Engaging ideas can be demonstrated through a healthy level of cohesion and academically-oriented verbs, while how you connect the dots between seemingly distant ideas can show how original your thoughts are.', 
+# 'mjr_comment_re': "Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking.", 
+# 'general_aca_comment_re': 'Also, it seems that your knowledge is more focused on the area of your academic major, possibly lacking some diversity.', 
+# 'pmt_ori_sentiments_re': 'Sentiment analysis shows that you demonstrate a satisfactory level of curiosity and grasp of the concepts.', 
+# 'intellectual_eng_re': 'Lastly, please consider elaborating further on the thought process by adding your own analysis and insights to emphasize the level of intellectual engagement.'}
