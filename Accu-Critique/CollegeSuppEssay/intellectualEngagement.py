@@ -7,6 +7,8 @@
 
 # 만약 특정 coherence가 너무 높아지면 정보의 양이 줄어들게 되고, coherence가 너무 낮아 정보들이 연관성이 없다면, 분석의 의미가 낮아짐 --- 적당해야 함... 적당?? 
 
+# 문장생성 기능 적용
+
 # ref: https://docs.google.com/document/d/1P0EP7-T4AL-btgIrOPUOeSaQ8qOmcoRpMEZXIgIcOBU/edit
 
 
@@ -362,79 +364,12 @@ def intellectualEnguagement(essay_input):
         intel_interest_score = 20
 
 
-    # 코멘트 생성 부분
-    # 입력 1번째 : score 는 각 입력부분에 해당하는 점수
-    # 입력 2번째 : input_value는 4개중 하나로 major, general academic knowledge, pmt oriented sentments, intellectual enguagement 에서 1개 택 1
-    def commentsGen(score, input_value):
-        fixedTopCmt = """An intellectual interest essay may deal with any topic as long as it demonstrates the writer’s knowledge, analytical thinking, and creativity. Nonetheless, experts advise that displaying the depth of knowledge in your intended major area in a curious and insightful manner could provide a more precise focal point for the reviewer. Engaging ideas can be demonstrated through a healthy level of cohesion and academically-oriented verbs, while how you connect the dots between seemingly distant ideas can show how original your thoughts are."""
-        if score >= 65: #Superb & Strong 
-            if input_value == 'majorFitCmt'
-                majorFitCmt = """Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems quite extensive."""
-                gen_comment = majorFitCmt
-            elif input_value == 'General_Academic_Knowledge_cmt'
-                General_Academic_Knowledge_cmt = """Beyond your academic major, you seem to possess a versatile range of knowledge in various intellectual topics that would impress the reader."""
-                gen_comment = General_Academic_Knowledge_cmt
-            elif input_value == 'Prompt_Oriented_Sentiments'
-                Prompt_Oriented_Sentiments = """Sentiment analysis shows that you demonstrate a healthy level of curiosity and grasp of the concepts."""
-                gen_comment = Prompt_Oriented_Sentiments
-            elif input_value == 'Intellectual_Engagement'
-                Intellectual_Engagement = """Lastly, you seem to weave together seemingly distant topics and ideas successfully. Hence, your story looks quite original and versatile."""
-                gen_comment = Intellectual_Engagement
-            else:
-                pass
-
-        elif score >= 35 and score < 65:# Good
-            if input_value == 'majorFitCmt'
-                majorFitCmt = """Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems good."""
-                gen_comment = majorFitCmt
-            elif input_value == 'General_Academic_Knowledge_cmt'
-                General_Academic_Knowledge_cmt = """Beyond your academic major, you seem to possess a fair amount of knowledge in various intellectual topics."""
-                gen_comment = General_Academic_Knowledge_cmt
-            elif input_value == 'Prompt_Oriented_Sentiments'
-                Prompt_Oriented_Sentiments = """Sentiment analysis shows that you demonstrate a satisfactory level of curiosity and grasp of the concepts."""
-                gen_comment = Prompt_Oriented_Sentiments
-            elif input_value == 'Intellectual_Engagement'
-                Intellectual_Engagement = """Lastly, you seem to demonstrate your thought process in some detail. Consider adding more of your own analysis and insights to make your ideas sound more versatile."""
-                gen_comment = Intellectual_Engagement
-            else:
-                pass
-
-        else: # score < 35  : Mediocre & Weak
-            if input_value == 'majorFitCmt'
-                majorFitCmt = """Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."""
-                gen_comment = majorFitCmt
-            elif input_value == 'General_Academic_Knowledge_cmt'
-                General_Academic_Knowledge_cmt = """Also, it seems that your knowledge is more focused on the area of your academic major, possibly lacking some diversity."""
-                gen_comment = General_Academic_Knowledge_cmt
-            elif input_value == 'Prompt_Oriented_Sentiments'
-                Prompt_Oriented_Sentiments = """Sentiment analysis shows you may consider adding in more phrases that highlight your curiosity and the lessons you draw from the topic."""
-                gen_comment = Prompt_Oriented_Sentiments
-            elif input_value == 'Intellectual_Engagement'
-                Intellectual_Engagement = """Lastly, please consider elaborating further on the thought process by adding your own analysis and insights to emphasize the level of intellectual engagement."""
-                gen_comment = Intellectual_Engagement
-            else:
-                pass
-
-        # 조건에 의한 문장 추출
-        return fixedTopCmt, gen_comment
-
-        # 문장생성 !!!!! mar_score 값을 계산해야 함
-        mjr_score = 
-        general_aca_score = 
-        sentments_score = 
-        intel_eng_score = 
-        
-        mjr_comment_re = commentsGen(mjr_score, 'majorFitCmt')
-        general_aca_comment_re = commentsGen(general_aca_score, 'General_Academic_Knowledge_cmt')
-        pmt_ori_sentiments_re = commentsGen(sentments_score, 'Prompt_Oriented_Sentiments')
-        intellectual_eng_re = commentsGen(intel_eng_score, 'Intellectual_Engagement')
-
-
     # 결과해석
     # 0. intell_eng_result : coherece와 academic 의 개별적 비교한 값을 합친 최종 계산결과
     # 1. int_eng_re : 5가지 기준으로 산출한 값 (Supurb ~ Lacking)
     # 2. intellectualEnguagement_words_for_web : 웹사이트에 표시할 intellectualEnguagement 단어들
     # 3. intel_interest_score : Intellectual interest 를 최종 계산하기 위해 변화한 점수
+    # 4. mjr_comment_re : 전공적합성 문장 생성 부분
 
     return intell_eng_result, int_eng_re, intellectualEnguagement_words_for_web, intel_interest_score
 

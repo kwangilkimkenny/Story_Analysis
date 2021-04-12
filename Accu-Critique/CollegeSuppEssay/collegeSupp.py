@@ -352,21 +352,77 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
 
     re_coll_n_dept_fit = sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, select_college_dept, select_major, coll_supp_essay_input_data)
 
-
-
-
-
-    # major fit result
+    # major fit result  --> 이 값을 intellectualEngagement.py의 def intellectualEnguagement(essay_input, input_mjr_score)에 입력해서 결과를 다시 가져옴
     mjr_fit_result_final = re_coll_n_dept_fit[7]
 
-    위 값을 intelletualeEnguagement.py 의
-        # 문장생성 !!!!! mar_score 값을 계산해야 함
-        mjr_score = 요기 값으로 계산 적용해야 함
+    # Comment Generation
+    # 입력 1번째 : score 는 각 입력부분에 해당하는 점수
+    # 입력 2번째 : input_value는 4개중 하나로 major, general academic knowledge, pmt oriented sentments, intellectual enguagement 에서 1개 택 1
+    # 입력 3번째 :  input_mjr_score 는 sentence_similaty에서 에세이와 학교정보와의 전공 매칭 결과를 가져와서 입력
+    def commentsGen(score, input_value):
+        fixedTopCmt = """An intellectual interest essay may deal with any topic as long as it demonstrates the writer’s knowledge, analytical thinking, and creativity. Nonetheless, experts advise that displaying the depth of knowledge in your intended major area in a curious and insightful manner could provide a more precise focal point for the reviewer. Engaging ideas can be demonstrated through a healthy level of cohesion and academically-oriented verbs, while how you connect the dots between seemingly distant ideas can show how original your thoughts are."""
+        if score >= 65: #Superb & Strong 
+            if input_value == 'majorFitCmt':
+                majorFitCmt = """Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems quite extensive."""
+                gen_comment = majorFitCmt
+            elif input_value == 'General_Academic_Knowledge_cmt':
+                General_Academic_Knowledge_cmt = """Beyond your academic major, you seem to possess a versatile range of knowledge in various intellectual topics that would impress the reader."""
+                gen_comment = General_Academic_Knowledge_cmt
+            elif input_value == 'Prompt_Oriented_Sentiments':
+                Prompt_Oriented_Sentiments = """Sentiment analysis shows that you demonstrate a healthy level of curiosity and grasp of the concepts."""
+                gen_comment = Prompt_Oriented_Sentiments
+            elif input_value == 'Intellectual_Engagement':
+                Intellectual_Engagement = """Lastly, you seem to weave together seemingly distant topics and ideas successfully. Hence, your story looks quite original and versatile."""
+                gen_comment = Intellectual_Engagement
+            else:
+                pass
 
+        elif score >= 35 and score < 65:# Good
+            if input_value == 'majorFitCmt':
+                majorFitCmt = """Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems good."""
+                gen_comment = majorFitCmt
+            elif input_value == 'General_Academic_Knowledge_cmt':
+                General_Academic_Knowledge_cmt = """Beyond your academic major, you seem to possess a fair amount of knowledge in various intellectual topics."""
+                gen_comment = General_Academic_Knowledge_cmt
+            elif input_value == 'Prompt_Oriented_Sentiments':
+                Prompt_Oriented_Sentiments = """Sentiment analysis shows that you demonstrate a satisfactory level of curiosity and grasp of the concepts."""
+                gen_comment = Prompt_Oriented_Sentiments
+            elif input_value == 'Intellectual_Engagement':
+                Intellectual_Engagement = """Lastly, you seem to demonstrate your thought process in some detail. Consider adding more of your own analysis and insights to make your ideas sound more versatile."""
+                gen_comment = Intellectual_Engagement
+            else:
+                pass
 
+        else: # score < 35  : Mediocre & Weak
+            if input_value == 'majorFitCmt':
+                majorFitCmt = """Regarding your fit with the intended major, your knowledge of the discipline's intellectual concepts seems lacking."""
+                gen_comment = majorFitCmt
+            elif input_value == 'General_Academic_Knowledge_cmt':
+                General_Academic_Knowledge_cmt = """Also, it seems that your knowledge is more focused on the area of your academic major, possibly lacking some diversity."""
+                gen_comment = General_Academic_Knowledge_cmt
+            elif input_value == 'Prompt_Oriented_Sentiments':
+                Prompt_Oriented_Sentiments = """Sentiment analysis shows you may consider adding in more phrases that highlight your curiosity and the lessons you draw from the topic."""
+                gen_comment = Prompt_Oriented_Sentiments
+            elif input_value == 'Intellectual_Engagement':
+                Intellectual_Engagement = """Lastly, please consider elaborating further on the thought process by adding your own analysis and insights to emphasize the level of intellectual engagement."""
+                gen_comment = Intellectual_Engagement
+            else:
+                pass
 
+        # 조건에 의한 문장 추출
+        return fixedTopCmt, gen_comment
 
-
+    #문장생성 !!!!! mar_score 값을 계산해야 함
+    mjr_score = mjr_fit_result_final
+    # general_aca_score = 
+    # sentments_score = 
+    # intel_eng_score = 
+    
+    # 이하 값은 return으로 출력해서 문장을 생성한다.
+    mjr_comment_re = commentsGen(mjr_score, 'majorFitCmt')
+    # general_aca_comment_re = commentsGen(general_aca_score, 'General_Academic_Knowledge_cmt')
+    # pmt_ori_sentiments_re = commentsGen(sentments_score, 'Prompt_Oriented_Sentiments')
+    # intellectual_eng_re = commentsGen(intel_eng_score, 'Intellectual_Engagement')
 
 
     ###############  General Academic Knowledge ############# 
@@ -400,7 +456,8 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'GAC_Sentences' : GAC_re[6], # 6. totalSettingSentences : academic 단어가 포함된 모든 문장을 추출 -------> 웹에 표시할 문장(아카데믹 단어가 포함된 문장)
         'GAC_Words' : GAC_re[11], # 11. topic_academic_word --------> 이 값을 가지고 비교할 것 - 웹에 표시할 단어들(아카데믹 단어)
         'GAC_words_usage_rate' : GAC_re[12],   # 12. topic_academic_word_counter  ---------> 이 값을 가지고 비교할 것 - 아카데믹 단서 사용 비율
-        'GAK_rate' : GAC_re[14] # 14. GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
+        'GAK_rate' : GAC_re[14], # 14. GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
+        'mjr_comment_re' : mjr_comment_re # intellectualEngagemnet 부분의 major fit comment
     }
 
     return data_result

@@ -785,7 +785,6 @@ def sent_sim_analysis_with_bert_summarizer(select_pmt_type, select_college, sele
     overall_sum_intellectual_interest = mjr_fit_re_score * 0.2 + gak_topics_score[15] * 0.3 + intell_eng_score[3] + pmt_sent_re_score * 0.2
     overAll_intellectual_interest_re = getOverallScore(overall_sum_intellectual_interest)
 
-/Users/kimkwangil/Documents/001_ESSAYFITAI/Story_Analysis-master 6/Accu-Critique/CollegeSuppEssay/sentence_similarity.py
 
 
     # print('overall_drft_sum :', overall_drft_sum)
@@ -828,7 +827,7 @@ essay_input = """I inhale deeply and blow harder than I thought possible, pushin
 
 # Test 2 (학교, 부서는 Undecided, 전공도 Undecided를 입력했을 경우)
 re_sent_sim_analy = sent_sim_analysis_with_bert_summarizer('Why us', 'Brown', 'Undecided', 'Undecided', essay_input)
-
+print('================================================')
 print('Result : ', re_sent_sim_analy)
 
 
