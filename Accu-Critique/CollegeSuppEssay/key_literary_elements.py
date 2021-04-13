@@ -51,6 +51,27 @@ import spacy
 
 nlp = spacy.load('en_core_web_lg')
 
+#sentiment
+from transformers import BertTokenizer
+from model import BertForMultiLabelClassification
+from multilabel_pipeline import MultiLabelPipeline
+import pandas as pd
+import re
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+import numpy as np
+
+tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-original")
+model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
+
+goemotions = MultiLabelPipeline(
+    model=model,
+    tokenizer=tokenizer,
+    threshold=0.3
+)
+
+
 
 def ai_plot_conf(essay_input_):
     #1.input essay
@@ -1262,9 +1283,300 @@ def Setting_analysis(text):
 
 
 
+#데이터 전처리 
+def cleaning(datas):
+
+    fin_datas = []
+
+    for data in datas:
+        # 영문자 이외 문자는 공백으로 변환
+        only_english = re.sub('[^a-zA-Z]', ' ', data)
+    
+        # 데이터를 리스트에 추가 
+        fin_datas.append(only_english)
+
+    return fin_datas
+
+
+# Prompt Oriented Sentiments
+def Prompt_Oriented_Sentiments(college_pmt_type):
+    if college_pmt_type == 'Meaningful experience & lesson learned': # ---> 이 부분만 적용함, 나머지 부분도 college supplemental essays 항목별로 적용히야 함
+        pmt_sentiment = ['realization', 'approval', 'admiration', 'gratitude', 'confusion', 'disappointment', 'caring']
+
+
+    elif college_pmt_type == "prompt_2":
+        pmt_sentiment = ['disappointment', 'fear', 'confusion']
+    elif college_pmt_type == "prompt_3":
+        pmt_sentiment = ['curiosity', 'disapproval', 'realization']
+    elif college_pmt_type == "prompt_4":
+        pmt_sentiment = ['gratitude', 'surprise', 'admiration']
+    elif college_pmt_type == "prompt_5":
+        pmt_sentiment = ['realization', 'pride', 'admiration']
+    elif college_pmt_type == "prompt_6":
+        pmt_sentiment = ['curiosity', 'excitement', 'confusion']
+    elif college_pmt_type == "prompt_7":
+        pmt_sentiment = ['joy', 'approval','disappointment', 'fear', 
+                         'confusion', 'disapproval', 'realization',
+                        'gratitude', 'surprise', 'admiration', 'pride',
+                        'curiosity', 'excitement', ]
+    else:
+        pass
+    
+    return pmt_sentiment
+
+
+
+# 에세이의 감성분석, 입력값(essay, selected college supplemental essay prompt)
+# 테스트를 위해서 promt_numger 는 'Meaningful experience & lesson learned' 으로 입력
+def ai_emotion_analysis(input_text, promt_number):
+    # . 로 구분하여 리스트로 변환
+    re_text = input_text.split(".")
+    #print("re_text type: ", type(re_text))
+        
+    texts = cleaning(re_text)
+    re_emot =  goemotions(texts)
+    df = pd.DataFrame(re_emot)
+    #print("dataframe:", df)
+    label_cnt = df.count()
+    #print(label_cnt)
+ 
+    #추출된 감성중 레이블만 다시 추출하고, 이것을 리스트로 변환 후, 이중리스트 flatten하고, 가장 많이 추출된 대표감성을 카운트하여 산출한다.
+    result_emotion = list(df['labels'])
+    #이중리스트 flatten
+    all_emo_types = sum(result_emotion, [])
+    #대표감성 추출 : 리스트 항목 카운트하여 가장 높은 값 산출
+    ext_emotion = {}
+    for i in all_emo_types:
+        if i == 'neutral': # neutral 감정은 제거함
+            pass
+        else:
+            try: ext_emotion[i] += 1
+            except: ext_emotion[i]=1    
+    #print(ext_emotion)
+    #결과값 오름차순 정렬 : 추출된 감성 결과가 높은 순서대로 정려하기
+    key_emo = sorted(ext_emotion.items(), key=lambda x: x[1], reverse=True)
+    #print("Key extract emoitons: ", key_emo)
+    
+    #가장 많이 추출된 감성 1개
+    #key_emo[0]
+    
+    #가장 많이 추출된 감성 3개
+    #key_emo[:2]
+    
+    #가장 많이 추출된 감성 5개
+    key_emo[:5]
+    
+    result_emo_list = [*sum(zip(re_text, result_emotion),())]
+    
+    # 결과해석
+    # result_emo_list >>> 문장, 분석감성
+    # key_emo[0] >>> 가장 많이 추출된 감성 1개로 이것이 에세이이 포함된 대표감성
+    # key_emo[:2] 가장 많이 추출된 감성 3개
+    # key_emo[:5] 가장 많이 추출된 감성 5개
+    top5Emo = key_emo[:5]
+    #print('top5Emo : ', top5Emo)
+    top5Emotions = [] # ['approval', 'realization', 'admiration', 'excitement', 'amusement']
+    top5Emotions.append(top5Emo[0][0])
+    top5Emotions.append(top5Emo[1][0])
+    top5Emotions.append(top5Emo[2][0])
+    top5Emotions.append(top5Emo[3][0])
+    top5Emotions.append(top5Emo[4][0])
+    
+    # 감성추출결과 분류항목 - Intended Mood 별 연관 sentiment
+    disturbed =['anger', 'annoyance', 'disapproval', 'confusion', 'disappointment', 'disgust', 'anger']
+    suspenseful = ['fear', 'nervousness', 'confusion', 'surprise', 'excitement']
+    sad = ['disappointment', 'embarrassment', 'grief', 'remorse', 'sadness']
+    joyful = ['admiration', 'amusement', 'excitement', 'joy', 'optimism']
+    calm = ['caring', 'gratitude', 'realization', 'curiosity', 'admiration', 'neutral']
+    
+    re_mood ='' 
+    for each_emo in top5Emotions:
+        if each_emo in disturbed:
+            re_mood = "disturbed"
+        elif each_emo in suspenseful:
+            re_mood = "suspensefull"
+        elif each_emo in sad:
+            re_mood = "sad"
+        elif each_emo in joyful:
+            re_mood ="joyful"
+        elif each_emo in calm:
+            re_mood ="calm"
+        else:
+            pass
+        
+    #입력한 에세이에서 추출한 mood의 str을 리스트로 변환    
+    detected_mood = [] #결과값으로 이것을 return할 거임
+    detected_mood.append(re_mood)
+    
+    # intended mood, prompt에서 선택한 내용대로 관련 mood 를 추출
+    get_intended_mood = Prompt_Oriented_Sentiments(promt_number) # ex) ['disappointment', 'fear', 'confusion']
+    
+    
+    # #1, 2nd Senctece 생성
+    # if re_mood == 'disturbed':
+    #     sentence1 = ['You’ve intended to write the essay in a disturbed mood.']
+    #     sentence2 = ['The AI’s analysis shows that your personal statement’s mood seems to be disturbed.']
+
+    # elif re_mood == 'suspenseful':
+    #     sentence1 = ['You’ve intended to write the essay in a suspenseful mood.']
+    #     sentence2 = ['The AI’s analysis shows that your personal statement’s mood seems to be suspenseful.']
+
+    # elif re_mood == 'sad':
+    #     sentence1 = ['You’ve intended to write the essay in a sad mood.']
+    #     sentence2 = ['The AI’s analysis shows that your personal statement’s mood seems to be sad.']
+
+    # elif re_mood == 'joyful':
+    #     sentence1 = ['You’ve intended to write the essay in a joyful mood.']
+    #     sentence2 = ['The AI’s analysis shows that your personal statement’s mood seems to be joyful.']
+                     
+    # elif re_mood == 'calm':
+    #     sentence1 = ['You’ve intended to write the essay in a calm mood.']
+    #     sentence2 = ['The AI’s analysis shows that your personal statement’s mood seems to be calm.']
+
+    # else:
+    #     pass
+
+                    
+    # intended mood vs. your essay mood
+    intendedMoodByPmt = []
+    for each_mood in get_intended_mood: # prompt에서 추출된 mood를 하나씩 가져와서 에세이에서 추출된 mood와 비교
+        if each_mood in disturbed:
+            intendedMoodByPmt.append(each_mood) 
+        elif each_mood in suspenseful:
+            intendedMoodByPmt.append(each_mood)
+        elif each_mood in sad:
+            intendedMoodByPmt.append(each_mood)
+        elif each_mood in joyful:
+            intendedMoodByPmt.append(each_mood)
+        elif each_mood in calm:
+            intendedMoodByPmt.append(each_mood)
+        else:
+            pass
+            
+    # # 비교하여 3rd Sentece 생성 
+    # if intendedMoodByPmt == detected_mood: # 두 개의 mood에 해당하는 리스트의 값이 같으면
+    #     sentence3 = """It seems that the mood portrayed in your essay is coherent with what you've intended!"""
+    # elif intendedMoodByPmt == ['disturbed']: # 같지 않다면 다음 항목을 각각 비교
+    #     sentence3 = """If you wish to shift the essay’s direction towards your original intention, you may consider including more conflicts and how you’ve struggled to resolve them."""
+    # elif intendedMoodByPmt == ['suspenseful']:
+    #     sentence3 = """If you wish to shift the essay’s direction towards your original intention, you may consider including more incidents, actions, and dynamic elements."""
+    # elif intendedMoodByPmt == ['sad']:
+    #     sentence3 = """If you wish to shift the essay’s direction towards your original intention, you may consider including more sympathetic stories about difficult times in life."""
+    # elif intendedMoodByPmt == ['joy']:
+    #     sentence3 = """If you wish to shift the essay’s direction towards your original intention, you may consider including more lighthearted life stories and the positive lessons you draw from them."""
+    # elif intendedMoodByPmt == ['calm']:
+    #     sentence3 = """If you wish to shift the essay’s direction towards your original intention, you may consider including more self-reflection, intellectual topics, or observations that shaped you."""
+    # else:
+    #     sentence3 = """ Try Again! """
+        
+    #################################################################################       
+    #1000 합격한 에세이의 평균 Top 5 sentiment
+    #결과는 very close / somewhat close / weak 으로 나와야함
+    # 각 값은 1000명의 평균에세이값을 산출하여 적용해야함, 지금 값은 dummmy values
+    prompt_1_sent_mean = [('joy', 8), ('approval', 5), ('disappointment',6),('confusion',7),('gratitude',7)] 
+    prompt_2_sent_mean = [('disappointment',6),('confusion',7),('joy', 8), ('approval', 5), ('disappointment',6)]
+    prompt_3_sent_mean = [('curiosity',7),('disapproval',6),('disappointment',6),('confusion',7),('gratitude',7)]
+    prompt_4_sent_mean = [('gratitude',8),('surprise',6),('disappointment',6),('confusion',7),('gratitude',7)]
+    prompt_5_sent_mean = [('realization',5),('admiration',4),('disappointment',6),('confusion',7),('gratitude',7)]
+    prompt_6_sent_mean = [('excitement',9),('confusion',5),('disappointment',6),('confusion',7),('gratitude',7)]
+    prompt_7_sent_mean = [('gratitude',7),('joy',5),('disappointment',6),('confusion',7),('gratitude',7)]
+    #################################################################################
+    
+    if promt_number == 'Meaningful experience & lesson learned':  # 이것을 선택했을 경우
+        accepted_essay_av_value = prompt_1_sent_mean
+        
+    elif promt_number == 'prompt_2':
+        accepted_essay_av_value = prompt_2_sent_mean
+        
+    elif promt_number == 'prompt_3':
+        accepted_essay_av_value = prompt_3_sent_mean
+        
+    elif promt_number == 'prompt_4':
+        accepted_essay_av_value = prompt_4_sent_mean
+        
+    elif promt_number == 'prompt_5':
+        accepted_essay_av_value = accepted_essay_av_value = prompt_5_sent_mean
+        
+    elif promt_number == 'prompt_6':
+        accepted_essay_av_value = prompt_6_sent_mean
+        
+    elif promt_number == 'prompt_7':
+        accepted_essay_av_value = prompt_7_sent_mean
+    else:
+        pass
+    
+    
+    # 결과해석
+  
+    # result_emo_list: 문장 + 감성분석결과
+    # intendedMoodByPmt : intended mood 
+    # detected_mood : 대표 Mood
+    # sentence1,sentence2, sentence3 : intended mood vs. your mood 비교결과에 대한 문장생성 커멘트 
+    
+    # 대표감성 5개 추출(학생 1명거임) : key_emo[:5]
+    # 합격한 한생의 prompt별 대표감성 2개(1000명 평균) : accepted_essay_av_value
+    
+    # In-depth Sentiment Analysis 매칭되는 결과에따라서 very close / somewhat close / weak 결정
+    ps_ext_emo =[] # 개인 에세이에서 추출한 5개의 대표감성
+    for itm in key_emo[:5]:
+        #print(itm[0])
+        ps_ext_emo.append(itm[0])
+ 
+    print(ps_ext_emo)
+    
+    group_ext_emo = [] # 그룹 에세이에서 추출한 5개의 평균 대표감성 5개
+    for item_2 in accepted_essay_av_value:
+        group_ext_emo.append(item_2[0])
+    
+    print(group_ext_emo)
+    
+    #두 값을 비교하여 very close / somewhat close / weak 결정
+    #중복요소를 추출하여 카운팅하면 두 총 리스트의 값 중에서 중복요소가 몇개 있는지 알 수 있을때 유사도를 계산할 수 있음
+    count={}
+    sum_emo = ps_ext_emo + group_ext_emo
+    for m in sum_emo:
+        try: count[m] += 1
+        except: count[m] = 1
+    print('중복값:', count)
+    
+    compare_re = []
+    for value in count.values(): # 딕셔너리의 벨류 값을 하나씩 가져와서 
+        if value > 1: # 1보다 큰 수는 중복된 수 이기 때문에 
+            compare_re.append(value) # 중복된 수를 새로운 리스트 compare_re에 넣고
+        else:
+            pass
+        
+    sum_compare_re = sum(compare_re) 
+    # 리스트의 숫자를 모두 더해서 최종 비교를 할거임,
+    # 총 리스틔 수는 10개이고 중복 최대값은 5개 모두가 중복되는 10이고 최소값은 0(아무것도 중복되지 않음)   0~10까지의 수로 표현됨
+    print(sum_compare_re)
+    
+    if sum_compare_re >= 0 and sum_compare_re <= 3:
+        in_depth_sent_result = 'weak'
+        in_depth_sent_result_score = 30
+    elif sum_compare_re > 3 and sum_compare_re <= 7:
+        in_depth_sent_result = 'somewhat close'
+        in_depth_sent_result_score = 60
+    elif sum_compare_re > 7 :
+        in_depth_sent_result = 'very close'
+        in_depth_sent_result_score = 90
+        
+        
+    # result_emo_list: 문장 + 감성분석결과
+    # intendedMoodByPmt : intended mood 
+    # detected_mood : 대표 Mood
+    # key_emo[:5] : 학생 한명의 에세이에서 추출한 대표감성 5개
+    # accepted_essay_av_value : 1000명의 합격한 학생의 대표감서 5개
+    # in_depth_sent_result : 최종 심층 분석결과
+
+    return in_depth_sent_result, in_depth_sent_result_score
+                    
+
 
 ### 최종 계산 함수: 이것으로 실행하삼!  ###
-def key_literary_element(essay_input):
+### 최종 계산 함수: 이것으로 실행하삼!  ###
+### 최종 계산 함수: 이것으로 실행하삼!  ###
+def key_literary_element(essay_input, pmt_value):
     plot_conf_result = ai_plot_conf(essay_input)
     character_result = focusOnCharacters(essay_input)
     setting_result = Setting_analysis(essay_input)
@@ -1295,6 +1607,12 @@ def key_literary_element(essay_input):
 
     setting_words_list = setting_result[9] # 셋팅 단어 --> 웹에 적용
 
+
+    # 테스트를 위해서 promt_numger 는 'Meaningful experience & lesson learned' 으로 입력
+    emotion_result = ai_emotion_analysis(essay_input, pmt_value)
+    print("=====================================")
+    print('emotion_result : ', emotion_result)
+
     ### 결과해석 ###
     # plot_conf_result : (51.06, 10.4, ['contrast', 'clash', 'different', 'odds'])
                         # 51.06 => plot plot_comp_ratio :plot_comp_ratio
@@ -1312,7 +1630,8 @@ def key_literary_element(essay_input):
         'characgter_words_for_web' : character_result[2], # 캐릭터 단어 리스트 ---> 웹에 적용
         'setting_words_list' : setting_words_list, # 셋팅 단어 리스트 ----> 웹에 적용
         'setting_re_value' : setting_re_value, # 셋팅 계산 결과
-        'key_literary_elements' : round((plot_conf_result[0] + character_result[0] + setting_re_value) / 3, 2) #===> Key Literary Elements 최종계산값
+        'key_literary_elements' : round((plot_conf_result[0] + character_result[0] + setting_re_value) / 3, 2), #===> Key Literary Elements 최종계산값
+        'emotion_result' : emotion_result # 감성분석 결과 추출
     }
     return data
 
@@ -1320,7 +1639,8 @@ def key_literary_element(essay_input):
 # input College Supp Essay 
 essay_input = """I inhale deeply and blow harder than I thought possible, pushing the tiny ember from its resting place on the candle out into the air. The room erupts around me, and 'Happy Birthday!' cheers echo through the halls. It's time to make a wish. In my mind, that new Limited Edition Deluxe Ben 10 watch will soon be mine. My parents and the aunties and uncles around me attempt to point me in a different direction. 'Wish that you get to go to the temple every day when you're older! Wish that you memorize all your Sanskrit texts before you turn 6! Wish that you can live in India after college!' My ears listen, but my mind tunes them out, as nothing could possibly compare to that toy watch! What I never realized on my third birthday is that those wishes quietly tell the story of how my family hopes my life will play out. In this version of my life, there wasn't much room for change, personal growth, or 'rocking the boat.' A vital aspect of my family's cultural background is their focus on accepting things as they are. Growing up, I was discouraged from questioning others or asking questions that didn't have definitive yes or no answers. If I innocently asked my grandma why she expected me to touch her feet, my dad would grab my hand in a sudden swoop, look me sternly in the eye, and tell me not to disrespect her like that again. At home, if I mentioned that I had tried eggs for breakfast at a friend's house, I'd be looked at like I had just committed a felony for eating what my parents considered meat. If I asked the priest at the temple why he had asked an Indian man and his white wife to leave, I'd be met with a condescending glare and told that I should also leave for asking such questions.In direct contrast, my curiosity was invited and encouraged at school. After an environmental science lesson, I stayed for a few minutes after class to ask my 4th-grade science teacher with wide eyes how it was possible that Niagara Falls doesn't run out of flowing water. Instead of scolding me for asking her a 'dumb question,' she smiled and explained the intricacy of the water cycle. Now, if a teacher mentions that we'll learn about why a certain proof or idea works only in a future class, I'll stay after to ask more or pour through an advanced textbook to try to understand it. While my perspective was widening at school, the receptiveness to raising complex questions at home was diminishing. After earning my driver's license, I registered as an organ donor. My small checkmark on a piece of paper led to an intense clash between my and my parents' moral platform. I wanted to ensure that I positively contributed to society, while my parents believed that organ donation was an unfamiliar and unnecessary cultural taboo. I would often ask for clarity or for reasons that supported their ideologies. Their response would usually entail feeling a deep, visceral sense that traditions must be followed exactly as taught, without objection. Told in one language to keep asking questions and in another to ask only the right ones, I chose exploring questions that don't have answers, rather than accepting answers that don't get questioned. When it comes to the maze of learning, even when I take a wrong turn and encounter roadblocks that are meant to stop me, I've learned to climb over them and keep moving forward. My curiosity strengthens with each hurdle and has expanded into a pure love of learning new things. I've become someone who seeks to understand things at a fundamental level and who finds excitement in taking on big questions that have yet to be solved. I'm no longer afraid to rock the boat. "},{"index":1,"personal_essay":"Ever since I first held a small foam Spiderman basketball in my tiny hands and watched my idol Kobe Bryant hit every three-pointer he attempted, I've wanted to understand and replicate his flawless jump shot. As my math education progressed in school, I began to realize I had the tools to create a perfect shot formula. After learning about variables for the first time in 5th grade Algebra, I began to treat each aspect of Kobe's jump shot as a different variable, each combination of variables resulting in a unique solution. While in 7th-grade geometry, I graphed the arc of his shot, and after learning about quadratic equations in 8th grade, I expressed his shot as a parabolic function that would ensure a swish when shooting from any spot. After calculus lessons in 10th and 11th grade, I was excited to finally solve for the perfect velocity and acceleration needed on my release. At Brown, I hope to explore this intellectual pursuit through a different lens. What if I could maximize the odds of making shots if I understood the science behind one's mental mindset and focus through CLPS 500: Perception and Action? Or use astrophysics to account for drag and gravitational force anywhere in the universe? Or use data science to break down the analytics of the NBA's best shooters? Through the Open Curriculum, I see myself not only becoming a more complete learner, but also a more complete thinker, applying a flexible mindset to any problem I encounter. Brown's Open Curriculum allows students to explore broadly while also diving deeply into their academic pursuits. Tell us about an academic interest (or interests) that excites you, and how you might use the Open Curriculum to pursue it. I've been playing the Mridangam since I was five years old. It's a simple instrument: A wood barrel covered on two ends by goatskin with leather straps surrounding the hull. This instrument serves as a connection between me and one of the most beautiful aspects of my culture: Carnatic music. As a young child, I'd be taken to the temple every weekend for three-hour-long Carnatic music concerts, where the most accomplished teenagers and young adults in our local Indian community would perform. I would watch in awe as the mridangists' hands moved gracefully, flowing across the goatskin as if they weren't making contact, while simultaneously producing sharp rhythmic patterns that never failed to fall on the beat. Hoping to be like these idols on the stage, I trained intensely with my teacher, a strict man who taught me that the simple drum I was playing had thousands of years of culture behind it. Building up from simple strokes, I realized that the finger speed I'd had been awestruck by wasn't some magical talent, it was instead a science perfected by repeated practice."""
 
-print("result : ", key_literary_element(essay_input))
+print("result : ", key_literary_element(essay_input,'Meaningful experience & lesson learned'))
+print('key literary elements : ', key_literary_element(essay_input, 'Meaningful experience & lesson learned').get('key_literary_elements'))
 
 # 'plot_conf_result': 51.06, 
 # 'plot_n_conflict_word_for_web': ['odds', 'contrast', 'clash', 'different'], 
@@ -1329,7 +1649,11 @@ print("result : ", key_literary_element(essay_input))
 # 'setting_words_list': ['India', 'a few minutes', 'three-hour-long', 'into', 'down', 'college', 'mine', 'house', 'climb', 'keep', 'over', 'through', 'up', 'rock', 'temple', 'room', 'in', 'home', 'turn', 'behind', 'maze', 'before', 'on', 'wood', 'falls', 'by', 'from', 'since', 'to', 'after'], 
 # 'setting_re_value': 40,
 # 'key_literary_elements': 53.02} ==================> Meaningful experience & lesson learned을 계산하기 위해서는 이 값을 40% 적용한다. 
+# 'emotion_result' : emotion_result # 감성분석 결과 추출
 
-
+####  Prompt Oriented Sentiments ####
+# 2) Prompt Oriented Sentiments (20%):
+# Main: realization, approval, admiration, gratitude
+# Sub (가산점): confusion, disappointment, caring
 
 
