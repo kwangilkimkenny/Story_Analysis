@@ -765,8 +765,6 @@ def ai_plot_conf(essay_input_):
     st_input = numpy.std(de_flt_list_) # 표준편차 ----> 이 값으로 계산
     print("Plot Complxity :", st_input )
 
-    global plot_comp_ratio
-
     plot_comp_ratio = round(st_input, 2)
     
     
@@ -776,12 +774,16 @@ def ai_plot_conf(essay_input_):
     print("======================      Degree of Conflict   ==============================")
     print("===============================================================================")
 
-    
+    # Accepted Student Score mean
+    accepted_st_score_mean = [50, 10]
+
+    # 웹에 표시할 컨플릭 단어들(중복제거하였음)
+    count_conflict_words_uniqute_list = list(set(count_conflict_list))
     # return 값 설명  ====  
     # plot plot_comp_ratio :plot_comp_ratio
-    # emotion rollercoster: result_emo_swings
     # degree of conflict: conflict_word_ratio
-    return plot_comp_ratio, result_emo_swings, conflict_word_ratio
+    # count_conflict_list : 웹에 표시할 conflict words
+    return plot_comp_ratio, conflict_word_ratio, count_conflict_words_uniqute_list
 
 
 # 이 값을 백업용으로 남겨둠
