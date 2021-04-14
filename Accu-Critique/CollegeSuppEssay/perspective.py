@@ -1,5 +1,6 @@
 # Perspective 분석 - 나의 관점, 나의 의견을 표현하는 문구 분석
 # 전체 문장에 위 표현이 얼마나 표현되어 있는지 계산하고, 합격생들의 전체 평균값과 비교하여 최종 결과를 수치로 계산
+
 import re
 import nltk
 import numpy as np
@@ -46,7 +47,7 @@ def getPerspectiveWD(essay_input):
     flatten_dic_list = [y for x in preprossed_sent_all for y in x]
 
     # Perspective words
-    academicVerbs = ['seems','point','magnificent','confident','given','superior','notably','seen','subject','total','beautiful',
+    perspective = ['seems','point','magnificent','confident','given','superior','notably','seen','subject','total','beautiful',
                     'repeatedly','come','either','position','sound','mean','light','think?','usually','delicious','rightly','reaction','wicked',
                     'expert','it’s','doubtless','evidence','go','surely','really','methinks','cannot','matter.','giving','sure','naturally',
                     'carelessly','fabulous','ask','said','estimation','quite','large','typically','complete','unexpected','never','suppose',
@@ -84,7 +85,8 @@ def getPerspectiveWD(essay_input):
                     'This proves that the','supports the idea that','Although ','It seems to me that','In my opinion,','I am of the opinion that','I take the view that',
                     'My personal view is that','In my experience','As far as I understand','As far as I can see','As I see it','From my point of view','As far as I know',
                     'From what I know','I might be wrong but','If I am not mistaken','I believe one can say','I believe one can safely say','I cannot deny that',
-                    'I can imagine that','I think/believe/suppose','Personally, I think','That is why I think','I am sure/certain/convinced that','I am not sure/certain, but',
+                    'I can imagine that','I think/believe/suppose','Personally, I think','That is why I think','I am sure that','I am certain that','I am convinced that',
+                    'I am not sure, but', 'I am not certain, but',
                     "I am not sure, because I don't know the situation exactly",'I am not convinced that','I have read that','I am of mixed opinions about',
                     'I am of mixed opinions on','It is obvious that','It is certain that','One can say that','It is clear that','There is no doubt that','The fact is that',
                     'The point is that','The main point is that','This proves that','What it comes down to is that','I am of mixed opinions on this',
@@ -142,8 +144,9 @@ def getPerspectiveWD(essay_input):
     sentence_lower = ['in my opinion','i believe','in my mind','it would seem that','it could be argued that','the evidence suggests that','this proves that the','supports the idea that',
                     'although ','it seems to me that','in my opinion,','i am of the opinion that','i take the view that','my personal view is that','in my experience','as far as i understand',
                     'as far as i can see','as i see it','from my point of view','as far as i know','from what i know','i might be wrong but','if i am not mistaken','i believe one can say',
-                    'i believe one can safely say','i cannot deny that','i can imagine that','i think/believe/suppose','personally, i think','that is why i think','i am sure/certain/convinced that',
-                    'i am not sure/certain, but',"i am not sure, because i don't know the situation exactly",'i am not convinced that','i have read that','i am of mixed opinions about',
+                    'i believe one can safely say','i cannot deny that','i can imagine that','i believe','i think', 'i suppose','personally, i think','that is why i think','i am sure that',
+                    'i am certain that','i am convinced that','i am convinced that','i am not sure, but','i am not certain, but',
+                    "i am not sure, because i don't know the situation exactly",'i am not convinced that','i have read that','i am of mixed opinions about',
                     'i am of mixed opinions on','it is obvious that','it is certain that','one can say that','it is clear that','there is no doubt that','the fact is that','the point is that',
                     'the main point is that','this proves that','what it comes down to is that','i am of mixed opinions on this','i am of mixed opinions about this','i have no opinion in this matter',
                     'it is claimed that','i must admit that','in my opinion','from my point of view','in my view','as i see','i think','my mind','as i see it','from my standpoint','i believe',
@@ -170,21 +173,21 @@ def getPerspectiveWD(essay_input):
                     'i guess','i have no doubt that','i’m certain that','i strongly believe that','i’ve never really thought about this before, but','my personal opinion is that',
                     'personally, my opinion is that ','to be honest','in my honest opinion, ','as far as i know, ','i agree with the opinion of ','i could be wrong, but ','i’d definitely say that',
                     'i’d guess that ','i’d imagine that ','i’d say that','i’m absolutely certain that','i’m fairly confident that','i’m no expert, but','i’m no expert on this, but ','i’m positive that',
-                    'i’m pretty sure that','it seems to me that','it’s a complicated/difficult issue, but','my view is','my view on this is','my point of view on this is','my point of view is',
+                    'i’m pretty sure that','it seems to me that','it’s a complicated issue, but','it’s a difficult issue, but','my view is','my view on this is','my point of view on this is','my point of view is',
                     'obviously,','to the best of my knowledge,','what i think is','you could say','my opinion was best expressed by ','in my limited experience','it could/might well be that',
                     'know what i think? ','in my opinion','in my eyes','to my mind','as far as i am concerned','speaking personally','from my point of view','as for me','as to me','my view is that',
                     'my opinion is that','my beliefis that','my impression is that','my conviction is that','i hold the view that','i am sure','i am certain that ','some people may disagree with me, but',
                     'this is just my opinion, but','without a doubt,','you probably won’t agree, but','after much thought,','after weighing up both sides of the argument',
                     'although i can see both points of view','although i can understand the opposite point of view','as i see it,','correct me if i’m wrong, but','for me','from my point of view',
                     'frankly,','i am not very familiar with this topic, but','i do believe','i do feel','i do think','i have come to the conclusion that','i might change my mind later, but',
-                    'i suppose','i reckon','i tend to think thaㅅ','i’m not sure i’m the right person to ask, but','i have very limited experience of this, but','i’m pretty confident that',
+                    'i suppose','i reckon','i tend to think that','i’m not sure i’m the right person to ask, but','i have very limited experience of this, but','i’m pretty confident that',
                     'i’ve always thought that','if you ask me,',"i'm convinced that","i'm absolutely convinced that",'in my humble opinion','imho','it could be said that','it seems clear to me that',
-                    'it would seem to me that','my initial reaction is','not everyone will/would agree with me, but','personally speaking','speaking for myself','i would say that',
+                    'it would seem to me that','my initial reaction is','not everyone will agree with me, but','not everyone would agree with me, but','personally speaking','speaking for myself','i would say that',
                     'it seems to me that','i am of the opinion that','my impression is that','i am under the impression that','it is my impression that','i have the feeling that',
                     'my own feeling on the subject is that','i have no doubt that','my view this issue is clear','my position on this issue is that','my view on this is that','off the top of my head',
                     'plainly','quite frankly','there is a part of me that says','this may well be controversial, but','to my mind','to my way of thinking','to summarise my views on the matter',
                     'to summarise my rather complex views on the matter','what i always say is','with some reservations','without a shred/shadow of doubt',
-                    'you’d have to be crazy not to agree thatany idiot can see that','after giving this matter some (serious) thought',"as far as i'm concerned",'as the old saying goes',
+                    'you’d have to be crazy not to agree thatany idiot can see that','after giving this matter some serious thought',"as far as i'm concerned",'as the old saying goes',
                     'having given this question due consideration','i am of the opinion that','i can’t help thinking that','i know this is a minority view, but ','i’m in the minority in thinking that',
                     'i tend towards the opinion that','i think it’s reasonable to say','i think it’s fair to say','i’ll tell you what i think','i’m quite convinced that',
                     'i’m entirely convinced that','i’ve come the conclusion that','if i must come up with an opinion','if you want my opinion,','the way i see it is',
@@ -198,7 +201,7 @@ def getPerspectiveWD(essay_input):
 
 
     # 전체 문장에서 사용 비율 계산
-    #sentence_usage_ratio = round((len(ext_used_words_list) / len(perspective_words)) * 100, 2)
+    # sentence_usage_ratio = round((len(ext_used_words_list) / len(perspective_words)) * 100, 2)
     
     return sentence_usage_ratio
 
