@@ -12,8 +12,8 @@ from nltk.corpus import stopwords
 stop = stopwords.words('english')
 
 
-# Get Perspective
-def getPerspectiveWD(essay_input):
+# preprocessing
+def preprocessing(essay_input):
     essay_input_corpus = str(essay_input) #문장입력
     essay_input_corpus = essay_input_corpus.lower()#소문자 변환
     #print('essay_input_corpus :', essay_input_corpus)
@@ -28,6 +28,9 @@ def getPerspectiveWD(essay_input):
         processed = re.sub("[^a-zA-Z]"," ", sentence)
         words = processed.split()
         split_sentences.append(words)
+
+    # 총 문장수 곗한
+    split_sentences_cnt = len(split_sentences)
 
 
     lemmatizer = WordNetLemmatizer()
@@ -46,12 +49,42 @@ def getPerspectiveWD(essay_input):
     # preprossed_sent_all 이중 리스트를 flatten하게 만들고, 여기에서 Perspective를 카운트해서 비교 계산하면 됨
     flatten_dic_list = [y for x in preprossed_sent_all for y in x]
 
-    # Perspective words
+        
+    input_essay_words = flatten_dic_list
+    #print('input_essay_words:', input_essay_words)
+
+
+    # 문장들을 문장리스트로 분해하고 다시 각 문장을 단어 리스트로 분해하여 이중리스트를 만든다.
+    def double_list(essay_input_data):
+        result = essay_input_data.split(".")
+
+        wdt_sents = []
+        for i in result:
+            wdt = word_tokenize(i)
+            wdt_sent = []
+            for j in wdt:
+                lw_wdt = j.lower() # 소문자 변환
+                wdt_sent.append(lw_wdt)
+            wdt_sents.append(wdt_sent)
+        return wdt_sents
+
+    get_double_list = double_list(essay_input)
+
+    # 결과 해석 #
+    # input_essay_words : 입력한 에세이를 단어로 분해한 것 type: list
+    # split_sentences_cnt : 입력한 총 문장의 수
+    # get_double_list : 문장들을 문장리스트로 분해하고 다시 각 문장을 단어 리스트로 분해하여 이중리스트
+    return input_essay_words, split_sentences_cnt, get_double_list
+
+# 입력한 문장을 단어로 바꾼(words_list_input) 후, Perspective를 카운트해서 비교 계산하자
+# wdt_sents_essay : 입력문장을 리스트로 변환한 값
+def compare(words_list_input, essay_input):
+    # Perspective words로 비교할 단어다
     perspective = ['seems','point','magnificent','confident','given','superior','notably','seen','subject','total','beautiful',
                     'repeatedly','come','either','position','sound','mean','light','think?','usually','delicious','rightly','reaction','wicked',
                     'expert','it’s','doubtless','evidence','go','surely','really','methinks','cannot','matter.','giving','sure','naturally',
                     'carelessly','fabulous','ask','said','estimation','quite','large','typically','complete','unexpected','never','suppose',
-                    'may','care','reckon','...','unforeseeable','minority','complex','lovely','believe','superb','maybe','primarily','mind',
+                    'may','care','reckon','unforeseeable','minority','complex','lovely','believe','superb','maybe','primarily','mind',
                     'observed','possibly','generally','probably','consideration','safely','picturesque','like','great','likely','imagine',
                     'consider','bet','standpoint','it’s','sheer','wisely','undoubtedly','prof','tell','opposite',"i'd",'suggests','i’d',
                     'initial','incredibly','simply','deadly','main','merely','amazingly','adverbs','staggering','idea','sensational','dare',
@@ -193,21 +226,82 @@ def getPerspectiveWD(essay_input):
                     'i’m entirely convinced that','i’ve come the conclusion that','if i must come up with an opinion','if you want my opinion,','the way i see it is',
                     'if you really want my opinion,','the way i see it','to be frank','to be perfectly frank','i think that','i consider that','i find  that','i feel that','i believe that',
                     'i suppose that','i presume that','i assume that','i hold the opinion that','i dare say that','i guess that','i bet that','i gather that','it goes without saying that']
-    
-    perspective_words = flatten_dic_list
 
+
+    # 문장들을 문장리스트로 분해하고 다시 각 문장을 단어 리스트로 분해하여 이중리스트를 만드는 Method
+    def sents_to_sent_list(sentence_lower):
+        wdt_sents = []
+        for i in sentence_lower:
+            wdt = word_tokenize(i)
+            wdt_sent = []
+            for j in wdt:
+                lw_wdt = j.lower() # 소문자 변환
+                wdt_sent.append(lw_wdt)
+            wdt_sents.append(wdt_sent)
+
+        return wdt_sents
+
+
+    comp_sents = sents_to_sent_list(sentence_lower)  # [['in', 'my', 'opinion'], ['i', 'believe'],['in', 'my', 'mind'],....
+    wwd = preprocessing(essay_input) # wwd[2] 의 결과를 아래에 넣음
+
+    # 비교하려는 표현이 들어있는 문장을 찾기 위해서
+    # 각 표현의 문장과 에세이 문장을 비교하여 겹치는 단어 수가 정확히 표현문장과 일치할 때, 원본 문장을 추출한다.
+    get_matching_sents_all = [] #표현이 포함된 문장 추출되어 리스트에 담김
+    for sent in comp_sents: # 비교하고자 하는 문구를 리스트로 분리한 리스트집합
+        for e in sent: # 문구별로 하나씩 가져와서, 개발 리스트의 값(단어)
+            for itm in wwd[2]: # 에세이의 한 문장을 리스트로 분리한 값
+                cnt = 0 #카운터 초기화
+                get_matching_sents = []
+                if e in itm: # 에세이 문장에, 비교 문구의 단어가 있다면, 카운트를 해서
+                    cnt += 1
+                    if cnt == len(sent)-2: #일치하는 단어가 비교하려는 문구의 단어 수와 같다면, 해당 비교 문장(단어 리스트로 묶인 문장)을 별도로 저장한다.
+                        get_matching_sents.append(itm)
+                    else:
+                        pass
+                get_matching_sents_all.append(get_matching_sents)
+
+    # 빈 리스트 없애기 - 이중리스트 삭제하고
+    get_mat_org_sents = [y for x in get_matching_sents_all for y in x] 
+
+    # 각 리스트를 개별 문장으로 복원한 리스트로 변환
+    full_snt_re = []
+    for lit in get_mat_org_sents:
+        full_snt = ' '.join(lit)
+        full_snt_re.append(full_snt)
+    # 추출한 최종 문장 - 이것은 비교분석하고자하는 문장이 포함된 문장이다.
+    result_re = list(set(full_snt_re))
+    print('추출한 최종 문장 - 이것은 비교분석하고자하는 문장이 포함된 문장:', result_re)
+    # perstive의 관련 단어가 포함된 문장의 수
+    tot_cnt_perspective_exp = len(result_re)
+    print('perstive의 관련 단어가 포함된 문장의 수:', tot_cnt_perspective_exp)
+
+    # perspective 문장들(대문자, 소문자포함)
     perspective_sentences = sentences_capital + sentence_lower
 
+    input_essay_wds = preprocessing(essay_input)
+
+    # 입력한 에세이의 총 문장 수 
+    tot_sent_num = input_essay_wds[1]
+    print('입력한 에세이의 총 문장 수: ', tot_sent_num)
 
 
     # 전체 문장에서 사용 비율 계산
-    # sentence_usage_ratio = round((len(ext_used_words_list) / len(perspective_words)) * 100, 2)
-    
+    sentence_usage_ratio = round((tot_cnt_perspective_exp / tot_sent_num) * 100, 2)
+
     return sentence_usage_ratio
 
 
-
+def getPerspectiveWD(essay_input):
+    prepro_re = preprocessing(essay_input)
+    comp_re = compare(prepro_re[0],essay_input)
+    return comp_re
 
 
 # input College Supp Essay 
 essay_input = """I inhale deeply and blow harder than I thought possible, pushing the tiny ember from its resting place on the candle out into the air. The room erupts around me, and 'Happy Birthday!' cheers echo through the halls. It's time to make a wish. In my mind, that new Limited Edition Deluxe Ben 10 watch will soon be mine. My parents and the aunties and uncles around me attempt to point me in a different direction. 'Wish that you get to go to the temple every day when you're older! Wish that you memorize all your Sanskrit texts before you turn 6! Wish that you can live in India after college!' My ears listen, but my mind tunes them out, as nothing could possibly compare to that toy watch! What I never realized on my third birthday is that those wishes quietly tell the story of how my family hopes my life will play out. In this version of my life, there wasn't much room for change, personal growth, or 'rocking the boat.' A vital aspect of my family's cultural background is their focus on accepting things as they are. Growing up, I was discouraged from questioning others or asking questions that didn't have definitive yes or no answers. If I innocently asked my grandma why she expected me to touch her feet, my dad would grab my hand in a sudden swoop, look me sternly in the eye, and tell me not to disrespect her like that again. At home, if I mentioned that I had tried eggs for breakfast at a friend's house, I'd be looked at like I had just committed a felony for eating what my parents considered meat. If I asked the priest at the temple why he had asked an Indian man and his white wife to leave, I'd be met with a condescending glare and told that I should also leave for asking such questions.In direct contrast, my curiosity was invited and encouraged at school. After an environmental science lesson, I stayed for a few minutes after class to ask my 4th-grade science teacher with wide eyes how it was possible that Niagara Falls doesn't run out of flowing water. Instead of scolding me for asking her a 'dumb question,' she smiled and explained the intricacy of the water cycle. Now, if a teacher mentions that we'll learn about why a certain proof or idea works only in a future class, I'll stay after to ask more or pour through an advanced textbook to try to understand it. While my perspective was widening at school, the receptiveness to raising complex questions at home was diminishing. After earning my driver's license, I registered as an organ donor. My small checkmark on a piece of paper led to an intense clash between my and my parents' moral platform. I wanted to ensure that I positively contributed to society, while my parents believed that organ donation was an unfamiliar and unnecessary cultural taboo. I would often ask for clarity or for reasons that supported their ideologies. Their response would usually entail feeling a deep, visceral sense that traditions must be followed exactly as taught, without objection. Told in one language to keep asking questions and in another to ask only the right ones, I chose exploring questions that don't have answers, rather than accepting answers that don't get questioned. When it comes to the maze of learning, even when I take a wrong turn and encounter roadblocks that are meant to stop me, I've learned to climb over them and keep moving forward. My curiosity strengthens with each hurdle and has expanded into a pure love of learning new things. I've become someone who seeks to understand things at a fundamental level and who finds excitement in taking on big questions that have yet to be solved. I'm no longer afraid to rock the boat. "},{"index":1,"personal_essay":"Ever since I first held a small foam Spiderman basketball in my tiny hands and watched my idol Kobe Bryant hit every three-pointer he attempted, I've wanted to understand and replicate his flawless jump shot. As my math education progressed in school, I began to realize I had the tools to create a perfect shot formula. After learning about variables for the first time in 5th grade Algebra, I began to treat each aspect of Kobe's jump shot as a different variable, each combination of variables resulting in a unique solution. While in 7th-grade geometry, I graphed the arc of his shot, and after learning about quadratic equations in 8th grade, I expressed his shot as a parabolic function that would ensure a swish when shooting from any spot. After calculus lessons in 10th and 11th grade, I was excited to finally solve for the perfect velocity and acceleration needed on my release. At Brown, I hope to explore this intellectual pursuit through a different lens. What if I could maximize the odds of making shots if I understood the science behind one's mental mindset and focus through CLPS 500: Perception and Action? Or use astrophysics to account for drag and gravitational force anywhere in the universe? Or use data science to break down the analytics of the NBA's best shooters? Through the Open Curriculum, I see myself not only becoming a more complete learner, but also a more complete thinker, applying a flexible mindset to any problem I encounter. Brown's Open Curriculum allows students to explore broadly while also diving deeply into their academic pursuits. Tell us about an academic interest (or interests) that excites you, and how you might use the Open Curriculum to pursue it. I've been playing the Mridangam since I was five years old. It's a simple instrument: A wood barrel covered on two ends by goatskin with leather straps surrounding the hull. This instrument serves as a connection between me and one of the most beautiful aspects of my culture: Carnatic music. As a young child, I'd be taken to the temple every weekend for three-hour-long Carnatic music concerts, where the most accomplished teenagers and young adults in our local Indian community would perform. I would watch in awe as the mridangists' hands moved gracefully, flowing across the goatskin as if they weren't making contact, while simultaneously producing sharp rhythmic patterns that never failed to fall on the beat. Hoping to be like these idols on the stage, I trained intensely with my teacher, a strict man who taught me that the simple drum I was playing had thousands of years of culture behind it. Building up from simple strokes, I realized that the finger speed I'd had been awestruck by wasn't some magical talent, it was instead a science perfected by repeated practice."""
+
+## run ##
+
+result = getPerspectiveWD(essay_input)
+print('result:',result)
