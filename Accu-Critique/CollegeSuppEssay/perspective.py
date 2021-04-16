@@ -2,6 +2,7 @@
 # 전체 문장에 위 표현이 얼마나 표현되어 있는지 계산하고, 합격생들의 전체 평균값과 비교하여 최종 결과를 수치로 계산
 
 import re
+import string
 import nltk
 import numpy as np
 import pandas as pd
@@ -12,16 +13,17 @@ from nltk.corpus import stopwords
 stop = stopwords.words('english')
 
 
+
 # preprocessing
 def preprocessing(essay_input):
     essay_input_corpus = str(essay_input) #문장입력
-    essay_input_corpus = essay_input_corpus.lower()#소문자 변환
+    essay_input_corpus_ = essay_input_corpus.lower()#소문자 변환
     #print('essay_input_corpus :', essay_input_corpus)
 
-    sentences  = sent_tokenize(essay_input_corpus) #문장 토큰화 > 문장으로 구분
+    sentences  = sent_tokenize(essay_input_corpus_) #문장 토큰화 > 문장으로 구분
     total_sentences = len(sentences)#토큰으로 처리된 총 문장 수
-    total_words = word_tokenize(essay_input_corpus)
-    total_words_num = len(word_tokenize(essay_input_corpus))# 총 단어수
+    total_words = word_tokenize(essay_input_corpus_)
+    total_words_num = len(word_tokenize(essay_input_corpus_))# 총 단어수
     #print(total_words)
     split_sentences = []
     for sentence in sentences:
@@ -246,7 +248,7 @@ def compare(words_list_input, essay_input):
     wwd = preprocessing(essay_input) # wwd[2] 의 결과를 아래에 넣음
 
     # 비교하려는 표현이 들어있는 문장을 찾기 위해서
-    # 각 표현의 문장과 에세이 문장을 비교하여 겹치는 단어 수가 정확히 표현문장과 일치할 때, 원본 문장을 추출한다.
+    # 각 표현의 문장과 에세이 문장을 비교하여 겹치는 단어 수가 정확히 표현문장과 일치할 때, 원본 문장을 생성한다.
     get_matching_sents_all = [] #표현이 포함된 문장 추출되어 리스트에 담김
     for sent in comp_sents: # 비교하고자 하는 문구를 리스트로 분리한 리스트집합
         for e in sent: # 문구별로 하나씩 가져와서, 개발 리스트의 값(단어)
@@ -271,10 +273,37 @@ def compare(words_list_input, essay_input):
         full_snt_re.append(full_snt)
     # 추출한 최종 문장 - 이것은 비교분석하고자하는 문장이 포함된 문장이다.
     result_re = list(set(full_snt_re))
-    print('추출한 최종 문장 - 이것은 비교분석하고자하는 문장이 포함된 문장:', result_re)
+    #print('추출한 최종 문장 - 이것은 비교분석하고자하는 문장이 포함된 문장:', result_re)
     # perstive의 관련 단어가 포함된 문장의 수
     tot_cnt_perspective_exp = len(result_re)
-    print('perstive의 관련 단어가 포함된 문장의 수:', tot_cnt_perspective_exp)
+    #print('perstive의 관련 단어가 포함된 문장의 수:', tot_cnt_perspective_exp)
+
+    get_sentences_of_perspective_exp = [] # perspectiv 표현이 적용된 문장 '생성'! 여기에 사용된 문장을 단어로 구분하여 원본문장을 찾아서 웹이 표시하자
+    for line in result_re:
+        a = line[0].capitalize() # capitalize the first word of sentence  - 문장의 첫 단어를 대문자로 변환
+        for i in range(1, len(line)):
+            a = a + line[i] 
+        #print('첫 단어를 대문자로 변환한 문장 리스트: ', a)
+        get_sentences_of_perspective_exp.append(a)
+
+    # 생성된 문장으로 원본 문장을 다시 찾아내는 코드 get_sentences_of_perspective_exp  -> 원본문장을 추출하자
+    # 그러기 위해서는 이중리스트로(문장별로 단어 리스트로 처리해야하니깨) 변환해야함
+    get_fin_sentences = sents_to_sent_list(get_sentences_of_perspective_exp) # 문장별로 리스트로 만듬. 즉, 2중리스트
+    print('get_fin_sentences:', get_fin_sentences) # 원본문장에서 get_fin_sentences 의 리스트 값을 비교하여 최소 단어가 4개이하로 일치하면 원본문장을 추출하여 저장하고, 최종 출력한다. 이것은 웹에 표시할거임
+
+    #### perspective 표현이 들어간 단어가 포함된 원본문장 찾기 ####
+    get_origin_sentences = [] 
+
+    #print('essay_input:', essay_input)
+    lines =  essay_input.split(".")
+    #print('lines:', lines)
+    for each_line in lines:
+        if each_line.find("get") > 0:
+            #print('each_line:', each_line)
+            get_origin_sentences.append(each_line)
+        else:
+            pass
+
 
     # perspective 문장들(대문자, 소문자포함)
     perspective_sentences = sentences_capital + sentence_lower
@@ -283,13 +312,13 @@ def compare(words_list_input, essay_input):
 
     # 입력한 에세이의 총 문장 수 
     tot_sent_num = input_essay_wds[1]
-    print('입력한 에세이의 총 문장 수: ', tot_sent_num)
+    #print('입력한 에세이의 총 문장 수: ', tot_sent_num)
 
 
-    # 전체 문장에서 사용 비율 계산
+    # 전체 문장에서 perspective 관련 단어 사용 비율 계산
     sentence_usage_ratio = round((tot_cnt_perspective_exp / tot_sent_num) * 100, 2)
 
-    return sentence_usage_ratio
+    return sentence_usage_ratio, get_origin_sentences
 
 
 def getPerspectiveWD(essay_input):
