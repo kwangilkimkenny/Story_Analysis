@@ -1,6 +1,9 @@
 # Perspective 분석 - 나의 관점, 나의 의견을 표현하는 문구 분석
 # 전체 문장에 위 표현이 얼마나 표현되어 있는지 계산하고, 합격생들의 전체 평균값과 비교하여 최종 결과를 수치로 계산
 
+# Perspective (20%) - 나의 관점, 나의 의견 표출
+# 로직: Opinion/Belief words (70%) + viewpoint adverbs (30%)  + emphasizing adjectives 
+
 import re
 import string
 import nltk
@@ -116,7 +119,16 @@ def compare(words_list_input, essay_input):
                     'concerned','exceptional','case','argument','actual','amazing','i’m','surprising','imposing','charming','entirely','hold',
                     'quite','pure','clearly','brilliant','sat','fairly','assessment','understand','surprisingly','seem','guess','generously',
                     'see','certainly','foolishly','whole','particular','perfect','wrong','issue','extremely','judgment','argued','frankly',
-                    'luckily','experience','feel','this.','frankly','saying','later','situation','unusual']
+                    'luckily','experience','feel','this','frankly','saying','later','situation','unusual']
+
+    viewpoint_wd = ['carelessly','bravely','definitely','clearly','circus','theoretically','silly','definitely','confidentially','stupidly','disappointingly','sally',
+                    'presumably','bravely','kindly','generously','definitely','silly','naturally','clearly','undoubtedly','obviously','kindly','theoretically',
+                    'personally','certainly','stupidly','unfortunately','personally','truthfully','thoughtfully','defintely','simply','seriously','foolishly','theoretically',
+                    'fortunately','obviously','cleverly','thoughtfully','surely','stupidly','sally','technically','confidentially','technically','fortunately','luckily',
+                    'undoubtedly','foolishly','surely','naturally','wisely','personally','naturally','wisely','thoughtfully',
+                    'carelessly','unfortunately','undoubtedly','presumably','clearly','generously','unbelievably','cleverly','obviously','carelessly','generously','wisely',
+                    'unbelievably','seriously','surely','technically','kindly','foolishly','presumably','truthfully','luckily','unfortunately','unbelievably','disappointingly',
+                    'seriously','disappointingly','bravely','confidentially','cleverly','truthfully','luckily','certainly','fortunately','certainly','simply']
 
     sentences_capital = ['In my opinion','I believe','In my mind','It would seem that ','It could be argued that','The evidence suggests that',
                     'This proves that the','supports the idea that','Although ','It seems to me that','In my opinion,','I am of the opinion that','I take the view that',
