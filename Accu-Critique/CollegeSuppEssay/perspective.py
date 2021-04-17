@@ -245,14 +245,30 @@ def compare(words_list_input, essay_input):
 
         return wdt_sents
 
+    # stop words를 제거한다. 그래야 결과가 정교해짐
+    def proprocess_2nd(input_split_sentences):
+        lemmatizer = WordNetLemmatizer()
+        preprossed_sent_all = [] # 문장별로 단어의 원형을 리스트로 구분하여 변화한 모든 문장값 [[문장],[문장..토큰화] ...
+        for i in input_split_sentences:
+            preprossed_sent = [] # 개별문장을 단어 원형으로 구성된 리스트[문장..토큰화]
+            for i_ in i:
+                if i_ not in stop: #remove stopword
+                    lema_re = lemmatizer.lemmatize(i_, pos='v') #표제어 추출, 동사는 현재형으로 변환, 3인칭 단수는 1인칭으로 변환
+                    if len(lema_re) > 3: # 단어 길이가 3 초과단어만 저장(길이가 3 이하는 제거)
+                        preprossed_sent.append(lema_re)
+            preprossed_sent_all.append(preprossed_sent)
+        return preprossed_sent_all
+
 
     comp_sents = sents_to_sent_list(sentence_lower)  # [['in', 'my', 'opinion'], ['i', 'believe'],['in', 'my', 'mind'],....
+    comp_sents_ = proprocess_2nd(comp_sents)
+
     wwd = preprocessing(essay_input) # wwd[2] 의 결과를 아래에 넣음
 
     # 비교하려는 표현이 들어있는 문장을 찾기 위해서
     # 각 표현의 문장과 에세이 문장을 비교하여 겹치는 단어 수가 정확히 표현문장과 일치할 때, 원본 문장을 생성한다.
     get_matching_sents_all = [] #표현이 포함된 문장 추출되어 리스트에 담김
-    for sent in comp_sents: # 비교하고자 하는 문구를 리스트로 분리한 리스트집합
+    for sent in comp_sents_: # 비교하고자 하는 문구를 리스트로 분리한 리스트집합
         for e in sent: # 문구별로 하나씩 가져와서, 개발 리스트의 값(단어)
             for itm in wwd[2]: # 에세이의 한 문장을 리스트로 분리한 값
                 cnt = 0 #카운터 초기화
@@ -350,7 +366,7 @@ def compare(words_list_input, essay_input):
 
     # 결과 #
     # sentence_usage_ratio : pespective 관련 표현 사용 비율 ???????????? 불용어를 제거해보자.. 쓸데없은 표현은 없애보면 좀 더 결과가 정교해짐
-    
+
     # get_origin_unique_sentences : perspective 표현이 사용된 원본문장 ----> 웹사이트에 표시해야 함
     # get_ps_sent_for_web_unique_re : perspective 표현을 준비한 lexicon을 이용해서 추출한 표현들 ---> lexicon을 이용하여 관련 표현이 있는 부분 추출, 이것도 웹사이트에 표시해야 함
     return sentence_usage_ratio, get_origin_unique_sentences, get_ps_sent_for_web_unique_re
@@ -373,7 +389,7 @@ result = getPerspectiveWD(essay_input)
 print('result:',result)
 
 
-# return 값 #
-# (86.0, 
+# return 값 예 #
+# (24.0,  
 # [" At home, if I mentioned that I had tried eggs for breakfast at a friend's house, ...  원본 문장이 주욱 추출됨"],  ----> 웹사이트에 표시해야 함
 # ['In my mind', 'my mind', 'my perspective'])  ---> lexicon을 이용하여 관련 표현이 있는 부분 추출, 이것도 웹사이트에 표시해야 함
