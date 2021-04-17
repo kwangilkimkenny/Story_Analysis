@@ -73,10 +73,12 @@ def preprocessing(essay_input):
     get_double_list = double_list(essay_input)
 
     # 결과 해석 #
-    # input_essay_words : 입력한 에세이를 단어로 분해한 것 type: list
+    # input_essay_words : 입력한 에세이를 단어로 분해한 것 type: list ------------> 이것만 사용함
     # split_sentences_cnt : 입력한 총 문장의 수
     # get_double_list : 문장들을 문장리스트로 분해하고 다시 각 문장을 단어 리스트로 분해하여 이중리스트
     return input_essay_words, split_sentences_cnt, get_double_list
+
+
 
 # 입력한 문장을 단어로 바꾼(words_list_input) 후, Perspective를 카운트해서 비교 계산하자
 # wdt_sents_essay : 입력문장을 리스트로 변환한 값
@@ -289,7 +291,7 @@ def compare(words_list_input, essay_input):
     # 생성된 문장으로 원본 문장을 다시 찾아내는 코드 get_sentences_of_perspective_exp  -> 원본문장을 추출하자
     # 그러기 위해서는 이중리스트로(문장별로 단어 리스트로 처리해야하니깨) 변환해야함
     get_fin_sentences = sents_to_sent_list(get_sentences_of_perspective_exp) # 문장별로 리스트로 만듬. 즉, 2중리스트
-    print('get_fin_sentences:', get_fin_sentences) # 원본문장에서 get_fin_sentences 의 리스트 값을 비교하여 최소 단어가 4개이하로 일치하면 원본문장을 추출하여 저장하고, 최종 출력한다. 이것은 웹에 표시할거임
+    #print('get_fin_sentences:', get_fin_sentences) # 원본문장에서 get_fin_sentences 의 리스트 값을 비교하여 최소 단어가 4개이하로 일치하면 원본문장을 추출하여 저장하고, 최종 출력한다. 이것은 웹에 표시할거임
 
     #### perspective 표현이 들어간 단어가 포함된 원본문장 찾기 ####
     get_origin_sentences = [] 
@@ -297,16 +299,44 @@ def compare(words_list_input, essay_input):
     #print('essay_input:', essay_input)
     lines =  essay_input.split(".")
     #print('lines:', lines)
-    for each_line in lines:
-        if each_line.find("get") > 0:
-            #print('each_line:', each_line)
-            get_origin_sentences.append(each_line)
+    for each_line in lines: # 원본문장에서 한 문장씩 꺼내서 반복해서 다 꺼내보자
+        for each_sentence in get_fin_sentences: # 단어의 리스토로 변환된 문장 하나를 가져와서 각 단어를 꺼내서 포함 여부를 비교한다. 
+            find_wd_cnt = 0 # 카운터 초기화
+            for each_wd in each_sentence:
+                #print('each_wd:', each_wd)
+                if each_line.find(each_wd) > 0: # 하나 이상 발견되면
+                    #print('each_line:', each_line)
+                    find_wd_cnt += 1
+                    #print('find_wd_cnt:', find_wd_cnt)
+                    if find_wd_cnt >= 7: # 문장에 7단어 이상이 겹치면 같은 문장으로 판단
+                        #print('each_line:', each_line)
+                        get_origin_sentences.append(each_line) # 해당 원본 문장을 저장한다.
+                    else:
+                        pass
+                else:
+                    pass
+
+    # 추출한 결과물 중복제거
+    get_origin_unique_sentences = list(set(get_origin_sentences))
+
+
+    # perspective 문장들(대문자, 소문자포함)  --- 이 값도 같은 부분 찾아내서 출력할 것  find 를 이용해서 일치하는 문자열 찾아내기
+    perspective_sentences = sentences_capital + sentence_lower # 찾고자하는 문자열 준비
+
+    get_ps_sent_for_web = [] # perspective_sentences 의 표현 기반 웹에 표현할 perspective 단어 수집
+    for perspective_each_expression in perspective_sentences:
+        if perspective_each_expression in essay_input:
+            get_ps_sent_for_web.append(perspective_each_expression)
         else:
             pass
 
+    print('get_ps_sent_for_web:', get_ps_sent_for_web)
+    # 최종 비교분석 결과  -- 웹에 표시함
+    get_ps_sent_for_web_unique_re = list(set(get_ps_sent_for_web))
 
-    # perspective 문장들(대문자, 소문자포함)
-    perspective_sentences = sentences_capital + sentence_lower
+
+
+
 
     input_essay_wds = preprocessing(essay_input)
 
@@ -318,12 +348,19 @@ def compare(words_list_input, essay_input):
     # 전체 문장에서 perspective 관련 단어 사용 비율 계산
     sentence_usage_ratio = round((tot_cnt_perspective_exp / tot_sent_num) * 100, 2)
 
-    return sentence_usage_ratio, get_origin_sentences
+    # 결과 #
+    # sentence_usage_ratio : pespective 관련 표현 사용 비율 ???????????? 불용어를 제거해보자.. 쓸데없은 표현은 없애보면 좀 더 결과가 정교해짐
+    
+    # get_origin_unique_sentences : perspective 표현이 사용된 원본문장 ----> 웹사이트에 표시해야 함
+    # get_ps_sent_for_web_unique_re : perspective 표현을 준비한 lexicon을 이용해서 추출한 표현들 ---> lexicon을 이용하여 관련 표현이 있는 부분 추출, 이것도 웹사이트에 표시해야 함
+    return sentence_usage_ratio, get_origin_unique_sentences, get_ps_sent_for_web_unique_re
 
 
+
+### 실행 함수 ###
 def getPerspectiveWD(essay_input):
-    prepro_re = preprocessing(essay_input)
-    comp_re = compare(prepro_re[0],essay_input)
+    prepro_re = preprocessing(essay_input) # 전처리
+    comp_re = compare(prepro_re[0],essay_input) # 계산
     return comp_re
 
 
@@ -334,3 +371,9 @@ essay_input = """I inhale deeply and blow harder than I thought possible, pushin
 
 result = getPerspectiveWD(essay_input)
 print('result:',result)
+
+
+# return 값 #
+# (86.0, 
+# [" At home, if I mentioned that I had tried eggs for breakfast at a friend's house, ...  원본 문장이 주욱 추출됨"],  ----> 웹사이트에 표시해야 함
+# ['In my mind', 'my mind', 'my perspective'])  ---> lexicon을 이용하여 관련 표현이 있는 부분 추출, 이것도 웹사이트에 표시해야 함
