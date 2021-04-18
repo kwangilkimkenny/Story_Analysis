@@ -7,12 +7,14 @@
 import re
 import string
 import nltk
+#nltk.download()
 import numpy as np
 import pandas as pd
 from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
+nltk.download('stopwords')
 stop = stopwords.words('english')
 
 
@@ -129,6 +131,8 @@ def compare(words_list_input, essay_input):
                     'carelessly','unfortunately','undoubtedly','presumably','clearly','generously','unbelievably','cleverly','obviously','carelessly','generously','wisely',
                     'unbelievably','seriously','surely','technically','kindly','foolishly','presumably','truthfully','luckily','unfortunately','unbelievably','disappointingly',
                     'seriously','disappointingly','bravely','confidentially','cleverly','truthfully','luckily','certainly','fortunately','certainly','simply']
+
+    emphasis_wd = ['absolute', 'complete', 'outright', 'pure', 'real', 'total', 'true', 'utter']
 
     sentences_capital = ['In my opinion','I believe','In my mind','It would seem that ','It could be argued that','The evidence suggests that',
                     'This proves that the','supports the idea that','Although ','It seems to me that','In my opinion,','I am of the opinion that','I take the view that',
@@ -349,7 +353,7 @@ def compare(words_list_input, essay_input):
 
 
     # perspective 문장들(대문자, 소문자포함)  --- 이 값도 같은 부분 찾아내서 출력할 것  find 를 이용해서 일치하는 문자열 찾아내기
-    perspective_sentences = sentences_capital + sentence_lower # 찾고자하는 문자열 준비
+    perspective_sentences = sentences_capital + sentence_lower + perspective + viewpoint_wd + emphasis_wd # 찾고자하는 문자열 준비
 
     get_ps_sent_for_web = [] # perspective_sentences 의 표현 기반 웹에 표현할 perspective 단어 수집
     for perspective_each_expression in perspective_sentences:

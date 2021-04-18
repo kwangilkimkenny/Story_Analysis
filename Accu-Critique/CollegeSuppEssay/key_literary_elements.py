@@ -1833,7 +1833,7 @@ def key_literary_element(essay_input, pmt_value):
         'setting_re_value' : setting_re_value, # 셋팅 계산 결과
         'key_literary_elements' : round((plot_conf_result[0] + character_result[0] + setting_re_value) / 3, 2), #===> Key Literary Elements 최종계산값
         'emotion_result' : emotion_result, # 감성분석 결과 추출
-        'originality' : cohe_score # 토픽이 모여있는지 분산되어 있느지를 계산
+        'originality' : cohe_score # 토픽이 모여있는지 분산되어 있는지를 계산
     }
     return data
 
