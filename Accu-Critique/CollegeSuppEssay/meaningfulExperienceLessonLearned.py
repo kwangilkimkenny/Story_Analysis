@@ -71,25 +71,95 @@ def MeaningFullExpreenceLessonLearened(essay_input):
     perspective_analysis_result_for_web = PS[1] + PS[2]
 
 
-# 웹에 표시해야 할 부분으로 Prompt Type: Meaningful experience & lesson learned 에서는 key literary elements는 아래 3개 plot & conflict, character, setting 관련 단어가 모두 표시되어야 한다. 
+    # 웹에 표시해야 할 부분으로 Prompt Type: Meaningful experience & lesson learned 에서는 key literary elements는 아래 3개 plot & conflict, character, setting 관련 단어가 모두 표시되어야 한다. 
     plot_n_conflict_word_for_web = key_literary_element(essay_input, 'Meaningful experience & lesson learned').get('plot_n_conflict_word_for_web')
     characgter_words_for_web = key_literary_element(essay_input, 'Meaningful experience & lesson learned').get('characgter_words_for_web')
     setting_words_list = key_literary_element(essay_input, 'Meaningful experience & lesson learned').get('setting_words_list')
 
+    # Comments 생성 부분
+    fixed_top_comment = """For meaningful experience and lessons learned, you may write about any occasion in your life as long as it had an impact on your life. One can assume that they are looking for a unique story, your own perspective, and a lesson that presented you with a positive outlook in life."""
+
+    # 입력데이터 타입 : keylitElemt, pmtOrigSent, Originality, perspective 중 한개와 get_value (점수)
+    def genComment(data_type, get_value):
+        if get_value == 'Superb' or get_value == 'Strong':
+            if data_type == 'keylitElemt':
+                meanFul_Len_comment = """A comprehensive review indicates that your story seems quite strong in terms of the key literary elements in general, such as character, plot & conflict, and setting."""
+            elif data_type == 'pmtOrigSent':
+                meanFul_Len_comment = """In addition, your writing effectively displays the sentiments closely correlated with positive life lessons."""
+            elif data_type == 'Originality':
+                meanFul_Len_comment = """Your story seems quite original and versatile since you successfully connect the dots between seemingly distant topics and ideas."""
+            elif data_type == "perspective":
+                meanFul_Len_comment = """Lastly, your perspective on the meaning and lesson seems very clear, considering your words of emphasis in the essay."""
+            else:
+                pass
+        elif get_value == 'Good':
+            if data_type == 'keylitElemt':
+                meanFul_Len_comment = """A comprehensive review indicates that your story seems satisfactory in terms of the key literary elements in general, such as character, plot & conflict, and setting."""
+            elif data_type == 'pmtOrigSent':
+                meanFul_Len_comment = """In addition, your writing seems to display some sentiments correlated with positive life lessons."""
+            elif data_type == 'Originality':
+                meanFul_Len_comment = """Your story seems original and interesting since you successfully connect the dots between various topics and ideas."""
+            elif data_type == "perspective":
+                meanFul_Len_comment = """Lastly, your perspective on the meaning and lesson seems clear enough, considering your words of emphasis in the essay."""
+            else:
+                pass
+        elif get_value == 'Mediocore' or 'Weak':
+            if data_type == 'keylitElemt':
+                meanFul_Len_comment = """A comprehensive review indicates that your story may need reinforcement on the key literary elements in general, such as character, plot & conflict, and setting."""
+            elif data_type == 'pmtOrigSent':
+                meanFul_Len_comment = """In addition, you may consider expressing the sentiments, such as gratitude, admiration, and realization, which are correlated with positive lessons in life."""
+            elif data_type == 'Originality':
+                meanFul_Len_comment = """You may consider including various topics and ideas to make your essay sound more original and interesting."""
+            elif data_type == "perspective":
+                meanFul_Len_comment = """Lastly, you may consider elaborating further on your beliefs and opinions to solidify your viewpoint further."""
+            else:
+                pass
+
+        return meanFul_Len_comment
+
+    # comment generator
+    KLE_comment = genComment('keylitElemt', KeyKiterElement_score)
+    keylitElemt_comment = genComment('pmtOrigSent', PromptOriented_score)
+    Originality_comment = genComment('Originality', Originality_score)
+    perspective_comment = genComment('perspective', Perspective_score)
+
 
     ### return 설명 ###
-    # overall_result_fin_re : overall score
-    # KeyKiterElement_score
-    # PromptOriented_score
-    # Originality_score
-    # Perspective_score
+    # 0. overall_result_fin_re : overall score
+    # 1. KeyKiterElement_score
+    # 2. PromptOriented_score
+    # 3. Originality_score
+    # 4. Perspective_score
 
-    # plot_n_conflict_word_for_web : 웹에 표시되는 단어 리스트
-    # characgter_words_for_web : 웹에 표시되는 단어 리스트
-    # setting_words_list : 웹에 표시되는 단어 리스트
-    # perspective_analysis_result_for_web :  웹에 표시되는 단어+문장 리스트
+    # 5. plot_n_conflict_word_for_web : 웹에 표시되는 단어 리스트
+    # 6. characgter_words_for_web : 웹에 표시되는 단어 리스트
+    # 7. setting_words_list : 웹에 표시되는 단어 리스트
+    # 8. perspective_analysis_result_for_web :  웹에 표시되는 단어+문장 리스트
 
-    return overall_score, KeyKiterElement_score, PromptOriented_score, Originality_score, Perspective_score, plot_n_conflict_word_for_web, characgter_words_for_web, setting_words_list, perspective_analysis_result_for_web
+    # 9. fixed_top_comment :  코멘트 생성
+    # 10. KLE_comment : 코멘트 생성
+    # 11. keylitElemt_comment : 코멘트 생성
+    # 12. Originality_comment : 코멘트 생성
+    # 13. perspective_comment : 코멘트 생성
+
+    data = {
+        'overall_score' : overall_score, 
+        'KeyKiterElement_score' : KeyKiterElement_score, 
+        'PromptOriented_score' : PromptOriented_score, 
+        'Originality_score': Originality_score, 
+        'Perspective_score': Perspective_score, 
+        'plot_n_conflict_word_for_web' : plot_n_conflict_word_for_web, 
+        'characgter_words_for_web' : characgter_words_for_web, 
+        'setting_words_list' : setting_words_list, 
+        'perspective_analysis_result_for_web' : perspective_analysis_result_for_web, 
+        'fixed_top_comment' : fixed_top_comment, 
+        'KLE_comment' : KLE_comment, 
+        'keylitElemt_comment' : keylitElemt_comment, 
+        'Originality_comment' : Originality_comment, 
+        'perspective_comment' : perspective_comment
+    }
+
+    return data
 
 
 

@@ -38,18 +38,23 @@ from sentence_similarity import sent_sim_analysis_with_bert_summarizer
 ### General Academic Knowledge ###
 from general_academic_knowledge import GeneralAcademicKnowledge
 
+### meaningfulExperienceLessonLearned.py
+from meaningfulExperienceLessonLearned import MeaningFullExpreenceLessonLearened
+
 
 def select_prompt_type(prompt_type):
     
     if prompt_type == 'Why us':
         pmt_typ = [""" 'Why us' school & major interest (select major, by college & department) """]
+        print('pmt_typ =================================>', pmt_typ)
         pmt_sentiment = ['Admiration', 'Excitement', 'Pride', 'Realization', 'Curiosity']
     elif prompt_type == 'Intellectual interest':
-        pmt_typ = [""]
+        pmt_typ = [""" Intellectual interest """]
+        print('pmt_typ =================================>', pmt_typ)
         pmt_sentiment = ['Curiosity', 'Realization']
     elif prompt_type == 'Meaningful experience & lesson learned':
-        pmt_typ = [""]
-        pmt_sentiment = ['']
+        pmt_typ = ["Meaningful experience & lesson learned"]
+        pmt_sentiment = ['Realization', 'Approval', 'Gratitude', 'Admiration']
     elif prompt_type ==  'Achievement you are proud of':
         pmt_typ = [""]
         pmt_sentiment = ['Realization', 'Approval', 'Gratitude', 'Admiration', 'Pride', 'Desire', 'Optimism']
@@ -261,6 +266,7 @@ def college_n_dept_fit(College_dept_data, Essay_input_data): # ----> 사용하�
 
 # Selected College 외 다양한 것을 계산하는 코드(최종계산코드)
 # 입력값:  대학, 전공 ex) ('Why us', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
+# 입력값:  대학, 전공 ex) ('Intellectual interest', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 def selected_college(select_pmt_type, select_college, select_college_dept, select_major, coll_supp_essay_input_data):
 
     pmt_sent_etc_re = select_prompt_type(select_pmt_type)
@@ -442,7 +448,29 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     intellectual_eng_re = commentsGen(intel_eng_score, 'Intellectual_Engagement')
 
 
+    ## meaningfulExperienceLessonLearned.py 의 코멘트 생성 부분
+    meanful_result = MeaningFullExpreenceLessonLearened(essay_input)
+    ### MeaningFullExpreenceLessonLearened(essay_input)의 return 값 설명 ###
+    # 0. overall_result_fin_re : overall score
+    # 1. KeyKiterElement_score
+    # 2. PromptOriented_score
+    # 3. Originality_score
+    # 4. Perspective_score
 
+    # 5. plot_n_conflict_word_for_web : 웹에 표시되는 단어 리스트
+    # 6. characgter_words_for_web : 웹에 표시되는 단어 리스트
+    # 7. setting_words_list : 웹에 표시되는 단어 리스트
+    # 8. perspective_analysis_result_for_web :  웹에 표시되는 단어+문장 리스트
+
+    # 9. fixed_top_comment :  코멘트 생성
+    # 10. KLE_comment : 코멘트 생성
+    # 11. keylitElemt_comment : 코멘트 생성
+    # 12. Originality_comment : 코멘트 생성
+    # 13. perspective_comment : 코멘트 생성
+
+
+
+    ### +++ 실행결과 설명 +++ ###
     # 0. gen_keywd_college : 선택한 대학의 General Keywords on college로 wordcloud로 출력됨
     # 1. gen_keywd_college_major : 선택 대학의 전공에 대한 keywords 를 WrodCloud 로 출력
     # 2. intended_mjr : intended major
@@ -459,6 +487,41 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     # 13. general_aca_comment_re : general academic knowledge 문장생성 부분
     # 14. pmt_ori_sentiments_re : sentiments 문장생성 부분
     # 15. intellectual_eng_re : intellectual enguagement 문장생성 부분
+    # 16. meanful_result : MeaningFullExpreenceLessonLearened(essay_input)의 return 값
+            #- MeaningFullExpreenceLessonLearened(essay_input)의 return 값 설명 ###
+            # 0. overall_result_fin_re : overall score
+            # 1. KeyKiterElement_score
+            # 2. PromptOriented_score
+            # 3. Originality_score
+            # 4. Perspective_score
+
+            # 5. plot_n_conflict_word_for_web : 웹에 표시되는 단어 리스트
+            # 6. characgter_words_for_web : 웹에 표시되는 단어 리스트
+            # 7. setting_words_list : 웹에 표시되는 단어 리스트
+            # 8. perspective_analysis_result_for_web :  웹에 표시되는 단어+문장 리스트
+
+            # 9. fixed_top_comment :  코멘트 생성
+            # 10. KLE_comment : 코멘트 생성
+            # 11. keylitElemt_comment : 코멘트 생성
+            # 12. Originality_comment : 코멘트 생성
+            # 13. perspective_comment : 코멘트 생성
+
+            #### 이하 내용은 MeaningFullExpreenceLessonLearened(essay_input)의 return 값을 딕서녀러의 key : value 로 정리한 것
+
+            # 'overall_score' : overall_score, 
+            # 'KeyKiterElement_score' : KeyKiterElement_score, 
+            # 'PromptOriented_score' : PromptOriented_score, 
+            # 'Originality_score': Originality_score, 
+            # 'Perspective_score': Perspective_score, 
+            # 'plot_n_conflict_word_for_web' : plot_n_conflict_word_for_web, 
+            # 'characgter_words_for_web' : characgter_words_for_web, 
+            # 'setting_words_list' : setting_words_list, 
+            # 'perspective_analysis_result_for_web' : perspective_analysis_result_for_web, 
+            # 'fixed_top_comment' : fixed_top_comment, 
+            # 'KLE_comment' : KLE_comment, 
+            # 'keylitElemt_comment' : keylitElemt_comment, 
+            # 'Originality_comment' : Originality_comment, 
+            # 'perspective_comment' : perspective_comment
 
 
     data_result = {
@@ -477,7 +540,8 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'mjr_comment_re' : mjr_comment_re, # intellectualEngagemnet 부분의 major fit comment
         'general_aca_comment_re' : general_aca_comment_re, # general academic knowledge 문장생성 부분
         'pmt_ori_sentiments_re' : pmt_ori_sentiments_re, # sentiments 문장생성 부분
-        'intellectual_eng_re' : intellectual_eng_re # intellectual enguagement 문장생성 부분
+        'intellectual_eng_re' : intellectual_eng_re, # intellectual enguagement 문장생성 부분
+        'meanful_result' : meanful_result
     }
 
     return data_result
@@ -485,12 +549,14 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
 
 
 ### 실행 ###
-# 입력값은 대학, 전공 ex) 'why_us', 'Browon', 'African Studies', text_input
-
 # input College Supp Essay 
 essay_input = """I inhale deeply and blow harder than I thought possible, pushing the tiny ember from its resting place on the candle out into the air. The room erupts around me, and 'Happy Birthday!' cheers echo through the halls. It's time to make a wish. In my mind, that new Limited Edition Deluxe Ben 10 watch will soon be mine. My parents and the aunties and uncles around me attempt to point me in a different direction. 'Wish that you get to go to the temple every day when you're older! Wish that you memorize all your Sanskrit texts before you turn 6! Wish that you can live in India after college!' My ears listen, but my mind tunes them out, as nothing could possibly compare to that toy watch! What I never realized on my third birthday is that those wishes quietly tell the story of how my family hopes my life will play out. In this version of my life, there wasn't much room for change, personal growth, or 'rocking the boat.' A vital aspect of my family's cultural background is their focus on accepting things as they are. Growing up, I was discouraged from questioning others or asking questions that didn't have definitive yes or no answers. If I innocently asked my grandma why she expected me to touch her feet, my dad would grab my hand in a sudden swoop, look me sternly in the eye, and tell me not to disrespect her like that again. At home, if I mentioned that I had tried eggs for breakfast at a friend's house, I'd be looked at like I had just committed a felony for eating what my parents considered meat. If I asked the priest at the temple why he had asked an Indian man and his white wife to leave, I'd be met with a condescending glare and told that I should also leave for asking such questions.In direct contrast, my curiosity was invited and encouraged at school. After an environmental science lesson, I stayed for a few minutes after class to ask my 4th-grade science teacher with wide eyes how it was possible that Niagara Falls doesn't run out of flowing water. Instead of scolding me for asking her a 'dumb question,' she smiled and explained the intricacy of the water cycle. Now, if a teacher mentions that we'll learn about why a certain proof or idea works only in a future class, I'll stay after to ask more or pour through an advanced textbook to try to understand it. While my perspective was widening at school, the receptiveness to raising complex questions at home was diminishing. After earning my driver's license, I registered as an organ donor. My small checkmark on a piece of paper led to an intense clash between my and my parents' moral platform. I wanted to ensure that I positively contributed to society, while my parents believed that organ donation was an unfamiliar and unnecessary cultural taboo. I would often ask for clarity or for reasons that supported their ideologies. Their response would usually entail feeling a deep, visceral sense that traditions must be followed exactly as taught, without objection. Told in one language to keep asking questions and in another to ask only the right ones, I chose exploring questions that don't have answers, rather than accepting answers that don't get questioned. When it comes to the maze of learning, even when I take a wrong turn and encounter roadblocks that are meant to stop me, I've learned to climb over them and keep moving forward. My curiosity strengthens with each hurdle and has expanded into a pure love of learning new things. I've become someone who seeks to understand things at a fundamental level and who finds excitement in taking on big questions that have yet to be solved. I'm no longer afraid to rock the boat. "},{"index":1,"personal_essay":"Ever since I first held a small foam Spiderman basketball in my tiny hands and watched my idol Kobe Bryant hit every three-pointer he attempted, I've wanted to understand and replicate his flawless jump shot. As my math education progressed in school, I began to realize I had the tools to create a perfect shot formula. After learning about variables for the first time in 5th grade Algebra, I began to treat each aspect of Kobe's jump shot as a different variable, each combination of variables resulting in a unique solution. While in 7th-grade geometry, I graphed the arc of his shot, and after learning about quadratic equations in 8th grade, I expressed his shot as a parabolic function that would ensure a swish when shooting from any spot. After calculus lessons in 10th and 11th grade, I was excited to finally solve for the perfect velocity and acceleration needed on my release. At Brown, I hope to explore this intellectual pursuit through a different lens. What if I could maximize the odds of making shots if I understood the science behind one's mental mindset and focus through CLPS 500: Perception and Action? Or use astrophysics to account for drag and gravitational force anywhere in the universe? Or use data science to break down the analytics of the NBA's best shooters? Through the Open Curriculum, I see myself not only becoming a more complete learner, but also a more complete thinker, applying a flexible mindset to any problem I encounter. Brown's Open Curriculum allows students to explore broadly while also diving deeply into their academic pursuits. Tell us about an academic interest (or interests) that excites you, and how you might use the Open Curriculum to pursue it. I've been playing the Mridangam since I was five years old. It's a simple instrument: A wood barrel covered on two ends by goatskin with leather straps surrounding the hull. This instrument serves as a connection between me and one of the most beautiful aspects of my culture: Carnatic music. As a young child, I'd be taken to the temple every weekend for three-hour-long Carnatic music concerts, where the most accomplished teenagers and young adults in our local Indian community would perform. I would watch in awe as the mridangists' hands moved gracefully, flowing across the goatskin as if they weren't making contact, while simultaneously producing sharp rhythmic patterns that never failed to fall on the beat. Hoping to be like these idols on the stage, I trained intensely with my teacher, a strict man who taught me that the simple drum I was playing had thousands of years of culture behind it. Building up from simple strokes, I realized that the finger speed I'd had been awestruck by wasn't some magical talent, it was instead a science perfected by repeated practice."""
 
-sc_re = selected_college('Why us', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
+# 입력값은 대학, 전공 ex) 'why_us', 'Browon', 'African Studies', text_input
+# 입력값은 대학, 전공 ex) 'Intellectual interest', 'Browon', 'African Studies', text_input
+#sc_re = selected_college('Why us', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
+#sc_re = selected_college('Intellectual interest', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
+sc_re = selected_college("Meaningful experience & lesson learned", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 print('최종결과:', sc_re)
 
 

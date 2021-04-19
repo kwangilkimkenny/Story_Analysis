@@ -189,19 +189,19 @@ def sent_sim_analysis(college_info_data, ps_supp_esssay_data):
     sim_sent_of_essay_score = 0
     counter = 0
 
-    for q in tqdm(college_info_data):
+    for q in college_info_data:
         #query = "I had pizza and pasta"
         query = q
-        print("query:", query)
+        # print("query:", query)
         query_vec = model.encode([query])[0]
 
-        for sent in tqdm(sentences):
+        for sent in sentences:
             sim = cosine(query_vec, model.encode([sent])[0])
             sim_float = float(sim)
-            print('sim_float:', sim_float)
+            # print('sim_float:', sim_float)
             sim_sent_of_essay_score += sim_float
             counter += 1
-            print("Sentence = ", sent, "; similarity = ", sim)
+            # print("Sentence = ", sent, "; similarity = ", sim)
 
 
     re_mean = round((sim_sent_of_essay_score / counter), 2) * 100 # 일치율 추출하여 총평균 값 추출
@@ -826,9 +826,10 @@ essay_input = """I inhale deeply and blow harder than I thought possible, pushin
 # re_sent_sim_analy = sent_sim_analysis_with_bert_summarizer('Why us', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 
 # Test 2 (학교, 부서는 Undecided, 전공도 Undecided를 입력했을 경우)
-re_sent_sim_analy = sent_sim_analysis_with_bert_summarizer('Why us', 'Brown', 'Undecided', 'Undecided', essay_input)
-print('================================================')
-print('Result : ', re_sent_sim_analy)
+#re_sent_sim_analy = sent_sim_analysis_with_bert_summarizer('Why us', 'Brown', 'Undecided', 'Undecided', essay_input)
+re_sent_sim_analy = sent_sim_analysis_with_bert_summarizer('Intelectual interest', 'Brown', 'Undecided', 'Undecided', essay_input)
+# print('================================================')
+# print('Result : ', re_sent_sim_analy)
 
 
 # 결과값 #
