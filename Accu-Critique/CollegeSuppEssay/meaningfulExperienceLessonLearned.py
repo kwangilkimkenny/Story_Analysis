@@ -37,9 +37,59 @@ def MeaningFullExpreenceLessonLearened(essay_input):
     print('PS:', PS_re)
 
     # Get MeaningFullExpreenceLessonLearened
-    result = round(KLE * 0.4 + PMS_re * 0.2 + Org * 0.2 + PS_re * 0.2, 2)
+    overall_re = round(KLE * 0.4 + PMS_re * 0.2 + Org * 0.2 + PS_re * 0.2, 2)
 
-    return result
+    def get_score(score_input):
+        # 5단계로 계산
+        if score_input > 80:
+            grade_re = 'Supurb'
+            score_re = 100 # Intellectual interest 를 최종 계산하기 위해 변화한 점수
+        elif score_input > 60 and score_input <= 80:
+            grade_re = 'Strong'
+            score_re = 80
+        elif score_input > 40 and score_input <= 60:
+            grade_re = 'Good'
+            score_re = 60
+        elif score_input > 20 and score_input <= 40:
+            grade_re = 'Mediocre'
+            score_re = 40
+        else:
+            grade_re = 'Lacking'
+            score_re = 20
+        return grade_re
+
+    overall_score = get_score(overall_re)
+    KeyKiterElement_score = get_score(KLE)
+    PromptOriented_score = get_score(PMS_re)
+    Originality_score = get_score(Org)
+    Perspective_score = get_score(PS_re)
+
+    # perspective에서 웹에 표시하는 문장추출 부분
+    perspective_analysis_result_for_web = PS[1] + PS[2]
+
+
+# 웹에 표시해야 할 부분으로 Prompt Type: Meaningful experience & lesson learned 에서는 key literary elements는 아래 3개 plot & conflict, character, setting 관련 단어가 모두 표시되어야 한다. 
+    plot_n_conflict_word_for_web = key_literary_element(essay_input, 'Meaningful experience & lesson learned').get('plot_n_conflict_word_for_web')
+    characgter_words_for_web = key_literary_element(essay_input, 'Meaningful experience & lesson learned').get('characgter_words_for_web')
+    setting_words_list = key_literary_element(essay_input, 'Meaningful experience & lesson learned').get('setting_words_list')
+
+
+    ### return 설명 ###
+    # overall_result_fin_re : overall score
+    # KeyKiterElement_score
+    # PromptOriented_score
+    # Originality_score
+    # Perspective_score
+
+    # plot_n_conflict_word_for_web : 웹에 표시되는 단어 리스트
+    # characgter_words_for_web : 웹에 표시되는 단어 리스트
+    # setting_words_list : 웹에 표시되는 단어 리스트
+    # perspective_analysis_result_for_web :  웹에 표시되는 단어+문장 리스트
+
+    return overall_score, KeyKiterElement_score, PromptOriented_score, Originality_score, Perspective_score, plot_n_conflict_word_for_web, characgter_words_for_web, setting_words_list, perspective_analysis_result_for_web
+
+
+
 
 
 ## Run ##

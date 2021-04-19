@@ -1843,9 +1843,16 @@ essay_input = """I inhale deeply and blow harder than I thought possible, pushin
 
 print("==========================================================================")
 #print("result : ", key_literary_element(essay_input,'Meaningful experience & lesson learned'))
+
+## 결과는 다음 3개의 값을 산출하면 되는 것임 ##
 print('key literary elements : ', key_literary_element(essay_input, 'Meaningful experience & lesson learned').get('key_literary_elements'))
 print('emotion_result : ', key_literary_element(essay_input, 'Meaningful experience & lesson learned').get('emotion_result'))
 print('originality : ', key_literary_element(essay_input, 'Meaningful experience & lesson learned').get('originality'))
+
+## 웹사이트 표시하는 부분
+print('plot_n_conflict_word_for_web : ', key_literary_element(essay_input, 'Meaningful experience & lesson learned').get('plot_n_conflict_word_for_web'))
+print('characgter_words_for_web : ', key_literary_element(essay_input, 'Meaningful experience & lesson learned').get('characgter_words_for_web'))
+print('setting_words_list : ', key_literary_element(essay_input, 'Meaningful experience & lesson learned').get('setting_words_list'))
 
 # 'plot_conf_result': 51.06, 
 # 'plot_n_conflict_word_for_web': ['odds', 'contrast', 'clash', 'different'], 
