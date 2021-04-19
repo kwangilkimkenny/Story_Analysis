@@ -1,3 +1,6 @@
+#### Prompt Type: Meaningful experience & lesson learned 는 이 코드를 실행해야 함 (두개의 코드를 연결되어 있음)####
+## 연결코드 key_literary_elements.py, perspective ##
+
 # 1) Key Literary Elements (40%):
 # 그냥 PS 평가 로직 그대로 활용해서 총괄 점수
 
