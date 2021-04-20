@@ -1,18 +1,13 @@
-# Meaningful experience & lesson learned # 
+# 1)  Prompt Oriented Keywords (20%)
+# achievement 와 pride / proud 등의 단어들과 에세이의 다른 key topic들이 가까이 있는지 아닌지
+# 유사의/유의어 + vector 함께 고려
 
-# 1) key Literary Elements 의 각 요소에 대한 점수는  합격생평균점수대비 5가지 PS 분석요소를 비교하여
-    # theme, plot & conflict, character, setting (# theme는 계산하지 않음)
-    # 1) plot_comp_ratio, conflict_word_ratio, count_conflict_words_uniqute_list 적용
-    # 2) character 분석적용
-    # 3) setting 분석적용
-    # 최종 값을 산출 - 평균값과 유사할 수록 높은 점수로 계산, 최대 100점으로 5가지 항목 계산, 각 5가지 PS 분석요소를 web에 출력
+# ⇒ key topic을 추출하고, achievement, pride. proud 혹은 관련 단어와 얼마나 일치하는지 비율 계산한다. 합격생들의 평균값과 비교하여 최종 평가 점수 계산. 
 
+# Achievement 연관어 모음 (이것도 어떻게 활용할 수 있는지? 그냥 achievement 연관어들)
+# https://docs.google.com/document/d/1-9DyDaj-W75KT1hL2hS3PG42rWG_u-oG0ePDLppWhTU/edit#bookmark=id.hu69lcnl2wcc
 
-# plot & conflict 계산하기
-# SETTING RATIO :  11.87
-# Plot Complxity : 55.63226643549587
-
-#conflict
+# achievement analysis
 import nltk
 nltk.download('punkt')
 nltk.download('vader_lexicon')
@@ -119,11 +114,53 @@ def ai_plot_conf(essay_input_):
         #모델 설계 완료
 
         #표현하는 단어들을 리스트에 넣어서 필터로 만들고
-        confict_words_list = ['clash', 'incompatible', 'inconsistent', 'incongruous', 'opposition', 'variance','vary', 'odds', 
-                                'differ', 'diverge', 'disagree', 'contrast', 'collide', 'contradictory', 'incompatible', 'conflict',
-                                'inconsistent','irreconcilable','incongruous','contrary','opposite','opposing','opposed',
-                                'antithetical','clashing','discordant','differing','different','divergent','discrepant',
-                                'varying','disagreeing','contrasting','at odds','in opposition','at variance' ]
+        confict_words_list = ['bloom','stimulation','sales','competency','Throughput','Parity','specificity','credential','coercion','ideally','propulsion','glory',
+                            'improvement','objective','Competence','aspire','Autonomy','statewide','Effective','capstone','Therapeutic','Placement','placement','Acceleration','generate',
+                            'meaningful','worst','moderate','letter','able','acclaim','Realization','strategy','Popularity','incentive','copestone','Quality','mastery','win','salvation',
+                            'independence','supreme','Penetration','Implementation','competence','Realistic','valiant','ensure','detection','transparency','compensation','Dispersion',
+                            'Aspiration','Undefeated','Speed','miracle','Nirvana','promise','improve','Podium','proficiency','extraordinary','achievance','ahead','grade','Maximal',
+                            'Statewide','reliability','supremacy','yearly','unity','mark','grammy','salute','calibration','make','Baccalaureate','excellence','hegemony','disarmament',
+                            'Equilibrium','Prominence','joint','Amplification','autonomy','glorious','Accuracy','Efficacy','lasting','exam','stone','resolution','Supremacy','Breakthrough',
+                            'Harmonious','guinness','tailored','positioning','benchmark','rebirth','modulation','kudos','Eminence','Desirable','Ranking','standardization','platinum',
+                            'Accomplishment','Capillary','Perseverance','Attainment','desirable','Stabilization','Calibration','milestone','effort','Satisfactory','reconciliation',
+                            'Reconciliation','tangible','compatibility','Resolution','Flexibility','badge','effective','perfection','stability','Titan','Empowerment','finish','strive',
+                            'Excellence','technique','Level','talent','Rating','plateau','apex','Grammy','mainstream','Exam','rating','felicitate','motivate','emancipation','Stability',
+                            'chart','promising','masterpiece','emulation','famous','saving','equality','Balance','honorary','Equitable','Technique','amplification','Statistically',
+                            'stabilization','Unification','renown','ambitious','crowning','Reunification','Precision','problem-solving','Utilization','Triumph','pride','high',
+                            'scholarship','Accreditation','Dominance','Fertilization','eminence','league','Hegemony','score','Rebirth','reduction','trophy','motivation','achieve',
+                            'Integration','parity','Score','helping','Moderate','Impossible','aim','Distinction','Reduction','Purification','certification','career','satisfactory',
+                            'Selective','impossible','Competency','congratulate','speed','accreditation','excel','velocity','efficiently','stakeholder','reward','progress','Saving',
+                            'Metre','gain','efficiency','measurable','Strategy','abstinence','feather','Accomplish','Chart','Result','Strive','Perfection','prestige','hurdle',
+                            'bandwidth','leading','quality','monument','Incentive','maximum','hardship','therapeutic','greatness','fusion','Transparency','tolerance','Athlete',
+                            'Attained','harmonious','uniformity','podium','Mastery','Benchmark','Fame','triumph','Status','High','ability','Grail','deed','renowned','Promotion',
+                            'best','distinguished','Renown','Coupling','selective','Placing','penetration','acceptable','Efficiently','ideal','fulfilment','Coherence','Widespread',
+                            'statistically','standard','Fusion','consolidation','Efficiency','percent','Acceptable','Decisive','Qualified','balance','emulate','Fixation','luminary',
+                            'cum','performance','undefeated','Retention','capillary','implementation','Standardization','Minimum','immortality','Ideal','Consolidation','Equity',
+                            'compliance','Qualifying','Yearly','enable','brilliant','Minimize','Standard','integration','throughput','acceptance','Improvement','Ensure','Unity',
+                            'optimal','domination','recognition','optimum','Meaningful','Optimize','limitation','resolve','Equality','reunification','superiority','ambition',
+                            'Surpass','Consensus','marks','selectivity','Certification','jest','Fulfilling','Feat','overtake','plan','fulfillment','productivity','Output',
+                            'qualify','impress','fertilization','Worthwhile','mach','Stimulation','efficient','Consecutive','coherence','Motivate','degree','Independence',
+                            'outshine','consecutive','result','amplifier','Effectiveness','emission','Coercion','Consistency','Measurable','Saturation','Transcend','popularity',
+                            'pinnacle','Optimal','top','quota','equilibrium','strategic','up','qualifying','precocious','Lasting','Ambition','prosperity','capability','enlightenment',
+                            'consistency','success','accountability','Sales','Compliance','sustainability','Uniformity','Disarmament','unbeaten','Reliability','Sustainable','minimum',
+                            'baccalaureate','level','help','landmark','peak','recognize','empowerment','comparable','bonding','satisfaction','enrichment','Sustained','Maturity',
+                            'Strategic','failed','coup','Unprecedented','Clarity','Quota','output','Greatness','Compatibility','Objective','grandmaster','preen','Enabling',
+                            'Compression','titan','Victory','Stakeholder','Tangible','closure','Altering','Success','Guinness','Percent','laude','Attain','unprecedented','credit',
+                            'flexibility','Comparable','unification','Domination','Salvation','Productivity','Unbeaten','big','equal','clat','Empower','stature','work','grail',
+                            'striving','Finish','Emission','utilization','assessment','Goal','saturation','Enrichment','Acclaim','Recognition','Platinum','golden','Enlightenment',
+                            'acceleration','panegyric','victory','widespread','harvest','difficulty','realization','placing','Accountability','Gain','frustrate','sustained',
+                            'vanity','society','Milestone','surpass','Peak','inspiration','belt','Capability','summit','coupling','emprise','Aim','Optimum','dispersion','Ideally',
+                            'opus','Specificity','Grade','retention','medal','laurel','learner','laureate','target','Velocity','goal','worthwhile','allocation','minimize',
+                            'celebrated','build','accomplishment','Immortality','record','Acceptance','Tailored','clarity','fixation','diffraction','statehood','sustainable',
+                            'compression','accuracy','perseverance','full','attain','Proficiency','empower','Amplifier','eminent','Bonding','Potential','acme','merit',
+                            'reconciliate','attained','qualified','ranking','Outcome','Rank','dominance','Prosperity','Helping','equitable','maximal','Motivation','consummation',
+                            'Maximize','metre','crown','adversity','Mach','efficacy','accomplish','Tolerance','optimize','outcome','Emancipation','feat','equity','purification',
+                            'rank','Aspire','status','maturity','Grandmaster','potential','Fulfillment','Target','precision','Bandwidth','Superiority','enabling','athlete',
+                            'Detection','obstacle','realistic','Abstinence','honor','Failed','Learner','award','effectiveness','decisive','Maximum','promotion','scale','nirvana',
+                            'altering','Statehood','cap','rigorous','magnum','attainment','transcend','distinction','Qualification','age','Propulsion','desired','meritocracy',
+                            'eclat','Diffraction','accredit','fulfilling','congratulation','contribute','Sustainability','Performance','consensus','hatchment','Equal','create',
+                            'Positioning','prominence','coping','fail','Modulation','Rigorous','breakthrough','Selectivity','aspiration','learn','Mainstream','illustrious',
+                            'qualification','Desired','stellar','maximize','Allocation','Striving','big-league','Progress','record-breaking','triumphant','Efficient','tops','fame']
         
         ####문장에 list의 단어들이 있는지 확인하고, 있다면 유사단어를 추출한다.
         
@@ -176,13 +213,55 @@ def ai_plot_conf(essay_input_):
     contents = str(input_text)
     token_list_str = text_to_word_sequence(contents) #tokenize
 
-    confict_words_list_basic = ['clash', 'incompatible', 'inconsistent', 'incongruous', 'opposition', 'variance','vary', 'odds', 
-                            'differ', 'diverge', 'disagree', 'contrast', 'collide', 'contradictory', 'incompatible', 'conflict',
-                            'inconsistent','irreconcilable','incongruous','contrary','opposite','opposing','opposed',
-                            'antithetical','clashing','discordant','differing','different','divergent','discrepant',
-                            'varying','disagreeing','contrasting','at odds','in opposition','at variance' ]
+    confict_words_list_basic = ['bloom','stimulation','sales','competency','Throughput','Parity','specificity','credential','coercion','ideally','propulsion','glory',
+                            'improvement','objective','Competence','aspire','Autonomy','statewide','Effective','capstone','Therapeutic','Placement','placement','Acceleration','generate',
+                            'meaningful','worst','moderate','letter','able','acclaim','Realization','strategy','Popularity','incentive','copestone','Quality','mastery','win','salvation',
+                            'independence','supreme','Penetration','Implementation','competence','Realistic','valiant','ensure','detection','transparency','compensation','Dispersion',
+                            'Aspiration','Undefeated','Speed','miracle','Nirvana','promise','improve','Podium','proficiency','extraordinary','achievance','ahead','grade','Maximal',
+                            'Statewide','reliability','supremacy','yearly','unity','mark','grammy','salute','calibration','make','Baccalaureate','excellence','hegemony','disarmament',
+                            'Equilibrium','Prominence','joint','Amplification','autonomy','glorious','Accuracy','Efficacy','lasting','exam','stone','resolution','Supremacy','Breakthrough',
+                            'Harmonious','guinness','tailored','positioning','benchmark','rebirth','modulation','kudos','Eminence','Desirable','Ranking','standardization','platinum',
+                            'Accomplishment','Capillary','Perseverance','Attainment','desirable','Stabilization','Calibration','milestone','effort','Satisfactory','reconciliation',
+                            'Reconciliation','tangible','compatibility','Resolution','Flexibility','badge','effective','perfection','stability','Titan','Empowerment','finish','strive',
+                            'Excellence','technique','Level','talent','Rating','plateau','apex','Grammy','mainstream','Exam','rating','felicitate','motivate','emancipation','Stability',
+                            'chart','promising','masterpiece','emulation','famous','saving','equality','Balance','honorary','Equitable','Technique','amplification','Statistically',
+                            'stabilization','Unification','renown','ambitious','crowning','Reunification','Precision','problem-solving','Utilization','Triumph','pride','high',
+                            'scholarship','Accreditation','Dominance','Fertilization','eminence','league','Hegemony','score','Rebirth','reduction','trophy','motivation','achieve',
+                            'Integration','parity','Score','helping','Moderate','Impossible','aim','Distinction','Reduction','Purification','certification','career','satisfactory',
+                            'Selective','impossible','Competency','congratulate','speed','accreditation','excel','velocity','efficiently','stakeholder','reward','progress','Saving',
+                            'Metre','gain','efficiency','measurable','Strategy','abstinence','feather','Accomplish','Chart','Result','Strive','Perfection','prestige','hurdle',
+                            'bandwidth','leading','quality','monument','Incentive','maximum','hardship','therapeutic','greatness','fusion','Transparency','tolerance','Athlete',
+                            'Attained','harmonious','uniformity','podium','Mastery','Benchmark','Fame','triumph','Status','High','ability','Grail','deed','renowned','Promotion',
+                            'best','distinguished','Renown','Coupling','selective','Placing','penetration','acceptable','Efficiently','ideal','fulfilment','Coherence','Widespread',
+                            'statistically','standard','Fusion','consolidation','Efficiency','percent','Acceptable','Decisive','Qualified','balance','emulate','Fixation','luminary',
+                            'cum','performance','undefeated','Retention','capillary','implementation','Standardization','Minimum','immortality','Ideal','Consolidation','Equity',
+                            'compliance','Qualifying','Yearly','enable','brilliant','Minimize','Standard','integration','throughput','acceptance','Improvement','Ensure','Unity',
+                            'optimal','domination','recognition','optimum','Meaningful','Optimize','limitation','resolve','Equality','reunification','superiority','ambition',
+                            'Surpass','Consensus','marks','selectivity','Certification','jest','Fulfilling','Feat','overtake','plan','fulfillment','productivity','Output',
+                            'qualify','impress','fertilization','Worthwhile','mach','Stimulation','efficient','Consecutive','coherence','Motivate','degree','Independence',
+                            'outshine','consecutive','result','amplifier','Effectiveness','emission','Coercion','Consistency','Measurable','Saturation','Transcend','popularity',
+                            'pinnacle','Optimal','top','quota','equilibrium','strategic','up','qualifying','precocious','Lasting','Ambition','prosperity','capability','enlightenment',
+                            'consistency','success','accountability','Sales','Compliance','sustainability','Uniformity','Disarmament','unbeaten','Reliability','Sustainable','minimum',
+                            'baccalaureate','level','help','landmark','peak','recognize','empowerment','comparable','bonding','satisfaction','enrichment','Sustained','Maturity',
+                            'Strategic','failed','coup','Unprecedented','Clarity','Quota','output','Greatness','Compatibility','Objective','grandmaster','preen','Enabling',
+                            'Compression','titan','Victory','Stakeholder','Tangible','closure','Altering','Success','Guinness','Percent','laude','Attain','unprecedented','credit',
+                            'flexibility','Comparable','unification','Domination','Salvation','Productivity','Unbeaten','big','equal','clat','Empower','stature','work','grail',
+                            'striving','Finish','Emission','utilization','assessment','Goal','saturation','Enrichment','Acclaim','Recognition','Platinum','golden','Enlightenment',
+                            'acceleration','panegyric','victory','widespread','harvest','difficulty','realization','placing','Accountability','Gain','frustrate','sustained',
+                            'vanity','society','Milestone','surpass','Peak','inspiration','belt','Capability','summit','coupling','emprise','Aim','Optimum','dispersion','Ideally',
+                            'opus','Specificity','Grade','retention','medal','laurel','learner','laureate','target','Velocity','goal','worthwhile','allocation','minimize',
+                            'celebrated','build','accomplishment','Immortality','record','Acceptance','Tailored','clarity','fixation','diffraction','statehood','sustainable',
+                            'compression','accuracy','perseverance','full','attain','Proficiency','empower','Amplifier','eminent','Bonding','Potential','acme','merit',
+                            'reconciliate','attained','qualified','ranking','Outcome','Rank','dominance','Prosperity','Helping','equitable','maximal','Motivation','consummation',
+                            'Maximize','metre','crown','adversity','Mach','efficacy','accomplish','Tolerance','optimize','outcome','Emancipation','feat','equity','purification',
+                            'rank','Aspire','status','maturity','Grandmaster','potential','Fulfillment','Target','precision','Bandwidth','Superiority','enabling','athlete',
+                            'Detection','obstacle','realistic','Abstinence','honor','Failed','Learner','award','effectiveness','decisive','Maximum','promotion','scale','nirvana',
+                            'altering','Statehood','cap','rigorous','magnum','attainment','transcend','distinction','Qualification','age','Propulsion','desired','meritocracy',
+                            'eclat','Diffraction','accredit','fulfilling','congratulation','contribute','Sustainability','Performance','consensus','hatchment','Equal','create',
+                            'Positioning','prominence','coping','fail','Modulation','Rigorous','breakthrough','Selectivity','aspiration','learn','Mainstream','illustrious',
+                            'qualification','Desired','stellar','maximize','Allocation','Striving','big-league','Progress','record-breaking','triumphant','Efficient','tops','fame']
 
-    confict_words_list = confict_words_list_basic + conflict_sim_words_ratio_result #유사단어를 계산결과 반영!
+    confict_words_list = confict_words_list_basic + conflict_sim_words_ratio_result #유사단어를 계산결과에 반영!해서 관련단어 총 리스트를 만든다. 이것을 가지고 비교할거임
 
     count_conflict_list = []
     for i in token_list_str:
@@ -190,14 +269,17 @@ def ai_plot_conf(essay_input_):
             if i == j:
                 count_conflict_list.append(j)
 
-    len(count_conflict_list) # 한 문장에 들어있는 conflict 단어 수
+    ###############################################################################
+    get_wd_from_essay = count_conflict_list # 입력 에세이에 들어있는 관련 단어들 리스트
+    get_num_wd_from_essay = len(count_conflict_list) # 입력 문장에 들어있는 관련 단어 수
+    ###############################################################################
 
-    list_str = contents.split(".")  # 문장별로 분리한다. 분리는 .를 기준으로 한다.   
+
+
+    list_str = contents.split(".")  # 입력 에세이를 문장별로 분리한다. 분리는 .를 기준으로 한다.   
 
     listSentiment = []
-
     sid = SentimentIntensityAnalyzer()
-
     i=0
     for sentence in list_str: #한문장식 가져와서 처리한다.
         ss = sid.polarity_scores(sentence) #긍정, 부정, 중립, 혼합점수 계산
@@ -536,228 +618,230 @@ def ai_plot_conf(essay_input_):
     # print("====================================================================")
 
 
-    #########################################################################
-    # 12. SETTING RATIO 계산
 
-    def setting_anaysis(text):
 
-        essay_input_corpus = str(text) #문장입력
-        essay_input_corpus = essay_input_corpus.lower()#소문자 변환
+#     #########################################################################
+#     # 12. SETTING RATIO 계산
 
-        sentences  = sent_tokenize(essay_input_corpus) #문장 토큰화
-        total_sentences = len(sentences)#토큰으로 처리된 총 문장 수
-        total_words = len(word_tokenize(essay_input_corpus))# 총 단어수
-        split_sentences = []
-        for sentence in sentences:
-            processed = re.sub("[^a-zA-Z]"," ", sentence)
-            words = processed.split()
-            split_sentences.append(words)
+#     def setting_anaysis(text):
 
-        skip_gram = 1
-        workers = multiprocessing.cpu_count()
-        bigram_transformer = Phrases(split_sentences)
+#         essay_input_corpus = str(text) #문장입력
+#         essay_input_corpus = essay_input_corpus.lower()#소문자 변환
 
-        model = gensim.models.word2vec.Word2Vec(bigram_transformer[split_sentences], workers=workers, sg=skip_gram, min_count=1)
+#         sentences  = sent_tokenize(essay_input_corpus) #문장 토큰화
+#         total_sentences = len(sentences)#토큰으로 처리된 총 문장 수
+#         total_words = len(word_tokenize(essay_input_corpus))# 총 단어수
+#         split_sentences = []
+#         for sentence in sentences:
+#             processed = re.sub("[^a-zA-Z]"," ", sentence)
+#             words = processed.split()
+#             split_sentences.append(words)
 
-        model.train(split_sentences, total_examples=sum([len(sentence) for sentence in sentences]), epochs=100)
+#         skip_gram = 1
+#         workers = multiprocessing.cpu_count()
+#         bigram_transformer = Phrases(split_sentences)
+
+#         model = gensim.models.word2vec.Word2Vec(bigram_transformer[split_sentences], workers=workers, sg=skip_gram, min_count=1)
+
+#         model.train(split_sentences, total_examples=sum([len(sentence) for sentence in sentences]), epochs=100)
         
-        #모델 설계 완료
+#         #모델 설계 완료
 
-        #setting을 표현하는 단어들을 리스트에 넣어서 필터로 만들고
-        location_list = ['above', 'behind','below','beside','betweed','by','in','inside','near',
-                        'on','over','through']
-        time_list = ['after', 'before','by','during','from','on','past','since','through','to','until','upon']
+#         #setting을 표현하는 단어들을 리스트에 넣어서 필터로 만들고
+#         location_list = ['above', 'behind','below','beside','betweed','by','in','inside','near',
+#                         'on','over','through']
+#         time_list = ['after', 'before','by','during','from','on','past','since','through','to','until','upon']
         
-        movement_list = ['against','along','down','from','into','off','on','onto','out of','toward','up','upon']
+#         movement_list = ['against','along','down','from','into','off','on','onto','out of','toward','up','upon']
         
-        palce_terrain_type_list = ['wood', 'forest', 'copse', 'bush', 'trees', 'stand',
-                                    'swamp', 'marsh', 'wetland', 'fen', 'bog', 'moor', 'heath', 'fells', 'morass',
-                                    'jungle', 'rainforest', 'cloud forest','plains', 'fields', 'grass', 'grassland', 
-                                    'savannah', 'flood plain', 'flats', 'prairie','tundra', 'iceberg', 'glacier', 
-                                    'snowfields','hills', 'highland,' 'heights', 'plateau', 'badland', 'kame', 'shield',
-                                    'downs', 'downland', 'ridge', 'ridgeline','hollow,' 'valley',' vale','glen', 'dell',
-                                    'mountain', 'peak', 'summit', 'rise', 'pass', 'notch', 'crown', 'mount', 'switchback',
-                                    'furth','canyon', 'cliff', 'bluff,' 'ravine', 'gully', 'gulch', 'gorge',
-                                    'desert', 'scrub', 'waste', 'wasteland', 'sands', 'dunes',
-                                    'volcano', 'crater', 'cone', 'geyser', 'lava fields']
+#         palce_terrain_type_list = ['wood', 'forest', 'copse', 'bush', 'trees', 'stand',
+#                                     'swamp', 'marsh', 'wetland', 'fen', 'bog', 'moor', 'heath', 'fells', 'morass',
+#                                     'jungle', 'rainforest', 'cloud forest','plains', 'fields', 'grass', 'grassland', 
+#                                     'savannah', 'flood plain', 'flats', 'prairie','tundra', 'iceberg', 'glacier', 
+#                                     'snowfields','hills', 'highland,' 'heights', 'plateau', 'badland', 'kame', 'shield',
+#                                     'downs', 'downland', 'ridge', 'ridgeline','hollow,' 'valley',' vale','glen', 'dell',
+#                                     'mountain', 'peak', 'summit', 'rise', 'pass', 'notch', 'crown', 'mount', 'switchback',
+#                                     'furth','canyon', 'cliff', 'bluff,' 'ravine', 'gully', 'gulch', 'gorge',
+#                                     'desert', 'scrub', 'waste', 'wasteland', 'sands', 'dunes',
+#                                     'volcano', 'crater', 'cone', 'geyser', 'lava fields']
         
-        water_list = ['ocean', 'sea', 'coast', 'beach', 'shore', 'strand','bay', 'port', 'harbour', 'fjord', 'vike',
-                    'cove', 'shoals', 'lagoon', 'firth', 'bight', 'sound', 'strait', 'gulf', 'inlet', 'loch', 
-                    'bayou','dock', 'pier', 'anchorage', 'jetty', 'wharf', 'marina', 'landing', 'mooring', 'berth', 
-                    'quay', 'staith','river', 'stream', 'creek', 'brook', 'waterway', 'rill','delta', 'bank', 'runoff',
-                    'bend', 'meander', 'backwater','lake', 'pool', 'pond', 'dugout', 'fountain', 'spring', 
-                    'watering-hole', 'oasis','well', 'cistern', 'reservoir','waterfall', 'falls', 'rapids', 'cataract', 
-                    'cascade','bridge', 'crossing', 'causeway', 'viaduct', 'aquaduct', 'ford', 'ferry','dam', 'dike', 
-                    'bar', 'canal', 'ditch','peninsula', 'isthmus', 'island', 'isle', 'sandbar', 'reef', 'atoll', 
-                    'archipelago', 'cay','shipwreck', 'derelict']
+#         water_list = ['ocean', 'sea', 'coast', 'beach', 'shore', 'strand','bay', 'port', 'harbour', 'fjord', 'vike',
+#                     'cove', 'shoals', 'lagoon', 'firth', 'bight', 'sound', 'strait', 'gulf', 'inlet', 'loch', 
+#                     'bayou','dock', 'pier', 'anchorage', 'jetty', 'wharf', 'marina', 'landing', 'mooring', 'berth', 
+#                     'quay', 'staith','river', 'stream', 'creek', 'brook', 'waterway', 'rill','delta', 'bank', 'runoff',
+#                     'bend', 'meander', 'backwater','lake', 'pool', 'pond', 'dugout', 'fountain', 'spring', 
+#                     'watering-hole', 'oasis','well', 'cistern', 'reservoir','waterfall', 'falls', 'rapids', 'cataract', 
+#                     'cascade','bridge', 'crossing', 'causeway', 'viaduct', 'aquaduct', 'ford', 'ferry','dam', 'dike', 
+#                     'bar', 'canal', 'ditch','peninsula', 'isthmus', 'island', 'isle', 'sandbar', 'reef', 'atoll', 
+#                     'archipelago', 'cay','shipwreck', 'derelict']
         
         
-        outdoor_places_list = ['clearing', 'meadow', 'grove', 'glade', 'fairy ring','earldom', 'fief', 'shire',
-                                'ruin', 'acropolis', 'desolation', 'remnant', 'remains',
-                                'henge', 'cairn', 'circle', 'mound', 'barrow', 'earthworks', 'petroglyphs',
-                                'lookout', 'aerie', 'promontory', 'outcropping', 'ledge', 'overhang', 'mesa', 'butte',
-                                'outland', 'outback', 'territory', 'reaches', 'wild', 'wilderness', 'expanse',
-                                'view', 'vista', 'tableau', 'spectacle', 'landscape', 'seascape', 'aurora', 'landmark',
-                                'battlefield', 'trenches', 'gambit', 'folly', 'conquest', 'claim', 'muster', 'post',
-                                'path', 'road', 'track', 'route', 'highway', 'way', 'trail', 'lane', 'thoroughfare', 'pike',
-                                'alley', 'street', 'avenue', 'boulevard', 'promenade', 'esplande', 'boardwalk',
-                                'crossroad', 'junction', 'intersection', 'turn', 'corner','plaza', 'terrace', 'square', 
-                                'courtyard', 'court', 'park', 'marketplace', 'bazaar', 'fairground','realm', 'land', 'country',
-                                'nation', 'state', 'protectorate', 'empire', 'kingdom', 'principality','domain', 'dominion',
-                                'demesne', 'province', 'county', 'duchy', 'barony', 'baronetcy', 'march', 'canton']
+#         outdoor_places_list = ['clearing', 'meadow', 'grove', 'glade', 'fairy ring','earldom', 'fief', 'shire',
+#                                 'ruin', 'acropolis', 'desolation', 'remnant', 'remains',
+#                                 'henge', 'cairn', 'circle', 'mound', 'barrow', 'earthworks', 'petroglyphs',
+#                                 'lookout', 'aerie', 'promontory', 'outcropping', 'ledge', 'overhang', 'mesa', 'butte',
+#                                 'outland', 'outback', 'territory', 'reaches', 'wild', 'wilderness', 'expanse',
+#                                 'view', 'vista', 'tableau', 'spectacle', 'landscape', 'seascape', 'aurora', 'landmark',
+#                                 'battlefield', 'trenches', 'gambit', 'folly', 'conquest', 'claim', 'muster', 'post',
+#                                 'path', 'road', 'track', 'route', 'highway', 'way', 'trail', 'lane', 'thoroughfare', 'pike',
+#                                 'alley', 'street', 'avenue', 'boulevard', 'promenade', 'esplande', 'boardwalk',
+#                                 'crossroad', 'junction', 'intersection', 'turn', 'corner','plaza', 'terrace', 'square', 
+#                                 'courtyard', 'court', 'park', 'marketplace', 'bazaar', 'fairground','realm', 'land', 'country',
+#                                 'nation', 'state', 'protectorate', 'empire', 'kingdom', 'principality','domain', 'dominion',
+#                                 'demesne', 'province', 'county', 'duchy', 'barony', 'baronetcy', 'march', 'canton']
 
         
-        underground_list = ['pit', 'hole', 'abyss', 'sinkhole', 'crack', 'chasm', 'scar', 'rift', 'trench', 'fissure',
-                            'cavern', 'cave', 'gallery', 'grotto', 'karst',
-                            'mine', 'quarry', 'shaft', 'vein','graveyard', 'cemetery',
-                            'darkness', 'shadow', 'depths', 'void','maze', 'labyrinth'
-                            'tomb', 'grave', 'crypt', 'sepulchre', 'mausoleum', 'ossuary', 'boneyard']
+#         underground_list = ['pit', 'hole', 'abyss', 'sinkhole', 'crack', 'chasm', 'scar', 'rift', 'trench', 'fissure',
+#                             'cavern', 'cave', 'gallery', 'grotto', 'karst',
+#                             'mine', 'quarry', 'shaft', 'vein','graveyard', 'cemetery',
+#                             'darkness', 'shadow', 'depths', 'void','maze', 'labyrinth'
+#                             'tomb', 'grave', 'crypt', 'sepulchre', 'mausoleum', 'ossuary', 'boneyard']
                             
-        living_places_list = ['nest', 'burrow', 'lair', 'den', 'bolt-hole', 'warren', 'roost', 'rookery', 'hibernaculum',
-                            'home', 'rest', 'hideout', 'hideaway', 'retreat', 'resting-place', 'safehouse', 'sanctuary',
-                            'respite', 'lodge','slum', 'shantytown', 'ghetto','camp', 'meeting place,' 'bivouac', 'campsite', 
-                            'encampment','tepee', 'tent', 'wigwam', 'shelter', 'lean-to', 'yurt','house', 'mansion', 'estate',
-                            'villa','hut', 'palace', 'outbuilding', 'shack tenement', 'hovel', 'manse', 'manor', 'longhouse',
-                            'cottage', 'cabin','parsonage', 'rectory', 'vicarge', 'friary', 'priory','abbey', 'monastery', 
-                            'nunnery', 'cloister', 'convent', 'hermitage','castle', 'keep', 'fort', 'fortress', 'citadel', 
-                            'bailey', 'motte', 'stronghold', 'hold', 'chateau', 'outpost', 'redoubt',
-                            'town', 'village', 'hamlet', 'city', 'metropolis','settlement', 'commune']
+#         living_places_list = ['nest', 'burrow', 'lair', 'den', 'bolt-hole', 'warren', 'roost', 'rookery', 'hibernaculum',
+#                             'home', 'rest', 'hideout', 'hideaway', 'retreat', 'resting-place', 'safehouse', 'sanctuary',
+#                             'respite', 'lodge','slum', 'shantytown', 'ghetto','camp', 'meeting place,' 'bivouac', 'campsite', 
+#                             'encampment','tepee', 'tent', 'wigwam', 'shelter', 'lean-to', 'yurt','house', 'mansion', 'estate',
+#                             'villa','hut', 'palace', 'outbuilding', 'shack tenement', 'hovel', 'manse', 'manor', 'longhouse',
+#                             'cottage', 'cabin','parsonage', 'rectory', 'vicarge', 'friary', 'priory','abbey', 'monastery', 
+#                             'nunnery', 'cloister', 'convent', 'hermitage','castle', 'keep', 'fort', 'fortress', 'citadel', 
+#                             'bailey', 'motte', 'stronghold', 'hold', 'chateau', 'outpost', 'redoubt',
+#                             'town', 'village', 'hamlet', 'city', 'metropolis','settlement', 'commune']
 
-        building_facilities_list = ['temple', 'shrine', 'church', 'cathedral', 'tabernacle', 'ark', 'sanctum', 'parish', 'university',
-                                    'chapel', 'synagogue', 'mosque','pyramid', 'ziggurat', 'prison', 'jail', 'dungeon',
-                                    'oubliette', 'hospital', 'hospice', 'stocks', 'gallows','asylum', 'madhouse', 'bedlam',
-                                    'vault', 'treasury', 'warehouse', 'cellar', 'relicry', 'repository',
-                                    'barracks', 'armoury','sewer', 'gutter', 'catacombs', 'dump', 'middens', 'pipes', 'baths', 'heap',
-                                    'mill', 'windmill', 'sawmill', 'smithy', 'forge', 'workshop', 'brickyard', 'shipyard', 'forgeworks',
-                                    'foundry','bakery', 'brewery', 'almshouse', 'counting house', 'courthouse', 'apothecary', 'haberdashery', 'cobbler',
-                                    'garden', 'menagerie', 'zoo', 'aquarium', 'terrarium', 'conservatory', 'lawn', 'greenhouse',
-                                    'farm', 'orchard', 'vineyard', 'ranch', 'apiary', 'farmstead', 'homestead',
-                                    'pasture', 'commons', 'granary', 'silo', 'crop','barn', 'stable', 'pen', 'kennel', 'mews', 'hutch', 
-                                    'pound', 'coop', 'stockade', 'yard', 'lumber yard','tavern', 'inn', 'pub', 'brothel', 'whorehouse',
-                                    'cathouse', 'discotheque','lighthouse', 'beacon','amphitheatre', 'colosseum', 'stadium', 'arena', 
-                                    'circus','academy', 'university', 'campus', 'college', 'library', 'scriptorium', 'laboratory', 
-                                    'observatory', 'museum']
+#         building_facilities_list = ['temple', 'shrine', 'church', 'cathedral', 'tabernacle', 'ark', 'sanctum', 'parish', 'university',
+#                                     'chapel', 'synagogue', 'mosque','pyramid', 'ziggurat', 'prison', 'jail', 'dungeon',
+#                                     'oubliette', 'hospital', 'hospice', 'stocks', 'gallows','asylum', 'madhouse', 'bedlam',
+#                                     'vault', 'treasury', 'warehouse', 'cellar', 'relicry', 'repository',
+#                                     'barracks', 'armoury','sewer', 'gutter', 'catacombs', 'dump', 'middens', 'pipes', 'baths', 'heap',
+#                                     'mill', 'windmill', 'sawmill', 'smithy', 'forge', 'workshop', 'brickyard', 'shipyard', 'forgeworks',
+#                                     'foundry','bakery', 'brewery', 'almshouse', 'counting house', 'courthouse', 'apothecary', 'haberdashery', 'cobbler',
+#                                     'garden', 'menagerie', 'zoo', 'aquarium', 'terrarium', 'conservatory', 'lawn', 'greenhouse',
+#                                     'farm', 'orchard', 'vineyard', 'ranch', 'apiary', 'farmstead', 'homestead',
+#                                     'pasture', 'commons', 'granary', 'silo', 'crop','barn', 'stable', 'pen', 'kennel', 'mews', 'hutch', 
+#                                     'pound', 'coop', 'stockade', 'yard', 'lumber yard','tavern', 'inn', 'pub', 'brothel', 'whorehouse',
+#                                     'cathouse', 'discotheque','lighthouse', 'beacon','amphitheatre', 'colosseum', 'stadium', 'arena', 
+#                                     'circus','academy', 'university', 'campus', 'college', 'library', 'scriptorium', 'laboratory', 
+#                                     'observatory', 'museum']
         
         
-        architecture_list = ['hall', 'chamber', 'room','nave', 'aisle', 'vestibule',
-                            'antechamber', 'chantry', 'pulpit','dome', 'arch', 'colonnade',
-                            'stair', 'ladder', 'climb', 'ramp', 'steps',
-                            'portal', 'mouth', 'opening', 'door', 'gate', 'entrance', 'maw',
-                            'tunnel', 'passage', 'corridor', 'hallway', 'chute', 'slide', 'tube', 'trapdoor',
-                            'tower', 'turret', 'belfry','wall', 'fortifications', 'ramparts', 'pallisade', 'battlements',
-                            'portcullis', 'barbican','throne room', 'ballroom','roof', 'rooftops', 'chimney', 'attic',
-                            'loft', 'gable', 'eaves', 'belvedere','balcony', 'balustrade', 'parapet', 'walkway', 'catwalk',
-                            'pavillion', 'pagoda', 'gazebo','mirror', 'glass', 'mere','throne', 'seat', 'dais',
-                            'pillar', 'column', 'stone', 'spike', 'rock', 'megalith', 'menhir', 'dolmen', 'obelisk',
-                            'statue', 'giant', 'head', 'arm', 'leg', 'body', 'chest', 'body', 'face', 'visage', 'gargoyle', 'grotesque',
-                            'fire', 'flame', 'bonfire', 'hearth', 'fireplace', 'furnace', 'stove','window', 'grate', 'peephole', 
-                            'arrowslit', 'slit', 'balistraria', 'lancet', 'aperture', 'dormerl']
+#         architecture_list = ['hall', 'chamber', 'room','nave', 'aisle', 'vestibule',
+#                             'antechamber', 'chantry', 'pulpit','dome', 'arch', 'colonnade',
+#                             'stair', 'ladder', 'climb', 'ramp', 'steps',
+#                             'portal', 'mouth', 'opening', 'door', 'gate', 'entrance', 'maw',
+#                             'tunnel', 'passage', 'corridor', 'hallway', 'chute', 'slide', 'tube', 'trapdoor',
+#                             'tower', 'turret', 'belfry','wall', 'fortifications', 'ramparts', 'pallisade', 'battlements',
+#                             'portcullis', 'barbican','throne room', 'ballroom','roof', 'rooftops', 'chimney', 'attic',
+#                             'loft', 'gable', 'eaves', 'belvedere','balcony', 'balustrade', 'parapet', 'walkway', 'catwalk',
+#                             'pavillion', 'pagoda', 'gazebo','mirror', 'glass', 'mere','throne', 'seat', 'dais',
+#                             'pillar', 'column', 'stone', 'spike', 'rock', 'megalith', 'menhir', 'dolmen', 'obelisk',
+#                             'statue', 'giant', 'head', 'arm', 'leg', 'body', 'chest', 'body', 'face', 'visage', 'gargoyle', 'grotesque',
+#                             'fire', 'flame', 'bonfire', 'hearth', 'fireplace', 'furnace', 'stove','window', 'grate', 'peephole', 
+#                             'arrowslit', 'slit', 'balistraria', 'lancet', 'aperture', 'dormerl']
         
         
-        setting_words_filter_list = location_list + time_list + movement_list + palce_terrain_type_list + water_list + outdoor_places_list + underground_list + underground_list + living_places_list + building_facilities_list + architecture_list
+#         setting_words_filter_list = location_list + time_list + movement_list + palce_terrain_type_list + water_list + outdoor_places_list + underground_list + underground_list + living_places_list + building_facilities_list + architecture_list
 
         
-        ####문장에 setting_words_filter_list의 단어들이 있는지 확인하고, 있다면 유사단어를 추출한다.
-        #우선 토큰화한다.
-        retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
-        token_input_text = retokenize.tokenize(essay_input_corpus)
-        #print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
-        #리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
-        filtered_setting_text = []
-        for k in token_input_text:
-            for j in setting_words_filter_list:
-                if k == j:
-                    filtered_setting_text.append(j)
+#         ####문장에 setting_words_filter_list의 단어들이 있는지 확인하고, 있다면 유사단어를 추출한다.
+#         #우선 토큰화한다.
+#         retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
+#         token_input_text = retokenize.tokenize(essay_input_corpus)
+#         #print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
+#         #리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
+#         filtered_setting_text = []
+#         for k in token_input_text:
+#             for j in setting_words_filter_list:
+#                 if k == j:
+#                     filtered_setting_text.append(j)
         
-        #print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
+#         #print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
         
-        filtered_setting_text_ = set(filtered_setting_text) #중복제거
-        filtered_setting_text__ = list(filtered_setting_text_) #다시 리스트로 변환
-        #print (filtered_setting_text__) # 중복값 제거 확인
+#         filtered_setting_text_ = set(filtered_setting_text) #중복제거
+#         filtered_setting_text__ = list(filtered_setting_text_) #다시 리스트로 변환
+#         #print (filtered_setting_text__) # 중복값 제거 확인
         
-#         for i in filtered_setting_text__:
-#             ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
+# #         for i in filtered_setting_text__:
+# #             ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
         
-        setting_total_count = len(filtered_setting_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현 수
-        setting_count_ = len(filtered_setting_text__) #중복제거된 setting표현 총 수
+#         setting_total_count = len(filtered_setting_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현 수
+#         setting_count_ = len(filtered_setting_text__) #중복제거된 setting표현 총 수
             
-        result_setting_words_ratio = round(setting_total_count/total_words * 100, 2)
-        #return result_setting_words_ratio, total_sentences, total_words, setting_total_count, setting_count_, ext_setting_sim_words_key
-        return result_setting_words_ratio
+#         result_setting_words_ratio = round(setting_total_count/total_words * 100, 2)
+#         #return result_setting_words_ratio, total_sentences, total_words, setting_total_count, setting_count_, ext_setting_sim_words_key
+#         return result_setting_words_ratio
 
 
-    # 셋팅 비율 계산
-    settig_ratio_re = setting_anaysis(input_text)
-    # print("====================================================================")
-    # print("SETTING RATIO : ", settig_ratio_re)
-    # print("====================================================================")
+#     # 셋팅 비율 계산
+#     settig_ratio_re = setting_anaysis(input_text)
+#     # print("====================================================================")
+#     # print("SETTING RATIO : ", settig_ratio_re)
+#     # print("====================================================================")
 
 
     ###################################################################################
     # 13. PLOT COMPLEXITY 계산¶ - 캐릭터 20% + conflict 40% + 감정기복 30% + setting 10%
     ###################################################################################
 
-    def character(text):
+    # def character(text):
 
-        essay_input_corpus = str(text) #문장입력
-        essay_input_corpus = essay_input_corpus.lower()#소문자 변환
+    #     essay_input_corpus = str(text) #문장입력
+    #     essay_input_corpus = essay_input_corpus.lower()#소문자 변환
 
-        sentences  = sent_tokenize(essay_input_corpus) #문장 토큰화
-        total_sentences = len(sentences)#토큰으로 처리된 총 문장 수
-        total_words = len(word_tokenize(essay_input_corpus))# 총 단어수
+    #     sentences  = sent_tokenize(essay_input_corpus) #문장 토큰화
+    #     total_sentences = len(sentences)#토큰으로 처리된 총 문장 수
+    #     total_words = len(word_tokenize(essay_input_corpus))# 총 단어수
         
-        split_sentences = []
-        for sentence in sentences:
-            processed = re.sub("[^a-zA-Z]"," ", sentence)
-            words = processed.split()
-            split_sentences.append(words)
+    #     split_sentences = []
+    #     for sentence in sentences:
+    #         processed = re.sub("[^a-zA-Z]"," ", sentence)
+    #         words = processed.split()
+    #         split_sentences.append(words)
 
-        skip_gram = 1
-        workers = multiprocessing.cpu_count()
-        bigram_transformer = Phrases(split_sentences)
+    #     skip_gram = 1
+    #     workers = multiprocessing.cpu_count()
+    #     bigram_transformer = Phrases(split_sentences)
 
-        model = gensim.models.word2vec.Word2Vec(bigram_transformer[split_sentences], workers=workers, sg=skip_gram, min_count=1)
+    #     model = gensim.models.word2vec.Word2Vec(bigram_transformer[split_sentences], workers=workers, sg=skip_gram, min_count=1)
 
-        model.train(split_sentences, total_examples=sum([len(sentence) for sentence in sentences]), epochs=100)
+    #     model.train(split_sentences, total_examples=sum([len(sentence) for sentence in sentences]), epochs=100)
         
-        #모델 설계 완료
+    #     #모델 설계 완료
 
-        #캐릭터 표현하는 단어들을 리스트에 넣어서 필터로 만들고
-        character_list = ['i', 'my', 'me', 'mine', 'you', 'your', 'they','them',
-                        'yours', 'he','him','his' 'she','her','it','someone','their', 'myself', 'aunt',
-                        'brother','cousin','daughter','father','grandchild','granddaughter','granddson','grandfather',
-                        'grandmother','great-grandchild','husband','ex-husband','son-in-law', 'daughter-in-law','mother',
-                        'niece','nephew','parents','sister','son','stepfather','stepmother','stepdaughter', 'stepson',
-                        'twin','uncle','widow','widower','wife','ex-wife']
+    #     #캐릭터 표현하는 단어들을 리스트에 넣어서 필터로 만들고
+    #     character_list = ['i', 'my', 'me', 'mine', 'you', 'your', 'they','them',
+    #                     'yours', 'he','him','his' 'she','her','it','someone','their', 'myself', 'aunt',
+    #                     'brother','cousin','daughter','father','grandchild','granddaughter','granddson','grandfather',
+    #                     'grandmother','great-grandchild','husband','ex-husband','son-in-law', 'daughter-in-law','mother',
+    #                     'niece','nephew','parents','sister','son','stepfather','stepmother','stepdaughter', 'stepson',
+    #                     'twin','uncle','widow','widower','wife','ex-wife']
         
-        ####문장에 char_list의 단어들이 있는지 확인하고, 있다면 유사단어를 추출한다.
-        #우선 토큰화한다.
-        retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
-        token_input_text = retokenize.tokenize(essay_input_corpus)
-        #print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
-        #리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
-        filtered_chr_text = []
-        for k in token_input_text:
-            for j in character_list:
-                if k == j:
-                    filtered_chr_text.append(j)
+    #     ####문장에 char_list의 단어들이 있는지 확인하고, 있다면 유사단어를 추출한다.
+    #     #우선 토큰화한다.
+    #     retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
+    #     token_input_text = retokenize.tokenize(essay_input_corpus)
+    #     #print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
+    #     #리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
+    #     filtered_chr_text = []
+    #     for k in token_input_text:
+    #         for j in character_list:
+    #             if k == j:
+    #                 filtered_chr_text.append(j)
         
-        #print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
+    #     #print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
         
-        filtered_chr_text_ = set(filtered_chr_text) #중복제거
-        filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
-        #print (filtered_chr_text__) # 중복값 제거 확인
+    #     filtered_chr_text_ = set(filtered_chr_text) #중복제거
+    #     filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
+    #     #print (filtered_chr_text__) # 중복값 제거 확인
         
-        for i in filtered_chr_text__:
-            ext_sim_words_key = model.wv.most_similar_cosmul(i) #모델적용
+    #     for i in filtered_chr_text__:
+    #         ext_sim_words_key = model.wv.most_similar_cosmul(i) #모델적용
         
-        char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 캐릭터 표현 수
-        char_count_ = len(filtered_chr_text__) #중복제거된 캐릭터 표현 총 수
+    #     char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 캐릭터 표현 수
+    #     char_count_ = len(filtered_chr_text__) #중복제거된 캐릭터 표현 총 수
             
-        result_char_ratio = round(char_total_count/total_words * 100, 2)
+    #     result_char_ratio = round(char_total_count/total_words * 100, 2)
 
-        #return result_char_ratio, total_sentences, total_words, char_total_count, char_count_, ext_sim_words_key
-        return result_char_ratio
+    #     #return result_char_ratio, total_sentences, total_words, char_total_count, char_count_, ext_sim_words_key
+    #     return result_char_ratio
 
 
     #######################################################################
@@ -770,17 +854,17 @@ def ai_plot_conf(essay_input_):
     # settig_ratio_re #Setting 비율 계산 10%
     # 전체 문장에서 캐릭터를 의미하는 단어나 유사어 비율 
 
-    character_ratio_result = character(input_text)
-    character_ratio_result
-    #print("전체 문장에서 캐릭터를 의미하는 단어나 유사어 비율 :", character_ratio_result)
+    # character_ratio_result = character(input_text)
+    # character_ratio_result
+    # #print("전체 문장에서 캐릭터를 의미하는 단어나 유사어 비율 :", character_ratio_result)
 
     ###########################################################
     ############# Degree of Conflict  비율 계산 #################
     conflict_word_ratio = round(len(count_conflict_list) / len(input_text_list) * 1000, 1)  
     #print("Degree of conflict  단어가 전체 문장(단어)에서 차지하는 비율 계산 :", conflict_word_ratio)
 
-    global coflict_ratio
-    coflict_ratio = [conflict_word_ratio] #그래프로 표현하는 값
+    # global coflict_ratio
+    # coflict_ratio = [conflict_word_ratio] #그래프로 표현하는 값
 
 
 
@@ -829,6 +913,7 @@ def ai_plot_conf(essay_input_):
     # degree of conflict: conflict_word_ratio
     # count_conflict_list : 웹에 표시할 conflict words
     return plot_comp_ratio, conflict_word_ratio, count_conflict_words_uniqute_list
+    #return plot_comp_ratio, conflict_word_ratio, count_conflict_words_uniqute_list
 
 
 # 이 값을 백업용으로 남겨둠
@@ -1870,5 +1955,7 @@ print('setting_words_list : ', key_literary_element(essay_input, 'Meaningful exp
 # 2) Prompt Oriented Sentiments (20%):
 # Main: realization, approval, admiration, gratitude
 # Sub (가산점): confusion, disappointment, caring
+
+
 
 
