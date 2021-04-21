@@ -41,6 +41,9 @@ from general_academic_knowledge import GeneralAcademicKnowledge
 ### meaningfulExperienceLessonLearned.py
 from meaningfulExperienceLessonLearned import MeaningFullExpreenceLessonLearened
 
+### achievementYouAreProud.py
+from achievementYouAreProud import get_achievement_you_are_proud_of
+
 
 
 
@@ -595,24 +598,54 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     ## meaningfulExperienceLessonLearned.py 의 코멘트 생성 부분
     meanful_result = MeaningFullExpreenceLessonLearened(essay_input)
     ### MeaningFullExpreenceLessonLearened(essay_input)의 return 값 설명 ###
-    # 0. overall_result_fin_re : overall score
-    # 1. KeyKiterElement_score
-    # 2. PromptOriented_score
-    # 3. Originality_score
-    # 4. Perspective_score
+        # 0. overall_result_fin_re : overall score
+        # 1. KeyKiterElement_score
+        # 2. PromptOriented_score
+        # 3. Originality_score
+        # 4. Perspective_score
 
-    # 5. plot_n_conflict_word_for_web : 웹에 표시되는 단어 리스트
-    # 6. characgter_words_for_web : 웹에 표시되는 단어 리스트
-    # 7. setting_words_list : 웹에 표시되는 단어 리스트
-    # 8. perspective_analysis_result_for_web :  웹에 표시되는 단어+문장 리스트
+        # 5. plot_n_conflict_word_for_web : 웹에 표시되는 단어 리스트
+        # 6. characgter_words_for_web : 웹에 표시되는 단어 리스트
+        # 7. setting_words_list : 웹에 표시되는 단어 리스트
+        # 8. perspective_analysis_result_for_web :  웹에 표시되는 단어+문장 리스트
 
-    # 9. fixed_top_comment :  코멘트 생성
-    # 10. KLE_comment : 코멘트 생성
-    # 11. keylitElemt_comment : 코멘트 생성
-    # 12. Originality_comment : 코멘트 생성
-    # 13. perspective_comment : 코멘트 생성
+        # 9. fixed_top_comment :  코멘트 생성
+        # 10. KLE_comment : 코멘트 생성
+        # 11. keylitElemt_comment : 코멘트 생성
+        # 12. Originality_comment : 코멘트 생성
+        # 13. perspective_comment : 코멘트 생성
 
 
+    achievement_result = get_achievement_you_are_proud_of(essay_input)
+    ### achievement_result 결과값 해석 ###   --- achievementYouAreProud.py
+        # 0. achievement_result[0]   : in_result : 최종 결과로 5가지 척도로 계산됨
+        # 1. achievement_result[1]   :get_words_ratio : 입력에세이의 토픽과 비교할 단어가 얼마나 일치하는지에 대한 비율 계산 결과
+        # 2. achievement_result[2]   :pmt_ori_keyword : Prompt Oriented Keywords 추출
+        # 3. achievement_result[3]   :fin_initiative_enguagement_ratio : initiative_enguagement 가 에세이이 포함된 비율
+        # 4. iachievement_result[4]   :nitiative_enguagement_result : initiative_enguagement가 합격생 평균에 비교하여 얻은 최종 값
+
+    #achievement you are proud of  - overall 결과 계산하기
+    def cal_sore(input_5d_value):
+        if input_5d_value == 'Supurb':
+            get_score = 100
+        elif input_5d_value == 'Strong':
+            get_score = 80
+        elif input_5d_value == 'Good':
+            get_score = 60
+        elif input_5d_value == 'Mediocre':
+            get_score = 40
+        elif input_5d_value == 'Lacking':
+            get_score = 20
+        else:
+            pass
+        return get_score
+
+    prompt_ori_keywds = cal_sore(achievement_result[0]) #20%
+    prompt_ori_sentiments = cal_sore(result_pmt_ori_sentiments)# 40%
+    initiative_eng = cal_sore(achievement_result[4]) # 30%
+    
+    # overall achievement 최종값 계산!!!!
+    overall_of_achievement_you_are_prooud_of = prompt_ori_keywds * 0.2 + prompt_ori_sentiments * 0.4 + initiative_eng * 0.3
 
     ### +++ 실행결과 설명 +++ ###
     # 0. gen_keywd_college : 선택한 대학의 General Keywords on college로 wordcloud로 출력됨
@@ -668,6 +701,15 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
             # 'Originality_comment' : Originality_comment, 
             # 'perspective_comment' : perspective_comment
 
+        # 18. achievement_result
+            # 0. achievement_result[0]  : in_result : 최종 결과로 5가지 척도로 계산됨
+            # 1. achievement_result[1]  : get_words_ratio : 입력에세이의 토픽과 비교할 단어가 얼마나 일치하는지에 대한 비율 계산 결과
+            # 2. achievement_result[2]  : pmt_ori_keyword : Prompt Oriented Keywords 추출
+            # 3. achievement_result[3]  : fin_initiative_enguagement_ratio : initiative_enguagement 가 에세이이 포함된 비율
+            # 4. iachievement_result[4] : nitiative_enguagement_result : initiative_enguagement가 합격생 평균에 비교하여 얻은 최종 값
+        # 19. overall_of_achievement_you_are_prooud_of # overall achievement 최종값  -- 웹에 표시
+
+
 
     data_result = {
         'gen_keywd_college' : gen_keywd_college, # 선택한 대학의 General Keywords on college로 wordcloud로 출력됨
@@ -687,7 +729,9 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'general_aca_comment_re' : general_aca_comment_re, # general academic knowledge 문장생성 부분
         'pmt_ori_sentiments_re' : pmt_ori_sentiments_re, # sentiments 문장생성 부분
         'intellectual_eng_re' : intellectual_eng_re, # intellectual enguagement 문장생성 부분
-        'meanful_result' : meanful_result # 이 부분은 위에 # 16. meanful_result : MeaningFullExpreenceLessonLearened(essay_input)의 return 값에 해당하는 부부으로 다수의 값이 계산된다. 코멘트까지 계산된다규~!
+        'meanful_result' : meanful_result, # 이 부분은 위에 # 16. meanful_result : MeaningFullExpreenceLessonLearened(essay_input)의 return 값에 해당하는 부부으로 다수의 값이 계산된다. 코멘트까지 계산된다규~!
+        'achievement_result' : achievement_result,
+        'overall_of_achievement_you_are_prooud_of' : overall_of_achievement_you_are_prooud_of # overall achievement 최종값  -- 웹에 표시
     }
 
     return data_result
@@ -783,3 +827,4 @@ print('최종결과:', sc_re)
 # 'setting_words_list': ['India', 'a few minutes', 'three-hour', 'college', 'in', 'climb', 'over', 'from', 'falls', 'maze', 'since', 'up', 'behind', 'by', 'into', 'house', 'keep', 'rock', 'on', 'home', 'to', 'room', 'down', 'wood', 'turn', 'temple', 'before', 'through', 'mine', 'after'], 
 # 'perspective_analysis_result_for_web': [' Their response would usually entail feeling a deep, visceral sense that traditions must be followed exactly as taught, without objection', ' I would often ask for clarity or for reasons that supported their ideologies', " The room erupts around me, and 'Happy Birthday!' cheers echo through the halls", " Growing up, I was discouraged from questioning others or asking questions that didn't have definitive yes or no answers", " If I asked the priest at the temple why he had asked an Indian man and his white wife to leave, I'd be met with a condescending glare and told that I should also leave for asking such questions", ' If I innocently asked my grandma why she expected me to touch her feet, my dad would grab my hand in a sudden swoop, look me sternly in the eye, and tell me not to disrespect her like that again', ' While in 7th-grade geometry, I graphed the arc of his shot, and after learning about quadratic equations in 8th grade, I expressed his shot as a parabolic function that would ensure a swish when shooting from any spot', ' "},{"index":1,"personal_essay":"Ever since I first held a small foam Spiderman basketball in my tiny hands and watched my idol Kobe Bryant hit every three-pointer he attempted, I\'ve wanted to understand and replicate his flawless jump shot', "' A vital aspect of my family's cultural background is their focus on accepting things as they are", ' After calculus lessons in 10th and 11th grade, I was excited to finally solve for the perfect velocity and acceleration needed on my release', 'In direct contrast, my curiosity was invited and encouraged at school', ' At Brown, I hope to explore this intellectual pursuit through a different lens', " At home, if I mentioned that I had tried eggs for breakfast at a friend's house, I'd be looked at like I had just committed a felony for eating what my parents considered meat", ' This instrument serves as a connection between me and one of the most beautiful aspects of my culture: Carnatic music', " Now, if a teacher mentions that we'll learn about why a certain proof or idea works only in a future class, I'll stay after to ask more or pour through an advanced textbook to try to understand it", 'I inhale deeply and blow harder than I thought possible, pushing the tiny ember from its resting place on the candle out into the air', " I've been playing the Mridangam since I was five years old", " It's time to make a wish", " Brown's Open Curriculum allows students to explore broadly while also diving deeply into their academic pursuits", ' Tell us about an academic interest (or interests) that excites you, and how you might use the Open Curriculum to pursue it', " 'Wish that you get to go to the temple every day when you're older! Wish that you memorize all your Sanskrit texts before you turn 6! Wish that you can live in India after college!' My ears listen, but my mind tunes them out, as nothing could possibly compare to that toy watch! What I never realized on my third birthday is that those wishes quietly tell the story of how my family hopes my life will play out", ' My parents and the aunties and uncles around me attempt to point me in a different direction', ' I wanted to ensure that I positively contributed to society, while my parents believed that organ donation was an unfamiliar and unnecessary cultural taboo', ' Hoping to be like these idols on the stage, I trained intensely with my teacher, a strict man who taught me that the simple drum I was playing had thousands of years of culture behind it', " Instead of scolding me for asking her a 'dumb question,' she smiled and explained the intricacy of the water cycle", " After earning my driver's license, I registered as an organ donor", " I'm no longer afraid to rock the boat", " Building up from simple strokes, I realized that the finger speed I'd had been awestruck by wasn't some magical talent, it was instead a science perfected by repeated practice", " In this version of my life, there wasn't much room for change, personal growth, or 'rocking the boat", " When it comes to the maze of learning, even when I take a wrong turn and encounter roadblocks that are meant to stop me, I've learned to climb over them and keep moving forward", " As a young child, I'd be taken to the temple every weekend for three-hour-long Carnatic music concerts, where the most accomplished teenagers and young adults in our local Indian community would perform", " My small checkmark on a piece of paper led to an intense clash between my and my parents' moral platform", " After an environmental science lesson, I stayed for a few minutes after class to ask my 4th-grade science teacher with wide eyes how it was possible that Niagara Falls doesn't run out of flowing water", " After learning about variables for the first time in 5th grade Algebra, I began to treat each aspect of Kobe's jump shot as a different variable, each combination of variables resulting in a unique solution", " I've become someone who seeks to understand things at a fundamental level and who finds excitement in taking on big questions that have yet to be solved", " I would watch in awe as the mridangists' hands moved gracefully, flowing across the goatskin as if they weren't making contact, while simultaneously producing sharp rhythmic patterns that never failed to fall on the beat", ' In my mind, that new Limited Edition Deluxe Ben 10 watch will soon be mine', ' While my perspective was widening at school, the receptiveness to raising complex questions at home was diminishing', ' My curiosity strengthens with each hurdle and has expanded into a pure love of learning new things', " It's a simple instrument: A wood barrel covered on two ends by goatskin with leather straps surrounding the hull", " What if I could maximize the odds of making shots if I understood the science behind one's mental mindset and focus through CLPS 500: Perception and Action? Or use astrophysics to account for drag and gravitational force anywhere in the universe? Or use data science to break down the analytics of the NBA's best shooters? Through the Open Curriculum, I see myself not only becoming a more complete learner, but also a more complete thinker, applying a flexible mindset to any problem I encounter", ' As my math education progressed in school, I began to realize I had the tools to create a perfect shot formula', " Told in one language to keep asking questions and in another to ask only the right ones, I chose exploring questions that don't have answers, rather than accepting answers that don't get questioned", 'thought', 'find', 'rather', 'believe', 'sit', 'bet', 'tell', 'question', 'come', 'think', 'usually', 'perspective', 'wish', 'much', 'wrong', 'must', 'familiar', 'consider', 'top', 'get', 'mean', 'person', 'would', 'my perspective', 'look', 'pure', 'this', 'see', 'could', 'one', 'want', 'book', 'go', 'In my mind', 'expressed', 'possibly', 'my mind', 'support', 'old', 'beautiful', 'certain', 'say', 'right', 'take', 'sure', 'personal', 'without', 'understand', 'point', 'exactly', 'might', 'unique', 'even', 'feel', 'feeling', 'stand', 'side', 'real', 'idea', "one's", 'ask', 'complete', 'positively', 'mind', 'change', 'best', 'grand', 'eye', 'never', 'like', 'perfect', 'wa', 'positive', 'complex'], 'fixed_top_comment': 'For meaningful experience and lessons learned, you may write about any occasion in your life as long as it had an impact on your life. One can assume that they are looking for a unique story, your own perspective, and a lesson that presented you with a positive outlook in life.', 'KLE_comment': 'A comprehensive review indicates that your story seems satisfactory in terms of the key literary elements in general, such as character, plot & conflict, and setting.', 'keylitElemt_comment': 'In addition, you may consider expressing the sentiments, such as gratitude, admiration, and realization, which are correlated with positive lessons in life.', 
 # 'Originality_comment': 'You may consider including various topics and ideas to make your essay sound more original and interesting.', 'perspective_comment': 'Lastly, you may consider elaborating further on your beliefs and opinions to solidify your viewpoint further.'}}
+# 'achievement_result': ('Mediocre', 8.11, ['learn', 'clarity', 'grade'], 5.03, 'Supurb')}
