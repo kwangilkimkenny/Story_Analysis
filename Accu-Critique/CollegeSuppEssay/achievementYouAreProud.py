@@ -141,7 +141,7 @@ def get_sim_words(text):
     model = gensim.models.word2vec.Word2Vec(bigram_transformer[split_sentences], workers=workers, sg=skip_gram, min_count=1)
 
     model.train(split_sentences, total_examples=sum([len(sentence) for sentence in sentences]), epochs=100)
-    
+
     #모델 설계 완료
 
     #비교분석 단어들을 리스트에 넣어서 필터로 만들고
@@ -280,7 +280,7 @@ def initiative_engagement(essay_input):
         model = gensim.models.word2vec.Word2Vec(bigram_transformer[split_sentences], workers=workers, sg=skip_gram, min_count=1)
 
         model.train(split_sentences, total_examples=sum([len(sentence) for sentence in sentences]), epochs=100)
-        
+
         #모델 설계 완료
 
         # ACTION VERBS 표현하는 단어들을 리스트에 넣어서 필터로 만들고

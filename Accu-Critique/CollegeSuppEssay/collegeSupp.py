@@ -176,8 +176,9 @@ def select_prompt_type(prompt_type):
         pmt_typ = ["Achievement you are proud of"]
         pmt_sentiment = ['Realization', 'Approval', 'Gratitude', 'Admiration', 'Pride', 'Desire', 'Optimism']
     elif prompt_type ==  'Social issues: contribution & solution':
-        pmt_typ = [""]
-        pmt_sentiment = ['Anger', 'Fear', 'Disapproval','Disappointment','Realization','Approval', 'Gratitude', 'Admiration']
+        pmt_typ = ["Social issues: contribution & solution"]
+        # 0~16 번째는 에세이 입력의 40% 분석 적용, 그 이후부분은 60% 적용  --> 즉 [:16], [17:] 이렇게 나눌 것
+        pmt_sentiment = ['Anger', 'annoyance', 'Fear', 'Disapproval', 'disgust', 'Disappointment','grief', 'nervousness', 'sadness', 'surprise', 'remorse', 'curiosity', 'embarrassment', 'Realization','Approval', 'Gratitude', 'Admiration','Admiration','Approval', 'Caring', 'Joy', 'Gratitude', 'Optimism','relief', 'Realization']
     elif prompt_type ==  'Summer activity':
         pmt_typ = [""]
         pmt_sentiment = ['Pride','Realization','Curiosity','Excitement','Amusement','Caring']
@@ -462,22 +463,169 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
             cnt += 1
     
     cnt_re = cnt
+
+
+    ############ - 에세이 입력 구간을 분리하여 감성분석 시작 - ##########
+
+    def parted_Sentiments_analysis(essay_input):
+        ########## 여기서는 최초 입력 에세이를 적용한다. input_text !!!!!!!!
+        re_text = essay_input.split(".")
+
+        #데이터 전처리 
+        def cleaning(datas):
+            fin_datas = []
+            for data in datas:
+                # 영문자 이외 문자는 공백으로 변환
+                only_english = re.sub('[^a-zA-Z]', ' ', data)
+                # 데이터를 리스트에 추가 
+                fin_datas.append(only_english)
+            return fin_datas
+
+        texts = cleaning(re_text)
+        texts_40 = texts[:int(round(len(texts)*0.4,0))] # 40% 앞부분 추출
+        texts_60 = texts[int(round(len(texts)*0.4,0)):] # 60%은 뒷부분 추출
+
+        def get_emo_text_ratio(text_input_list):
+            #분석된 감정만 추출
+            emo_re = goemotions(texts)
+
+            emo_all = []
+            for list_val in range(0, len(emo_re)):
+                #print(emo_re[list_val]['labels'],emo_re[list_val]['scores'])
+                #mo_all.append((emo_re[list_val]['labels'],emo_re[list_val]['scores'])) #KEY, VALUE만 추출하여 리스트로 저장
+                #emo_all.append(emo_re[list_val]['scores'])
+                emo_all.append((emo_re[list_val]['labels']))
+                
+            #추출결과 확인 
+            # emo_all
+
+            # ['sadness'],
+            #  ['anger'],
+            #  ['admiration', 'realization'],
+            #  ['admiration', 'disappointment'],
+            #  ['love'],
+            #  ['sadness', 'neutral'],
+            #  ['realization', 'neutral'],
+            #  ['neutral'],
+            #  ['optimism'],
+            #  ['neutral'],
+            #  ['excitement'],
+            #  ['neutral'],
+            #  ['neutral'],
+            #  ['caring'],
+            #  ['gratitude'],
+            #  ['admiration', 'approval'], ...
+
+            from pandas.core.common import flatten #이중리스틀 FLATTEN하게 변환
+            flat_list = list(flatten(emo_all))
+
+            # ['neutral',
+            #  'neutral',
+            #  'sadness',
+            #  'anger',
+            #  'admiration',
+            #  'realization',
+            #  'admiration',
+            #  'disappointment',
+
+
+            #중립적인 감정을 제외하고, 입력한 문장에서 다양한 감정을 모두 추출하고 어떤 감정이 있는지 계산해보자
+            unique = []
+            for r in flat_list:
+                if r == 'neutral':
+                    pass
+                else:
+                    unique.append(r)
+
+            #중립감정 제거 및 유일한 감정값 확인
+            #unique
+            unique_re = set(unique) #중복제거
+
+            ############################################################################
+            # 글에 표현된 감정이 얼마나 다양한지 분석 결과!!!¶
+            # print("====================================================================")
+            # print("에세이에 표현된 다양한 감정 수:", len(unique_re))
+            # print("====================================================================")
+
+            #분석가능한 감정 총 감정 수 - Bert origin model 적용시 28개 감정 추출돰
+            total_num_emotion_analyzed = 28
+
+            # 감정기복 비율 계산 !!!
+            result_emo_swings =round(len(unique_re)/total_num_emotion_analyzed *100,1) #소숫점 첫째자리만 표현
+            # print("문장에 표현된 감정 비율 : ", result_emo_swings)
+            # print("====================================================================")
+
+            # unique_re : 에세이에서 분석 추출한 감정   ====> 이것이 중요한 값임
+            return unique_re
+
+        result_of_each_emotion_analysis_1 = get_emo_text_ratio(texts_40)
+        result_of_each_emotion_analysis_2 = get_emo_text_ratio(texts_60)
+
+        return result_of_each_emotion_analysis_1, result_of_each_emotion_analysis_2
+
+        ############ - 구간분리 감성분석 결과 끝 - ##############
+
+
+    # Social Awareness 부분에서 에세이 구간별 감성 분석 적용 부분 [:16], [17:]
+    # pmt_sent_etc_re[:16] # 1차 감성부분 초반 40% (단어수따라 틀림), 총점의 40%: anger, annoyance, disapproval, disappointment, disgust, fear, grief, nervousness, sadness, surprise, remorse, curiosity, embarrassment
+    # pmt_sent_etc_re[17:] # 2차 감성부분 후반 60% (단어수따라 틀림), 총점의 60%: admiration, approval, caring, joy, gratitude, optimism, realization, relief
+
+    ### 문장 구간 분리하여 대표 감성 추출할 것 ###
+    sent_parted_re = parted_Sentiments_analysis(essay_input)
+    # 초반 40% 구간의 대표감성분석 결과
+    sent_pre_40_re = sent_parted_re[0]
     # 일치비율 계산
-    sent_comp_ratio = round(cnt_re / pmt_snet_re_num * 100, 2)
+    # 전반 40% 구간에 해당하는 감성정보값(리스트) : pmt_sent_etc_re[:16]
+    # 비교
+    s_40_cnt= 0
+    for ittm in sent_pre_40_re:
+        if ittm in pmt_sent_etc_re[:16]: # 전반 40% 구간에 일치하는 감성이 있다면,
+            s_40_cnt += 1 # 카운트하고, 
 
-    if sent_comp_ratio >= 80:
-        result_pmt_ori_sentiments = 'Supurb'
-    elif sent_comp_ratio >= 60 and sent_comp_ratio < 80:
-        result_pmt_ori_sentiments = 'Strong'
-    elif sent_comp_ratio >= 40 and sent_comp_ratio < 60:
-        result_pmt_ori_sentiments = 'Good'
-    elif sent_comp_ratio >= 20 and sent_comp_ratio < 40:
-        result_pmt_ori_sentiments = 'Mediocre'
-    else: #sent_comp_ratio < 20
-        result_pmt_ori_sentiments = 'Lacking'
-
+    if s_40_cnt == 0: # 일치 하는 감성정보가 없다면,
+        sent_comp_ratio_40 = 0
+    else: # 있다면,
+        sent_comp_ratio_40 = round(s_40_cnt / len(pmt_sent_etc_re[:16]) * 100, 2) * 0.4 # 전반 40% 구간에서 일치하는 감성의 선택한 프롬프트감성과의 비교결과 포함 비율을 계산하고, 가중치 적용(0.4)
 
 
+    # 후반 60% 구간의 대표감성분석 결과
+    sent_pre_60_re = sent_parted_re[1]
+    # 일치비율 계산
+    # 후반 60% 구간에 해당하는 감성정보값(리스트) : pmt_sent_etc_re[17:]
+    s_60_cnt= 0
+    for ittm_ in sent_pre_60_re:
+        if ittm_ in pmt_sent_etc_re[17:]: # 후반 60% 구간 리스트에 일치하는 감성이 있다면,
+            s_60_cnt += 1 # 카운트하고, 
+    
+    if s_60_cnt == 0: # 일치 하는 감성정보가 없다면,
+        sent_comp_ratio_60 = 0
+    else:
+        sent_comp_ratio_60 = round(s_60_cnt / len(pmt_sent_etc_re[17:]) * 100, 2) * 0.6
+
+    # 비율 적용한 최종 값
+    fin_re_sentiments_analysis = sent_comp_ratio_40 + sent_comp_ratio_60
+    print('fin_re_sentiments_analysis:', fin_re_sentiments_analysis)
+
+    # 일치비율 계산
+    sent_comp_ratio_origin = round(cnt_re / pmt_snet_re_num * 100, 2)
+
+
+    def calculate_score(sent_comp_ratio):
+        if sent_comp_ratio >= 80:
+            result_pmt_ori_sentiments = 'Supurb'
+        elif sent_comp_ratio >= 60 and sent_comp_ratio < 80:
+            result_pmt_ori_sentiments = 'Strong'
+        elif sent_comp_ratio >= 40 and sent_comp_ratio < 60:
+            result_pmt_ori_sentiments = 'Good'
+        elif sent_comp_ratio >= 20 and sent_comp_ratio < 40:
+            result_pmt_ori_sentiments = 'Mediocre'
+        else: #sent_comp_ratio < 20
+            result_pmt_ori_sentiments = 'Lacking'
+        return result_pmt_ori_sentiments
+
+
+    result_pmt_ori_sentiments_of_social_issue = calculate_score(fin_re_sentiments_analysis) # Social issues: contribution & solution 부분의  Prompt Oriented Sentiments -- 분리적용한 부분
+    result_pmt_ori_sentiments = calculate_score(sent_comp_ratio_origin)
     
     
 
@@ -771,7 +919,8 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'meanful_result' : meanful_result, # 이 부분은 위에 # 16. meanful_result : MeaningFullExpreenceLessonLearened(essay_input)의 return 값에 해당하는 부부으로 다수의 값이 계산된다. 코멘트까지 계산된다규~!
         'achievement_result' : achievement_result,
         'overall_of_achievement_you_are_prooud_of' : overall_of_achievement_you_are_prooud_of, # overall achievement 최종값  -- 웹에 표시
-        'comments_achievement': comments_achievement # Achievement 문장 생성 부분 총 4개
+        'comments_achievement': comments_achievement, # Achievement 문장 생성 부분 총 4개
+        'result_pmt_ori_sentiments_of_social_issue': result_pmt_ori_sentiments_of_social_issue # Social issues: contribution & solution - Prompt Oriented Sentiments 계산 결과임 ---> 웹에 표시할 것
     }
 
     return data_result
@@ -788,6 +937,8 @@ essay_input = """I inhale deeply and blow harder than I thought possible, pushin
 #sc_re = selected_college('Intellectual interest', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 #sc_re = selected_college("Meaningful experience & lesson learned", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 sc_re = selected_college("Achievement you are proud of", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
+#Social issues: contribution & solution
+sc_re = selected_college("Social issues: contribution & solution", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 print('최종결과:', sc_re)
 
 
