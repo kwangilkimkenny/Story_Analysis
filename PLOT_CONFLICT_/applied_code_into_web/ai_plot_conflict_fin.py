@@ -352,6 +352,21 @@ def ai_plot_conf(essay_input_):
         else: #없다면
             graph_calculation_list.append(0)
 
+    print('graph_calculation_list :',  graph_calculation_list)
+    div_num = len(graph_calculation_list) / 10
+    div_nums = round(div_num)
+    print('div_nums:', div_nums) # 125개씩 묶음
+
+
+    # 리스트의 결과값을 10개의 구간으로 나누고, 구간별 합을 다시 새로운 리스로 변환하여 그래프로 표시할 것
+    new_list = []
+    for i in range(1, round(len(graph_calculation_list)/100)): # div_num = 125 으로 100으로 나눈 이유는, 전체 리스트의 1/10의 수량만큼 다시 10번 나누어서 반복계산
+        sum_value = sum(e for e in graph_calculation_list[int(div_num) * i : int(div_num) * (i + 1)])
+        new_list.append(sum_value)
+    
+
+    print('보정한 그래프 데이터:', new_list)
+
     #문장에 Action Verbs 추출확인
     #get_words__ 
 
@@ -362,7 +377,7 @@ def ai_plot_conf(essay_input_):
     # graph_calculation_list 
 
     #그래프로 표시됨
-    plt.plot(graph_calculation_list)
+    plt.plot(new_list)
     plt.xlabel('STORY')
     plt.ylabel('ACTON VERBS')
     plt.title('USAGE OF ACTION VERBS ANALYSIS')
@@ -793,7 +808,6 @@ def ai_plot_conf(essay_input_):
     
 
     return st_input, result_emo_swings, conflict_word_ratio
-    # 어떻게 했지??? 기억이....
 
 
 #     return { 
