@@ -647,6 +647,45 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     # overall achievement 최종값 계산!!!!
     overall_of_achievement_you_are_prooud_of = prompt_ori_keywds * 0.2 + prompt_ori_sentiments * 0.4 + initiative_eng * 0.3
 
+    comment_fixed_achieve = """Writing about an achievement you are proud of entails multiple elements. You may consider including words that are closely related to a noteworthy achievement. Usually, concepts like leadership, cooperation, overcoming a hardship, triumph, and more would suit such a topic. Also, there should be sentiments that convey a sense of pride, realization, appreciation, and determination while highlighting the course of your action to reach the end result."""
+    def gen_comment_achievement(input_score, type):
+        if input_score == 'Supurb' or input_score == 'Strong':
+            if type == 'pmt_ori_keywd':
+                comment_achieve= '''Your essay seems to contain a robust set of words associate with achievement.'''
+            elif type == 'pmt_ori_sentiment':
+                comment_achieve = """In addition, you seem to display strong sentiments that represent the outcome you are proud of."""
+            elif type == 'initiative_eng':
+                comment_achieve = """Your story seems to demonstrate a high level of effort and leadership, which fits the prompt's qualities very well.""" 
+            else:
+                pass
+        elif input_score == 'Good':
+            if type == 'pmt_ori_keywd':
+                comment_achieve= 'Your essay seems to contain a sufficient amount of words associate with achievement.'
+            elif type == 'pmt_ori_sentiment':
+                comment_achieve = """In addition, you seem to display adequate sentiments that constitute the outcome you are proud of."""
+            elif type == 'initiative_eng':
+                comment_achieve = """Your story seems to demonstrate a satisfactory level of effort and leadership, which fits the prompt's qualities."""
+            else:
+                pass
+        else: #input score == 'Mediocre' or input_score == 'Weak'
+            if type == 'pmt_ori_keywd':
+                comment_achieve = """Your essay seems to contain an insufficient amount of words associate with achievement."""
+            elif type == 'pmt_ori_sentiment':
+                comment_achieve = """In addition, you seem to be lacking the sentiments that constitute the outcome you are proud of."""
+            elif type == 'initiative_eng':
+                comment_achieve = """Your story seems to demonstrate an insufficient level of effort and leadership, which fits the prompt's qualities."""
+            else:
+                pass
+
+        return comment_achieve
+
+    # achievement 문장 생성
+    gen_achi_pmt_ori_keywd =  gen_comment_achievement(achievement_result[0], 'pmt_ori_keywd')
+    gen_arch_pmt_ori_sentiment =  gen_comment_achievement(result_pmt_ori_sentiments, 'pmt_ori_sentiment')
+    gen_arch_initiative_eng = gen_comment_achievement(achievement_result[4], 'initiative_eng')
+
+    comments_achievement = [comment_fixed_achieve, gen_achi_pmt_ori_keywd, gen_arch_pmt_ori_sentiment, gen_arch_initiative_eng]
+
     ### +++ 실행결과 설명 +++ ###
     # 0. gen_keywd_college : 선택한 대학의 General Keywords on college로 wordcloud로 출력됨
     # 1. gen_keywd_college_major : 선택 대학의 전공에 대한 keywords 를 WrodCloud 로 출력
@@ -731,7 +770,8 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'intellectual_eng_re' : intellectual_eng_re, # intellectual enguagement 문장생성 부분
         'meanful_result' : meanful_result, # 이 부분은 위에 # 16. meanful_result : MeaningFullExpreenceLessonLearened(essay_input)의 return 값에 해당하는 부부으로 다수의 값이 계산된다. 코멘트까지 계산된다규~!
         'achievement_result' : achievement_result,
-        'overall_of_achievement_you_are_prooud_of' : overall_of_achievement_you_are_prooud_of # overall achievement 최종값  -- 웹에 표시
+        'overall_of_achievement_you_are_prooud_of' : overall_of_achievement_you_are_prooud_of, # overall achievement 최종값  -- 웹에 표시
+        'comments_achievement': comments_achievement # Achievement 문장 생성 부분 총 4개
     }
 
     return data_result
