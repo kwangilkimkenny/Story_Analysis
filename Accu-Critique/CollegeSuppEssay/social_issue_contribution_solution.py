@@ -191,6 +191,186 @@ def social_awareness_analysis(essay_input):
 
 
 
+####  social_awareness_analysis ###
+def initiative_engagement_contribution(essay_input):
+      #입력한 글을 모두 단어로 쪼개로 리스트로 만들기 - 
+    essay_input_corpus_ = str(essay_input) #문장입력
+    essay_input_corpus_ = essay_input_corpus_.lower()#소문자 변환
+
+    sentences_  = sent_tokenize(essay_input_corpus_) #문장단위로 토큰화(구분)되어 리스에 담김
+
+    # 문장을 토크큰화하여 해당 문장에 Verbs가 있는지 분석 부분 코드임 
+
+    split_sentences_ = []
+    for sentence in sentences_:
+        processed = re.sub("[^a-zA-Z]"," ", sentence)
+        words = processed.split()
+        split_sentences_.append(words)
+        
+    # 입력한 문장을 모두 리스트로 변환
+    input_text_list = [y for x in split_sentences_ for y in x] # 이중 리스트 Flatten
+
+    # 데이터 불러오기
+    data_action_verbs = pd.read_csv('./data/actionverbs.csv')
+    data_ac_verbs_list = data_action_verbs.values.tolist()
+    verbs_list_ = [y for x in data_ac_verbs_list for y in x]
+
+    academic_verbs = ['everyone','satisfying','spectacular','rightly','expert','see','unexpected','simply','exceptional','pure','claimed','well','reasonable','light','bet','due','judgment','gratifying','assume','speaking','point','neither','agree','personally','usually','sitting','main','standpoint','truly','mind','tremendous','resembles','pleasurable','adverbs','people','....','safely','definitely','foolishly','honest','confident','heavily','i’d','miraculous','regard','know','predominantly','positive','would','help','understanding','serious','change','highly','disagree','estimation','opinion','phenomenal','i’ll','primarily','solely','reaction','exactly.','undoubtedly',"i'd",'scenic','reservation','likely','concerned','issue','sake','say','shred','exactly','imho','seen','come','book','said','taste','postulate','pretend','view','technically','position','impressive','like','clearly','incredibly','bravely','certainly','surely','hold','given','glorious','consider','unduly','support','maybe','saying','enormously','least','mixed','evidence','extremely','suspect','opposite','imagine','totally','understand','cannot','belief','much','get','perfectly','unlikely','consideration','great','won’t','continually','beautiful','maintain','fair','seems','classic','complete','argued','cleverly','carelessly','suppose','infer','enjoyable','sat','sensational','attractive','strongly','ridiculously','top','according','judgement','surprisingly','clear','wrong','high','surprising','expressed','quality','stunning',"i'm",'convinced','right','really','frank','idiot','find','wish','this.','fact','subject','perspective','sight','remarkable','deny','conclude','certain','observed','experience','course','fortunately','superb','idea','possibly','doubt','fantastic','completely','viewpoint','sheer','assumes','perfect','indeed','typically','unique','situation','delightful','topic','seriously','complicated','think','naturally','suggests','case','part','mainly','unfortunately','generally','generously','particular','actual','..','confidentially','unforeseen','delicious','matter','limited','want','guess','grand','presumably','first-rate','breathtaking','merely','can’t','far','probably','dare','wicked','matter.','doubtless','reckon','repeatedly','gather','...','ask','fabulous','magnificent','perhaps','wonderful','truthfully','may','large','suggest','unbelievably','obviously','purely','must','it’s','dreadfully','majestic','whole','utter','picturesque','wrote','sterling','mostly','pleasant','unpredictable','bitterly','believe','tend','pretty','constantly','alone','prime','appears','read','way','look','sure','positively','deadly','exquisite','conceit','lovely','quite','personal','thoughtfully','either','kindly','could','sufficiently','tell','giving','absolute','noticed','commenting','vantage','plainly','head','theoretically','you’d','argument','eye','notably','familiar','obvious','unbelievable','shadow','feel','amazing','wa','question','fulfilling','i’ve','incredible','mistaken','admit','rather','person','minority',"one's",'standing','one','later','frankly','rewarding','entirely','outta','i’m','initial','disappointingly','even','methinks','argue','brilliant','weighing','consistently','towards','assessment','charming','marvellous','think?','old','imposing','thinking','unusual','precisely','sound','seem','thought','take','stand','go','care','money','superior','always','absolutely','particularly','mean','might','total','although','especially','extraordinary','sit','luckily','increasingly','complex','never','feeling','knowledge','outstanding','summarise','side','conceivably','chiefly','exclusively','presume','reckoning','without','controversial','stupidly','best','excellent','terrific','frequently','amazingly','astonishing','impression','correct','fairly','humble','pleasing','crazy','conviction','conclusion','prof','unforeseeable','awesome','difficult','staggering','wisely']
+
+    contribution_wd = ['cook','promote','guide','outreach','clean','service','organize','tutor','present','counsel','sacrifice','bake','host','provide','repair','educate','donate','lead','raise','perform','empower','create','mediate','improve','initiate','grant','sponsor','write','enhance','resolve','teach','foster','offer','give','endowment','benefact','enrich','distribute','adopt','develop','oblation','translate','care','share','help','gift','contribute','manage','dedicate','subsidy','volunteer','start','participate']
+
+    verbs_list = verbs_list_ + academic_verbs + contribution_wd
+
+    def actionverb_sim_words(text):
+
+        essay_input_corpus = str(text) #문장입력
+        essay_input_corpus = essay_input_corpus.lower()#소문자 변환
+
+        sentences  = sent_tokenize(essay_input_corpus) #문장 토큰화
+        total_sentences = len(sentences)#토큰으로 처리된 총 문장 수
+        total_words = len(word_tokenize(essay_input_corpus))# 총 단어수
+        
+        split_sentences = []
+        for sentence in sentences:
+            processed = re.sub("[^a-zA-Z]"," ", sentence)
+            words = processed.split()
+            split_sentences.append(words)
+
+        skip_gram = 1
+        workers = multiprocessing.cpu_count()
+        bigram_transformer = Phrases(split_sentences)
+
+        model = gensim.models.word2vec.Word2Vec(bigram_transformer[split_sentences], workers=workers, sg=skip_gram, min_count=1)
+
+        model.train(split_sentences, total_examples=sum([len(sentence) for sentence in sentences]), epochs=100)
+        
+        #모델 설계 완료
+
+        # ACTION VERBS 표현하는 단어들을 리스트에 넣어서 필터로 만들고
+        ##################################################
+        # verbs_list
+
+        ####문장에 list의 단어들이 있는지 확인하고, 있다면 유사단어를 추출한다.
+        
+        #우선 토큰화한다.
+        retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
+        token_input_text = retokenize.tokenize(essay_input_corpus)
+        #print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
+        #리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
+        filtered_chr_text = []
+        for k in token_input_text:
+            for j in verbs_list:
+                if k == j:
+                    filtered_chr_text.append(j)
+        
+        #print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
+        
+        filtered_chr_text_ = set(filtered_chr_text) #중복제거
+        filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
+        #print (filtered_chr_text__) # 중복값 제거 확인
+        
+#         for i in filtered_chr_text__:
+#             ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
+        
+#         char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 표현 수
+#         char_count_ = len(filtered_chr_text__) #중복제거된  표현 총 수
+            
+#         result_char_ratio = round(char_total_count/total_words * 100, 2)
+        
+#         df_conf_words = pd.DataFrame(ext_sim_words_key, columns=['words','values']) #데이터프레임으로 변환
+#         df_r = df_conf_words['words'] #words 컬럼 값 추출
+#         ext_sim_words_key = df_r.values.tolist() # 유사단어 추출
+
+        #return result_char_ratio, total_sentences, total_words, char_total_count, char_count_, ext_sim_words_key
+        ext_sim_words_key = filtered_chr_text__
+        return ext_sim_words_key
+
+
+    # 입력문장에서 맥락상 Aciton Verbs와 유사한 의미의 단어를 추출
+    ext_action_verbs = actionverb_sim_words(essay_input)
+
+    #########################################################################
+    # 8.이제 입력문장에서 사용용된 Action Verbs 단어를 비교하여 추출해보자.
+
+    # Action Verbs를 모두 모음(직접적인 단어, 문맥상 유사어 포함)
+    all_ac_verbs_list = verbs_list + ext_action_verbs
+
+    #입력한 리스트 값을 하나씩 불러와서 데이터프레임에 있는지 비교 찾아내서 해당 점수를 가져오기
+    graph_calculation_list =[0]
+    get_words__ = []
+    counter= 0
+    for h in input_text_list: #데이터프레임에서 인덱스의 값과 비교하여
+        if h in all_ac_verbs_list: #df에 특정 단어가 있다면, 해당하는 컬럼의 값을 가져오기
+            get_words__.append(h) # 동일하면 저장하기
+            #print('counter :', counter)
+            graph_calculation_list.append(round(graph_calculation_list[counter]+2,2))
+            #print ('graph_calculation_list[counter]:', graph_calculation_list[counter])
+            #graph_calculation_list.append(random.randrange(1,10))
+            counter += 1
+        else: #없다면
+            #print('counter :', counter)
+            graph_calculation_list.append(round(graph_calculation_list[counter]-0.1,2)) 
+            counter += 1
+    #문장에 Action Verbs 추출확인
+    #get_words__ 
+
+
+    def divide_list(l, n): 
+        # 리스트 l의 길이가 n이면 계속 반복
+        for i in range(0, int(len(l)), int(n)): 
+            yield l[i:i + int(n)] 
+        
+    # 한 리스트에 몇개씩 담을지 결정 = 20개씩
+
+    n = len(graph_calculation_list)/20
+
+    result_gr = list(divide_list(graph_calculation_list, n))
+
+    gr_cal = []
+    for regr in result_gr:
+        avg_gr = sum(regr,0.0)/len(regr) #묶어서 평균을 내고 
+        gr_cal.append(abs(round(avg_gr,2))) #절대값을 전환해서
+
+
+    graph_calculation_list = gr_cal  ## 그래프를 위한 최종결과 계산 후, 이것을 딕셔너리로 반환하여 > 그래프로 표현하기
+    #########################################################################
+    # 9. 그래프 출력 : 문장 전체를 단어로 분리하고, Action verbs가 사용된 부분을 그래프로 표시
+
+    # 전체 글에서 Action verbs가 언급된 부분을 리스트로 계산
+    # graph_calculation_list 
+
+    #그래프로 표시됨
+    # plt.plot(graph_calculation_list)
+    # plt.xlabel('STORY')
+    # plt.ylabel('ACTON VERBS')
+    # plt.title('USAGE OF ACTION VERBS ANALYSIS')
+    # plt.legend(['action verbs'])
+    # plt.show()
+
+    #########################################################################
+    # 10.입력한 에세이 문장에서 관련 단어가 얼마나 포함되어 있는지 포함비율 분석
+    wd_ratio = round(len(get_words__)/len(input_text_list) *100, 3)
+
+    # 추출한 단어 중복제거
+    ext_words = list(set(get_words__))
+
+    # print ("ACTION VERBS RATIO :", action_verbs_ratio )
+
+    # rerurn 해석
+    # wd_ratio : 입력한 에세이에 비교분석하고자하는 단어가 얼마나 포함되어 있는지에 대한 비율 계산
+    # ext_words : 포함된 관련단어 추출 출격 --> 웹에 표시
+    return wd_ratio, ext_words
+
+
+# Topic uniqueness
+research_wd = ['generously','conclude','sat','resembles','suppose','picturesque','charming','due','scenic','chiefly','eye','personally','imagine','miraculous','brilliant','delicious','never','much','unduly','probably','incredible','especially','complex','everyone','deny','ask','view','regard','beliefis','certain','constantly','issue','pretend','fulfilling','must','mostly','excellent','complicated','conviction','get','lovely','perspective','obviously','seem','spectacular','mistaken','reckoning',"one's",'hold','pretty','thought','believe','naturally','initial','exceptional','right','sound','frequently','gather','unforeseeable','ridiculously','speaking','phenomenal','doubt','actual','top','viewpoint','mind','sterling','always','summarise','shadow','dreadfully','unexpected','position','appears','personal','positive','unforeseen','fair','clear','staggering','may','total','completely','exactly','pure','wicked','foolishly','surprising','highly','enjoyable','reckon','perfectly','sensational','surprisingly','opposite','say','particular','precisely','come','wa','conceivably','convinced','main','serious','stand','far','change','maybe','without','seriously','sight','imho','i’m','impression','bitterly','strongly','vantage','really','presumably','perfect','likely','infer','generally','exclusively','least','maintain','exquisite','wish','feeling','expressed','fairly','attractive','safely','would','large','rewarding','utter','consideration','glorious','one','confident','opinion','fact','idiot','i’d','prime','absolutely','assessment','postulate','increasingly','purely','admit','luckily','tremendous','marvellous','point','usually','go','part','taste','people','wonderful','evidence','particularly','thoughtfully','solely','terrific','suspect','disagree','presume','deadly','look','limited','understanding','giving','first-rate','noticed','feel','bravely','think','pleasing','knowledge','help','beautiful','absolute','suggest','seems','mixed','quality','awesome','idea','honest','difficult','impressive','remarkable','crazy','sheer','although','simply','certainly','methinks','unpredictable','magnificent','confidentially','best','case','head','pleasant','saying','thaㅅ','carelessly','it’s','take','cleverly','want','bet','matter','read','agree','fabulous','clearly','suggests','know','breathtaking','unbelievably','rightly','primarily','standing','extremely','find','theoretically','sitting','frankly','judgement','quite','cannot','truly','subject','plainly','extraordinary','classic','seen','assumes','minority','grand','later','superior','like','disappointingly','could','see','claimed','totally','belief','merely','whole','course','according','side','adverbs','sake','amazingly','possibly','care','reservation','outstanding','majestic','prof','humble','neither','gratifying','reasonable','consider','fantastic','way','alone','mainly','either','great','standpoint','reaction','incredibly','understand','conceit','might','weighing','well','continually','repeatedly','undoubtedly','shred','commenting','can’t','person','notably','judgment',"i'm",'entirely','old','even','expert','positively','perhaps','complete','wrong','money','high','thinking','consistently','pleasurable','said','situation','familiar','unique','indeed','definitely','unlikely','sit','tend','technically','argued','amazing','fortunately','typically','obvious','support','predominantly','argue','unusual','controversial','unbelievable','wisely','rather','book','i’ve','outta','observed','stunning',"i'd",'question','doubtless','frank','tell','towards','sure','heavily','superb','dare','concerned','satisfying','assume','enormously','won’t','experience','correct','conclusion','argument','topic','surely','guess','stupidly','estimation','given','delightful','imposing','mean','light','astonishing', 'prisoner','persuasive','issues','teen','gun','college','media','paternity','maternity','trump','crimes','pharmacy','treatment','lgbtq','work','donald','technology','criminal','fun','community','justice','prisons','reagan','hilary','simple','taxation','east','poverty','bullying','conflict','generational','history','computer','action','farming','pornography','literature','hazing','censorship','aids','interpersonal','psychology','mother','politics','unique','disasters','advertising','relationships','immigration','policy','military','cosmetic','date','debt','education','veterans','internet','religion','explosion','loan','controversial','prostitution','schools','natural','leave','security','rape','business','police','abortion','environment','discrimination','terrorism','copyright','barack','health','energy','ronald','affirmative','animals','family','day','hate','surgery','alcohol','women','obama','control','marketing','care','middle','medical','sociology','science','easy','communication','privacy','foreign','athletes','student','lotteries','population','bill','violence','drugs','gambling','clinton']
+
+
+
+
+
+
+
 
 
 
@@ -205,3 +385,4 @@ Along with the individually tailored research projects and the housing opportuni
 
 
 print('social awareness ratio: ' , social_awareness_analysis(essay_input))
+print('initiative_engagement_contribution:', initiative_engagement_contribution(essay_input))
