@@ -32,11 +32,14 @@ def get_uniquness(search_result):
     # Tom yam kung = 944,000
     if search_result > 100000000:
         uniqueness_re = 'Common'
+        unique_score = 30
     elif search_result <= 100000000 and search_result > 30000000:
         uniqueness_re = 'Unique'
+        unique_score = 60
     else: # search_result <= 100000000
         uniqueness_re = 'very unique'
-    return uniqueness_re
+        unique_score = 90
+    return uniqueness_re, unique_score
 
 
 def google_search_result(input_word):

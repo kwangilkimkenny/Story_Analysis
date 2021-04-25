@@ -732,9 +732,17 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
 
     # Topic uniquenss 분석
     result_topic_uniqueness = []
-    for tp_itm in extracted_topics_of_essay[:2]:# 추출한 토픽중 3개만 분석하기--- 일단 1개만
+    result_topic_unique_score = []
+    for tp_itm in extracted_topics_of_essay[:3]:# 추출한 토픽중 3개만 분석하기
         get_topic_uniqueness_re = google_search_result(tp_itm)
-        result_topic_uniqueness.append(get_topic_uniqueness_re)
+        get_topic_uniqueness_re[0] # 추출한 토픽의 uniqueness
+        get_topic_uniqueness_re[1] # 추출한 토픽의 스코어
+        result_topic_uniqueness.append(get_topic_uniqueness_re[0])
+        result_topic_unique_score.append(get_topic_uniqueness_re[1])
+
+    # Topic uniqueness 점수 계산
+    topic_fin_score = round(sum(result_topic_unique_score) / len(result_topic_unique_score), 2)
+
 
 
     #문장생성 !!!!! mjr_score 값을 계산해야 함
@@ -933,7 +941,9 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'overall_of_achievement_you_are_prooud_of' : overall_of_achievement_you_are_prooud_of, # overall achievement 최종값  -- 웹에 표시
         'comments_achievement': comments_achievement, # Achievement 문장 생성 부분 총 4개
         'result_pmt_ori_sentiments_of_social_issue': result_pmt_ori_sentiments_of_social_issue, # Social issues: contribution & solution - Prompt Oriented Sentiments 계산 결과임 ---> 웹에 표시할 것
-        'result_topic_uniqueness' : result_topic_uniqueness # Topic uniqueness 추출결과 - 3개만 분석하고, 분석결과는 data/topic_search_result.xlsx 에 저장됨
+        'result_topic_uniqueness' : result_topic_uniqueness, # Topic uniqueness 추출결과 - 3개만 분석하고, 분석결과는 data/topic_search_result.xlsx 에 저장됨
+        'extracted_topics_of_essay[:2]' : extracted_topics_of_essay[:2], # 에세에서 추출한 주요 토픽 3개, 그 이상을 보여주려면 extracted_topics_of_essay[:2~ 이상의 값을 넣으면 됨, 많이 넣으면 our of value 로 에러남옴]
+        'topic_fin_score' : topic_fin_score # 추출한 토픽의 스코어 topic uniqueness final score
     }
 
     return data_result
@@ -949,7 +959,7 @@ essay_input = """I inhale deeply and blow harder than I thought possible, pushin
 #sc_re = selected_college('Why us', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 #sc_re = selected_college('Intellectual interest', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 #sc_re = selected_college("Meaningful experience & lesson learned", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
-sc_re = selected_college("Achievement you are proud of", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
+#sc_re = selected_college("Achievement you are proud of", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 #Social issues: contribution & solution
 sc_re = selected_college("Social issues: contribution & solution", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 print('최종결과:', sc_re)
