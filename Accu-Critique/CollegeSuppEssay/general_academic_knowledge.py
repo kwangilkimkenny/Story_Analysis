@@ -405,9 +405,10 @@ def GeneralAcademicKnowledge(text):
     # 13. filtered_academic_words : 아카데믹 관련 단어의 총 수
     # 14. GAK_rate : General Academic Knowledge ----> 웹에 적용할 부분 "Supurb ~ Weak " 중에서 하나가 나옴
     # 15. gak_words_score : 에세이 문장에 아카데믹단어의 사용율을 점수로 환산한 것
+    # 16. topicEssay : 에세에서 추출한 토픽 단어 리스트
 
     
-    return result_setting_words_ratio, total_sentences, total_words, setting_total_count, setting_count_, ext_setting_sim_words_key_list, totalSettingSentences, setting_total_sentences_number_re, tot_academic_words, group_total_cnt, group_total_setting_descriptors, topic_academic_word, topic_academic_word_counter, filtered_academic_words, GAK_rate, gak_words_score
+    return result_setting_words_ratio, total_sentences, total_words, setting_total_count, setting_count_, ext_setting_sim_words_key_list, totalSettingSentences, setting_total_sentences_number_re, tot_academic_words, group_total_cnt, group_total_setting_descriptors, topic_academic_word, topic_academic_word_counter, filtered_academic_words, GAK_rate, gak_words_score, topicEssay
 
 
 ###### run #######
