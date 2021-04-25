@@ -47,6 +47,9 @@ from achievementYouAreProud import get_achievement_you_are_proud_of
 ### social issue contribution 의 분석 중 topic uniqueness 분석
 from topic_uniqueness import google_search_result
 
+### social issue contribution 의 분석 중 topic knowledge 분석
+from topic_knowledge import google_search_result_tp_knowledge
+
 
 
 
@@ -743,6 +746,37 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     # Topic uniqueness 점수 계산
     topic_fin_score = round(sum(result_topic_unique_score) / len(result_topic_unique_score), 2)
 
+    # Topic knowledge 점수 계산
+    result_topic_knowledge =[]
+    for ets_itm in extracted_topics_of_essay[:3]: # 추출한 토픽 3개만 분석하기(시가간이 많이 걸림- 3개는 평균 39개의 웹페이지 분석해야 함)
+        result_of_srch = google_search_result_tp_knowledge(ets_itm) # 각 토픽별로 관련 웹검색하여 단어 추출
+        result_topic_knowledge.append(result_of_srch) # 추출 리스트 저장
+    print('result_topic_knowledge:', result_topic_knowledge)
+
+    # Topic knowledge결과 비교하기 : 전체 추출 리스트와 추출한 토픽들의 포함 비율 계산하기
+    match_topic_words = 0
+    for ext_itttm in extracted_topics_of_essay:
+        if ext_itttm in result_topic_knowledge: # 토픽이 리스트안에 있다면! 카운트한다.
+            match_topic_words += 1
+
+    if match_topic_words != 0: # 매칭되는 토픽이 있다면, 검색을 통해 수집된 정보에서 매칭 토픽의 포함 비율을 계산해본다. 일정 기준 이사이면 strong.. 등으로 표현하면 된다.
+        get_topic_knowledge_ratio = round(match_topic_words / len(result_topic_knowledge) * 100, 2)
+        print('get_topic_knowledge_ratio:', get_topic_knowledge_ratio)
+        if get_topic_knowledge_ratio >= 10: #10% 이상이면 ================> 중요! 이 값은 결과값을 보면서 보정해야 함(현재는 임의값 적용)
+            fin_topic_knowledge_score = 'Supurb'
+        elif get_topic_knowledge_ratio >= 5 and get_topic_knowledge_ratio < 10: #================> 중요! 이 값은 결과값을 보면서 보정해야 함(현재는 임의값 적용)
+            fin_topic_knowledge_score = 'Strong'
+        elif get_topic_knowledge_ratio >= 3 and get_topic_knowledge_ratio < 5: #================> 중요! 이 값은 결과값을 보면서 보정해야 함(현재는 임의값 적용)
+            fin_topic_knowledge_score = 'Good' #================> 중요! 이 값은 결과값을 보면서 보정해야 함(현재는 임의값 적용)
+        else:
+            fin_topic_knowledge_score = 'Mediocre'
+    else: # match_topic_words = 0 매칭하는 값이 0이면
+        fin_topic_knowledge_score = 'Lacking'
+        get_topic_knowledge_ratio = 0
+
+
+
+
 
 
     #문장생성 !!!!! mjr_score 값을 계산해야 함
@@ -915,7 +949,7 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
             # 4. iachievement_result[4] : nitiative_enguagement_result : initiative_enguagement가 합격생 평균에 비교하여 얻은 최종 값
         # 19. overall_of_achievement_you_are_prooud_of # overall achievement 최종값  -- 웹에 표시
         # 20. result_topic_uniqueness # Topic uniqueness 추출결과 - 3개만 분석하고, 분석결과는 data/topic_search_result.xlsx 에 저장됨
-
+        # 21. fin_topic_knowledge_score # Topic Knowledge Scofre
 
 
     data_result = {
@@ -943,7 +977,9 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'result_pmt_ori_sentiments_of_social_issue': result_pmt_ori_sentiments_of_social_issue, # Social issues: contribution & solution - Prompt Oriented Sentiments 계산 결과임 ---> 웹에 표시할 것
         'result_topic_uniqueness' : result_topic_uniqueness, # Topic uniqueness 추출결과 - 3개만 분석하고, 분석결과는 data/topic_search_result.xlsx 에 저장됨
         'extracted_topics_of_essay[:2]' : extracted_topics_of_essay[:2], # 에세에서 추출한 주요 토픽 3개, 그 이상을 보여주려면 extracted_topics_of_essay[:2~ 이상의 값을 넣으면 됨, 많이 넣으면 our of value 로 에러남옴]
-        'topic_fin_score' : topic_fin_score # 추출한 토픽의 스코어 topic uniqueness final score
+        'topic_fin_score' : topic_fin_score, # 추출한 토픽의 스코어 topic uniqueness final score
+        'fin_topic_knowledge_score' : fin_topic_knowledge_score, # Topic Knowledge Scofre
+        'get_topic_knowledge_ratio' : get_topic_knowledge_ratio # 에세이주요토픽추출단어/구글 검색 추출단어리스트 * 100 을 계산하여 Topic knowledge의 비율 계산
     }
 
     return data_result
