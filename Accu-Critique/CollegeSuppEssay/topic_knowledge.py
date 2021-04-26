@@ -1,18 +1,22 @@
+# kj 로직 설계 #
 # Topic Knowledge (10%) (김광일 대표님 이거 새로 더한거. 고민 요망)
 # Wikipedia에서 에세이의 메인 토픽을 검색해 보고, 그 관련 내용과 얼마나 에세이의 컨텐츠가 연관성이 있는지를 본다. 그냥 대입하던지, 또는 에세이의 토픽들 vs. Wikipedia 해당 컨텐츠의 topic들을 추출해서 그들의 vector 연관성을 볼 수도 있다.
 # *그러니깐 이것은 에세이에서 정확하게 무슨 토픽을 쓰는지를 detect해서 분석해야 한다… 그냥 diversity가 아니라 글 속에 예를 들면 Black Lives Matter이렇게 들어가 있다던지
 
+# kyle의 방법 #
 # 1)에세이의 주요 토픽을 모두 추출한다. 주요 토픽중 가장 대표적인 3개를 추출해본다. 
 # 2)3개의 주요 토픽으로 google 검색을 한 후(완료), 검색 페이지를 개별적으로 크롤링하여 문서에 포함된 모든 단어를 추출한다. (완료)
 # 3)구글에서 추출한 단어에 에세이의 주요토픽단어가 얼마나 일치하는지,즉 몇개가 일치하는지 카운트를 한다. 
 # 4)에세이주요토픽추출단어/구글 검색 추출단어리스트 * 100 을 계산하면 Topic knowledge의 비율이 나올 것임, 이것이 높으면 10% 이상이면 높은 점수를 줄 수있음 (Supurb, Strong, Good, Mediocre, Lacking 중 1개로 계산됨, 점수로도 계산해야 overall 계산 적용할 수 있음)
 
 
+##### 이 코드는 키워드를 입력하면 1) 1차로 구글검색을 통해서 결과룰 추출 - 연결링크 모두 수집 2) 2차로 링크페이지에 모두 접속하여 text 데이터를 추출하여 리스트로 저장하는 기능
+
 
 # Chrome 버전을 확인하고 드라이버 버전을 동일하게 해야 함
 # 크롬드라이버 다운로드 링크 : https://chromedriver.chromium.org/downloads
 # 현재 사용하는 크롬 버전 90.0.4430.85(공식 빌드) (x86_64)
-# 적용한 크롬 드라이버 버번은 위와 동일
+# 적용한 크롬 드라이버 버전은 위와 동일
 
 
 
@@ -110,7 +114,7 @@ def google_search_result_tp_knowledge(input_word):
         #print()
 
 
-    # search_linked_contents_result 의 각 링크로 접속하여 해당 내용을 모두 text로 크롤링한 후, 단어만 추리고, 다시 주요키워드를 추출한다.
+    # search_linked_contents_result 의 각 링크로 접속하여 해당 내용을 모두 text로 크롤링한 후, body내의 단어들만 추출한다.
     get_all_linked_web_data = []
     for linked_page in tqdm(search_linked_contents_result):
         driver.get(linked_page)
@@ -154,3 +158,6 @@ def google_search_result_tp_knowledge(input_word):
 result = google_search_result_tp_knowledge("college personal essay")
 
 print(result)
+
+# 결과는 단어에데한 구글 링크 페이지의 모든 텍스트가 추출되어 리스트로 출력됨
+# ['←how', 'moved', 'california', 'improved', 'stroke', 'call', 'access', 'hour', ....
