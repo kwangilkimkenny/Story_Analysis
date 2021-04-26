@@ -179,6 +179,14 @@ def social_awareness_analysis(essay_input):
     # 10.입력한 에세이 문장에서 관련 단어가 얼마나 포함되어 있는지 포함비율 분석
     wd_ratio = round(len(get_words__)/len(input_text_list) *100, 3)
 
+    ##########################################################################
+    ##################  합격한 학생들의 평균점수 반영(실제 평균값 적용해야 함)  ###########
+    admitted_std_score = 5 # 5%로 가정
+    ##########################################################################
+
+    # 합격한 학생들과 비교하여 5가지 구분 결과로 게산하기
+    ini_enmt_cotri_score = lackigIdealOverboard(admitted_std_score, wd_ratio)
+
     # 추출한 단어 중복제거
     ext_words = list(set(get_words__))
 
@@ -187,13 +195,108 @@ def social_awareness_analysis(essay_input):
     # rerurn 해석
     # wd_ratio : 입력한 에세이에 비교분석하고자하는 단어가 얼마나 포함되어 있는지에 대한 비율 계산
     # ext_words : 포함된 관련단어 추출 출격 --> 웹에 표시
-    return wd_ratio, ext_words
+    # ini_enmt_cotri_score : Supurb ~ Lacking 으로 결과 출력
+    return wd_ratio, ext_words, ini_enmt_cotri_score
 
+
+# 상대적 점수 비교 계산
+def lackigIdealOverboard(group_mean, personal_value): # group_mean: 1000명 평균, personal_value: 개인값
+    ideal_mean = group_mean
+    one_ps_char_desc = personal_value
+    #최대, 최소값 기준으로 구간설정. 구간비율 30% => 0.3으로 설정
+    min_ = int(ideal_mean-ideal_mean*0.6)
+    #print('min_', min_)
+    max_ = int(ideal_mean+ideal_mean*0.6)
+    #print('max_: ', max_)
+    div_ = int(((ideal_mean+ideal_mean*0.6)-(ideal_mean-ideal_mean*0.6))/3)
+    #print('div_:', div_)
+
+    #결과 판단 Lacking, Ideal, Overboard
+    cal_abs = abs(ideal_mean - one_ps_char_desc) # 개인 - 단체 값의 절대값계산
+
+    #print('cal_abs 절대값 :', cal_abs)
+    compare7 = (one_ps_char_desc + ideal_mean)/6
+    compare6 = (one_ps_char_desc + ideal_mean)/5
+    compare5 = (one_ps_char_desc + ideal_mean)/4
+    compare4 = (one_ps_char_desc + ideal_mean)/3
+    compare3 = (one_ps_char_desc + ideal_mean)/2
+    # print('compare7 :', compare7)
+    # print('compare6 :', compare6)
+    # print('compare5 :', compare5)
+    # print('compare4 :', compare4)
+    # print('compare3 :', compare3)
+
+    if one_ps_char_desc > ideal_mean: # 개인점수가 평균보다 클 경우는 overboard
+        if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
+            #print("Overboard: 2")
+            result = 2 #overboard
+            score = 1
+        elif cal_abs > compare4: # 28
+            #print("Overvoard: 2")
+            result = 2
+            score = 2
+        elif cal_abs > compare5: # 22
+            #print("Overvoard: 2")
+            result = 2
+            score = 3
+        elif cal_abs > compare6: # 18
+            #print("Overvoard: 2")
+            result = 2
+            score = 4
+        else:
+            #print("Ideal: 1")
+            result = 1
+            score = 5
+    elif one_ps_char_desc < ideal_mean: # 개인점수가 평균보다 작을 경우 lacking
+        if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
+            #print("Lacking: 2")
+            result = 0
+            score = 1
+        elif cal_abs > compare4: # 28
+            #print("Lacking: 2")
+            result = 0
+            score = 2
+        elif cal_abs > compare5: # 22
+            #print("Lacking: 2")
+            result = 0
+            score = 3
+        elif cal_abs > compare6: # 18
+            #print("Lacking: 2")
+            result = 0
+            score = 4
+        else:
+            #print("Ideal: 1")
+            result = 1
+            score = 5
+            
+    else: # 같으면 ideal 이지. 가장 높은 점수를 줄 것
+        #print("Ideal: 1")
+        result = 1
+        score = 5
+
+    # 최종 결과 5점 척도로 계산하기
+    if score == 5:
+        result_ = 'Supurb'
+        re__score = 100
+    elif score == 4:
+        result_ = 'Strong'
+        re__score = 80
+    elif score == 3:
+        result_ = 'Good'
+        re__score = 60
+    elif score == 2:
+        result_ = 'Mediocre'
+        re__score = 40
+    else: #score = 1
+        result_ = 'Lacking'
+        re__score = 20
+
+    return result_, re__score
 
 
 ####  social_awareness_analysis ###
 def initiative_engagement_contribution(essay_input):
-      #입력한 글을 모두 단어로 쪼개로 리스트로 만들기 - 
+    #입력한 글을 모두 단어로 쪼개로 리스트로 만들기 - 
     essay_input_corpus_ = str(essay_input) #문장입력
     essay_input_corpus_ = essay_input_corpus_.lower()#소문자 변환
 
@@ -334,22 +437,16 @@ def initiative_engagement_contribution(essay_input):
 
     graph_calculation_list = gr_cal  ## 그래프를 위한 최종결과 계산 후, 이것을 딕셔너리로 반환하여 > 그래프로 표현하기
     #########################################################################
-    # 9. 그래프 출력 : 문장 전체를 단어로 분리하고, Action verbs가 사용된 부분을 그래프로 표시
-
-    # 전체 글에서 Action verbs가 언급된 부분을 리스트로 계산
-    # graph_calculation_list 
-
-    #그래프로 표시됨
-    # plt.plot(graph_calculation_list)
-    # plt.xlabel('STORY')
-    # plt.ylabel('ACTON VERBS')
-    # plt.title('USAGE OF ACTION VERBS ANALYSIS')
-    # plt.legend(['action verbs'])
-    # plt.show()
-
-    #########################################################################
     # 10.입력한 에세이 문장에서 관련 단어가 얼마나 포함되어 있는지 포함비율 분석
     wd_ratio = round(len(get_words__)/len(input_text_list) *100, 3)
+
+    ##########################################################################
+    ##################  합격한 학생들의 평균점수 반영(실제 평균값 적용해야 함)  ###########
+    admitted_std_score = 8 # 8%로 가정
+    ##########################################################################
+
+    # 합격한 학생들과 비교하여 5가지 구분 결과로 게산하기
+    social_awareness_analy_re = lackigIdealOverboard(admitted_std_score, wd_ratio)
 
     # 추출한 단어 중복제거
     ext_words = list(set(get_words__))
@@ -359,17 +456,14 @@ def initiative_engagement_contribution(essay_input):
     # rerurn 해석
     # wd_ratio : 입력한 에세이에 비교분석하고자하는 단어가 얼마나 포함되어 있는지에 대한 비율 계산
     # ext_words : 포함된 관련단어 추출 출격 --> 웹에 표시
-    return wd_ratio, ext_words
+    # social_awareness_analy_re : 비교 결과값 추출로 2개의 값임 
+    #   1) supurb ~ lacking
+    #   2) score
+    return wd_ratio, ext_words, social_awareness_analy_re
 
 
 # Topic uniqueness
 research_wd = ['generously','conclude','sat','resembles','suppose','picturesque','charming','due','scenic','chiefly','eye','personally','imagine','miraculous','brilliant','delicious','never','much','unduly','probably','incredible','especially','complex','everyone','deny','ask','view','regard','beliefis','certain','constantly','issue','pretend','fulfilling','must','mostly','excellent','complicated','conviction','get','lovely','perspective','obviously','seem','spectacular','mistaken','reckoning',"one's",'hold','pretty','thought','believe','naturally','initial','exceptional','right','sound','frequently','gather','unforeseeable','ridiculously','speaking','phenomenal','doubt','actual','top','viewpoint','mind','sterling','always','summarise','shadow','dreadfully','unexpected','position','appears','personal','positive','unforeseen','fair','clear','staggering','may','total','completely','exactly','pure','wicked','foolishly','surprising','highly','enjoyable','reckon','perfectly','sensational','surprisingly','opposite','say','particular','precisely','come','wa','conceivably','convinced','main','serious','stand','far','change','maybe','without','seriously','sight','imho','i’m','impression','bitterly','strongly','vantage','really','presumably','perfect','likely','infer','generally','exclusively','least','maintain','exquisite','wish','feeling','expressed','fairly','attractive','safely','would','large','rewarding','utter','consideration','glorious','one','confident','opinion','fact','idiot','i’d','prime','absolutely','assessment','postulate','increasingly','purely','admit','luckily','tremendous','marvellous','point','usually','go','part','taste','people','wonderful','evidence','particularly','thoughtfully','solely','terrific','suspect','disagree','presume','deadly','look','limited','understanding','giving','first-rate','noticed','feel','bravely','think','pleasing','knowledge','help','beautiful','absolute','suggest','seems','mixed','quality','awesome','idea','honest','difficult','impressive','remarkable','crazy','sheer','although','simply','certainly','methinks','unpredictable','magnificent','confidentially','best','case','head','pleasant','saying','thaㅅ','carelessly','it’s','take','cleverly','want','bet','matter','read','agree','fabulous','clearly','suggests','know','breathtaking','unbelievably','rightly','primarily','standing','extremely','find','theoretically','sitting','frankly','judgement','quite','cannot','truly','subject','plainly','extraordinary','classic','seen','assumes','minority','grand','later','superior','like','disappointingly','could','see','claimed','totally','belief','merely','whole','course','according','side','adverbs','sake','amazingly','possibly','care','reservation','outstanding','majestic','prof','humble','neither','gratifying','reasonable','consider','fantastic','way','alone','mainly','either','great','standpoint','reaction','incredibly','understand','conceit','might','weighing','well','continually','repeatedly','undoubtedly','shred','commenting','can’t','person','notably','judgment',"i'm",'entirely','old','even','expert','positively','perhaps','complete','wrong','money','high','thinking','consistently','pleasurable','said','situation','familiar','unique','indeed','definitely','unlikely','sit','tend','technically','argued','amazing','fortunately','typically','obvious','support','predominantly','argue','unusual','controversial','unbelievable','wisely','rather','book','i’ve','outta','observed','stunning',"i'd",'question','doubtless','frank','tell','towards','sure','heavily','superb','dare','concerned','satisfying','assume','enormously','won’t','experience','correct','conclusion','argument','topic','surely','guess','stupidly','estimation','given','delightful','imposing','mean','light','astonishing', 'prisoner','persuasive','issues','teen','gun','college','media','paternity','maternity','trump','crimes','pharmacy','treatment','lgbtq','work','donald','technology','criminal','fun','community','justice','prisons','reagan','hilary','simple','taxation','east','poverty','bullying','conflict','generational','history','computer','action','farming','pornography','literature','hazing','censorship','aids','interpersonal','psychology','mother','politics','unique','disasters','advertising','relationships','immigration','policy','military','cosmetic','date','debt','education','veterans','internet','religion','explosion','loan','controversial','prostitution','schools','natural','leave','security','rape','business','police','abortion','environment','discrimination','terrorism','copyright','barack','health','energy','ronald','affirmative','animals','family','day','hate','surgery','alcohol','women','obama','control','marketing','care','middle','medical','sociology','science','easy','communication','privacy','foreign','athletes','student','lotteries','population','bill','violence','drugs','gambling','clinton']
-
-
-
-
-
-
 
 
 
@@ -386,3 +480,21 @@ Along with the individually tailored research projects and the housing opportuni
 
 print('social awareness ratio: ' , social_awareness_analysis(essay_input))
 print('initiative_engagement_contribution:', initiative_engagement_contribution(essay_input))
+
+ini_engage_re = initiative_engagement_contribution(essay_input)
+ini_engage_5div_re = ini_engage_re[2][0] # supurb ~ lacking 로 결과나옴
+print('ini_engage_5div_re : ', ini_engage_5div_re)
+ini_engage_words = ini_engage_re[1] # initiative_engagement_contribution 관련 단어들로 웹에 표시
+print('ini_engage_words : ', ini_engage_words)
+ini_engage_fin_score_re = ini_engage_re[2][1] # 점수로 계산됨 ---> for overall score
+print('ini_engage_fin_score_re : ', ini_engage_fin_score_re)
+
+
+
+social_aware_re = social_awareness_analysis(essay_input)
+social_aware_5div_re = social_aware_re[2][0] # supurb ~ lacking 로 결과나옴
+print('social_aware_5div_re:', social_aware_5div_re)
+social_aware_words = social_aware_re[1] # Social Awareness 관련 단어들로 웹에 표시
+print('social_aware_words:', social_aware_words)
+social_aware_fin_score_re = social_aware_re[2][1]
+print('social_aware_fin_score_re:', social_aware_fin_score_re)

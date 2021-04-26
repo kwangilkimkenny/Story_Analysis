@@ -104,3 +104,5 @@ def google_search_result(input_word):
 result = google_search_result('essayfit')
 #result = google_search_result('AI')
 print('result :' , result)
+
+# result : ('very unique', 90)

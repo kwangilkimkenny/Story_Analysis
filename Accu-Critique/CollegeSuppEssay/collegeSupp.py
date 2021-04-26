@@ -50,6 +50,10 @@ from topic_uniqueness import google_search_result
 ### social issue contribution 의 분석 중 topic knowledge 분석
 from topic_knowledge import google_search_result_tp_knowledge
 
+### social issue contribution 의 분석 중 2개의 결과 추출
+from social_issue_contribution_solution import social_awareness_analysis
+from social_issue_contribution_solution import initiative_engagement_contribution
+
 
 
 
@@ -737,14 +741,26 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     result_topic_uniqueness = []
     result_topic_unique_score = []
     for tp_itm in extracted_topics_of_essay[:3]:# 추출한 토픽중 3개만 분석하기
-        get_topic_uniqueness_re = google_search_result(tp_itm)
-        get_topic_uniqueness_re[0] # 추출한 토픽의 uniqueness
-        get_topic_uniqueness_re[1] # 추출한 토픽의 스코어
+        get_topic_uniqueness_re = google_search_result(tp_itm) # 구글 검색하여 결과 추출
+        get_topic_uniqueness_re[0] # 추출한 토픽의 uniqueness -- 'very unique'
+        get_topic_uniqueness_re[1] # 추출한 토픽의 스코어 - 90점
         result_topic_uniqueness.append(get_topic_uniqueness_re[0])
         result_topic_unique_score.append(get_topic_uniqueness_re[1])
 
-    # Topic uniqueness 점수 계산
-    topic_fin_score = round(sum(result_topic_unique_score) / len(result_topic_unique_score), 2)
+    # Topic uniqueness 토픽 3개를 반영한 최종 점수 계산
+    topic_uniquness_fin_score = round(sum(result_topic_unique_score) / len(result_topic_unique_score), 2)
+
+    # Topic uniqueness의 평균 값을 산출하기 위해서 topic_uniquness_fin_score을 가지고 common, unique, very unique를 계산
+    if topic_uniquness_fin_score > 90:
+        tp_uniqueness = 'Very Unique'
+        tp_uniqueness_5dv = 'Supurb'
+    elif topic_uniquness_fin_score >= 60 and topic_uniquness_fin_score > 30:
+        tp_uniqueness = 'Unique'
+        tp_uniqueness_5dv = 'Good'
+    else: # topic_uniquness_fin_score <= 30
+        tp_uniqueness = 'Common'
+        tp_uniqueness_5dv = 'Mediocre'
+
 
     # Topic knowledge 점수 계산
     result_topic_knowledge =[]
@@ -758,8 +774,9 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     for ext_itttm in extracted_topics_of_essay:
         if ext_itttm in result_topic_knowledge: # 토픽이 리스트안에 있다면! 카운트한다.
             match_topic_words += 1
+    print('match_topic_words:', match_topic_words)
 
-    if match_topic_words != 0: # 매칭되는 토픽이 있다면, 검색을 통해 수집된 정보에서 매칭 토픽의 포함 비율을 계산해본다. 일정 기준 이사이면 strong.. 등으로 표현하면 된다.
+    if match_topic_words != 0: # 매칭되는 토픽이 있다면, 검색을 통해 수집된 정보에서 매칭 토픽의 포함 비율을 계산해본다. 예를 들어 일정 기준 이상이면 strong.. 등으로 표현하면 된다.
         get_topic_knowledge_ratio = round(match_topic_words / len(result_topic_knowledge) * 100, 2)
         print('get_topic_knowledge_ratio:', get_topic_knowledge_ratio)
         if get_topic_knowledge_ratio >= 10: #10% 이상이면 ================> 중요! 이 값은 결과값을 보면서 보정해야 함(현재는 임의값 적용)
@@ -767,14 +784,98 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         elif get_topic_knowledge_ratio >= 5 and get_topic_knowledge_ratio < 10: #================> 중요! 이 값은 결과값을 보면서 보정해야 함(현재는 임의값 적용)
             fin_topic_knowledge_score = 'Strong'
         elif get_topic_knowledge_ratio >= 3 and get_topic_knowledge_ratio < 5: #================> 중요! 이 값은 결과값을 보면서 보정해야 함(현재는 임의값 적용)
-            fin_topic_knowledge_score = 'Good' #================> 중요! 이 값은 결과값을 보면서 보정해야 함(현재는 임의값 적용)
+            fin_topic_knowledge_score = 'Good' 
         else:
             fin_topic_knowledge_score = 'Mediocre'
-    else: # match_topic_words = 0 매칭하는 값이 0이면
+    else: # match_topic_words = 0 매칭하는 값이 0이면=================>>>>>>>>>>>> !!! 결과값 재획인 해야 함!!!
         fin_topic_knowledge_score = 'Lacking'
         get_topic_knowledge_ratio = 0
 
+    #supurb ~ lacking 을 숫자로 된 점수로 변환
+    def text_re_to_score(input):
+        if input == 'Supurb':
+            tp_knowledge_re = 90
+        elif input == 'Strong':
+            tp_knowledge_re = 75
+        elif input == 'Good':
+            tp_knowledge_re = 65
+        elif input == 'Mediocre':
+            tp_knowledge_re = 40
+        else: #input == 'Lacking'
+            tp_knowledge_re = 10
+        return tp_knowledge_re
+    # supurb ~ lacking 을 숫자로 된 점수로 변환
+    tp_kwlg_result = text_re_to_score(fin_topic_knowledge_score)
+    #print('tp_kwlg_result:', tp_kwlg_result)
 
+
+
+
+    # initiative_engagement_contribution
+    ini_engage_re = initiative_engagement_contribution(essay_input)
+    ini_engage_5div_re = ini_engage_re[2][0] # supurb ~ lacking 로 결과나옴
+    ini_engage_words = ini_engage_re[1] # initiative_engagement_contribution 관련 단어들로 웹에 표시
+    ini_engage_fin_score_re = ini_engage_re[2][1] # 점수로 계산됨 ---> for overall score 
+
+    social_aware_re = social_awareness_analysis(essay_input)
+    social_aware_5div_re = social_aware_re[2][0] # supurb ~ lacking 로 결과나옴
+    social_aware_words = social_aware_re[1] # Social Awareness 관련 단어들로 웹에 표시
+    social_aware_fin_score_re = social_aware_re[2][1]
+
+    # Social issues: Contribution & soluotion ==> overall score
+    social_iss_cont_sln_overall_score = float(social_aware_fin_score_re) * 0.3 + float(ini_engage_fin_score_re) * 0.3 + float(topic_uniquness_fin_score) * 0.1 + tp_kwlg_result * 0.1
+    
+    # Social issues: Contribution & soluotion ==> 문장생성
+    social_comment_fixed_achieve = """Powerful essays about social issues involve multiple elements. Your knowledge of the given issue and activism will demonstrate social awareness. Meanwhile, you should be emotionally engaged, especially with the social problems that made you angry or disappointed. Then, your realization of the issues should be backed up by your action – to bring about changes."""
+    def social_gen_comment_achievement(input_score, type):
+        if input_score == 'Supurb' or input_score == 'Strong':
+            if type == 'social_awareness':
+                comment_achieve= """Your essay seems to demonstrate your wealth of knowledge in social issues and activism."""
+            elif type == 'pmt_ori_sentiment':
+                comment_achieve = """Also, it is clear that you engage in this particular issue emotionally, and"""
+            elif type == 'initiative_eng':
+                comment_achieve = """your story seems to demonstrate a high level of effort of rmaking improvements.""" 
+            elif type == 'topic_uniqueness':
+                comment_achieve = """The topics in your essay seem unique, and readers may find them intriguing.""" 
+            elif type == 'topic_knowledge':
+                comment_achieve = """In terms of your knowledge of the topic, you seem to be very knowledgeable.""" 
+            else:
+                pass
+        elif input_score == 'Good':
+            if type == 'social_awareness':
+                comment_achieve= '''Your essay seems to demonstrate your knowledge of social issues and activism.'''
+            elif type == 'pmt_ori_sentiment':
+                comment_achieve = """Also, you seem to engage in this particular issue emotionally, and"""
+            elif type == 'initiative_eng':
+                comment_achieve = """your story seems to demonstrate a satisfactory level of effort for making improvements.""" 
+            elif type == 'topic_uniqueness':
+                comment_achieve = """The topics in your essay seem somewhat unique, and you may consider finding more exciting topics.""" 
+            elif type == 'topic_knowledge':
+                comment_achieve = """In terms of your knowledge of the topic, you seem to be somewhat knowledgeable.""" 
+            else:
+                pass
+        else: #input score == 'Mediocre' or input_score == 'Weak'
+            if type == 'social_awareness':
+                comment_achieve= '''Your essay may need some improvements in displaying your knowledge of social issues and activism.'''
+            elif type == 'pmt_ori_sentiment':
+                comment_achieve = """Also, your emotional engagement with this particular issue is somewhat weak, while"""
+            elif type == 'initiative_eng':
+                comment_achieve = """your story may need to demonstrate a higher amount of effort for making improvements.""" 
+            elif type == 'topic_uniqueness':
+                comment_achieve = """The topics in your essay seem somewhat familiar. Hence, you may consider finding less generic issues while adding more detail.""" 
+            elif type == 'topic_knowledge':
+                comment_achieve = """In terms of your knowledge of the topic, you may need to include more details.""" 
+            else:
+                pass
+        return comment_achieve
+
+
+    #문장생성
+    gen_sent_social_awareness = social_gen_comment_achievement(social_aware_5div_re, 'social_awareness')
+    gen_pmt_ori_sent_social = social_gen_comment_achievement(result_pmt_ori_sentiments, 'pmt_ori_sentiment')
+    gen_initiative_engs = social_gen_comment_achievement(ini_engage_5div_re, 'initiative_eng')
+    gen_topic_uniqueness = social_gen_comment_achievement(tp_uniqueness_5dv, 'topic_uniqueness')
+    gen_topic_knowledge = social_gen_comment_achievement(fin_topic_knowledge_score, 'topic_knowledge')
 
 
 
@@ -887,6 +988,9 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
 
     comments_achievement = [comment_fixed_achieve, gen_achi_pmt_ori_keywd, gen_arch_pmt_ori_sentiment, gen_arch_initiative_eng]
 
+
+
+
     ### +++ 실행결과 설명 +++ ###
     # 0. gen_keywd_college : 선택한 대학의 General Keywords on college로 wordcloud로 출력됨
     # 1. gen_keywd_college_major : 선택 대학의 전공에 대한 keywords 를 WrodCloud 로 출력
@@ -959,7 +1063,10 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'pmt_sent_etc_re' : pmt_sent_etc_re, #선택한 prompt 질문
         'prompt_type_sentence' : prompt_type_sentence, #선택한 prompt에 해당하는 질문 문장 전체
         'pmt_sent_re' : pmt_sent_re, # 선택한 prompt에 해당하는 sentiment 리스트
+
+        #result_pmt_ori_sentiments는 다양한 prompt에서 모두 적용됨(공통적용)
         'result_pmt_ori_sentiments' : result_pmt_ori_sentiments, # prompt oriented keywords 값으로 5점척도임(Supurb~lacking) --> 웹이 표시함
+
         're_coll_n_dept_fit' : re_coll_n_dept_fit, # College & Dept.Fit으로 입력한 Supplyment Essay와 비교하여 적합성  TFD-IDF로 계산해볼 것(lexicon 사용하지 않고 계산하였음. 성능이 낮으면 lexicon 추가하여 계사할 거임)
         'GAC_Sentences' : GAC_re[6], # 6. totalSettingSentences : academic 단어가 포함된 모든 문장을 추출 -------> 웹에 표시할 문장(아카데믹 단어가 포함된 문장)
         'GAC_Words' : GAC_re[11], # 11. topic_academic_word --------> 이 값을 가지고 비교할 것 - 웹에 표시할 단어들(아카데믹 단어)
@@ -976,10 +1083,28 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'comments_achievement': comments_achievement, # Achievement 문장 생성 부분 총 4개
         'result_pmt_ori_sentiments_of_social_issue': result_pmt_ori_sentiments_of_social_issue, # Social issues: contribution & solution - Prompt Oriented Sentiments 계산 결과임 ---> 웹에 표시할 것
         'result_topic_uniqueness' : result_topic_uniqueness, # Topic uniqueness 추출결과 - 3개만 분석하고, 분석결과는 data/topic_search_result.xlsx 에 저장됨
-        'extracted_topics_of_essay[:2]' : extracted_topics_of_essay[:2], # 에세에서 추출한 주요 토픽 3개, 그 이상을 보여주려면 extracted_topics_of_essay[:2~ 이상의 값을 넣으면 됨, 많이 넣으면 our of value 로 에러남옴]
-        'topic_fin_score' : topic_fin_score, # 추출한 토픽의 스코어 topic uniqueness final score
-        'fin_topic_knowledge_score' : fin_topic_knowledge_score, # Topic Knowledge Scofre
-        'get_topic_knowledge_ratio' : get_topic_knowledge_ratio # 에세이주요토픽추출단어/구글 검색 추출단어리스트 * 100 을 계산하여 Topic knowledge의 비율 계산
+        'extracted_topics_of_essay[:2]' : extracted_topics_of_essay[:2], # 에세에서 추출한 주요 토픽 3개, 그 이상을 보여주려면 extracted_topics_of_essay[:2~ 이상의 값을 넣으면 됨, 많이 넣으면 our of value 로 에러남옴] ---> 웹에 표시할 것
+        
+        'social_iss_cont_sln_overall_score': social_iss_cont_sln_overall_score, # Social issues: contribution & solution의 overall score
+        'social_aware_5div_re' : social_aware_5div_re, # social awareness 의 결과 supurb ~ lacking 으로 나옴
+        'social_aware_words' : social_aware_words,   # Social Awareness 관련 단어들로 웹에 표시
+        # Prompt Oriented Sentiments -- 작성해야 함
+        'ini_engage_5div_re' : ini_engage_5div_re, #  Initiative, Engagement, & Contribution 의 결과로 supurb ~ lacking 으로 출력됨
+        'ini_engage_words' : ini_engage_words, # Initiative, Engagement, & Contribution의 결과 관련 단어 ------> 웹에 표시함
+
+        'tp_uniqueness': tp_uniqueness, # 추출한 토핌의 최종 평균 uniqueness 값  common, unique, very unique 중 1개가 추출됨
+        'topic_uniquness_fin_score' : topic_uniquness_fin_score, # 추출한 토픽의 스코어 topic uniqueness final score
+
+        'fin_topic_knowledge_score' : fin_topic_knowledge_score, # Topic Knowledge Score
+        'get_topic_knowledge_ratio' : get_topic_knowledge_ratio, # 에세이주요토픽추출단어/구글 검색 추출단어리스트 * 100 을 계산하여 Topic knowledge의 비율 계산
+        'social_comment_fixed_achieve' : social_comment_fixed_achieve, # 코멘트생성
+        # 문장생성
+        'gen_sent_social_awareness' : gen_sent_social_awareness,
+        'gen_pmt_ori_sent_social' : gen_pmt_ori_sent_social,
+        'gen_initiative_engs' : gen_initiative_engs,
+        'gen_topic_uniqueness' : gen_topic_uniqueness,
+        'gen_topic_knowledge' : gen_topic_knowledge,
+
     }
 
     return data_result
