@@ -10,7 +10,10 @@
 # 4)에세이주요토픽추출단어/구글 검색 추출단어리스트 * 100 을 계산하면 Topic knowledge의 비율이 나올 것임, 이것이 높으면 10% 이상이면 높은 점수를 줄 수있음 (Supurb, Strong, Good, Mediocre, Lacking 중 1개로 계산됨, 점수로도 계산해야 overall 계산 적용할 수 있음)
 
 
-##### 이 코드는 키워드를 입력하면 1) 1차로 구글검색을 통해서 결과룰 추출 - 연결링크 모두 수집 2) 2차로 링크페이지에 모두 접속하여 text 데이터를 추출하여 리스트로 저장하는 기능
+##### 이 코드는 키워드를 입력하면 
+# 1) 1차로 구글검색을 통해서 결과룰 추출 - 연결링크 모두 수집 
+# 2) 2차로 링크페이지에 모두 접속하여 text 데이터를 추출하여 리스트로 저장하는 기능, 이미 검색힜던 데이터라면 DB에서 결과값을 즉시 추출(검색기능 사용하지 않음)
+
 
 
 # Chrome 버전을 확인하고 드라이버 버전을 동일하게 해야 함
@@ -26,6 +29,7 @@ import openpyxl
 from urllib.parse import ParseResultBytes, quote_plus
 from bs4 import BeautifulSoup
 from selenium import webdriver
+import pickle
 
 from tqdm import tqdm
 
@@ -86,7 +90,8 @@ def cleaning_data(input_data):
     return result
 
 
-def google_search_result_tp_knowledge(input_word):
+# 구글엔진을 이용해 키워드를 검색하고 결과 링크를 모두 조사하여 text 파일의 리스트로 결과 도출되는 코드
+def check_searched_keywords(input_word):
     baseUrl = 'https://www.google.com/search?q='
 
     #plusUrl = input('무엇을 검색할까요? :')
@@ -149,13 +154,41 @@ def google_search_result_tp_knowledge(input_word):
     result_cln = cleaning_data(get_result_str) # 결과값 청소
     result = list(set(result_cln)) # 중복제거
 
-    return result
+    dic_data = {'search keyword' : 'data_words'}
+    dic_data[input_word] = result
+    
+    # 저장하기
+    with open('./data/topic_keywords_n_search_result.pickle', 'wb') as fw:
+        pickle.dump(dic_data, fw)
+
+    return dic_data
+
+
+### 이것이 실행함수 ### 검색데이터가 딕셔너리에 있다면, 해당 value 값을 돌려주고, 없다면 구글검색을 통해서 데이터를 수집하고, 저장하고, 돌려준다.
+def google_search_result_tp_knowledge(input_word):
+    #load data
+    with open('./data/topic_keywords_n_search_result.pickle', 'rb') as fr:
+        data_loaded = pickle.load(fr)
+
+    #print('data_loaded :', data_loaded)
+    #키가 있는지 검색, 즉 검색 단어가 있는지 저장된 딕셔너리에거 검색하기
+    if input_word in data_loaded:
+        print("key exist! value is : ", data_loaded[input_word]) # 키가 있다면 결과값을 추출(리턴) 해준다.
+        result_fin = data_loaded[input_word]
+
+    else:
+        print("key not exist! so i am going to search data from google!") # 데이터에 검색어 키가 없기 때문에 구글검색 실행하여 데어터 수집하고 처리
+        result_fin= check_searched_keywords(input_word)
+
+    
+    return result_fin
+
 
 
 ## run ##
 
 #result = google_search_result(input_word)
-result = google_search_result_tp_knowledge("college personal essay")
+result = google_search_result_tp_knowledge("brown university")
 
 print(result)
 
