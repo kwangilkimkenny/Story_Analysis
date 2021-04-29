@@ -54,6 +54,11 @@ from topic_knowledge import google_search_result_tp_knowledge
 from social_issue_contribution_solution import social_awareness_analysis
 from social_issue_contribution_solution import initiative_engagement_contribution
 
+### summer activity 
+from summerActivity import SummerActivity
+from summerActivity import summer_activity_initiative_engagement
+
+
 
 
 
@@ -190,7 +195,7 @@ def select_prompt_type(prompt_type):
         # 0~16 번째는 에세이 입력의 40% 분석 적용, 그 이후부분은 60% 적용  --> 즉 [:16], [17:] 이렇게 나눌 것
         pmt_sentiment = ['Anger', 'annoyance', 'Fear', 'Disapproval', 'disgust', 'Disappointment','grief', 'nervousness', 'sadness', 'surprise', 'remorse', 'curiosity', 'embarrassment', 'Realization','Approval', 'Gratitude', 'Admiration','Admiration','Approval', 'Caring', 'Joy', 'Gratitude', 'Optimism','relief', 'Realization']
     elif prompt_type ==  'Summer activity':
-        pmt_typ = [""]
+        pmt_typ = ["Summer activity"]
         pmt_sentiment = ['Pride','Realization','Curiosity','Excitement','Amusement','Caring']
     elif prompt_type ==  'Unique quality, passion, or talent':
         pmt_typ = [""]
@@ -806,7 +811,7 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         return tp_knowledge_re
     # supurb ~ lacking 을 숫자로 된 점수로 변환
     tp_kwlg_result = text_re_to_score(fin_topic_knowledge_score)
-    #print('tp_kwlg_result:', tp_kwlg_result)
+    # print('tp_kwlg_result:', tp_kwlg_result)
 
 
 
@@ -989,6 +994,15 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     comments_achievement = [comment_fixed_achieve, gen_achi_pmt_ori_keywd, gen_arch_pmt_ori_sentiment, gen_arch_initiative_eng]
 
 
+    summerActivity_re = SummerActivity(essay_input)
+    popular_summer_program = summerActivity_re[0]
+    name_pop_summ_prmg = summerActivity_re[1]
+    pop_sum_prmg_score = summerActivity_re[2]
+
+    sum_act_ini_eng = summer_activity_initiative_engagement(essay_input)
+    sum_act_ini_eng_score = sum_act_ini_eng[0]
+    sum_act_ini_eng_words = sum_act_ini_eng[1]
+
 
 
     ### +++ 실행결과 설명 +++ ###
@@ -1088,7 +1102,7 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'social_iss_cont_sln_overall_score': social_iss_cont_sln_overall_score, # Social issues: contribution & solution의 overall score
         'social_aware_5div_re' : social_aware_5div_re, # social awareness 의 결과 supurb ~ lacking 으로 나옴
         'social_aware_words' : social_aware_words,   # Social Awareness 관련 단어들로 웹에 표시
-        # Prompt Oriented Sentiments -- 작성해야 함
+        # Prompt Oriented Sentiments -- esult_pmt_ori_sentiments_of_social_issue <- 이것이 계산 결과임
         'ini_engage_5div_re' : ini_engage_5div_re, #  Initiative, Engagement, & Contribution 의 결과로 supurb ~ lacking 으로 출력됨
         'ini_engage_words' : ini_engage_words, # Initiative, Engagement, & Contribution의 결과 관련 단어 ------> 웹에 표시함
 
@@ -1104,7 +1118,13 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         'gen_initiative_engs' : gen_initiative_engs,
         'gen_topic_uniqueness' : gen_topic_uniqueness,
         'gen_topic_knowledge' : gen_topic_knowledge,
+        # summer activity
+        'popular_summer_program' : popular_summer_program, # 5개의 값으로 추출됨
+        'name_pop_summ_prmg' : name_pop_summ_prmg, # 추출된 summer activitie 로 웹에 출력됨. 없으면 출력안됨(당연히)
+        'pop_sum_prmg_score' : pop_sum_prmg_score, # summer activity overall 값 게산하기 위한 결과임
 
+        'sum_act_ini_eng_score' : sum_act_ini_eng_score,
+        'sum_act_ini_eng_words' : sum_act_ini_eng_words,
     }
 
     return data_result
@@ -1121,7 +1141,7 @@ essay_input = """I inhale deeply and blow harder than I thought possible, pushin
 #sc_re = selected_college('Intellectual interest', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 #sc_re = selected_college("Meaningful experience & lesson learned", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 #sc_re = selected_college("Achievement you are proud of", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
-#Social issues: contribution & solution
-sc_re = selected_college("Social issues: contribution & solution", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
+#sc_re = selected_college("Social issues: contribution & solution", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
+sc_re = selected_college("Summer activity", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 print('최종결과:', sc_re)
 
