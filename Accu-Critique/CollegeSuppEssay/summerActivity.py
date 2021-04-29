@@ -87,25 +87,31 @@ def SummerActivity(essay_input):
     get_score_fin = list(set(get_score__)) # 추출한 summer activity 명칭
     print('get_score_fin:', get_score_fin)
     get_score_fin_re = list(set(get_score___))
-    print('get_score_fin_re :', get_score_fin_re)
+    print('get_score_fin_re :', get_score_fin_re) # [5] 로 결과가 리스트 값으로 나오기때문에 [0]번째의 데이터를 꺼내서 비교
     get_score_fin_re = get_score_fin_re[0]
 
     #추출한 점수를 5가지 척도로 변환하기.
     if get_score_fin_re  == 5:
         result_sc = 'Supurb'
+        result_score = 100
     elif get_score_fin_re == 4:
         result_sc = 'Strong'
+        result_score = 80
     elif get_score_fin_re == 3:
         result_sc = 'Good'
+        result_score = 60
     elif get_score_fin_re == 2:
         result_sc = 'Mediocre'
+        result_score = 40
     else:
         result_sc = 'Lacking'
+        result_score = 20
     
     data = {
         'result_sc' : result_sc, # 매칭되는 결과로 점수로 정하기
         'get_score_fin' : get_score_fin, # 에세이서 발견한 활동명칭
         #'get_word_position' : detect_activities # 현재 이 분석값을 의미가 없지만 나중에 활용할거임
+        'result_score' : result_score # 추출한 활동내역을 점수로 변환 --------> overall 값 계산에 적용할 것
     }
 
     return data
