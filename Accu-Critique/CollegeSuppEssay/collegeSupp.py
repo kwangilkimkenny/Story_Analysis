@@ -57,6 +57,7 @@ from social_issue_contribution_solution import initiative_engagement_contributio
 ### summer activity 
 from summerActivity import SummerActivity
 from summerActivity import summer_activity_initiative_engagement
+from summerActivity import summer_act_majorfit
 
 
 
@@ -1000,8 +1001,61 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     pop_sum_prmg_score = summerActivity_re[2]
 
     sum_act_ini_eng = summer_activity_initiative_engagement(essay_input)
-    sum_act_ini_eng_score = sum_act_ini_eng[0]
-    sum_act_ini_eng_words = sum_act_ini_eng[1]
+    sum_act_ini_eng_score = sum_act_ini_eng[0] # 입력한 에세이에 비교분석하고자하는 단어가 얼마나 포함되어 있는지에 대한 비율 계산
+    sum_act_ini_eng_words = sum_act_ini_eng[1] # 포함된 관련단어 추출 출격 --> 웹에 표시
+    sum_act_5re = sum_act_ini_eng[2][0] # 1) supurb ~ lacking
+    sum_act_score = sum_act_ini_eng[2][1] # 2) score
+
+    sum_act_mjr_fit = summer_act_majorfit(essay_input)
+    sum_act_major_score = sum_act_mjr_fit[0]
+    name_of_pop_sum_pro = sum_act_mjr_fit[1]
+    mjr_sum_pro_score = sum_act_mjr_fit[2]
+
+    # summer activity 문장생성
+    fixed_comment_summerActivity = """Summer is a great time to pursue your diverse interests. Your summer activities may be a popular summer program held at various colleges or an internship, or a unique project you have initiated. Regardless, there should be a sense of excitement, curiosity, and realization from these meaningful summer activities. Also, intellectual endeavors relevant to your intended major may help you stand out."""
+
+    def gen_comment_summer_activity(input_score, type):
+        if input_score == 'Supurb' or input_score == 'Strong':
+            if type == 'Popular_Summer_Programs':
+                comment_achieve= """Your essay seems to contain renowned summer program(s)."""
+            elif type == 'pmt_ori_sentiment':
+                comment_achieve = """You seem to demonstrate strong sentiments that constitute a meaningful learning experience."""
+            elif type == 'Initiative_&_Engagement':
+                comment_achieve = """Your story seems to demonstrate a high level of effort and dedication, and"""
+            elif type == 'Major_Fit':
+                comment_achieve = """the wealth of academic major-oriented topics seems to be a plus factor."""
+            else:
+                pass
+        elif input_score == 'Good':
+            if type == 'Popular_Summer_Programs':
+                comment_achieve= """Your essay seems to contain popular summer program(s)."""
+            elif type == 'pmt_ori_sentiment':
+                comment_achieve = """You seem to demonstrate compatible sentiments that constitute a meaningful learning experience."""
+            elif type == 'Initiative_&_Engagement':
+                comment_achieve = """Your story seems to demonstrate a satisfactory level of effort and dedication, and"""
+            elif type == 'Major_Fit':
+                comment_achieve = """the academic major-oriented topics seem to be a plus factor."""
+            else:
+                pass
+        else: #input score == 'Mediocre' or input_score == 'Weak'
+            if type == 'Popular_Summer_Programs':
+                comment_achieve= """Your essay may not contain popular summer program(s)."""
+            elif type == 'pmt_ori_sentiment':
+                comment_achieve = """You seem to lack the sentiments that constitute a meaningful learning experience."""
+            elif type == 'Initiative_Engagement':
+                comment_achieve = """Your story seems to demonstrate a lacking level of effort and dedication, and"""
+            elif type == 'Major_Fit':
+                comment_achieve = """the summer activities may strongly tie with your intended major."""
+            else:
+                pass
+
+        return comment_achieve
+
+    gen_cmt_pop_summer_program = gen_comment_summer_activity(pop_sum_prmg_score, Popular_Summer_Programs)
+    gen_cmt_pmp_sent = gen_comment_summer_activity(result_pmt_ori_sentiments, pmt_ori_sentiment)
+    gen_cmt_ini_eng = gen_comment_summer_activity(sum_act_score, Initiative_Engagement)
+    gen_cmt_mjr_fit = gen_comment_summer_activity(mjr_sum_pro_score, Major_Fit)
+
 
 
 
@@ -1121,10 +1175,21 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
         # summer activity
         'popular_summer_program' : popular_summer_program, # 5개의 값으로 추출됨
         'name_pop_summ_prmg' : name_pop_summ_prmg, # 추출된 summer activitie 로 웹에 출력됨. 없으면 출력안됨(당연히)
-        'pop_sum_prmg_score' : pop_sum_prmg_score, # summer activity overall 값 게산하기 위한 결과임
+        'pop_sum_prmg_score' : pop_sum_prmg_score, # summer activity overall 값 게산하기 위한 결과임 --------> overall 값 계산에 적용할 것
 
-        'sum_act_ini_eng_score' : sum_act_ini_eng_score,
-        'sum_act_ini_eng_words' : sum_act_ini_eng_words,
+        'sum_act_ini_eng_score' : sum_act_ini_eng_score, # 입력한 에세이에 비교분석하고자하는 단어가 얼마나 포함되어 있는지에 대한 비율 계산
+        'sum_act_ini_eng_words' : sum_act_ini_eng_words, # 포함된 관련단어 추출 출격 --> 웹에 표시
+        'sum_act_5re' : sum_act_5re,  # 1) supurb ~ lacking
+        'sum_act_score' : sum_act_score, # 2) score --------> overall 값 계산에 적용할 것
+
+        'sum_act_major_score' : sum_act_major_score, # 전공접합성의 매칭되는 결과로 점수로 정하기 5점 척도로 표현
+        'name_of_pop_sum_pro' : name_of_pop_sum_pro,  # 에세이서 발견한 썸머활동관련 전공
+        'mjr_sum_pro_score' : mjr_sum_pro_score, # 추출한 활동내역을 점수로 변환 --------> overall 값 계산에 적용할 것
+        # 문장생성
+        'gen_cmt_pop_summer_program' : gen_cmt_pop_summer_program,
+        'gen_cmt_pmp_sent' : gen_cmt_pmp_sent,
+        'gen_cmt_ini_eng' : gen_cmt_ini_eng,
+        'gen_cmt_mjr_fit' : gen_cmt_mjr_fit,
     }
 
     return data_result

@@ -90,13 +90,13 @@ def SummerActivity(essay_input):
     # detect_activities = gwp_re # 활동명의 단어들이 입력에세이의 어떤 위치값을 가지는지 확인
 
     # 추출한 값의 중복값 제거
-    if get_score__ != None: # null 값이 아닐경우 이하 내용 계산
+    try: # null 값이 아닐경우 이하 내용 계산
         get_score_fin = list(set(get_score__)) # 추출한 summer activity 명칭
         print('get_score_fin:', get_score_fin)
         get_score_fin_re = list(set(get_score___))
         print('get_score_fin_re :', get_score_fin_re) # [5] 로 결과가 리스트 값으로 나오기때문에 [0]번째의 데이터를 꺼내서 비교
         get_score_fin_re = get_score_fin_re[0]
-    else: # null 값이 나오면 점수는 1로 lacking
+    except: # null 값이 나오면 점수는 1로 lacking
         get_score_fin_re = 1
 
     #추출한 점수를 5가지 척도로 변환하기.
