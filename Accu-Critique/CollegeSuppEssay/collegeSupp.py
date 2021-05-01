@@ -996,9 +996,10 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
 
 
     summerActivity_re = SummerActivity(essay_input)
-    popular_summer_program = summerActivity_re[0]
-    name_pop_summ_prmg = summerActivity_re[1]
-    pop_sum_prmg_score = summerActivity_re[2]
+    print('summerActivity_re :', summerActivity_re)
+    popular_summer_program = summerActivity_re['Popular Summer Programs 5dif Score'] # Supurb ~ Lacking
+    name_pop_summ_prmg = summerActivity_re['Name of Popular Summer Programs']
+    pop_sum_prmg_score = summerActivity_re['Popular Summer Programs score']
 
     sum_act_ini_eng = summer_activity_initiative_engagement(essay_input)
     sum_act_ini_eng_score = sum_act_ini_eng[0] # 입력한 에세이에 비교분석하고자하는 단어가 얼마나 포함되어 있는지에 대한 비율 계산
@@ -1007,9 +1008,9 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     sum_act_score = sum_act_ini_eng[2][1] # 2) score
 
     sum_act_mjr_fit = summer_act_majorfit(essay_input)
-    sum_act_major_score = sum_act_mjr_fit[0]
-    name_of_pop_sum_pro = sum_act_mjr_fit[1]
-    mjr_sum_pro_score = sum_act_mjr_fit[2]
+    sum_act_major_score = sum_act_mjr_fit['Major Score']
+    name_of_pop_sum_pro = sum_act_mjr_fit['Name of Popular Summer Programs' ]
+    mjr_sum_pro_score = sum_act_mjr_fit['Major Summer Programs score']
 
     # overall summer activity 최종값 계산!!!!
     overall_summer_actibity = sum_act_score * 0.1 + prompt_ori_sentiments * 0.4 + sum_act_score * 0.4 + mjr_sum_pro_score * 0.1
@@ -1054,10 +1055,10 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
 
         return comment_achieve
 
-    gen_cmt_pop_summer_program = gen_comment_summer_activity(pop_sum_prmg_score, Popular_Summer_Programs)
-    gen_cmt_pmp_sent = gen_comment_summer_activity(result_pmt_ori_sentiments, pmt_ori_sentiment)
-    gen_cmt_ini_eng = gen_comment_summer_activity(sum_act_score, Initiative_Engagement)
-    gen_cmt_mjr_fit = gen_comment_summer_activity(mjr_sum_pro_score, Major_Fit)
+    gen_cmt_pop_summer_program = gen_comment_summer_activity(pop_sum_prmg_score, 'Popular_Summer_Programs')
+    gen_cmt_pmp_sent = gen_comment_summer_activity(result_pmt_ori_sentiments, 'pmt_ori_sentiment')
+    gen_cmt_ini_eng = gen_comment_summer_activity(sum_act_score, 'Initiative_Engagement')
+    gen_cmt_mjr_fit = gen_comment_summer_activity(mjr_sum_pro_score, 'Major_Fit')
 
 
 
