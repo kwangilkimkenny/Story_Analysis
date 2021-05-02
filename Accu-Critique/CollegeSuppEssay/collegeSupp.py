@@ -59,6 +59,9 @@ from summerActivity import SummerActivity
 from summerActivity import summer_activity_initiative_engagement
 from summerActivity import summer_act_majorfit
 
+### unique quality passion talent
+from unique_quality_passion_talent import unique_quality_passion_talent
+
 
 
 
@@ -176,7 +179,7 @@ def Prompt_Oriented_Sentiments_analysis(essay_input):
     return result_emo_swings, unique_re
 
 
-
+# 이 함수는 두 군데 사용중 1)collegeSuppy.py 2)prompt_oriented_sentments.py, 하지만 나중에 분리해야 함. pmp 별로 개별 계산해야 하기떼문
 def select_prompt_type(prompt_type):
     
     if prompt_type == 'Why us':
@@ -199,7 +202,7 @@ def select_prompt_type(prompt_type):
         pmt_typ = ["Summer activity"]
         pmt_sentiment = ['Pride','Realization','Curiosity','Excitement','Amusement','Caring']
     elif prompt_type ==  'Unique quality, passion, or talent':
-        pmt_typ = [""]
+        pmt_typ = ["Unique quality, passion, or talent"]
         pmt_sentiment = ['Pride','Excitement','Amusement','Approval','Admiration','Curiosity']
     elif prompt_type ==  'Extracurricular activity or work experience':
         pmt_typ = [""]
@@ -770,7 +773,7 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
 
     # Topic knowledge 점수 계산
     result_topic_knowledge =[]
-    for ets_itm in extracted_topics_of_essay[:3]: # 추출한 토픽 3개만 분석하기(시가간이 많이 걸림- 3개는 평균 39개의 웹페이지 분석해야 함)
+    for ets_itm in extracted_topics_of_essay[:3]: # 추출한 토픽 3개만 분석하기(시간이 많이 걸림- 3개는 평균 39개의 웹페이지 분석해야 함)
         result_of_srch = google_search_result_tp_knowledge(ets_itm) # 각 토픽별로 관련 웹검색하여 단어 추출
         result_topic_knowledge.append(result_of_srch) # 추출 리스트 저장
     print('result_topic_knowledge:', result_topic_knowledge)
@@ -1217,6 +1220,8 @@ essay_input = """ I inhale deeply and blow harder than I thought possible, tech/
 #sc_re = selected_college("Meaningful experience & lesson learned", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 #sc_re = selected_college("Achievement you are proud of", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 #sc_re = selected_college("Social issues: contribution & solution", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
-sc_re = selected_college("Summer activity", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
-print('최종결과:', sc_re)
+#sc_re = selected_college("Summer activity", 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
+# 이하 개발 코드는 개별적으로 계산이 가능함
+sr_re =  unique_quality_passion_talent("Unique quality, passion, or talent", essay_input)
+print('최종결과:', sr_re)
 

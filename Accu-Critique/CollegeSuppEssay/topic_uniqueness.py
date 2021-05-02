@@ -62,9 +62,9 @@ def Go_GoogleSearch(input_word):
         # 한글을 사용할 경우 :  quote_plus 적용 - URL에 막 %CE%GD%EC 이런 거 생성해줌
 
         #office
-        driver = webdriver.Chrome(executable_path= r'./data/chromedriver', chrome_options=options)
+        #driver = webdriver.Chrome(executable_path= r'./data/chromedriver', chrome_options=options)
         #home
-        #driver = webdriver.Chrome(executable_path= r'./data/chromedriver_mac_ver_90', chrome_options=options)
+        driver = webdriver.Chrome(executable_path= r'./data/chromedriver_mac_ver_90', chrome_options=options)
         driver.get(url)
 
         html = driver.page_source
@@ -106,7 +106,7 @@ def Go_GoogleSearch(input_word):
         return uniq_result
 
 
-# 이것이 1타고 실행되는 함수다!!! 
+# 이것이 1타로 실행되는 함수다!!! 
 def google_search_result(input_word):
 
     # 엑셀로 저장한 데이터의 키워드값을 검색하여, 새로 검색하려는 키워드와 데이터가 존재한다면, 크롤링하지 않도록 기능추가

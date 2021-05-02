@@ -119,7 +119,7 @@ def SummerActivity(essay_input):
         pass
     
     data = {
-        'Popular Summer Programs 5dif Score' : result_sc, # 매칭되는 결과로 점수로 정하기
+        'Popular Summer Programs 5dif Score' : result_sc, # 매칭되는 결과로 점수로 정하기 Supurb ~ Lacking
         'Name of Popular Summer Programs' : get_score_fin, # 에세이서 발견한 활동명칭
         #'get_word_position' : detect_activities # 현재 이 분석값을 의미가 없지만 나중에 활용할거임
         'Popular Summer Programs score' : result_score # 추출한 활동내역을 점수로 변환 --------> overall 값 계산에 적용할 것

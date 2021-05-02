@@ -102,9 +102,9 @@ def check_searched_keywords(input_word):
     # 한글을 사용할 경우 :  quote_plus 적용 - URL에 막 %CE%GD%EC 이런 거 생성해줌
 
     #office
-    driver = webdriver.Chrome(executable_path= r'./data/chromedriver', chrome_options=options)
+    #driver = webdriver.Chrome(executable_path= r'./data/chromedriver', chrome_options=options)
     #home
-    #driver = webdriver.Chrome(executable_path= r'./data/chromedriver_mac_ver_90', chrome_options=options)
+    driver = webdriver.Chrome(executable_path= r'./data/chromedriver_mac_ver_90', chrome_options=options)
     driver.get(url)
 
     html = driver.page_source
