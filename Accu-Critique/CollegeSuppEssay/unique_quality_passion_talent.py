@@ -193,6 +193,6 @@ essay_input = """ I inhale deeply and blow harder than I thought possible, tech/
 
 
 #select_pmt_type = "Unique quality, passion, or talent"
-select_pmt_type = 'Summer activity'
+select_pmt_type = "Unique quality, passion, or talent"
 
 print('unique_quality_passion_talent :' , unique_quality_passion_talent(select_pmt_type, essay_input))
