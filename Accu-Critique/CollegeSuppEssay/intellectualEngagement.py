@@ -369,7 +369,6 @@ def intellectualEnguagement(essay_input):
     # 1. int_eng_re : 5가지 기준으로 산출한 값 (Supurb ~ Lacking)
     # 2. intellectualEnguagement_words_for_web : 웹사이트에 표시할 intellectualEnguagement 단어들
     # 3. intel_interest_score : Intellectual interest 를 최종 계산하기 위해 변화한 점수
-    # 4. mjr_comment_re : 전공적합성 문장 생성 부분
 
     return intell_eng_result, int_eng_re, intellectualEnguagement_words_for_web, intel_interest_score
 
