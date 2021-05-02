@@ -1,3 +1,9 @@
+# major fit
+# 1) get major words from essay
+# 2) selected prompt
+
+
+
 import re
 from difflib import SequenceMatcher
 import numpy as np
