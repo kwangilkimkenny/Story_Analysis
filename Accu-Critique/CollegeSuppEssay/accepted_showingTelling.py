@@ -199,8 +199,8 @@ def ai_show_telling_analysis(input_text):
 
 
 def accepted_emotion():
-    emotion_ratio_score_cnt = [] # nums of character 'focus on you'
-
+    emotion_showing_ratio_score_cnt = []
+    emotion_telling_ratio_score_cnt = []
 
     path = "./data/accepted_data/ps_essay_evaluated.csv"
     data = pd.read_csv(path)
@@ -212,19 +212,22 @@ def accepted_emotion():
 
             input_ps_essay = get_essay
             re = ai_show_telling_analysis(str(input_ps_essay))
-            result = re[0]
-            emotion_ratio_score_cnt.append(result)
-
-    #print('emotion_counter:', emotion_counter)
-    e_re = [y for x in emotion_ratio_score_cnt for y in x]
-    # 중복감성 추출
-    emo_total_count = {}
-    for i in e_re:
-        try: emo_total_count[i] += 1
-        except: emo_total_count[i]=1
+            re_showing = re[0]
+            re_telling = re[1]
+            emotion_showing_ratio_score_cnt.append(re_showing)
+            emotion_telling_ratio_score_cnt.append(re_telling)
 
 
-    return emo_total_count
+    # #print('emotion_counter:', emotion_counter)
+    # e_re = [y for x in emotion_ratio_score_cnt for y in x]
+    # # 중복감성 추출
+    # emo_total_count = {}
+    # for i in e_re:
+    #     try: emo_total_count[i] += 1
+    #     except: emo_total_count[i]=1
+
+
+    return emotion_showing_ratio_score_cnt, emotion_telling_ratio_score_cnt #emo_total_count
 
 
 print('Showing Telling Result : ', accepted_emotion())

@@ -70,31 +70,10 @@ from collections import defaultdict
 from transformers import BertTokenizer
 from model import BertForMultiLabelClassification
 from multilabel_pipeline import MultiLabelPipeline
+from pprint import pprint
 
-# 다운로드했기 때문에 실행시는 사용하지 않음
-# tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-original")
-# model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
-
-# # save tokenizer ---> 계산속도 줄이기위해서 미리 저장, 저장했기 때문에 실행시는 사용하지 않음
-# with open('data_tokenizer.pickle', 'wb') as f:
-#     pickle.dump(tokenizer, f, pickle.HIGHEST_PROTOCOL)
-
-# # save model ---> 계산속도 줄이기위해서 미리 저장, 저장했기 때문에 실행시는 사용하지 않음
-# with open('data_model.pickle', 'wb') as g:
-#     pickle.dump(model, g, pickle.HIGHEST_PROTOCOL)
-
-# open tokenizer
-with open('./data_accepted_st/data_tokenizer.pickle', 'rb') as f:
-    tokenizer = pickle.load(f)
-
-# open model  --------> 이거새으 400MB 가 넘어서 git에 올라가지 않음, 그럴경우 아래 코드의 주석을 풀어서 사용해야 함
-######----- model 주석 해제하여 사용할 것  ----####
-# model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
-#############################################
-
-with open('./data_accepted_st/data_model.pickle', 'rb') as g:
-    model = pickle.load(g)
-
+tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-group")
+model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-group")
 
 goemotions = MultiLabelPipeline(
     model=model,
@@ -162,7 +141,7 @@ def ai_plot_conf(essay_input_):
         #우선 토큰화한다.
         retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
         token_input_text = retokenize.tokenize(essay_input_corpus)
-        #print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
+        print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
         #리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
         filtered_chr_text = []
         for k in token_input_text:
@@ -190,6 +169,7 @@ def ai_plot_conf(essay_input_):
 #         df_r = df_conf_words['words'] #words 컬럼 값 추출
 #         ext_sim_words_key = df_r.values.tolist() # 유사단어 추출
         ext_sim_words_key = filtered_chr_text__
+        
 
         #return result_char_ratio, total_sentences, total_words, char_total_count, char_count_, ext_sim_words_key
         return ext_sim_words_key
@@ -245,7 +225,7 @@ def ai_plot_conf(essay_input_):
 def get_conflict_words():
 
     ratio_score_cnt = []
-    path = "./data_accepted_st/ps_essay_evaluated.csv"
+    path = "./data/accepted_data/ps_essay_evaluated.csv"
     data = pd.read_csv(path)
     #Score를 인덱스로 변환하여 데이터 찾아보기
     data.set_index('Score', inplace=True)
@@ -259,16 +239,19 @@ def get_conflict_words():
 
 
     #print('emotion_counter:', emotion_counter)
-    e_re = [y for x in ratio_score_cnt for y in x]
-    # 중복감성 추출
-    total_count = {}
-    for i in e_re:
-        try: total_count[i] += 1
-        except: total_count[i]=1
+    # e_re = [y for x in ratio_score_cnt for y in x]
+    # # 중복감성 추출
+    # total_count = {}
+    # for i in e_re:
+    #     try: total_count[i] += 1
+    #     except: total_count[i]=1
 
-    accepted_mean = round(sum(total_count) / len(total_count), 1)
+    # accepted_mean = round(sum(total_count) / len(total_count), 1)
 
-    return accepted_mean
+    return ratio_score_cnt
+
+
+print('합격한 학생들의 Conflict Words 평균값:', get_conflict_words())
 
 
     
