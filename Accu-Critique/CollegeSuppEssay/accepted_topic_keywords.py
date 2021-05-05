@@ -21,8 +21,7 @@ stop = stopwords.words('english')
 from topic_extraction import topic_extraction
 
 def get_topic_extraction():
-    score_cnt = [] # nums of character 'focus on you'
-
+    emotion_ratio_score_cnt = [] # nums of character 'focus on you'
 
     path = "./data/accepted_data/ps_essay_evaluated.csv"
     data = pd.read_csv(path)
@@ -34,23 +33,22 @@ def get_topic_extraction():
 
             input_ps_essay = get_essay
             re = topic_extraction(str(input_ps_essay))
+            #print('re:', re)
             result = re
-            score_cnt.append(result)
+            emotion_ratio_score_cnt.append(result)
 
 
-    #print('emotion_counter:', emotion_counter)
-    e_re = [y for x in score_cnt for y in x]
-    # 중복감성 추출
+
+    e_re = [y for x in emotion_ratio_score_cnt for y in x]
+    # 중복 카운팅
     emo_total_count = {}
     for i in e_re:
         try: emo_total_count[i] += 1
         except: emo_total_count[i]=1
 
-    #accepted_emotion_mean = round(sum(emotion_ratio_score_cnt) / len(emotion_ratio_score_cnt), 1)
-
     return emo_total_count
 
-print('get_topic_extraction', get_topic_extraction())
+print('get_topic_extraction:', get_topic_extraction())
 
 
 

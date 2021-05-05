@@ -191,7 +191,7 @@ def ai_show_telling_analysis(input_text):
     re_telling_ = cal_laking_ideal_overboard(out_tell, tell_idel_mean) # 각각의 값 계산 (telling)
 
     # data = {
-    #     "showing":re_showing_,
+    #     "showing":re_showing_, 0 1 2
     #     "telling":re_telling_
     # }
 
@@ -199,8 +199,8 @@ def ai_show_telling_analysis(input_text):
 
 
 def accepted_emotion():
-    emotion_showing_ratio_score_cnt = []
-    emotion_telling_ratio_score_cnt = []
+    showing_ratio_score_cnt = [] # 0~2 사이의 리스트
+    telling_ratio_score_cnt = [] # 0~2 사이의 리스트
 
     path = "./data/accepted_data/ps_essay_evaluated.csv"
     data = pd.read_csv(path)
@@ -211,24 +211,19 @@ def accepted_emotion():
             get_essay = data.loc[i, 'Essay']
 
             input_ps_essay = get_essay
-            re = ai_show_telling_analysis(str(input_ps_essay))
-            re_showing = re[0]
-            re_telling = re[1]
-            emotion_showing_ratio_score_cnt.append(re_showing)
-            emotion_telling_ratio_score_cnt.append(re_telling)
+            re = showtell_classfy(str(input_ps_essay))
+            result_showing = re[0] # showing 0~1~2
+            result_telling = re[1] # telling 0~1~2
+            showing_ratio_score_cnt.append(result_showing)
+            telling_ratio_score_cnt.append(result_telling)
+
+    showing_re = round(sum(showing_ratio_score_cnt) / len(showing_ratio_score_cnt), 1)
+    telling_re = round(sum(telling_ratio_score_cnt) / len(telling_ratio_score_cnt), 1)
 
 
-    # #print('emotion_counter:', emotion_counter)
-    # e_re = [y for x in emotion_ratio_score_cnt for y in x]
-    # # 중복감성 추출
-    # emo_total_count = {}
-    # for i in e_re:
-    #     try: emo_total_count[i] += 1
-    #     except: emo_total_count[i]=1
+
+    return showing_re, telling_re
 
 
-    return emotion_showing_ratio_score_cnt, emotion_telling_ratio_score_cnt #emo_total_count
-
-
-print('Showing Telling Result : ', accepted_emotion())
+print('Showing Telling Ratio: ', accepted_emotion())
 
