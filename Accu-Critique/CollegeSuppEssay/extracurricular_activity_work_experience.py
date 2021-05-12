@@ -75,6 +75,7 @@ def extra_act_work_experi(select_pmt_type, select_college, select_college_dept, 
 
 
     overall_result = round(pmt_ori_sent_re[0] * 0.4 + Engagement_result[0] * 0.4 + mjr_fit * 0.1, 1)
+    overall_5div_result = calculate_score(overall_result)
 
     # 문장생성
     fixed_top_comment = """For the extracurricular or work experience essay, you should select an enjoyable topic that demonstrates positive qualities about you, such as dedication, passion, leadership, contribution, and more. If you’ve chosen an intellectual engagement, establishing a major fit may help you to show your focus."""
@@ -134,6 +135,8 @@ def extra_act_work_experi(select_pmt_type, select_college, select_college_dept, 
 
 
     data = { 
+        'overall_result' : overall_result, # 숫자로 출력됨
+        'overall_5div_result' : overall_5div_result, # supurb ~ lacking
         'pmt_ori_sent_re' : pmt_ori_sent_re[0], #prompt oriented sentiments 점수로 표현(숫자)
         'pmt_ori_sent_re_fin' : pmt_ori_sent_re_fin, # prompt oriented sentiments  Supurb ~ Lacking
         'Engagement_result_fin' : Engagement_result_fin, # Engagement Supurb ~ Lacking

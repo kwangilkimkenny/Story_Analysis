@@ -111,4 +111,4 @@ def get_noun_adv_from_essay():
 print('ext_noun_adv_by_spacy:', get_noun_adv_from_essay())
 
 
-/Users/kimkwangil/Documents/001_ESSAYFITAI/Story_Analysis-master 25/Accu-Critique/CollegeSuppEssay/accepted_spacy.py
+#Users/kimkwangil/Documents/001_ESSAYFITAI/Story_Analysis-master 25/Accu-Critique/CollegeSuppEssay/accepted_spacy.py
