@@ -893,7 +893,7 @@ def coll_comm_int_role_cont_coll_comm(select_pmt_type, select_college, select_co
         'sent__' : sent__, # Supurb ~ Lacking
         'engagement_result_' : engagement_result_, # Supurb ~ Lacking
         'sentments' : pmt_ori_sent[1], # 추출한 감성 단어 - 웹페이지에 반영
-        'initive_engagement[2]' : initive_engagement[1], # 추출한 engagement 단어 -- 웹페이지에 반영
+        'initive_engagement[1]' : initive_engagement[1], # 추출한 engagement 단어 -- 웹페이지에 반영
 
         'comm_ori_keywords[2]' : comm_ori_keywords[2], # community oriented keywords 단어들 -- 웹페이지에 반영
         'get_sents_from_essay[1]' : pmt_ori_sent[1], # 리스트 단어들 -- 웹페이지에 반영
