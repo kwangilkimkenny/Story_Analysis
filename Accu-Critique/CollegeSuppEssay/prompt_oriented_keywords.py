@@ -221,17 +221,23 @@ def get_sim_words(prompt_type, text):
         with open('./data/data_communityWords.pickle', 'rb') as f:
             words_list = pickle.load(f)
     elif prompt_type ==  'Collaboration & teamwork':
-        pmt_typ = [""]
-        words_list = ['Admiration','Caring','Approval','Optimism','Gratitude','Love']
+        pmt_typ = ["Collaboration & teamwork"]
+        words_list = ['collaborative','esteem','student','physical','simulation','pioneer','engagement','demonstrate','derail','involve','creative','camping','trust','innovation','combat','innovative','motivation','activity','interpersonal','productivity','achievement','courage','competency','behavior','core','adapt','importance','awareness','element','cooperative','responsibility','task','stress','conflict','assessment','understanding','crew','practice','patient','learning','enable','goal','knowledge','dedication','oriented','display','supervision','judge','completion','cohesion','essential','enhance','loyalty','accomplish','empathy','safety','motto','positive','excellent','encourage','efficiency','strength','attitude','caring','drill','opportunity','aim','necessity','participate','enrich','friendship','crucial','setting','interaction','management','leadership','alternative','excellence','concept','fitness','sport','rowing','math','commitment','obstacle','resource','assess','thinking','youth','aviation','effort','deploy','tactical','exemplify','curiosity','require','self','nato','build','teammate','confidence','skill','success','perseverance','pilot','strengthen','motivate','ability','managerial','flexible','team','improve','outcome','participation','robot','cadet','virtual','help','process','experience','ethic','healthcare','chat','dynamics','employee','counterpart','sense','shooter','consensus','customer','communication','raceway','value','tag','approach','talent','achieve','learn','problem','flexibility','community','reinforce','individual','combine','implement','puzzle','spirit','group','develop','collaboration','prevention','satisfaction','effectiveness','curriculum','researcher','competence','analyze','marketing','effective','dynamic','quality','teach','corporate','organization','toyota','enhanced','resolve','job','technique','lau','cognition','professional','time','mutual','literacy','performance','recruit','component','rely','strategy','competition','outward','integration','integrity','cooperation','exercise','reward','program','evaluate','fairness','mission','decision','coordinate','integrate','overcome','facilitate','screening','designed','discipline','challenge','pike','partnership','complexity','athlete','emphasize','reliance','incorporate','stability','athletic','initiative','endurance','creativity','coordination','gm','training','planning','focus','highlight','promote','participant','project','insight','emphasis','lesson','relationship','topic','constructive','fun','capability','workplace','lack','employer','sharing','organizational','player','tactic','foster','context','evaluation','trio','praise','solve','respect','environment','adventure','airlift','deployment']
     elif prompt_type ==  'Creativity/creative projects':
-        pmt_typ = [""]
-        words_list = ['Excitement','Realization','Curiosity','Desire','Amusement','Surprise']
+        pmt_typ = ["Creativity/creative projects"]
+        # load
+        with open('./data/data_creative_acacdemic_Words.pickle', 'rb') as f:
+            words_list = pickle.load(f)
     elif prompt_type ==  'Leadership experience':
-        pmt_typ = [""]
-        words_list = ['Admiration','Caring','Approval','Optimism','Gratitude','Love','Fear','Confusion','Nervousness']
+        pmt_typ = ["Leadership experience"]
+        # load
+        with open('./data/data_leadership_Words.pickle', 'rb') as f:
+            words_list = pickle.load(f)
     elif prompt_type ==  'Values, perspectives, or beliefs':
-        pmt_typ = [""]
-        words_list = ['Anger','Fear','Disapproval','Disappointment','Realization','Approval','Gratitude','Admiration']
+        pmt_typ = ["Values, perspectives, or beliefs"]
+        # load
+        with open('./data/data_coreValue_Words.pickle', 'rb') as f:
+            words_list = pickle.load(f)
     elif prompt_type ==  'Person who influenced you':
         pmt_typ = [""]
         words_list = ['Realization', 'Approval', 'Gratitude','Admiration','Caring','Love','Curiosity', 'Pride', 'Joy']
