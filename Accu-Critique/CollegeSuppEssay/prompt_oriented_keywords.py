@@ -239,8 +239,10 @@ def get_sim_words(prompt_type, text):
         with open('./data/data_coreValue_Words.pickle', 'rb') as f:
             words_list = pickle.load(f)
     elif prompt_type ==  'Person who influenced you':
-        pmt_typ = [""]
-        words_list = ['Realization', 'Approval', 'Gratitude','Admiration','Caring','Love','Curiosity', 'Pride', 'Joy']
+        pmt_typ = ["Person who influenced you"]
+        # load
+        with open('./data/data_coreValue_Words.pickle', 'rb') as f:
+            words_list = pickle.load(f)
     elif prompt_type ==  'Favorite book/movie/quote':
         pmt_typ = [""]
         words_list = ['Excitement', 'Realization', 'Curiosity','Admiration','Amusement','Joy']

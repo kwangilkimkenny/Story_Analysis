@@ -25,7 +25,10 @@ def find_named_persons(text):
     #총 인물 수
     get_person = len(persons)
     # Return persons
-    return get_person
+
+    # get_person : 추출한 인물의 수
+    # persons : 추출한 인물의 이름 리스트
+    return get_person, persons
 
 
 def characters(input_text):
@@ -63,10 +66,13 @@ def characters(input_text):
         for k_ in li_doc:
             if i_itm == str(k_):
                 ext_you_characters.append(i_itm)
-    #I 관련 캐릭터 표현하는 단어들의 총 개수        
+    # 다른 사람의 캐릭터 표현하는 단어들의 총 개수        
     get_others = len(ext_you_characters)
 
-    return get_i, get_others
+    # get_i : I 관련 캐릭터 표현하는 단어들의 총 개수 (numeric)
+    # get_others, 다른 사람의 캐릭터 표현하는 단어들의 총 개수  (numeric)
+    # ext_you_characters : you에 관련한 단어들의 리스트  ---> 웹에 표시할 rjt
+    return get_i, get_others, ext_you_characters
 
 
 
@@ -75,7 +81,7 @@ def focusOnCharacters(input_text):
     person_num = find_named_persons(input_text)
     charater_num = list(characters(input_text))
 
-    sum_character_num = person_num + charater_num[0] + charater_num[1]
+    sum_character_num = person_num[0] + charater_num[0] + charater_num[1]
     ratio_i = round((charater_num[0] / sum_character_num),2) * 100
 
     if ratio_i >= 70: # i 가 70% 이상
@@ -90,6 +96,133 @@ def focusOnCharacters(input_text):
 
     return result #1~3의 결과가 나옴
 
+
+def lackigIdealOverboard(group_mean, personal_value): # group_mean: 1000명 평균, personal_value: 개인값
+    ideal_mean = group_mean
+    one_ps_char_desc = personal_value
+    #최대, 최소값 기준으로 구간설정. 구간비율 30% => 0.3으로 설정
+    min_ = int(ideal_mean-ideal_mean*0.6)
+    #print('min_', min_)
+    max_ = int(ideal_mean+ideal_mean*0.6)
+    #print('max_: ', max_)
+    div_ = int(((ideal_mean+ideal_mean*0.6)-(ideal_mean-ideal_mean*0.6))/3)
+    #print('div_:', div_)
+
+    #결과 판단 Lacking, Ideal, Overboard
+    cal_abs = abs(ideal_mean - one_ps_char_desc) # 개인 - 단체 값의 절대값계산
+
+    #print('cal_abs 절대값 :', cal_abs)
+    compare7 = (one_ps_char_desc + ideal_mean)/6
+    compare6 = (one_ps_char_desc + ideal_mean)/5
+    compare5 = (one_ps_char_desc + ideal_mean)/4
+    compare4 = (one_ps_char_desc + ideal_mean)/3
+    compare3 = (one_ps_char_desc + ideal_mean)/2
+    # print('compare7 :', compare7)
+    # print('compare6 :', compare6)
+    # print('compare5 :', compare5)
+    # print('compare4 :', compare4)
+    # print('compare3 :', compare3)
+
+    if one_ps_char_desc > ideal_mean: # 개인점수가 평균보다 클 경우는 overboard
+        if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
+            #print("Overboard: 2")
+            result = 2 #overboard
+            score = 1
+        elif cal_abs > compare4: # 28
+            #print("Overvoard: 2")
+            result = 2
+            score = 2
+        elif cal_abs > compare5: # 22
+            #print("Overvoard: 2")
+            result = 2
+            score = 3
+        elif cal_abs > compare6: # 18
+            #print("Overvoard: 2")
+            result = 2
+            score = 4
+        else:
+            #print("Ideal: 1")
+            result = 1
+            score = 5
+    elif one_ps_char_desc < ideal_mean: # 개인점수가 평균보다 작을 경우 lacking
+        if cal_abs > compare3: # 37 개인점수가 개인평균차의 절대값보다 클 경우, 즉 차이가 많이 날경우
+            #print("Lacking: 2")
+            result = 0
+            score = 1
+        elif cal_abs > compare4: # 28
+            #print("Lacking: 2")
+            result = 0
+            score = 2
+        elif cal_abs > compare5: # 22
+            #print("Lacking: 2")
+            result = 0
+            score = 3
+        elif cal_abs > compare6: # 18
+            #print("Lacking: 2")
+            result = 0
+            score = 4
+        else:
+            #print("Ideal: 1")
+            result = 1
+            score = 5
+            
+    else: # 같으면 ideal 이지. 가장 높은 점수를 줄 것
+        #print("Ideal: 1")
+        result = 1
+        score = 5
+
+    # 최종 결과 5점 척도로 계산하기
+    if score == 5:
+        result_ = 'Supurb'
+        re__score = 100
+    elif score == 4:
+        result_ = 'Strong'
+        re__score = 80
+    elif score == 3:
+        result_ = 'Good'
+        re__score = 60
+    elif score == 2:
+        result_ = 'Mediocre'
+        re__score = 40
+    else: #score = 1
+        result_ = 'Lacking'
+        re__score = 20
+
+    return result_, re__score
+
+
+
+def character_5div(input_text):
+
+    person_num = find_named_persons(input_text)
+    charater_num = list(characters(input_text))
+
+    sum_character_num = person_num[0] + charater_num[0] + charater_num[1]
+    ratio_i = round((charater_num[0] / sum_character_num),2) * 100
+
+    if ratio_i >= 70: # i 가 70% 이상
+        print("Mostly Me")
+        ps_essay_char_result = "Mostly Me"
+    elif 40 <= ratio_i < 70: # i가 40~ 70% 
+        print("Me & some others")
+        ps_essay_char_result = "Me & some others"
+    else:
+        print("Others characters") # i가 40% 이하
+        ps_essay_char_result = "Mostly Me"
+
+    #### 합격한 학생들의 평균 값 #### -=------------------->합격평균값 보정해야 함
+    accepted_stn_mean_value = 55
+
+    character_comp_result = lackigIdealOverboard(accepted_stn_mean_value, ratio_i)
+
+    # 0. character_comp_result : 합격, 개인 에세이의 캐릭터 활용 비교 결과값 => ('Supurb', 100)
+    # 1. ratio_i : 개인 에세이의 캐릭터 활용 비율만 계산한 => 값 숫자 74.0
+    # 2. ps_essay_char_result:  "Mostly Me", "Me & some others", "Others characters" 중 하나로 출력됨 'Mostly Me'
+    # 3. person_num : 개인 에세이에서 추출한 '이름'이 사용된 수
+    # 4. person_num[1] : 개인 에세이에서 추출한 '이름'관련 단어들 ----> 웹에 표시 4 
+    # 5. charater_num[2] : 캐릭터 관련한 단어 리스트  --->  웹에 표시 ['her', 'her', 'her', 'her', 'her', 'it', 'it', 'it', 'someone', 'someone', 'their', 'myself', 'myself']
+
+    return character_comp_result, ratio_i, ps_essay_char_result, person_num, person_num[1], charater_num[2]
 
 
 
