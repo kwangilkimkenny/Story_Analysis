@@ -266,6 +266,7 @@ def Prompt_Oriented_Sentiments_analysis(essay_input):
         return fin_datas
 
     texts = cleaning(re_text)
+    print('check emotions: ', texts)
 
     #분석된 감정만 추출
     emo_re = goemotions(texts)

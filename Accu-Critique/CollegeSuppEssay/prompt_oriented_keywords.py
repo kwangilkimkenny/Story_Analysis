@@ -204,16 +204,16 @@ def get_sim_words(prompt_type, text):
         pmt_typ = ["Unique quality, passion, or talent"]
         words_list = ['Pride','Excitement','Amusement','Approval','Admiration','Curiosity']
     elif prompt_type ==  'Extracurricular activity or work experience':
-        pmt_typ = [""]
+        pmt_typ = ["Extracurricular activity or work experience"]
         words_list = ['Pride','Realization','Curiosity','Joy','Excitement','Amusement','Caring','Optimism']
     elif prompt_type ==  'Your community: role and contribution in your community':
-        pmt_typ = [""]
+        pmt_typ = ["Your community: role and contribution in your community"]
         words_list = ['Admiration','Caring','Approval','Pride','Gratitude','Love']
     elif prompt_type ==  'College community: intended role, involvement, and contribution in college community':
-        pmt_typ = [""]
+        pmt_typ = ["Admiration','Caring','Approval','Pride','Gratitude','Love"]
         words_list = ['Admiration','Caring','Approval','Excitement','Pride','Gratitude']
     elif prompt_type ==  'Overcoming a Challenge or ethical dilemma':
-        pmt_typ = [""]
+        pmt_typ = ["Overcoming a Challenge or ethical dilemma"]
         words_list = ['Anger','Fear','Disapproval','Disappointment','Confusion','Annoyed','Realization', 'Approval','Gratitude','Admiration','Relief','Optimism']
     elif prompt_type ==  'Culture & diversity':
         pmt_typ = ["Culture & diversity"]
@@ -244,20 +244,28 @@ def get_sim_words(prompt_type, text):
         with open('./data/data_coreValue_Words.pickle', 'rb') as f:
             words_list = pickle.load(f)
     elif prompt_type ==  'Favorite book/movie/quote':
-        pmt_typ = [""]
-        words_list = ['Excitement', 'Realization', 'Curiosity','Admiration','Amusement','Joy']
+        pmt_typ = ["Favorite book/movie/quote"]
+        # load
+        with open('./data/data_coreValue_Words.pickle', 'rb') as f:
+            words_list = pickle.load(f)
     elif prompt_type ==  'Write to future roommate':
-        pmt_typ = [""]
+        pmt_typ = ["Write to future roommate"]
         words_list = ['Admiration','Realization','Love','Excitement','Approval','Pride','Gratitude','Amusement','Curiosity','Joy']
     elif prompt_type ==  'Diversity & Inclusion Statement':
-        pmt_typ = [""]
-        words_list = ['Anger','Fear','Disapproval','Disappointment','Confusion','Annoyed','Realization','Approval','Gratitude','Admiration','Relief','Optimism']
+        pmt_typ = ["Diversity & Inclusion Statement"]
+        # 관련 단어 리스트를 불러옴
+        with open('./data/data_communityWords.pickle', 'rb') as f:
+            words_list = pickle.load(f)
     elif prompt_type ==  'Future goals or reasons for learning':
-        pmt_typ = [""]
-        words_list = ['Realization','Approval','Gratitude','Admiration','Pride','Desire','Optimism']
+        pmt_typ = ["Future goals or reasons for learning"]
+        # load
+        with open('./data/data_future_goal.pickle', 'rb') as f:
+            words_list = pickle.load(f)
     elif prompt_type ==  'What you do for fun':
-        pmt_typ = [""]
-        words_list = ['Admiration', 'Excitement', 'Curiosity', 'Amusement', 'Pride','Joy']
+        pmt_typ = ["What you do for fun"]
+        # load
+        with open('./data/data_what_do_you_do_for_fun.pickle', 'rb') as f:
+            words_list = pickle.load(f)
     else:
         pass
 

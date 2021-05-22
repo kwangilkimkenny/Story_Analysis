@@ -10,6 +10,27 @@ from pprint import pprint
 tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-original")
 model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
 
+
+import pickle
+
+# save
+with open('./data/bertTokenizer_tokenizer.pickle', 'wb') as f:
+    pickle.dump(tokenizer, f, pickle.HIGHEST_PROTOCOL)
+
+# save
+with open('./data/BertForMultiLabelClassification_model.pickle', 'wb') as f:
+    pickle.dump(model, f, pickle.HIGHEST_PROTOCOL)
+
+# load
+with open('./data/bertTokenizer_tokenizer.pickle', 'rb') as f:
+    tokenizer = pickle.load(f)
+
+# load
+with open('./data/BertForMultiLabelClassification_model.pickle', 'rb') as f:
+    model = pickle.load(f)
+
+
+
 goemotions = MultiLabelPipeline(
     model=model,
     tokenizer=tokenizer,

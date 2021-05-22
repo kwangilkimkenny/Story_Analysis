@@ -22,6 +22,8 @@ from topic_uniqueness import google_search_result
 from intellectualEngagement import intellectualEnguagement
 
 from majorFit import mjorfit
+# major fit: 17.0 % 의 일치율을 보임
+# Major Fit ex)Weak 처럼 결과 추출
 
 def extra_act_work_experi(select_pmt_type, select_college, select_college_dept, select_major, essay_input):
     # 에세이에서 추출한 모든 토픽
@@ -69,12 +71,11 @@ def extra_act_work_experi(select_pmt_type, select_college, select_college_dept, 
     Engagement_result_fin = calculate_score(Engagement_result[0])
 
     major_fit_re = mjorfit(select_pmt_type, select_college, select_college_dept, select_major, essay_input)
-    major_fit_ratio_re = major_fit_re[0]
-    major_fit_result = major_fit_re[1]
+    major_fit_ratio_re = major_fit_re[0] # major fit: 17.0 % 의 일치율을 보임
+    major_fit_result = major_fit_re[1] # Major Fit ex)Weak 처럼 결과 추출
 
 
-
-    overall_result = round(pmt_ori_sent_re[0] * 0.4 + Engagement_result[0] * 0.4 + mjr_fit * 0.1, 1)
+    overall_result = round(pmt_ori_sent_re[0] * 0.4 + Engagement_result[0] * 0.4 + major_fit_ratio_re * 0.1, 1)
     overall_5div_result = calculate_score(overall_result)
 
     # 문장생성
