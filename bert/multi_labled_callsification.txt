@@ -1,0 +1,4 @@
+### 개발 가상환경 py37TF2
+
+# https://towardsdatascience.com/multi-label-multi-class-text-classification-with-bert-transformer-and-keras-c6355eccb63a
+    
