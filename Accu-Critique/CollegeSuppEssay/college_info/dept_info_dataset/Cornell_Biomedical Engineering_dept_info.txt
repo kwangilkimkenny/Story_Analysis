@@ -1,0 +1,7 @@
+School Name: Cornell
+Department: College of Engineering
+Major: Biomedical Engineering
+
+
+If you have an interest in solving engineering problems related to human health, consider the burgeoning field of biomedical engineering (BME). An integrated, interdisciplinary endeavor, BME bridges the engineering and medical fields to meet the 21st-century needs of biomedical  industries focused on medical devices and pharmaceuticals. Biomedical engineers discover and apply engineering principles and methods to wide array of problems in medicine, including diagnosing the biological origins of disease and designing biocompatible and living materials, prostheses, surgical implants, artificial organs, controlled drug-delivery systems, and regenerative technologies to control/augment the healing process.
+

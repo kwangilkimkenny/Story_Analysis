@@ -1,0 +1,20 @@
+School Name: Cornell
+Department: College of Engineering
+Major: Electrical and Computer Engineering
+
+
+Solve cyber-security issues for power and energy systems
+Develop the next generation of large and small electronic devices
+Uncover new possibilities in biomedical imaging
+Create the next generation of computing technology
+Design the wireless networks of the future
+Address challenges of storing, sending, securing, and manipulating big data
+Solve inherently complex computer architecture challenges in an efficient and highly productive way
+Investigate and manipulate biological systems that lead to dramatic new treatment of diseases and changes to some of the building blocks of living organisms
+Work on issues with great potential to change lives for the better and generate rapid growth in knowledge and technology
+Dramatically impact human health and other aspects of life
+Prepare to lead responsibly, creatively and ethically as you discover and apply new knowledge, technologies and inventions to solve our many pressing global problems.
+
+Cornell’s School of Electrical and Computer Engineering provides you with a broad and exceptional education in electrical and computer engineering built upon a foundation of science, mathematics, computing and technology. We instill an appreciation of the need for lifelong learning that will support whatever career path you choose.
+
+From the nanoscale level of integrated electronics to terrestrial-scale power grids, electrical and computer engineers are at the forefront of solving issues facing society. A Cornell ECE Bachelor of Science (B.S.) degree program encompasses digital and computer systems, embedded processors, digital signaling processing, R.F. (wireless) systems, optical communications, atmospheric and space plasmas, solid-state electronics, integrated circuit design and fabrication, and biomedical applications such as image processing, sensors, and signal analysis.

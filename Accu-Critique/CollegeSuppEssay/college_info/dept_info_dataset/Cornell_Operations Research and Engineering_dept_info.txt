@@ -1,0 +1,15 @@
+School Name: Cornell
+Department: College of Engineering
+Major: Operations Research and Engineering
+
+
+Undergraduate Study in Operations Research and Engineering
+
+The Operations Research and Engineering (OR&E) major provides a broad education in the techniques and modeling concepts used to analyze and design complex systems. It provides an introduction to the technical and professional areas with which operations researchers and information engineers are concerned.
+
+The foundation of the major is the development of basic skills in calculus, statistics, probability, optimization, mathematical programming, and computer science, which provide the fundamental tools used in the field. The basic courses in the undergraduate program major in Operations Research and Engineering provide students with a solid background in these subjects.
+
+Additional required courses in the major, cover the topics of cost accounting, manufacturing systems, and simulation. In the senior year, our program is quite flexible. Students select a total of at least nine credit hours of ORIE electives. These serve to broaden and deepen their experience in the major. These electives are chosen from the areas of applied probability and applied statistics, industrial systems, optimization, information technology, or financial engineering. Nine credits of major-approved electives are also required; this requirement provides students with the flexibility to study topics closely related to Operations Research, such as information technology, quantitative management, and economics.
+
+
+

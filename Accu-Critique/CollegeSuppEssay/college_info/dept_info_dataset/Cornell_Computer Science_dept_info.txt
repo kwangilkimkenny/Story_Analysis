@@ -1,0 +1,8 @@
+School Name: Cornell
+Department: College of Engineering
+Major: 
+
+
+The Department was organized in 1965 and is one of the oldest departments of its kind in the country. The history of the department, including major events and when faculty joined, appears in the CS Timeline. It has a full-time faculty of over 60 members, approximately 200 resident Ph.D. graduate students, about 140 masters students, and just over 1,000 undergraduate CS majors, with over 300 students graduating each year.
+
+Cornell University is located in Ithaca, New York, a city of about 30,000 people in the heart of the Finger Lakes region. Both Cornell and Ithaca offer a wide range of cultural activities, sports, and outdoor activities with the pleasures of both city and country close at hand. Ithaca is Gorges!

@@ -1,0 +1,25 @@
+School Name: Cornell
+Department: College of Agriculture and Life Sciences
+Major: Biometry and Statistics
+
+
+Tackling the life sciences from a new perspective
+Biometry is the application of statistics, mathematics, computing and other quantitative methods to phenomena and problems in the life sciences. Statistics is concerned with many aspects of scientific investigations: developing and studying the design and measurement aspects of investigations, executing investigations and collecting numerical information, summarizing the data obtained, and making inferences from the data.
+
+Students learn how to use statistics, mathematics, computing, and other methods to solve problems in diverse fields, from the life and social sciences to business and finance.
+
+Students enter the Biometry and Statistics major as freshmen or as transfer students. A strong background in mathematics is highly recommended for students considering a major in Biometry and Statistics. Students currently enrolled as freshmen or sophomores at other institutions who are considering transferring to the Biometry and Statistics program are encouraged to satisfy as many of the College of Agriculture and Life Sciences (CALS) distribution requirements as possible before transferring. 
+
+Learning Outcomes
+Discuss the mathematical basis and foundations of probability and statistics.
+Explain and apply the fundamentals of applied statistical methodology.
+Use modern statistical software and a programming language.
+Effectively communicate the results of a statistical analysis.
+Students in the statistics concentration should be able to:
+
+Demonstrate knowledge of specialized statistical methods
+Students in the statistical genomics concentration should be able to:
+
+Apply statistical and computational methods for genomic data
+
+
