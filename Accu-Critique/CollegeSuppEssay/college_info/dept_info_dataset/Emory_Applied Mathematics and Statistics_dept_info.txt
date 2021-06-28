@@ -1,0 +1,51 @@
+School Name: Emory
+Department: College of Arts and Sciences
+Major: Applied Mathematics and Statistics 
+
+QTM and the Department of Mathematics and Computer Science (Math/CS) offer a joint major in Applied Mathematics and Statistics (AMS).
+Combining the strengths of both departments, this major offers a more mathematically rigorous and in-depth path than the Quantitative Sciences major. It will give you the necessary building blocks for statistical analysis as well as the tools and conceptual foundations for quantitative research and empirical quantitative work.
+You’ll take courses like Introduction to Scientific Methods and Regression Analysis as well as courses in statistical computing, multivariable calculus, linear algebra, and probability and statistics. You’ll also have additional courses and electives that draw from QTM, applied mathematics, and computer science.
+
+Whether you’re planning to work in data-oriented or quantitative fields; go to graduate school for statistics or applied math, actuarial science or financial mathematics; or pursue interdisciplinary graduate training in the social sciences, physical and natural sciences, or engineering, this major will prepare you.
+To prepare our students for success, QTM actively partners with industry and career development professionals to offer a variety of events, workshops, and resources that help students understand how to navigate the transition from college to career.
+QTM orchestrates training and programming that covers job search basics, branding, career management, networking opportunities, hackathons, and more. We also support the student-run Data Science Association and maintain a hub of professionalization resources on the Career Navigator, an online resource library.
+QTM's  partnerships with industry, alumni, and programs at Emory facilitate invaluable hands-on experiences for QTM students. Our offerings include:
+Technical workshops - through collaborations with corporate experts and Emory departments, QTM hosts a variety of workshops to equip students with leading-edge analytical tools
+Datathons -DataFest™  an annual 3-day data analysis competition
+Mini-hack - NEW! a data analysis competition
+Capstone - a distinctive industry-college collaboration that enable students to apply their skills to real-world problems, all while strengthening their leadership and communications skills under faculty mentorship.
+Research fellowship - QTM lead program where a select group of undergraduate fellows who actively participate in the university's vibrant research environment
+Internships  - allow students to apply their cumulative skills in a professional setting.
+What are sample career placements?
+Management Consultant	Booz Allen Hamilton
+Transfer Pricing Associate	PwC
+Assistant Debate Coach	Harvard University
+Data Management Analyst	SunTrust Bank
+Junior Software Developer	Springbot
+ 
+Which employers have hired QTM graduates?
+Accenture	Harvest Properties, Inc.
+Aetna	Morningstar
+Analytic Partners	Navigant
+ANNUITAS	NERA Economic Consulting
+Aon	Oldcastle
+Atlanta Network Technologies Inc.	PWC
+Bain & Company	Sapient Razorfish
+Booz Allen Hamilton	Springbot
+CapGemini Consulting	SunTrust Bank
+EY	Teach for America
+Flexport	Union Gaming
+Goldman Sachs	Yale University
+Harvard University	
+ 
+What schools are QTM alumni attending?
+Columbia University	Rollins School of Public Health
+Carnegie Mellon	Rutgers University
+Goizueta Business School	University of Michigan
+Iowa State University	University of California - Los Angeles
+New York University	University of Tennessee
+Northwestern University	University of Washington
+What advanced degrees are they pursuing?
+MS, Business Analytics	MS, Data Science
+MS, Biostatistics	MS, Economics
+MpH, Public Health	MS, Statistics/Applied Statistics
