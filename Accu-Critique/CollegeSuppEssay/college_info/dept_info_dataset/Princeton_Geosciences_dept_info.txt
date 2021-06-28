@@ -1,0 +1,9 @@
+School Name: Princeton University
+Department: Department of Geosciences
+Major: Geosciences (A.B. / Ph.D.)
+
+
+The intellectual excitement of modern geosciences is fueled by our exploration of the dynamic forces and delicate balances that mold our planet and have rendered it conducive to life for much of its history. The diversity of processes that characterize the Earth as a whole requires geosciences to be an extraordinarily interdisciplinary field with direct connections to mathematics, physics, chemistry, biology and computer science.
+
+The graduate program encompasses a rich diversity of scientific expertise and initiatives, ranging from the measurement and modeling of global climatic change to high-pressure mineral physics, and from seismic tomographic imaging of the mantle to biogeochemistry and isotope geochemistry of the Earth and oceans.
+

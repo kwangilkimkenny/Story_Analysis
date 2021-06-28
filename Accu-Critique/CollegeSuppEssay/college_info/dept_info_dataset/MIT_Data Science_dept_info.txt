@@ -1,0 +1,9 @@
+School Name: MIT
+Department: Interdepartmental / Computer Science, Economics
+Major: Computer Science, Economics, and Data Science
+
+Contemporary electronically mediated platforms for market-level and individual exchange combine complex human decisions with intensive computation and data processing, all interacting within an engineered economic environment. Examples include: online markets, crowdsourcing platforms, spectrum auctions, financial platforms, crypto currencies, and large scale matching/allocation systems such as kidney exchange and public school choice systems. These platforms encompass a growing slice of economic activity and are shifting the scope and efficiency of market and non-market exchanges. Some forms of exchange that were simply infeasible due to coordination or information frictions (centralized kidney exchange, vehicle sharing) are suddenly available and important. Other market activities that were previously thought to require centralization and oversight, can now be decentralized and self-regulated (crypto-currency being the leading example). Moreover, the technology enabling that decentralization (so-called blockchain) is likely to have many further applications.
+
+The Bachelor of Science in Computer Science, Economics and Data Science (Course 6-14) is aimed at educating students at this intellectual nexus and equipping them with a foundational knowledge of economic analysis, computing, optimization and data science, as well as hands-on experience with empirical analysis of economic data, to identify, analyze and solve real-world challenges in real and virtual settings.
+
+

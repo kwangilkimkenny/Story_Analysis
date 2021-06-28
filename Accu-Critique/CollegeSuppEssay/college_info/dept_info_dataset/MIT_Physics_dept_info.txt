@@ -1,0 +1,8 @@
+School Name: MIT
+Department: Physics
+Major: Physics (Course 8)
+
+The Physics Department strives to be at the forefront of many areas where new physics can be found. Consequently, we work on problems where extreme conditions may reveal new behavior. We study the largest things in the universe: clusters of galaxies or even the entire universe itself. We study the smallest things in the universe: elementary particles or even the strings that may be the substructure of these particles. We study the hottest things in the universe: collisions of nuclei at relativistic velocities that make droplets of matter hotter than anything since the Big Bang. We study the coldest things in the universe: laser-cooled atoms so cold that their wave functions overlap resulting in a macroscopic collective state--the Bose-Einstein condensate. While we often study the simplest things, such as individual atoms, we study the most complicated things too: unusual materials like high temperature superconductors and those that are important in biology. By pushing the limits, we have the chance to observe new general principles and to test theories of the structure and behavior of matter and energy.
+
+Research Areas: Astrophysics, Atomic, Biophysics, Condensed Matter, and Plasma Physics,
+Experimental Nuclear and Particle Physics, Theoretical Nuclear and Particle Physics

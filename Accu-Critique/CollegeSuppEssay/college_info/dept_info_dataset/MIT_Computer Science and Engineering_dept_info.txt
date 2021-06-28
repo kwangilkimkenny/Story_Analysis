@@ -1,0 +1,8 @@
+School Name: MIT
+Department: The Department of Electrical Engineering and Computer Science
+Major: Computer Science and Engineering
+
+"EECS is everywhere."
+The Department of Electrical Engineering and Computer Science is the largest department at MIT
+Computer Science and Engineering (6-3) centers on computation structures, artificial intelligence, software engineering, computer algorithms, and computer systems.
+

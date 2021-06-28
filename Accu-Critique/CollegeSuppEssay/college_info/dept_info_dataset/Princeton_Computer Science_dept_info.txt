@@ -1,0 +1,9 @@
+School Name:  Princeton University
+Department: Department of Computer Science
+Major: Computer Science (A.B. / B.S.E. / M.S.E. / Ph.D.)
+
+
+Undergraduates learn fundamental concepts of the discipline and to become proficient in the use of advanced computer systems. The plan provides opportunities for study in software systems, algorithms and complexity, machine architecture, computer graphics, programming languages, machine learning, and other core areas of computer science.
+
+The graduate program accepts beginning and advanced students for study and research. The degree programs are sufficiently flexible to adapt to individual plans of study and research.
+

@@ -1,0 +1,15 @@
+School Name: MIT
+Department: Nuclear Science and Engineering
+Major: Nuclear Science and Engineering
+
+The Department of Nuclear Science & Engineering provides educational opportunities for undergraduate and graduate students interested in advancing the frontiers of nuclear science and engineering and in developing applications of nuclear technology for the benefit of society and the environment. We prepare our students to make contributions to the scientific fundamentals of our field; to the development and engineering of nuclear systems for energy generation, security, health care, and other applications; and to the integration of nuclear systems into society and the natural environment.
+
+Instructional & Research Areas
+•	Advanced reactor design and innovation
+•	Nuclear fuel cycle and waste management technology
+•	Plasma physics and fusion
+•	Materials in extreme environments
+•	Advanced computation and simulation
+•	Radiation sources, detection, and control
+•	Nuclear security
+•	Nuclear economics, management, and policy

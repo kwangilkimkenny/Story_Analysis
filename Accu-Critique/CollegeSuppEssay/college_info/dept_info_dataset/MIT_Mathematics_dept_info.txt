@@ -1,0 +1,7 @@
+School Name: MIT
+Department: Mathematics
+Major: Mathematics (Course 18)
+
+A broad spectrum of fields ranging from the traditional areas of "pure" mathematics, such as analysis, algebra, geometry, and topology, to applied mathematics areas such as combinatorics, computational biology, fluid dynamics, theoretical computer science, and theoretical physics.
+The Mathematics Department at MIT is a world leader in pure and applied mathematical research and education. In pure mathematics we explore exciting current research directions in most of the major fields. In applied mathematics, we look for important connections with other disciplines that may inspire interesting and useful mathematics, and where innovative mathematical reasoning may lead to new insights and applications. Our applied math group focuses on biology, combinatorics, computer science, scientific computing, numerical analysis, and areas of physical applied mathematics.
+

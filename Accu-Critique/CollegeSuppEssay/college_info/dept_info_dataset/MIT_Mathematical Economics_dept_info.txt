@@ -1,0 +1,5 @@
+School Name: MIT
+Department: Economics
+Major: Mathematical Economics (Course 14-2)
+
+The SB in Mathematical Economics is designed for students who desire a deeper mathematical foundation than that provided by the SB in Economics, and allows them to concentrate in a subset of economics subjects, typically those more oriented toward microeconomics or technical subjects. Course 14-2 majors will gain the strong mathematical and theoretical preparation needed for subsequent graduate study in economics. This program is well suited to students interested in game theory, other types of microeconomic theory, and econometrics.

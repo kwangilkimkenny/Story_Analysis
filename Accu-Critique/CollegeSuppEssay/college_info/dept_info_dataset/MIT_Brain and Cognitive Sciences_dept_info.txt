@@ -1,0 +1,7 @@
+School Name: MIT
+Department: Brain and Cognitive Sciences
+Major: Brain and Cognitive Sciences (Course 9)
+
+Brain science and cognitive science are complementary and interactive in their research objectives. Both approaches examine perception, performance, and intervening processes in humans and animals. Central issues in the discipline include the interpretation of sensory experience; the reception, manipulation, storage, and retrieval of information within the nervous system; and the planning and execution of motor activity. Higher level functions include the development of formal and informal reasoning skills; and the structure, acquisition, use, and internal representation of human language.
+
+The Bachelor of Science in Brain and Cognitive Sciences prepares students to pursue advanced degrees or careers in artificial intelligence, machine learning, neuroscience, medicine, cognitive science, psychology, linguistics, philosophy, education research and technology, and human-machine interaction.

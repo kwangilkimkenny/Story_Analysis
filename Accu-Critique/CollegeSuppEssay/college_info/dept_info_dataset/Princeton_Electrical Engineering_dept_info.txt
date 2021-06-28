@@ -1,0 +1,9 @@
+School Name: Princeton University
+Department: Department of Electrical Engineering
+Major: Electrical Engineering (B.S.E. / M.Eng. / Ph.D.)
+
+
+Undergraduate students begin with a unifying foundation before studying in an area of specialization which ranges from devices to optoelectronics, to computer architecture and communication technology, to microprocessors. Students may select one of a set of suggested concentrations, or tailor their own in consultation with their faculty adviser to suit special interests.
+
+The graduate program emphasizes forward-looking education and original, cutting-edge research. While addressing fundamental issues and applications, graduate research focuses on current high-growth fields like security, photonics, nanotechnology, quantum computing, biomedical applications, networks and communications, and multicore computer architecture. 
+

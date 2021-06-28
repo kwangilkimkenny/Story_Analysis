@@ -1,0 +1,17 @@
+School Name: MIT
+Department: Mechanical Engineering
+Major: Mechanical Engineering
+
+Mechanical engineering is concerned with the responsible development of products, processes, and power, at scales ranging from molecules to large and complex systems. Mechanical engineering principles and skills are involved at some stage during the conception, design, development, and manufacture of every human-made object with moving parts. Many innovations crucial to our future will have their roots in the world of mass, motion, forces, and energy—the world of mechanical engineers.
+
+Mechanics: Modeling, Experimentation, and Computation
+Computational mechanics
+Fluid dynamics and transport
+Mechanics of solid materials
+Nonlinear dynamics
+Design, Manufacturing, and Product Development
+Controls, Instrumentation, and Robotics
+Energy Science and Engineering
+Ocean Science and Engineering
+Bioengineering.
+Nano/Micro Science and Technology

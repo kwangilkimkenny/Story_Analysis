@@ -1,0 +1,24 @@
+School Name: MIT
+Department: Biological Engineering
+Major: Biological Engineering
+
+The Department of Biological Engineering (BE) offers an undergraduate curriculum emphasizing quantitative, engineering-based analysis, design, and synthesis in the study of modern biology from the molecular to the systems level.
+Biological Engineering prepares students for careers in diverse fields ranging from the pharmaceutical and biotechnology industries to materials, devices, ecology, and public health.
+
+The mission of the Department of Biological Engineering (BE) is to educate next-generation leaders and to generate and translate new knowledge in a new bioscience-based engineering discipline fusing engineering analysis and synthesis approaches with modern molecular-to-genomic biology.
+
+Research areas in which BE faculty are recognized as pioneering leaders include:
+
+Biomaterials
+Biophysics
+Cell & Tissue Engineering
+Energy
+Environment
+Microbial Systems
+Macromolecular Biochemistry
+Nanoscale Engineering
+Pharmacology
+Synthetic Biology
+Systems Biology
+Toxicology
+Transport Phenomena

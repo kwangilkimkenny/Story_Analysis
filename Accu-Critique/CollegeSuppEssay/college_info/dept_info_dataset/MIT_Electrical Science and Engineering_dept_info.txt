@@ -1,0 +1,7 @@
+School Name: MIT
+Department: Electrical Engineering and Computer Science
+Major: Electrical Science and Engineering
+
+Electrical engineers and computer scientists are everywhere—in industry and research areas as diverse as computer and communication networks, electronic circuits and systems, lasers and photonics, semiconductor and solid-state devices, nanoelectronics, biomedical engineering, computational biology, artificial intelligence, robotics, design and manufacturing, control and optimization, computer algorithms, games and graphics, software engineering, computer architecture, cryptography and computer security, power and energy systems, financial analysis, and many more. The infrastructure and fabric of the information age, including technologies such as the internet and the web, search engines, cell phones, high-definition television, and magnetic resonance imaging, are largely the result of innovations in electrical engineering and computer science. The Department of Electrical Engineering and Computer Science (EECS) at MIT and its graduates have been at the forefront of a great many of these advances. Current work in the department holds promise of continuing this record of innovation and leadership, in both research and education, across the full spectrum of departmental activity.
+
+

@@ -1,0 +1,6 @@
+School Name: MIT
+Department: Interdepartmental / Computer Science, Biology, Electrical Engineering
+Major: Computer Science and Molecular Biology
+
+The Department of Biology and the Department of Electrical Engineering and Computer Science (EECS) offer a joint curriculum leading to a Bachelor of Science in Computer Science and Molecular Biology that focuses on the emerging field of computational and molecular biology. The curriculum provides strong foundations in both biology and computer science and features innovative, integrative, capstone, and elective subjects. The goal is to produce an entirely new cadre of graduates who are uniquely qualified to address the challenges and opportunities at the interface of computational and molecular biology. Students in the program are full members of both departments and of two schools, Science and Engineering, with one academic advisor from each department.
+
