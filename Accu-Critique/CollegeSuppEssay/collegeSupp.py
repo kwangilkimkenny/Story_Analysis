@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*- 
+
 import numpy as np
 import spacy
 from collections import Counter
@@ -400,7 +402,6 @@ def college_n_dept_fit(College_dept_data, Essay_input_data): # ----> 사용하�
 
 
 
-
 # Selected College 외 다양한 것을 계산하는 코드(최종계산코드)
 # 입력값:  대학, 전공 ex) ('Why us', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
 # 입력값:  대학, 전공 ex) ('Intellectual interest', 'Brown', 'Brown_African Studies_dept', 'African Studies', essay_input)
@@ -412,60 +413,135 @@ def selected_college(select_pmt_type, select_college, select_college_dept, selec
     intended_mjr = select_major # 희망전공
 
     if select_college == 'Harvard':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Princeton':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Stanford':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'MIT':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Columbia':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'UPenn':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Brown':
         College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
         re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
         gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
         gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Cornell':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Dartmouth':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'UChicago':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Northwestern':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Duke':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Johns Hopkins':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'UCLA':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'UC Berkeley':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Carnegie Mellon':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Emory':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Georgetown':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'UCLA':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Emory':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Caltech':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'USC':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Georgetown':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Willams':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Swarthmore':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     elif select_college == 'Amherst':
-        pass
+        College_text_data = open_data(select_college) # 선택한 대학의 정보가 담긴 txt 파일을 불러오고
+        re_mjr = open_major_data(select_college, select_major) # 선택한 대학과 전공의 정보를 불러와서
+        gen_keywd_college = general_keywords(College_text_data) # 키워드 추출하여 대학정보 WordCloud로 구현
+        gen_keywd_college_major = general_keywords(re_mjr) # 키워드 추출하여 대학의 전공 WordCloud로 구현
     else:
         pass
     
