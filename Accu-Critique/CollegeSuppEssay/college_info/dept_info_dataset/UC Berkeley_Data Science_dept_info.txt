@@ -1,0 +1,33 @@
+School Name: UC Berkeley
+Department: Data Science
+Major: Data Science
+
+About the Program
+Bachelor of Arts (BA)
+
+The Data Science Major degree program combines computational and inferential reasoning to draw conclusions based on data about some aspect of the real world. Data scientists come from all walks of life, all areas of study, and all backgrounds. They share an appreciation for the practical use of mathematical and scientific thinking and the power of computing to understand and solve problems for business, research, and societal impact.
+
+The Data Science Major will equip students to draw sound conclusions from data in context, using knowledge of statistical inference, computational processes, data management strategies, domain knowledge, and theory. Students will learn to carry out analyses of data through the full cycle of the investigative process in scientific and practical contexts. Students will gain an understanding of the human and ethical implications of data analytics and integrate that knowledge in designing and carrying out their work.
+
+The Data Science major requirements include DATA C8  and DATA C100, the core lower-division and upper-division elements of the major, along with courses from each of the following requirement groups:
+
+Foundations in Mathematics and Computing
+Computational and Inferential Depth
+Modeling, Learning and Decision Making
+Probability
+Human Contexts and Ethics
+Domain Emphasis
+
+All students will select a Domain Emphasis, a cluster of one lower division course and two upper division courses, that brings them into the context of a domain and allows them to build bridges with data science.
+
+Declaring the Major
+
+Students can apply to declare the Data Science major after completing all the lower-division prerequisites (see the Major Requirements tab). For applicants with prerequisites in progress, applications will be reviewed after the grades for all prerequisites are available.
+
+It is necessary for applicants to achieve a minimum prerequisite grade point average (GPA) in order to declare the Data Science major. Information on this GPA and the process to apply for admission to the major can be found on the Declaring the Major web page.
+
+Minor Program
+
+The Minor in Data Science at UC Berkeley aims to provide students with practical knowledge of the methods and techniques of data analysis, as well as the ability to think critically about the construction and implications of data analysis and models. The minor will empower students across the wide array of campus disciplines with a working knowledge of statistics, probability, and computation that allow students not just to participate in data science projects, but to design and carry out rigorous computational and inferential analysis for their field of interest. Check the Data Science Minor program website for details.
+
+VISIT PROGRAM WEBSITE

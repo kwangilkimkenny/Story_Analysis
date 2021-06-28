@@ -1,0 +1,59 @@
+School Name: UC Berkeley
+Department: Computer Science
+Major: Computer Science
+
+About the Program
+Choosing a Computer Science Path
+
+There are two ways to study Computer Science (CS) at UC Berkeley:
+
+Be admitted to the Electrical Engineering & Computer Sciences (EECS) major in the College of Engineering (COE) as a freshman. Admission to the COE, however, is extremely competitive. This option leads to a Bachelor of Science (BS) degree. This path is appropriate for people who want an engineering education.
+Enter the College of Letters & Science (L&S) and, after successful completion of the courses required to declare with the minimum grade point average (GPA), petition to be admitted to the L&S Computer Science major. This path is appropriate for people who are interested in a broader education in the sciences and arts (such as double majoring in other L&S fields), and/or are not sure at the time of application that they can gain admission to EECS. This option leads to a Bachelor of Arts (BA) degree.
+
+There is no difference in the CS course content between the BS and BA programs. The difference is in what else you take: mainly engineering, or mainly humanities and social sciences. In particular, an interest in hardware suggests the EECS route; an interest in double majoring (for example, in math or cognitive science) suggests the L&S route.
+
+Bachelor of Science (BS) in Computer Science
+
+For information regarding the BS degree, please see the Electrical Engineering and Computer Sciences program information in this Guide. 
+
+Bachelor of Arts (BA) in Computer Science
+
+This CS major is for students enrolled in the College of Letters & Science (L&S). Berkeley emphasizes the science of computer science, which means much more than just computer programming. It includes the theory of computation, the design and analysis of algorithms, the architecture and logic design of computers, programming languages, compilers, operating systems, scientific computation, computer graphics, databases, artificial intelligence, and natural language processing. Our goal is to prepare students both for a possible research career and long-term technical leadership in industry. We must therefore look beyond today's technology and give students the primary ideas and the learning skills that will prepare them to teach themselves about tomorrow's technology.
+
+Declaring the Major (BA only)
+
+It is necessary to achieve a minimum prerequisite grade point average (GPA) in order to declare the Computer Science major. Information on this GPA and the process to petition for admission to the major can be found on the Petitioning to the Computer Science Major website.
+
+Transfer students admitted to Berkeley must apply separately to the Computer Science major after matriculating and completing the missing prerequisite courses for declaration. Not all transfer students will meet the criteria required for the major. Therefore, we recommend that transfer students be prepared to pursue an alternative major at Berkeley. Questions may be directed to the CS advising office, 349 Soda Hall, 510-664-4436, or via email at cs-advising@cs.berkeley.edu. 
+
+Five-Year BS/MS Program
+
+This program is geared toward students who would like to pursue an education beyond the BS/BA, allowing them to achieve greater breadth and/or depth of knowledge, and who would like to try their hand at research as well. For information, please see the Five-Year BS/MS Requirements tab on this page. 
+
+Honors Program
+
+Computer Science majors with an overall GPA of 3.70 or above are eligible to apply to the EECS honors degree program.
+
+Minor Program
+
+A minor in Computer Science is available to all undergraduate students at Berkeley with a declared major, with the exception of EECS majors. For information regarding minor requirements, please see the Minor Requirements tab on this page.
+
+Student Learning GoalsMission
+
+Preparing graduates to pursue postgraduate education in electrical engineering, computer science, or related fields.
+Preparing graduates for success in technical careers related to electrical and computer engineering, or computer science and engineering.
+Preparing graduates to become leaders in fields related to electrical and computer engineering or computer science and engineering.
+
+Learning Goals for the Major
+
+An ability to apply knowledge of mathematics, science, and engineering.
+An ability to configure, apply test conditions, and evaluate outcomes of experimental systems.
+An ability to design systems, components, or processes that conform to given specifications and cost constraints.
+An ability to work cooperatively, respectfully, creatively, and responsibly as a member of a team.
+An ability to identify, formulate, and solve engineering problems.
+An understanding of the norms of expected behavior in engineering practice and their underlying ethical foundations.
+An ability to communicate effectively by oral, written, and graphical means.
+An awareness of global and societal concerns and their importance in developing engineering solutions.
+An ability to independently acquire and apply required information, and an appreciation of the associated process of lifelong learning.
+A knowledge of contemporary issues.
+An in-depth ability to use a combination of software, instrumentation, and experimental techniques practiced in circuits, physical electronics, communication, networks and systems, hardware, programming, and computer science theory.

@@ -1,0 +1,112 @@
+School Name: UC Berkeley
+Department: Industrial Engineering and Operations Research
+Major: Industrial Engineering and Operations Research
+
+About the Program
+Bachelor of Science (BS)
+
+The Bachelor of Science (BS) degree in Industrial Engineering and Operations Research (IEOR) is designed to prepare students for technical careers in production or service industries. It provides a strong foundation for those headed for engineering management positions or for those intending to go on to specialized graduate study in operations research, industrial engineering, or business administration.
+
+Students interested in Industrial Engineering and Operations Research may also be interested in the Operations Research and Management Science major in the College of Letters & Science. For further information on this program, please see the Operations Research and Management Science page in this Guide.
+
+Course of Study Overview
+
+The core of the program includes basic science, mathematics including probability and statistics, engineering optimization, and stochastic models. This forms the methodological foundation for upper division IEOR electives involving the analysis and design of production and service systems, information systems, and human work systems and organization, among others.
+
+Accreditation
+
+This program is accredited by the Engineering Accreditation Commission of ABET.
+
+Admission to the Major
+
+Prospective undergraduates to the College of Engineering will apply for admission to a specific program in the College. For further information, please see the College of Engineering's website.
+
+Admission to Engineering via a Change of College application for current UC Berkeley students is highly unlikely and very competitive as there are few, if any, spaces that open in the College each year to students admitted to other colleges at UC Berkeley. For further information regarding a change of college to Engineering, please see the College's website.
+
+Minor Program
+
+The department offers a minor in IEOR. Students must have a minimum overall grade point average (GPA) of 3.0 and a minimum GPA of 3.0 in the minor's prerequisite courses in order to be considered for departmental acceptance into the minor.
+
+For the minor to be added to the transcript, students must file the Confirmation of Completion of Minor form with the Office of Undergraduate Advising in 4145 Etcheverry Hall during the last semester in which they complete their last class for the minor.
+
+Student Learning GoalsLearning Goals for the Major
+The IEOR Department has five general objectives for its Bachelor of Science (BS) degree program. It aims for BS degree graduates to become highly skilled in:
+
+Quantitative modeling and analysis of a broad array of systems-level decision problems concerned with economic efficiency, productivity, and quality.
+Development and creative use of analytical and computational methods for solving these problems.
+Collection of and analysis of data, and the use of database and decision-support tools.
+Comprehension and analysis of uncertainty.
+In addition, the department expects their graduates to obtain the broader skills, background, and knowledge necessary to be an effective professional in a rapidly changing global economy.
+
+All Berkeley engineering graduates acquire the following skills and knowledge:
+
+Ability to apply knowledge of mathematics, science, and engineering.
+Ability to design and conduct experiments, analyze, and interpret data.
+Ability to design a system, component, or process to meet desired needs.
+Ability to function on multi-disciplinary teams.
+Ability to identify, formulate, and solve engineering problems.
+Understanding of professional and ethical responsibility.
+Ability to communicate effectively.
+Understand impact of engineering solutions in a global and societal context.
+Recognition of need for and ability to engage in life-long learning.
+Knowledge of contemporary issues.
+Ability to use techniques, skills, and modern engineering tools for engineering practice.
+
+More specific outcomes of the IEOR BS degree program are as follows:
+
+
+Identify opportunities for improvement in practical settings.
+
+
+Document process, material and information flows.
+
+
+Collect and structure data to support decision-making.
+
+
+Define appropriate goals and constraints for decision-making.
+
+
+Formulate mathematical optimization models for decision-making.
+
+
+Model the probabilistic aspects of a system.
+
+
+Validate modeling assumptions and model implications.
+
+
+Explore model sensitivity to assumptions and parameters.
+
+
+Apply appropriate solution techniques for optimization problems.
+
+
+Perform statistical analysis to identify patterns, test hypotheses, and make estimates or forecasts.
+
+
+Utilize decision support (e.g., optimization, simulation, decision analysis) software.
+
+
+Use business software (e.g., Excel) and the Internet to analyze and solve problems.
+
+
+Utilize quantitative tools for specific applications (e.g., inventory, scheduling, supply chain design, quality control).
+
+
+Adapt or modify known solution approaches for new problem settings.
+
+
+Consider humans and organizations in designing systems.
+
+
+Communicate orally and in writing.
+
+
+Work in a team.
+
+
+Understand professional and ethical responsibilities.
+
+
+Recognize need for and possess ability to engage in lifelong learning.

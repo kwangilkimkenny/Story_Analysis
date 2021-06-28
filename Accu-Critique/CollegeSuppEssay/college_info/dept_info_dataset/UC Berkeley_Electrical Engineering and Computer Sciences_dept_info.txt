@@ -1,0 +1,80 @@
+School Name: UC Berkeley
+Department: Electrical Engineering and Computer Sciences
+Major: Electrical Engineering and Computer Sciences
+
+
+About the Program
+Bachelor of Science (BS)
+
+The Berkeley electrical engineering and computer sciences major (EECS), offered through the College of Engineering, combines fundamentals of computer science and electrical engineering in one major.
+
+Note that students wishing to study computer science at UC Berkeley have two different major options: The EECS major leads to the Bachelor of Science (BS), while the the College of Letters & Sciences offers a Bachelor of Arts (BA) degree.  An essential difference between the two majors is that the EECS program requires a greater number of math and science courses than the CS program, which requires a greater number of non-technical, or breadth, courses. For further information on the BA program, please see the Computer Science program page in this Guide. 
+
+After completing the required lower division courses, students in the EECS major are able to pursue coursework in computer science and/or electrical engineering, based on their personal interests. 
+
+Accreditation
+
+All UC Berkeley programs are accredited through the Accrediting Commission for Schools, Western Association of Schools and Colleges (ACS WASC).
+
+Honors Program
+
+The EECS honors degree program is designed to provide very talented undergraduate students a greater connection to the department. Honors students pursue undergraduate research and select an academic concentration outside of EECS. In addition, students receive a special faculty adviser, engage in research, receive official notation of the honors degree on their Berkeley transcript, and are invited to special events with faculty and EECS honors alumni.
+
+For more information regarding this program, please click here.
+
+Admission to the Major
+
+Prospective undergraduates to the College of Engineering apply to a specific major within the college. For further information, please see the College of Engineering's website.
+
+Students accepted into colleges other than the College of Engineering will not be allowed to change to the College of Engineering in order to declare the EECS major. Prospective undergraduates interested in the EECS major must apply for admission to the College of Engineering.  
+
+Five-Year BS/MS Program
+
+The Five-Year Bachelor/Master Program, called the 5th Year MS Program for short, offers qualified EECS and L&S Computer Science undergraduate students a unique opportunity to begin graduate study during their undergraduate years, thereby accelerating the master's degree by requiring only one additional year beyond the bachelor's degree. This is not a concurrent degree program. Students earn their bachelor's degree first and then the master's. However, careful planning during the undergraduate program allows motivated students to begin a research project and complete some master's course requirements while still in undergraduate standing. Depending on how quickly a student progresses through the undergraduate program, the additional graduate year may come sooner than the fifth year at Berkeley. The Five-Year Program is not intended for those who wish to pursue a PhD. For further information regarding this program, please see the Five-Year BS/MS tab on this page or the Department's website.
+
+Minor Program
+
+The EECS minor, offered through the College of Engineering, is an optional program for students interested in coherent EECS study outside of their major. It is open to any undergraduate who has declared a major other than EECS and has completed four of the course requirements. For further information regarding the requirements and declaration process, please see the Minor Requirements tab.
+
+The EECS Department also offers a minor in computer science. For information regarding this program, please see the computer science program page in this Guide.
+
+Joint Majors
+
+The EECS Department also offers two joint majors with other departments in the College of Engineering. For further information on these programs, please click the links below:
+Electrical Engineering and Computer Sciences/Materials Science and Engineering (Department of Materials Science and Engineering)
+Electrical Engineering and Computer Sciences/Nuclear Engineering (Department of Nuclear Engineering)
+
+Student Learning GoalsMission
+
+Preparing graduates to pursue postgraduate education in electrical engineering, computer science, or related fields.
+Preparing graduates for success in technical careers related to electrical and computer engineering, or computer science and engineering.
+Preparing graduates to become leaders in fields related to electrical and computer engineering or computer science and engineering.
+
+Learning Goals for the Major 
+EE
+
+
+An ability to apply knowledge of mathematics, science, and engineering.
+An ability to configure, apply test conditions, and evaluate outcomes of experimental systems.
+An ability to design systems, components, or processes that conform to given specifications and cost constraints.
+An ability to work cooperatively, respectfully, creatively, and responsibly as a member of a team.
+An ability to identify, formulate, and solve engineering problems.
+An understanding of the norms of expected behavior in engineering practice and their underlying ethical foundations.
+An ability to communicate effectively by oral, written, and graphical means.
+An awareness of global and societal concerns and their importance in developing engineering solutions.
+An ability to independently acquire and apply required information, and an appreciation of the associated process of life-long learning.
+A knowledge of contemporary issues.
+An in-depth ability to use a combination of software, instrumentation, and experimental techniques practiced in circuits, physical electronics, communication, networks and systems, hardware, programming, and computer science theory.
+
+
+CS
+
+An ability to apply knowledge of computing and mathematics appropriate to the program’s student outcomes and to the discipline.
+An ability to analyze a problem, and identify and define the computing requirements appropriate to its solution.
+An ability to design, implement, and evaluate a computer-based system, process, component, or program to meet desired needs.
+An ability to function effectively on teams to accomplish a common goal.
+An understanding of professional, ethical, legal, security and social issues and responsibilities.
+An ability to communicate effectively with a range of audiences.
+An ability to analyze the local and global impact of computing on individuals, organizations, and society.
+Recognition of the need for and an ability to engage in continuing professional development.
+ An ability to use current techniques, skills, and tools necessary for computing practice.
