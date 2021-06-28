@@ -1,0 +1,7 @@
+School Name: Stanford
+Department: Linguistics
+Major: Linguistics
+
+Linguistics is the study of language as a fundamental human activity. Linguists consider language as a cultural, social, and psychological phenomenon and seek to determine what is universal to all languages and what is specific to individual languages, how language varies across individuals and communities, how it is acquired, how it changes, and how it is processed by humans and machines.  Linguistics is an inherently interdisciplinary field that links the humanities, the social sciences, and the other cognitive sciences, as well as computer science, education, and hearing and speech sciences.
+
+

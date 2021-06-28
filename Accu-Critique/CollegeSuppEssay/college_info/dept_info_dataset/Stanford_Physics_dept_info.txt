@@ -1,0 +1,7 @@
+School Name: Stanford
+Department: Physics
+Major: Physics
+
+The mission of the undergraduate program in Physics is to provide students with a strong foundation in both classical and modern physics. The goal of the program is to develop both quantitative problem solving skills and the ability to conceive experiments and analyze and interpret data. These abilities are acquired through both course work and opportunities to conduct independent research. The program prepares students for careers in fields that benefit from quantitative and analytical thinking, including physics, engineering, teaching, medicine, law, science writing, and science policy, in government or the private sector. In some cases, the path to this career will be through an advanced degree in physics or a professional program.
+
+

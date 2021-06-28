@@ -1,0 +1,12 @@
+School Name: Stanford
+Department: Bioengineering
+Major: Bioengineering
+
+The Bioengineering Department is creating a fusion of engineering and the life sciences that promotes scientific discovery and the invention of new technologies and therapies through research and education.
+Our mission includes advancing bioengineering as a fundamental engineering discipline grounded in basic sciences, powered by a unique set of engineering concepts and principles, and capable of realizing many diverse applications.  In realizing our mission, we must capitalize on the unique history and strengths of Stanford and become a model for bioengineering worldwide. 
+Overarching goals of our department include:
+	To develop bioengineering as a fundamental engineering discipline
+	To realize many new applications of bioengineering, including in diagnostics, therapeutics and manufacturing
+	To develop and distribute effective and innovative educational programs and materials that enable our students and others to become leading practicing bioengineers
+	To become a center of entrepreneurial and translational research
+	To enable our graduates to become leaders across all sectors of society including academia, industry and public service

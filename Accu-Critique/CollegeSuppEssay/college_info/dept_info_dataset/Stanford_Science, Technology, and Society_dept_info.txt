@@ -1,0 +1,7 @@
+School Name: Stanford
+Department: The Program in Science, Technology, and Society
+Major: Science, Technology, and Society
+
+The Program in Science, Technology, and Society is a dynamic interdisciplinary major that provides students with a liberal arts education for the twenty-first century.
+The Program's affiliated faculty represent over a dozen departments, including Anthropology, Communication, Computer Science, Education, Electrical Engineering, History, Law, Management Science and Engineering, Political Science and Sociology.
+One of the only majors at Stanford to offer both a Bachelor of Arts and Bachelor of Science degree, STS majors develop depth within two or three fields of study while fostering a broad understanding of the technical and social dimensions of science and technology.

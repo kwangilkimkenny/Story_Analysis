@@ -1,0 +1,9 @@
+School Name: Stanford
+Department: Electrical Engineering
+Major: Electrical Engineering
+
+largest department within the School of Engineering
+We have set the tone for technology around the world, from the invention of microprocessors, public-key cryptography, and MIMO wireless technology.
+We Are Scholars, We Are Interdisciplinary, We are the Heart of Silicon Valley
+
+Electrical Engineering is a very broad, flexible major. For our undergraduate students, we organize the curriculum through three disciplinary areas: (I) Hardware and Software Systems, (II) Information Systems and Science, (III) Physical Technology and Science, and several interdisciplinary elective areas. Throughout the Bachelor of Science program, EE undergraduates will build all kinds of very cool, sophisticated systems. You will learn about a range of state-of-the-art electronics and devices, signal processing, smart algorithms, and a range of their applications in modern technology.

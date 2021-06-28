@@ -1,0 +1,15 @@
+School Name: Stanford
+Department: Aeronautics and Astronautics
+Major: Aeronautics and Astronautics
+
+The Undergraduate Program in Aeronautics and Astronautics offers students the opportunity to learn engineering principles through a project-based curriculum. 
+The objective of the undergraduate program in Aeronautics and Astronautics is to provide students with the fundamental principles and techniques necessary for success and leadership in the conception, design, implementation, and operation of aerospace and related engineering systems. Courses in the major introduce students to engineering principles through a project-based curriculum. Students learn to apply this fundamental knowledge to conduct laboratory experiments and aerospace system design problems. Courses in the major include engineering fundamentals, mathematics, and the sciences, as well as in-depth courses in aeronautics and astronautics, dynamics and control, mechanics of materials, and fluids engineering. Taking into account the unique location of Stanford at the heart of the Silicon Valley and modern trends in aerospace engineering, the major introduces concepts of autonomy, embedded programming, and system-level analysis and design as core disciplines in the curriculum -- this represents a radical departure from traditional curricula in aerospace engineering at peer institutions. The major prepares students for careers in aircraft and spacecraft engineering, space exploration, air- and space-based telecommunication industries, autonomous systems, robotics, commercial space transportation, teaching, research, military service, and many related technology-intensive fields.
+•	
+
+
+
+
+
+
+
+

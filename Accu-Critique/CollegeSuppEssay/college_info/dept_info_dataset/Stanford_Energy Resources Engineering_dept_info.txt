@@ -1,0 +1,9 @@
+School Name: Stanford
+Department: Department of Energy Resources Engineering
+Major: Energy Resources Engineering
+
+We train future leaders in the science and engineering of Earth's energy resources. We combine theory, experiments, and computation to understand and influence the global energy resources landscape. We are committed to leading the way to provide the people, methods, and tools for sustainable management of the Earth's energy resources.
+
+We develop the engineering science and educate the human resources needed to sustain and diversify the Earth’s energy supply. We seek to influence and adapt to the changing energy landscape.
+
+Research and teaching in ERE deal with understanding the Earth’s energy resources and developing advanced methods and tools to manage these complex dynamical systems. The ERE department is renowned for theoretical, experimental, and computational research on multiphase flow and transport processes in porous media. Our activities span reservoir characterization and engineering applications, including resource management of conventional, unconventional, and geothermal reservoirs. Long-term storage of carbon dioxide in subsurface formations is also an important area of interest.

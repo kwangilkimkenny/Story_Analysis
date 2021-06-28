@@ -1,0 +1,7 @@
+School Name: Stanford
+Department: Geophysics
+Major: Geophysics
+
+Geophysics is a field that integrates geology, mathematics, and physics in order to understand how the Earth works. Geophysicists study Earth processes through a combination of laboratory experiments, computational and theoretical modeling, remote imaging, and direct observation.
+Our Department is leading research in many areas where geophysical expertise will be increasingly important for coping with challenges that humanity faces in the 21st century as the finiteness of energy and water resources becomes critical, as the world's growing population puts increasing demands on the environment, and as populations and complex infrastructure continue to expand in areas exposed to a spectrum of natural and human-induced hazards.
+

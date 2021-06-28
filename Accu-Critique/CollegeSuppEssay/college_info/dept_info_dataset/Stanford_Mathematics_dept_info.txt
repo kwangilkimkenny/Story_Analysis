@@ -1,0 +1,6 @@
+School Name: Stanford
+Department: Mathematics
+Major: Mathematics
+
+Provide students with a broad understanding of mathematics encompassing logical reasoning, generalization, abstraction, and formal proof. Courses in the program teach students to create, analyze, and interpret mathematical models and to communicate sound arguments based on mathematical reasoning and careful data analysis. The mathematics degree prepares students for careers in the corporate sector and government agencies, and for graduate programs in a variety of quantitative fields.
+

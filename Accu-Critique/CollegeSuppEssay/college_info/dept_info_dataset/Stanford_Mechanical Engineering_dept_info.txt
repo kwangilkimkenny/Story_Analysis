@@ -1,0 +1,6 @@
+School Name: Stanford
+Department: Mechanical Engineering
+Major: Mechanical Engineering
+
+The department of Mechanical Engineering’s core mission is to address the most pressing needs of human society, with a particular emphasis on the fields of energy, transportation and health. Faculty members in Stanford’s Department of Mechanical Engineering work in five major research groups that reflect the department’s focus and methodologies. Our philosophy is simple: We push the limits of the possible – the ultra-efficient and hyper-fast, the maximally enduring and most sustainable, the fully autonomous and the super-controlled. We employ a range of methodologies: design thinking, computational simulation, control systems and multi-scale approaches that range from the nanoscale to complex biological and mechanical systems.
+The department traces its origin to the founding of Stanford University as a school that was both academically rigorous and practically oriented, aspiring to produce "cultured and useful citizens." Our first three professors joined the faculty in 1891, the year the university itself was founded. Courses in the department that year included Workshop Practice, Thermodynamics, Machine Design, Electrical Engineering and Wind Mills – Theory and Design.

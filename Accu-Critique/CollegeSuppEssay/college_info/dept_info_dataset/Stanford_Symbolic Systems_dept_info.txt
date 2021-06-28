@@ -1,0 +1,11 @@
+School Name: Stanford
+Department: School of Humanities & Sciences
+Major: Symbolic Systems
+
+Span. Dig Deep. Solve complex problems.
+How does human cognition work?
+How do people interact with machines?
+How human-like can a machine be?
+
+SymSys will help you answer these questions and more. Students take an array of courses in computer science, linguistics, mathematics, philosophy, psychology, and statistics while also pursuing  an area of concentration. Created in 1986 by faculty members at the Center for the Study of Language and Information, the program has become one of the top five undergraduate majors at Stanford.
+

@@ -1,0 +1,7 @@
+School Name: Stanford
+Department: Interdepartmental Program in the School of Engineering
+Major: Biomedical Computation
+
+The Biomedical Computation major is an Interdepartmental Program (IDP) housed in the School of Engineering. Completion of the major leads to a Bachelors of Science, Engineering, Biomedical Computation.
+
+

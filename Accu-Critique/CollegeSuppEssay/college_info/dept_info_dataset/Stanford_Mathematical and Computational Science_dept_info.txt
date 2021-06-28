@@ -1,0 +1,7 @@
+School Name: Stanford
+Department: School of Humanities & Sciences
+Major: Mathematical and Computational Science
+
+Stanford's home for students interested in deploying analytical and quantitative thinking to tackle problems in science, industry, and society. Increasing data size and availability, enhanced computational power, and  progress in algorithms and software make this an ever exciting area.
+
+MCS students acquire a solid foundation in mathematics, computer science, probability, statistics  and optimization. They then explore how inferential and computational thinking can be effective in areas as diverse as finance, biology, marketing, engineering, etc.

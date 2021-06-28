@@ -1,0 +1,8 @@
+School Name: Stanford
+Department: Materials Science and Engineering
+Major: Materials Science and Engineering
+
+ The Department of Materials Science and Engineering is concerned with the structures and properties of nanoscale components.
+Our faculty and students research the infinitesimally small to achieve breakthroughs of global significance, working at the atomic and molecular levels to create the microscopic devices and systems essential for cutting-edge solar energy production, energy storage, information technology and medicine.
+
+With its roots in metallurgy, materials science and engineering is a venerable scientific discipline, expanding in recent decades to encompass polymers, ceramics, glass, composite materials and biomaterials. Virtually all sophisticated products — computers, aircraft, biomedical devices — require materials manufactured to precise specifications. Increasingly, these specifications are determined at the molecular level. The evolution of advanced products can be hobbled by the limitations of the available materials.

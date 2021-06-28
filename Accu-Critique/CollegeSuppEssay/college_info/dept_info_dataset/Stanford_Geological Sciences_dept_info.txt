@@ -1,0 +1,7 @@
+School Name: Stanford
+Department: Geological Sciences
+Major: Geological Sciences
+
+The study of our planet and its neighbors, from their deep interiors to the surface, and through their multi-billion year history.
+
+More specifically, courses and research within the department address the chemical and physical makeup and properties of minerals and rocks (at pressures from the surface to the core), as well as of soils, sediments, and water; the formation and evolution of Earth and other planets; the processes that deform planetary crusts and mantles and that shape planetary surfaces; the stratigraphic, paleobiological, and geochemical records of Earth history including changes in climate, oceans, and atmosphere; present-day, historical, and long-term feedbacks between the geosphere and biosphere, and the origin and occurrence of our natural resources.
