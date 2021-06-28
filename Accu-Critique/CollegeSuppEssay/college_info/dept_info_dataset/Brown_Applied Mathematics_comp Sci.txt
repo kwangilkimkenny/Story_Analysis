@@ -1,0 +1,842 @@
+The Sc.B. concentration in Applied Math-Computer Science provides a foundation of basic concepts and methodology of mathematical analysis and computation and prepares students for advanced work in computer science, applied mathematics, and scientific computation. Concentrators must complete courses in mathematics, applied math, computer science, and an approved English writing course. While the concentration in Applied Math-Computer Science allows students to develop the use of quantitative methods in thinking about and solving problems, knowledge that is valuable in all walks of life, students who have completed the concentration have pursued graduate study, computer consulting and information industries, and scientific and statistical analysis careers in industry or government. This degree offers a standard track and a professional track.
+
+Our mission rests in research, education, and scholarship. Our faculty engages in research in a range of areas from applied and algorithmic problems to the study of fundamental mathematical questions. By its nature, our work is and always has been inter- and multi-disciplinary. Among the research areas represented in the Division are dynamical systems and partial differential equations, control theory, probability and stochastic processes, numerical analysis and scientific computing, fluid mechanics, computational molecular biology, statistics, and pattern theory. Our graduate program in applied mathematics includes around 50 Ph.D. students, with many of them working on interdisciplinary projects. We offer undergraduate degrees in Applied Mathematics, Applied Math–Biology, Applied Math–Computer Science, and Applied Math–Economics. Our faculty actively involve undergraduates in summer research projects and offer many independent studies every year. 
+
+The Division of Applied Mathematics is one of the most prominent departments at Brown, and one of the oldest and strongest of its type in the entire country. The Division had its origin in the program of Advanced Instruction and Research in Mechanics, established in 1941 on the recommendation of a committee of the National Research Council. This early program focused on solid and fluid mechanics, electromagnetic theory, mathematical methods in applied physics, numerical analysis and probability theory—the principal interests of the faculty for many years.  Since then the interests of the faculty have expanded and diversified, as the Division has maintained a leading role in the development of applied mathematics both in the United States and throughout the world. In 1964, for example, the Center for Dynamical Systems was established to coordinate the research of a large group of people working in ordinary and partial differential equations and their applications. More recently, programs at the forefront of research in scientific computing and in applied probability and statistics have been established.
+
+The mission of the Division of Applied Mathematics rests on research, education, and scholarship. We focus our research and teaching on a wide range of areas from applied and algorithmic problems to the study of fundamental mathematical questions. In particular, we explore the connections between mathematics and its applications in biology, chemistry, engineering, geosciences, neuroscience, physics and other disciplines at the research and educational levels. Our educational efforts are realized primarily through our graduate PhD program and our four undergraduate concentrations.   
+
+Professor George Karniadakis receives the SIAM/ACM Prize
+The Division of Applied Mathematics congratulates Professor George Karniadakis who will receive the 2021 SIAM/ACM Prize in Computational Science and Engineering.  This award by the Society for Industrial and Applied Mathematics (SIAM) and the Association for Computing Machinery (ACM) recognizes individuals for their outstanding contributions to the development and use of mathematical and computational tools and methods for the solution of science and engineering problems. 
+
+Professor Chi-Wang Shu was awarded the 2021 John von Neumann Prize
+Professor Chi-Wang Shu was awarded the 2021 John von Neumann Prize and will deliver the 2021 John von Neumann Lecture at the 2021 SIAM Annual Meeting (AN21) scheduled for July 19-23, 2021, in Spokane, Washington.  SIAM awards the John von Neumann Prize every year to an individual for outstanding and distinguished contributions to the field of applied mathematics and for the effective communication of these ideas to the community. It is one of SIAM's most distinguished prizes as well as an important lecture at the SIAM Annual Meeting.  Chi-Wang Shu was awarded this prize to recognize his fundamental contributions to the numerical solution of partial differential equations.  His work on finite difference essentially non-oscillatory (ENO) methods, weighted ENO (WENO) methods, finite element discontinuous Galerkin methods, and spectral methods has had a major impact on scientific computing.
+
+Associate Professor Caroline Klivans has been featured on "Top Influential Mathematicians Today"
+Associate Professor Caroline Klivans was featured on "Top Influential Mathematicians Today" along with 25 influential mathematicians for her contributions to chip-firing games and sandpile models.  Chip-firing games are an important method in developing and understanding the properties of finite structures, which have implications for fields beyond mathematics.  Professor Klivans is seen as the leading authority on the subject.  
+
+"The Mathematical Investigations of Dr. O and Arya"
+A recent graduate (2020) from the Division of Applied Mathematics, Arya Okten, published a math book with her father entitled, "The Mathematical Investigations of Dr. O and Arya."  It is aimed at students between the ages of 9-14, that will be launched on December 1st.  The book is focussed on making advanced mathematical topics accessible and enjoyable to children. The book uses a combination of games, and history to explain topics from number theory to probability.  The book is available for pre-order now and officially launches on December 1st. Here are the links to the publisher's page for the book, and the Amazon page.  
+
+Largest NSF grant in university history
+The National Science Foundation has awarded the largest grant in university history to renew ICERM, Brown's math institute.  ICERM's unique mission is to bring about new technologies in the realm of computation and experimentation into pure and applied mathematics.  The institute brings together renowned mathematicians and researchers, as well as students, from around the world.
+
+Applied Mathematics has a profound impact on our daily lives. Whether it is weather forecasts,
+search engines, climate research, secure online shopping, or movie recommendations, none of
+these would work the way they do without algorithms and tools from the mathematical sciences.
+More generally, Applied Mathematics is an inherently interdisciplinary subject, which covers a
+wide spectrum of scientific activities. It is the mathematics of problems arising in the physical,
+life and social sciences as well as in engineering, and provides a broad qualitative and quantitative
+background for use in these fields.
+Owing to its nature, Applied Mathematics appeals to people with a variety of different interests,
+ranging from those with a desire to obtain a good quantitative background for use in some future
+career, to those who wish to have a better understanding of the basic mathematical aspects of
+other fields, or to those who are interested in the fundamental mathematical techniques and
+approaches in themselves. Many students begin taking courses in the Division of Applied
+Mathematics and discover their favorite areas of study as they go along. The program stresses
+but is not limited to computing, differential equations, and applied probability which are areas
+of mathematics that are used most often in applications in science, society and industry. The
+curriculum of the Division is flexible enough to meet the goals and interests of a very wide range
+of students.
+The basic mathematical skills of Applied Mathematics come from a variety of sources, which
+depend on problems from areas of interest: the theory of ordinary and partial differential
+equations, matrix theory, statistical sciences, probability and decision theory, risk and insurance
+analysis, the classical methods for formulating and solving problems in the sciences, operational
+analysis, optimization theory, the mechanics of solid materials and of fluids flows, numerical
+analysis, scientific computation and the science of modern computer based modeling.
+Students take courses in applied mathematics for many reasons, not necessarily with an applied
+mathematics concentration in mind. The value of learning about applied mathematics goes 
+4 | Page
+beyond a career opportunity. It provides an education in the use of quantitative methods in
+thinking about and solving problems: knowledge that is valuable in all walks of life.
+
+
+MATH
+Introductory Calculus, Part I
+Advanced Placement Calculus	
+Concentration Requirements (17 courses)	
+Intermediate Calculus	1
+Honors Calculus
+Linear Algebra	1
+Honors Linear Algebra
+Coding the Matrix: An Introduction to Linear Algebra for Computer Science
+Core-Applied Mathematics:	
+Applied Ordinary Differential Equations	1
+Applied Partial Differential Equations I	1
+Introduction to Computational Linear Algebra	1
+Introduction to Numerical Solution of Differential Equations
+Core-Computer Science:	
+Select one of the following Series:	2
+Series A
+Introduction to Object-Oriented Programming and Computer Science
+and Introduction to Algorithms and Data Structures	
+Series B
+Computer Science: An Integrated Introduction
+and Computer Science: An Integrated Introduction	
+Series C
+Accelerated Introduction to Computer Science (and an additional CS course not otherwise used to satisfy a concentration requirement; (this course may be CSCI 0180, an intermediate-level CS course, or a 1000-level course) )	
+Series D 1
+Computing Foundations: Data
+and Computing Foundations: Program Organization
+and Computer Science: An Integrated Introduction	
+Select three of the following intermediate-level courses, one of which must be math-oriented and one systems-oriented. The intermediate courses must cover the requirements of the pathway chosen under additional requirements for CS.	3
+Introduction to Discrete Structures and Probability (math)	
+Introduction to Software Engineering (systems)	
+Introduction to Computer Systems (systems)	
+Fundamentals of Computer Systems
+Theory of Computation (math)	
+Probability for Computing and Data Analysis (math) 2	
+Statistical Inference I
+
+Applied Mathematics (A.B. and Sc.B.)
+Applied Mathematics-Biology (Sc.B.)
+Applied Mathematics-Computer Science (Sc.B.; has professional track)
+Applied Mathematics-Economics (A.B. and Sc.B.; has professional tracks)
+
+APMA 0110. What’s the Big Deal with Data Science?
+This seminar serves as a practical introduction to the interdisciplinary field of data science. Over
+the course of the semester, students will be exposed to the diversity of questions that data
+science can address by reading current scholarly works from leading researchers. Through
+hands-on labs and experiences, students will gain facility with computational and visualization
+techniques for uncovering meaning from large numerical and text-based data sets. Ultimately,
+students will gain fluency with data science vocabulary and ideas. There are no prerequisites for
+this course.
+The Mathematics of Finance
+The mathematics of speculation as reflected in the securities and commodities markets.
+Particular emphasis placed on the evaluation of risk and its role in decision-making under
+uncertainty. Prerequisite: basic probability.
+APMA 0160. Introduction to Computing Sciences
+For student in any discipline that may involve numerical computations. Includes instruction for
+programming in MATLAB. Applications include solution of linear equations (with vectors and
+matrices) and nonlinear equations (by bisection, iteration, and Newton's method),
+interpolation, and curve-fitting, difference equations, iterated maps, numerical differentiation
+and integration, and differential equations. Prerequisite: MATH 0100 or its equivalent.
+APMA 0180. Modeling the World with Mathematics: An Introduction for NonMathematicians
+Mathematics is the foundation of our technological society and most of its powerful ideas are
+quite accessible. This course will explain some of these using historical texts and Excel. Topics
+include the predictive power of 'differential equations' from the planets to epidemics,
+oscillations and music, chaotic systems, randomness and the atomic bomb. Prerequisite: some 
+19 | Page
+knowledge of calculus. Further information is available at
+http://www.dam.brown.edu/people/mumford/AM18.
+APMA 0200. Introduction to Modeling
+This course provides an introduction to the mathematical modeling of selected biological,
+chemical, engineering, and physical processes. The goal is to illustrate the typical way in which
+applied mathematicians approach practical applications, from understanding the underlying
+problem, creating a model, analyzing the model using mathematical techniques, and
+interpreting the findings in terms of the original problem. Single-variable calculus is the only
+requirement; all other techniques from differential equations, linear algebra, and numerical
+methods, to probability and statistics will be introduced in class. Prerequisites: MATH 0100 or
+equivalent.
+APMA 0410. Mathematical Methods in the Brain Sciences
+Basic mathematical methods commonly used in the cognitive and neural sciences. Topics
+include: introduction to differential equations, emphasizing qualitative behavior; introduction
+to probability and statistics, emphasizing hypothesis testing and modern nonparametric
+methods; introduction to Fourier analysis. Time permitting, also considers some elementary
+information theory. Examples from biology, psychology, and linguistics. Prerequisite: MATH
+0100 or equivalent.
+APMA 0640. Data Analysis Big and Small
+A first course in statistics emphasizing a principled approach to data analysis through the use of
+probabilistic simulations: The focus is on the fundamental concepts of statistical inference and
+probability, and their application in modern data analysis. The premise of this course is that
+stochastic simulations provide an alternative to calculus for learning the fundamental concepts
+of statistical inference and probability theory that are typically covered in more advanced
+courses. From this foundation we will explore how big data impact both the questions and
+answers in data science. Suitable alternative to APMA0650. No prerequisites are required.
+APMA 0650. Essential Statistics
+A first course in statistics emphasizing statistical reasoning and basic concepts. Comprehensive
+treatment of most commonly used statistical methods through linear regression. Elementary
+probability and the role of randomness. Data analysis and statistical computing using Excel.
+Examples and applications from the popular press and the life, social and physical sciences. No
+mathematical prerequisites beyond high school algebra. 
+20 | Page
+Mathematical Methods
+The courses APMA 0330/0350 and APMA 0340/0360 cover mathematical techniques involving
+differential equations used in the analysis of physical, biological and economic phenomena. In
+the sequence APMA 0330/0340 the primary emphasis is placed on the use of established
+methods rather than on rigorous treatment of the underlying mathematics. APMA 0350/0360
+covers similar material (except for introduction to statistics) in more depth. It is intended for
+students who prefer a more rigorous development of the mathematical foundations of the
+methods. Students who are considering one of the concentrations in Applied Mathematics and
+others who will be taking advanced courses in Applied Mathematics, Mathematics, Physics or
+Engineering are encouraged to take APMA 0350/0360.
+APMA 0330/0350. Methods of Applied Mathematics I
+Solution of first order differential equations, including the use of exact differentials. Solution of
+second order, linear differential equations. Laplace transform methods. Numerical methods for
+solving ordinary differential equations.
+APMA 0340/0360. Methods of Applied Mathematics II
+Review of vector algebra and matrix methods, with applications to systems of linear, first order
+differential equations. Nonlinear problems and stability. Introduction to partial differential
+equations and Fourier series methods. Boundary value problems and an introduction to SturmLiouville systems. Note: APMA 0340 also provides a short introduction to probability and
+statistics.
+Prerequisites: MATH 0090, 0100. It is expected that most students taking APMA 0330, 0340 and
+all students taking APMA 0350, 0360 will have taken MATH 0180 (or equivalent) or will be
+taking it at the same time. Students are strongly encouraged to take MATH 0520 or MATH 0540
+(Linear Algebra). The majority of students in APMA 0350, 0360 have taken or are currently
+taking a linear algebra course.
+Beyond these two basic courses in mathematical methods, the Division offers a third course
+APMA1330 that covers partial differential equations and their applications. More general
+problems and specific methods of solution will be discussed, together with a more detailed
+coverage of topics such as Fourier series and Fourier transforms. The course will be of
+immediate relevance to students interested in applications to the physical sciences, engineering
+and biology. 
+APMA 1330. Methods of Applied Mathematics II
+Review of vector calculus and curvilinear coordinates. Partial differential equations. Heat
+conduction and diffusion equations, the wave equation, Laplace and Poisson equations.
+Separation of variables, special functions. Fourier series and power series solution of
+differential equations. Sturm-Liouville problem and eigenfunction expansions.
+Biological Systems
+There are many applications of mathematics to the description and quantitative study of
+biological processes. Applied mathematics provides many valuable tools in determining the
+relative importance of the many factors that may affect biological systems in such diverse areas
+as population studies, epidemiology, chemical oscillators and the nervous system.
+The course APMA 1070 (BIOL 1490) listed below is suitable for students who may not be
+specialists in biology but have some background in the subject, and are interested in some of
+the applications of mathematics in the biological sciences. There are also interested related
+courses in biomechanics offered in Engineering (ENGN 1210, 1220).
+APMA 1070. Quantitative Models of Biological Systems (BIOL 1490)
+An introductory course on the use of quantitative modeling techniques in solving problems in
+biology. Each year one major biological area will be explored in detail from a modeling
+perspective. The particular topic will vary from year to year. Mathematical techniques will be
+discussed as they arise in the context of biological problems. Prerequisites: some introductory
+level biology; APMA 0330, 0340 or 0350, 0360; or written permission.
+APMA 1080/2080. Inference in Genomics and Molecular Biology
+Traditional and Bayesian statistical inferences on biopolymer data including: sequence
+alignment; structure prediction; regulatory signals; significances of searches; phylogeny; and
+functional genomics. Emphasis is on discrete high dimensional objects common in field.
+Statistical topics: parameter estimation; hypothesis testing and false discovery rates; statistical
+decision theory; and Bayesian posterior inference. Prerequisites: APMA 1650 or 1655 and BIOL
+1470 or BIOL 1500, and programming experience minimally Matlab.
+Numerical Analysis and Scientific Computation
+The course APMA 1170 is a valuable, general introduction to numerical methods that are widely
+used in many applications. It provides an essential basis for scientific computation, whatever
+the area of interest. APMA 1180 is more specifically focused on ordinary and partial differential 
+22 | Page
+equations. This would be of value to students with interests in applications to the physical
+sciences or engineering.
+APMA 1160. An Introduction to Numerical Optimization
+This course provides a thorough introduction to numerical methods and algorithms for solving
+non-linear continuous optimization problems. Aparticular attention will be given to the
+mathematical underpinnings to understand the theoretical properties of the optimization
+problems and the algorithms designed to solve them. Topics will include: line search methods,
+trust-region methods, nonlinear conjugate gradient methods, an introduction to constrained
+optimization (Karush-Kuhn-Tucker conditions, mini-maximization, saddle-points of
+Lagrangians). Some applications in signal and image processing will be explored. Prereq:
+functions of several variables (MATH 0180) or equivalent of this. Computational Linear Algebra
+(APMA 1170) or a similar course is recommended.
+APMA 1170. Introduction to Computational Linear Algebra
+Focuses on fundamental algorithms in computational linear algebra with relevance to all
+science concentrators. Basic linear algebra and matrix decompositions (Cholesky, LU, QR, etc.),
+round-off errors and numerical analysis of errors and convergence. Iterative methods and
+conjugate gradient techniques. Computation of eigenvalues and eigenvectors, and an
+introduction to least squares methods. A brief introduction to Matlab is given. Prerequisites:
+MATH 0520 is recommended, not required.
+APMA 1180. Introduction to the Numerical Solution of Differential Equations
+Fundamental numerical techniques for solving ordinary and partial differential equations.
+Overview of techniques for approximation and integration of functions. Development of
+multistep and multistage methods, error analysis, step-size control for ordinary differential
+equations. Solution of two-point boundary value problems, introduction to methods for solving
+linear partial differential equations. Introduction to Matlab is given but some programming
+experience is expected. Prerequisites: APMA 0330, 0340 or 0350, 0360. APMA 1170 is
+recommended.
+APMA 1330. Applied Partial Differential Equations II
+Mathematical methods based on functions of a complex variable. Fournier series and its
+applications to the solution of one-dimensional heat conduction equations and vibrating
+strings. Series solution and special functions. Vibrating membrance. Sturm-Liouville problem
+and eigenfunction expansions. Fournier transform and wave propagations.
+APMA 1850. Introduction to High Performance Parallel Computing
+Operations Analysis
+Operations Analysis originated with attempts to make optimal decisions about the allocation of
+scarce resources, the design of efficient distribution networks and the need to make rational,
+optimal decisions when faced with uncertain information. The field has grown now to include
+many of the mathematical methods and models which are used for the design, optimization
+and analysis of management systems in government, business and economics.
+Two courses which cover the fundamental ideas and methods of the field are offered: Applied
+Mathematics 1200 is concerned with probabilistic or statistical models, where the system of
+concern is subject to randomness or uncertainty of some sort. It is an excellent introduction to
+some of the most widely used models and ideas of probability theory as well as their use in
+practical problems; Applied Mathematics 1210 is concerned with optimization or analysis
+methods for deterministic problems. The courses deal with both the theory and selected
+applications.
+Students may also be interested in the closely related course ENGN 1320 - Transportation
+Systems Analysis.
+APMA 1200. Operations Research: Probabilistic Models
+Methods of problem formulation and solution. Introduction to the theory of Markov chains, the
+probabilistic `analog' of a difference or differential equation. This is the most widely used of the
+probabilistic processes which evolve over time according to some statistical rule. Birth-death
+statistical processes and their applications. Queuing, probabilistic service and waiting line
+theory. Sequential decision theory via the methods of Dynamic Programming. This is the theory
+of optimal decisions when a sequence of decisions is to be made over time, each one affecting
+the situation of those that come later. Prerequisite: APMA 1650 or 1655, or MATH 1610, or
+equivalent
+APMA 1210. Operations Research: Deterministic Methods
+An introduction to the basic mathematical ideas and computational methods of optimization.
+Linear Programming: This is the theory of optimal decision making under linear constraints on
+resources, and may be the most widely used set of ideas in the field. Applications include
+decision theory in economics, transportation theory, optimal assignments, production and
+operations scheduling. The theory of network modeling and flows. The theory of integer 
+programming, which constitute the ideas for decision and optimization when the decision
+variables are integers (e.g., number of staff to be assigned etc.). Prerequisites: An introduction
+to matrix calculations, such as APMA 0340 or MATH 0520.
+Mechanics
+Two undergraduate courses APMA 1250 and APMA 1260 are offered in mechanics. The
+prerequisites for both are an introductory mechanics course such as ENGN 0040, PHYS 0050,
+PHYS 0070, and mathematical methods APMA 0330, 0340. APMA 1250 covers the mechanics
+of systems of particles and rigid bodies, including motion in rotating systems. It explains the
+advanced methods used to study complex systems, and gives an understanding of the unusual
+characteristics of general rigid body motion. APMA 1260 is a self-contained, one semester
+course providing an introduction to the mechanics of fluid motion and the elasticity of solids.
+The course differs from traditional engineering courses in this area and will emphasize other
+applications to physics, earth sciences, biomechanics, and other sciences.
+Beyond these courses students may also consider courses in Engineering or Geological Sciences
+which are listed later in this guide, or some of the first-year graduate courses offered in Applied
+Mathematics or Engineering on mechanics, fluid dynamics and solid mechanics.
+Mechanics provides a rich supply of examples of chaotic dynamical systems, which are
+discussed in the course on Chaotic Dynamics (APMA 1360). This is an exciting area which is
+continuing to develop.
+Dynamical Systems
+The presence of motion in deterministic systems that is effectively unpredictable is now
+recognized as an essential scientific phenomenon, and modern science is slowly coming to
+terms with its implications. This so-called "chaos" has challenged mathematicians and there is
+now a substantial mathematical theory supporting the observations of chaotic behavior in the
+real world. Despite its recent surge in popularity, an early motivation was the study by Poincare
+and others at the end of the last century of celestial mechanics. Here supposedly simple
+systems governed by well-defined equations of motion appeared to have very complex
+behavior and to be very sensitive to disturbances. As techniques of mathematical modeling
+have developed for new, more varied applications in economics, biology and chemistry so too
+has the realization that complex behavior is a common feature of nonlinear systems. The
+course APMA 1360 presents in a systematic way the mathematical concepts and definitions
+used in the study of nonlinear systems.
+Applied Partial Differential Equations II
+Mathematical methods based on functions of a complex variable. Fournier series and its
+applications to the solution of one-dimensional heat conduction equations and vibrating
+strings. Series solution and special functions. Vibrating membrance. Sturm-Liouville problem
+and eigenfunction expansions. Fournier transform and wave propagations.
+APMA 1360. Topics in Chaotic Dynamics
+Overview and introduction to dynamical systems. Local and global theory of maps. Attractors
+and limit sets. Lyapunov exponents and dimensions. Fractals: definition and examples. Lorentz
+attractor, Hamiltonian systems, homoclinic orbits and Smale horseshoe orbits. Chaos in finite
+dimensions and in PDEs. Can be used to fulfill the senior seminar requirement in applied
+mathematics. Prerequisites: APMA 0340 or 0360, or MATH 1110; MATH 0520 or 0540.
+Statistics: Theory and Applications
+Probability and statistics are basic tools in economics, physics, biological modeling, many
+modern applications of computers (such as to image analysis, speech recognition, and expert
+systems), epidemiology, and in many industrial applications, such as quality control, factory
+automation, optimal resource allocation, and risk assessment. The sequence APMA 1650 or
+1655 provides an introduction to the general theory. Other courses, requiring AM 1650 or 1655
+(or MATH 1610) as prerequisites, explore some of the more modern and more powerful
+statistical tools and some applications. These include APMA 1670 (Time Series Analysis), APMA
+1680 (Nonparametric Statistics), APMA 1770 (Information Theory), APMA 1200 (Operations
+Research: Probabilistic Models), and various "Senior Seminar Courses" (listed under APMA 1930
+or APMA 1940) such as Introduction to Pattern Analysis, The Mathematics of Speculation, and
+Information and Coding Theory.
+APMA 0100 - Elementary Probability for Applications
+This course serves as an introduction to probability and stochastic processes with applications
+to practical problems. It will cover basic probability and stochastic processes such as basic
+concepts of probability and conditional probability, simple random walk, Markov chains,
+continuous distributions, Brownian motion and option pricing. Enrollment limited to 20 first
+year students.
+APMA 1650/1655. Statistical Inference I
+APMA 1650 is an integrated first course in mathematical statistics. The first half of APMA 1650
+covers probability and the last half is statistics, integrated with its probabilistic foundation.
+Specific topics include probability spaces, discrete and continuous random variables methods 
+for parameter estimation, confidence intervals and hypothesis testing. Students may opt to
+enroll in 1655 for more in depth coverage of the above topics. Enrollment in 1655 will include
+an optional recitation section and required additional individual work. Applied Math
+concentrators are encouraged to take 1655. Prerequisite (for either version): MATH 0100, 0170,
+0180, 0190, 0200, or 0350.
+APMA 1660. Statistical Inference II
+APMA 1660 is designed as a sequel to APMA 1650 to form one of the alternative tracks for an
+integrated year’s course in mathematical statistics. The main topic is linear models in statistics.
+Specific topics include likelihood-ratio tests, nonparametric tests introduction to statistical
+computing, matrix approach to simple-linear and multiple regression, analysis of variance, and
+design of experiments. Prerequisite: APMA 1650 or 1655, or equivalent, basic linear algebra.
+Time Series Analysis
+An introduction to stochastic processes - the study of structure and randomness in sequences
+of observations. Time series analysis is used to model complex interactions among evolving
+observations in diverse applications, such as Economics (market prices, economic indicators),
+Biology (nerve cell activities), Engineering (speech and other sound waveforms). Time series
+models are a mixture of deterministic and random components, which capture structure and
+fluctuations respectively. The course will cover basic classes of models and some of their
+applications, parameter estimation, and spectral (Fourier) analysis. Prerequisite: APMA 1660.
+APMA 1680. Non-parametric Statistics
+A systematic treatment of the distribution-free alternatives to classical statistical tests. These
+nonparametric tests make minimum assumptions about distributions governing the generation
+of observations, yet are of nearly equal power as the classical alternatives. Prerequisite: APMA
+1650 or 1655, or equivalent.
+APMA 1690. Introduction to Computational Probability and Statistics
+Examination of probability theory and mathematical statistics from the perspective of
+computing. Topics selected from random number generation, Monte Carlo methods, limit
+theorems, stochastic dependence, estimation and hypothesis testing. Prerequisites: Linear
+algebra and Applied Mathematics 1650 or 1655, or equivalent. Some experience in
+programming is desirable. Offered in alternate years
+APMA 1700. The Mathematics of Insurance
+The course consists of two parts: the first treats life contingencies, i.e. the construction of
+models for individual life insurance contracts. The second treats the Collective Theory of Risk, 
+27 | Page
+which constructs mathematical models for the insurance company and its portfolio of policies
+as a whole. Suitable also for students proceeding to the Institute of Actuaries examinations.
+Prerequisites: Probability Theory to the level of APMA 1650 or 1655, or MATH 1610.
+APMA 1710. Information Theory
+Information theory is the mathematical study of the fundamental limits of information
+transmission (or coding) and storage (or compression). This course offers a broad introduction
+to information theory and its real-world applications. A subset of the following is covered:
+entropy and information; the asymptotic equipartition property; theoretical limits of lossless
+data compression and practical algorithms; communication in the presence of noise – channel
+coding, channel capacity; source-channel separation; Gaussian channels; Lossy data
+compression.
+APMA 1720. Monte Carlo Simulation with Applications to Finance
+The course will cover the basics of Monte Carlo and its applications to financial engineering:
+generating random variables and simulating stochastic processes; analysis of simulated data;
+variance reduction techniques; binomial trees and option pricing; Black-Scholes formula;
+portfolio optimization; interest rate models. The course will use MATLAB as the standard
+simulation tool. Prerequisites: APMA 1650 or 1655, or MATH 1610.
+APMA 1740/2610. Recent Applications of Probability and Statistics
+This course develops the mathematical foundations of modern applications of statistics to the
+computational, cognitive, engineering, and neural sciences. The course is rigorous, but the
+emphasis is on application. Topics include: Gibbs ensembles and their relation to maximum
+entropy, large deviations, exponential models, and information theory; statistical estimation
+and the generative, discriminative and algorithmic approaches to classification; graphical
+models, dynamic programming, MCMC computing, parameter estimation, and the EM
+algorithm. For 2,000-level credit enroll in 2610; for 1,000-level credit enroll in 1740. Rigorous
+calculus-based statistics, programming experience, and strong mathematical background are
+essential. For 2610, some graduate level analysis is strongly suggested.
+APMA 1860. Graphics and Networks
+Selected topics about the mathematics of graphs and networks with an emphasis on random
+graph models and the dynamics of processes operating on these graphs. Topics may include:
+empirical properties of biological, social, and technological networks (small-world effects, scalefree properties, transitivity, community structure); mathematical and statistical models of
+random graphs and their properties (Bernoulli random graphs, preferential attachment models,
+stochastic block models, phase transitions); dynamical processes on graphs and networks
+(percolation, cascades, epidemics, queuing, synchronization). Prerequisites: APMA 0360, MATH 
+APMA 1650 or 1655, or MATH 1610, or equivalents of these, and programming
+experience. APMA 1200 or equivalent strongly recommended.
+Senior Seminar Courses
+Each year the Division offers about two to four senior seminar courses (APMA 1930 and APMA
+1940), which explore areas of applied mathematics in a manner different from the regular
+lecture format. Students are encouraged to study more independently and develop specific
+projects. Starting in 2020, APMA 191 and 1911 are not allowed as a 1000-level elective. APMA
+1910 is allowed for who took the course prior to Fall of 2019.
+APMA 1930, APMA 1940. Senior Seminars
+Independent study and special topics seminars in various branches of applied
+mathematics, change from year to year. Recent topics include Mathematics of
+Speculation, Scientific Computation, Coding and Information Theory, Topics in Chaotic
+Dynamics, and Software for Mathematical Experiments. The following courses have been
+offered in past semesters. For current listings, please see BANNER.
+APMA 1930A. Actuarial Mathematics
+A seminar considering selected topics from two fields: (1) life contingencies-the study of the
+valuation of life insurance contracts; and (2) collective risk theory, which is concerned with the
+random process that generates claims for a portfolio of policies. Topics are chosen from
+Actuarial Mathematics, 2nd ed., by Bowers, Gerber, Hickman, Jones, and Nesbitt. Prerequisite:
+knowledge of probability theory to the level of APMA 1650 or 1655, or APMA 1610. Particularly
+appropriate for students planning to take the examinations of the Society of Actuaries.
+APMA 1930B. Computational Probability and Statistics
+Examination of probability theory and mathematical statistics from the perspective of
+computing. Topics selected from: random number generation, Monte Carlo methods, limit
+theorems, stochastic dependence, Bayesian networks, probabilistic grammars.
+APMA1930C. Information Theory
+Information theory is the mathematical study of the fundamental limits of information transmission (or coding) and storage (or compression). This course offers a broad introduction
+to information theory and its real-world applications. A subset of the following is covered:
+entropy and information; the asymptotic equipartition property; theoretical limits of lossless
+data compression and practical algorithms; communication in the presence of noise-channel
+coding, channel capacity; source-channel separation; Gaussian channels; Lossy data,
+compression.
+Mixing and Transport in Dynamical Systems
+Mixing and transport are important in several areas of applied science, including fluid
+mechanics, atmospheric science, chemistry, and particle dynamics. In many cases, mixing seems
+highly complicated and unpredictable. We use the modern theory of dynamical systems to
+understand and predict mixing and transport from the differential equations describing the
+physical process in question. Prerequisites: APMA 0330, 0350, 0360.
+APMA 1930E. Ocean Dynamics
+Works through the popular book by Henry Stommel entitled A View of the Sea. Introduces the
+appropriate mathematics to match the physical concepts introduced in the book.
+APMA1930G. The Mathematics of Sports
+Topics to be discussed will range from the determination of who won the match, through
+biomechanics, free-fall of flexible bodies and aerodynamics, to the flight of ski jumpers and
+similar unnatural phenomena. Prerequisites: APMA 0110 and APMA 0340 or their equivalents,
+or permission of the instructor.
+APMA 1930H. Scaling and Self-Similarity
+The themes of scaling and self-similarity provide the simplest, and yet the most fruitful
+description of complicated forms in nature such as the branching of trees, the structure of
+human lungs, rugged natural landscapes, and turbulent fluid flows. This seminar is an
+investigation of some of these phenomena in a self-contained setting requiring a little
+more mathematical background than high school algebra. Topics to be covered:
+Dimensional analysis, empirical laws in biology, geosciences, and physics and the interplay
+between scaling and function; an introduction to fractals; social networks and the “small
+world” phenomenon.
+APMA 1930I. Random Matrix Theory
+In the past few years, random matrices have become extremely important in a variety of fields
+such as computer science, physics and statistics. They are also of basic importance in various
+areas of mathematics. This class will serve as an introduction to this area. The focus is on the
+basic matrix ensembles and their limiting distributions, but several applications will be
+considered. Prerequisites: MATH 0200 or 0350; and MATH 0520 or 0540; and APMA 0350,
+0360, 1650, and 1660. APMA 1170 and MATH 1010 are recommended, but not required.
+APMA 1930J. Mathematics of Random Networks
+An introduction to the emerging field of random networks and a glimpse of some of the latest 
+30 | Page
+developments. Random networks arise in a variety of applications including statistics,
+communications, physics, biology and social networks. They are studied using methods from a
+variety of disciplines ranging from probability, graph theory and statistical physics to nonlinear
+dynamical systems. Describes elements of these theories and shows how they can be used to
+gain practical insight into various aspects of these networks including their structure, design,
+distributed control and self-organizing properties. Prerequisites: Advanced calculus, basic
+knowledge of probability.
+APMA 1930K. Stability of Differential Equations is Applications
+Basic stability and instability analysis of differential equations will be covered. Various examples
+of physical and biological applications will be studied and shared with the class.
+APMA 1930L. Fast Methods in Scientific Computing
+Description to be announced
+APMA 1930M. Applied Asymptotic Analysis
+Many problems in applied mathematics and physics are nonlinear and are intractable to solve
+using elementary methods. In this course we will systematically develop techniques for
+obtaining quantitative information from nonlinear systems by exploiting small scale
+parameters. Topics will include: regular and singular perturbations, boundary layer theory,
+multiscale and averaging methods and asymptotic expansions of integrals. Along the way, we
+will discuss many applications including nonlinear waves, coupled oscillators, nonlinear optics,
+fluid dynamics and pattern formation.
+APMA 1930N. Stochastic Models of Neuronal Networks
+Senior seminar on stochastic models of neuronal network dynamics. Topics will include:
+dynamics of sparsely connected networks; various regimes and phase transitions; role of
+network structure and network motifs; spike-timing-dependent plasticity. Some of the tools:
+mean-field approach; eigenvalue spectra of random matrices; numerical simulation. Required
+background: calculus, basic probability. Background in neuroscience is helpful but not required.
+We will start with a few lectures to set up the stage.
+APMA 1930O. Probabilities in Quantum and Statistical Mechanics
+Just enough quantum and statistical mechanics (QM, SM) will be taught to enable a
+mathematically and physically informed discussion of some of the enduring mysteries
+surrounding these subjects. Examples: Schrodinger’s equation and the abrupt transition from
+(weird) quantum worlds to familiar classical worlds; the general uncertainty principle; quantum
+teleportation; the impossibility of a local hidden variable theory for QM (Bell’s Theorem) and 
+Einstein’s objections; Conway’s no-free-will theorem; quantum erasure; Boltzmann’s local
+chaos, transport equation, and exchangeability; Poincare recurrence; the (possible)
+irrelevance of the ergodic theorem in SM (are measurements really akin to time averages?).
+Prerequisite: Strong mathematics background.
+APMA 1930P. Mathematics and Climate
+The study of Earth’s climate involves many scientific components; mathematical tools play an
+important role in relating these through quantitative models, computational experiments and
+data analysis. The course aims to introduce students in applied mathematics to several of the
+conceptual models, the underlying physical principles and some of the ways data is analyzed
+and incorporated. Students will develop individual projects later in the semester.
+Prerequisites: APMA 0360, or APMA 0340, or written permission; APMA 1650/1655 is
+recommended.
+Mathematical Models of Cortical Dynamics
+A Senior Applied Mathematics seminar on brain modeling, emphasizing: stochastic aspects of
+cortical dynamics; models of spike-timing-dependent plasticity; mean-field approaches to the
+analysis of large networks; the emergence of network motifs and their role in cortical function.
+Open to Neuroscience and CLPS students with adequate mathematical and computational
+preparation. Background in neuroscience desirable but not required. Prerequisites: APMA
+1650/1655, 0330 and 0340.
+APMA 1930R. Probabilities in Quantum Mechanics
+We will start from scratch. The only prerequisites are some probability and a good facility with
+mathematics. We will be rigorous, while making a careful accounting of the (surprisingly few)
+conceptual assumptions that lead inexorably to consequences that are almost impossible to
+believe. With an eye on some of the most startling and vexing of these, we will construct a
+minimum mathematical foundation sufficient to explore: the abrupt transition from the weird
+quantum to the familiar classical world; the uncertainty principles; teleportation; Bell’s theorem
+and the Einstein-Bohr debates; quantum erasure; the Conway-Kochen “free-will theorem”; and
+(unbreakable) quantum encryption.
+APMA 1940. Senior Seminar
+APMA 1940A. Coding and Information Theory
+In a host of applications, from satellite communication to compact disc technology, the storage,
+retrieval, and transmission of digital data relies upon the theory of coding and information for
+efficient and error-free performance. This course is about choosing representations that 
+minimize the amount of data (compression) and the probability of an error in data handling
+(error-correcting codes). Prerequisite: A knowledge of basic probability theory at the level of
+APMA 1650, or 1655, or APMA 1610.
+APMA 1940B. Information and Coding Theory
+Originally developed by C.E. Shannon in the 1940s for describing bounds on information rates
+across telecommunication channels, information and coding theory is now employed in a large
+number of disciplines for modeling and analysis of problems that are statistical in nature. This
+course provides a general introduction to the field. Main topics include entropy, error
+correcting codes, source coding, data compression. Of special interest will be the connection to
+problems in pattern recognition. Includes a number of projects relevant to neuroscience,
+cognitive and linguistic sciences, and computer vision. Prerequisites: High school algebra,
+calculus. MATLAB or other computer experience helpful. Prior exposure to probability
+theory/statistics helpful.
+APMA1940C. Introduction to Mathematics of Fluids
+Equations that arise from the description of fluid motion are born in physics, yet are interesting
+from a more mathematical point of view as well. Selected topics from fluid dynamics introduce
+various problems and techniques in the analysis of partial differential equations. Possible topics
+include stability, existence and uniqueness of solutions, variational problems, and active scalar
+equations. No prior knowledge of fluid dynamics is necessary.
+APMA 1940D. Iterative Methods
+Large, sparse systems of equations arise in many areas of mathematical application and in this
+course we explore the popular numerical solution techniques being used to efficiently solve
+these problems. Throughout the course we will study preconditioning strategies, Krylov
+subspace acceleration methods, and other projection methods. In particular, we will develop a
+working knowledge of the Conjugate Gradient and Minimum Residual (and Generalized
+Minimum Residual) algorithms. Multigrid and Domain Decomposition Methods will also be
+studied as well as parallel implementation, if time permits.
+APMA 1940E. Mathematical Biology
+This course is designed for undergraduate students in mathematics who have an interest in the
+life sciences. No biological experience is necessary, as we begin by a review of the relevant
+topics. We then examine a number of case studies where mathematical tools have been
+successfully applied to biological systems. Mathematical subjects include differential equations,
+topology and geometry.
+APMA 1940F. Mathematics of Physical Plasmas
+Plasmas can be big, as in the solar wind, or small, as in fluorescent bulbs. Both kinds are
+described by the same mathematics. Similar mathematics describes semiconducting materials, 
+the movement of galaxies, and the re-entry of satellites. We consider how all of these physical
+systems are described by certain partial differential equations. Then we invoke the power of
+mathematics. The course is primarily mathematical. Prerequisites: APMA 0340 or 0360, MATH
+0180 or 0200 or 0350, and PHYS 0060 or PHYS 0080 or ENGN 0510.
+APMA 1940G. Multigrid Methods
+Mulitgrid methods are a very active area of research in Applied Mathematics. An introduction
+to these techniques will expose the student to cutting-edge mathematics and perhaps pique
+further interest in the field of scientific computation.
+APMA 1940H. Numerical Linear Algebra
+This course will deal with advanced concepts in numerical linear algebra. Among the topics
+covered: Singular Value Decompositions (SVD) QR factorization, Conditioning and Stability and
+Iterative Methods.
+APMA 1940I. The Mathematics of Finance
+The mathematics of speculation as reflected in the securities and commodities markets.
+Particular emphasis placed on the evaluation of risk and its role in decision-making under
+uncertainty. Prerequisite: Basic probability.
+APMA 1940J. The Mathematics of Speculation
+The course will deal with the mathematics of speculation as reflected in the securities and
+commodities markets. Particular emphasis will be placed on the evaluation of risk and its role in
+decision making under uncertainty. Prerequisite: basic probability.
+APMA 1940K. Fluid Dynamics and Physical Oceanography
+Introduction to fluid dynamics as applied to the mathematical modeling and simulation of
+ocean dynamics and near-shore processes. Oceanography topics include: overview of
+atmospheric and thermal forcing of the oceans, ocean circulation, effects of topography and
+Earth's rotation, wind-driven currents in upper ocean, coastal upwelling, the Gulf Stream, tidal
+flows, wave propagation, tsunamis.
+APMA 1940L. Mathematical Models in Biophysics
+Introduction to reaction models for biomolecules, activation and formation of macromolecules, stochastic simulation methods such as Langevin models and Brownian
+dynamics. Applications to blood flow, platelet aggregation, and interactions of cells with
+blood vessel walls.
+APMA 1940M. The History of Mathematics
+The course will not be a systematic survey but will focus on specific topics in the history of
+mathematics such as Archimedes and integration, Oresme and graphing, Newton and 
+34 | Page
+infinitesimals, simple harmonic motion, the discovery of ‘Fourier’ series, the Monte Carlo
+method, reading and analyzing the original texts. A basic knowledge of calculus will be
+assumed.
+APMA 1940N. Mathematical Models in Computational Biology
+This course is designed to introduce students to the use of mathematical models in biology
+as well as some more recent topics in computational biology. Mathematical techniques
+will involve difference equations and dynamical systems theory ordinary differential
+equations and some partial differential equations. These techniques will be applied in the
+study of many biological applications as (i) Difference equations: population dynamics, red
+blood cell production, population genetics; (ii) Ordinary differential equations: Predatorprey models, Lotka-Volterra model, modeling and evolution of the genome, heart beat
+model/cycle, transmission dynamics of HIV and gonorrhea; (iii) Partial differential
+equations: tumor growth, modeling evolution of the genome, pattern formation.
+Prerequisites: APMA 0330 and APMA 0340.
+APMA 1940O. Approaches to Problem Solving in Applied Mathematics
+The aim of the course is to illustrate through the examination of unsolved (but elementary)
+problems the ways in which professional applied Mathematicians approach the solution of
+such questions. Ideas considered include: choosing the “simplest” nontrivial example,
+generalization and specification. Ways to think outside convention. Some knowledge of
+probability and linear algebra helpful. Suggested reading: “How to solve it,” by G. Polya
+and “Nonplussed,” by Julian Havil.
+APMA 1940P. Biodynamics of Block Flow and Cell Locomotion
+APMA 1940Q. Filtering Theory
+Filtering (estimation of a “state process” from noisy data) is an important area of modern
+statistics. It is of central importance in navigation, signal and image processing, control theory
+and other areas of engineering and science. Filtering is one of the exemplary areas where the
+application of modern mathematics and statistics leads to substantial advances in
+engineering. The goal of the course is to provide a student with the working knowledge
+sufficient for cutting edge research in the field of nonlinear filtering and its practical
+applications. The topics we will concentrate on include: hidden Markov models, Kalman and
+Wiener filters, optimal nonlinear filtering, elements of Ito calculus and Wiener chaos, Zakai and
+Kushner equations, spectral separating filters and wavelet based filters, numerical
+implementation of filters. We will consider numerous applications of filtering to speech
+recognition, analysis of financial data, target tracking and image processing. The course will be
+made accessible to undergraduate students. No prior knowledge in the field is required but a
+good understanding of basic Probability Theory (APMA 1200 or APMA 2630) is important.
+35 | Page
+1940R. Linear and Nonlinear Waves
+From sound and light waves to water waves and traffic jams, wave phenomena are everywhere
+around us. In this seminar, we will discuss linear and nonlinear waves as well as the propagation
+of wave packets. Among the tools we shall use and learn about are numerical simulations in
+Matlab and analytical techniques from ordinary and partial differential equations. We will also
+explore applications in nonlinear optics and to traffic flow problems. Prerequisites: MATH 0180
+and either APMA 0330-0340 or APMA 0350-0360. No background in partial differential
+equations is required.
+1940S. Topics in Applied Differential Equations
+The course will cover several topics of ordinary differential equations arising from other
+disciplines such as physics, chemistry, biology, and engineering, with an emphasis on the
+modeling of various underlining equations. The course will also be supplemented with a use of
+computer algebra systems like MATHEMATICA.
+APMA 1940T. Nonlinear Filtering for Hidden Markov Models
+1940U. Filtering of Prediction of Hidden Markov Models
+This course is built around the problem of estimating noisily observed dynamics from a
+sequence of data. This is a fascinating engineering problem with strong ties to probability
+theory and with numerous scientific and technological applications. Topics covered will include
+conditioning and optimal estimates, filtering and interpolation of Markov chains, elements of
+stochastic calculus and Wiener processes, and the continuous-time Kalman filter. Applications
+of hidden Markov models to problems arising in finance, genetics, and epidemiological
+modeling will also be considered.
+APMA 1940V. Topics in Coding Theory
+This class covers two distinct areas: (1) algebraic coding theory; (2) examples of code breaking
+and design. Part (1) stresses cryptography, data compression, error correction and sphere
+packings. Part (2) will involve case studies of code breaking and code design in applications.
+Depending on student interest these may include decoding scripts (Ventris and Linear B), or
+design problems in synthetic biology (e.g. RNA folding and DNA self-assembly).
+APMA 1940W. Randomized Algorithms for Counting, Integration and Optimization
+We consider the construction and analysis of random methods for approximating sums and
+integrals, and related questions. Example, consider the problem of counting the number of
+vectors with integer components that satisfy a collection of linear equality and inequality 
+36 | Page
+constraints. Depending on the number of constraints, this could be a problem of counting the
+number of needles in a haystack, and straightforward enumeration is impossible. There are
+now a variety of randomized methods that can attack this problem and other problems with
+similar difficult features. We survey some of the methods and the problems to which they
+apply.
+APMA 1940X. Topics in Information theory and coding theory
+This class builds on APMA 1710, but stresses applications of information and coding theory,
+rather than its mathematical foundations. The class provided an overview of widely used
+probabilistic methods and algorithms, such as Markov Chain Monte Carlo (MCMC), hidden
+Markov models (HMM), dynamic programming, belief propagation, and Bayesian inference.
+Information theory is used in combination with these algorithms as a framework to study
+applications such as code-breaking, speech recognition, image analysis and the study of genetic
+sequences. This class is best suited to students looking for topics for senior theses or capstone
+classes in applied mathematics, computer science and mathematics.
+APMA 1940Y. Wavelets and Applications
+APMA 1970. Independent Study
+
+Analysis
+Complex Analysis
+Abstract Algebra
+Foundations of Mechanics
+Foundations of Electromagnetism and Modern Physics
+Analytical Mechanics
+Physics of Waves, Relativity and Quantum Mechanics
+Electricity and Magnetism
+Advanced Electromagnetic Theory
+Advanced Classical Mechanics
+Physics of Matter
+Mechanics of Solids and Structures
+Electrical Circuits and Signals
+Thermodynamics
+Fluid Mechanics
+Biomechanics
+Neuroengineering Control of Movement
+Linear Systems Analysis
+Communication Systems
+Digital Electronics Systems Design
+Automatic Control Systems
+Advanced Mechanics of Solids
+Advanced Fluid Mechanics
+Introduction to Linguistic Theory
+Neural Modeling Laboratory
+Introductory Chemistry
+Equilibrium, Rate and Structure
+Physical Chemistry: Quantum Chemistry
+hysical Chemistry: Thermodynamics and Statistical Mechanics
+Weather and Climate
+Environmental and Engineering Geophysics
+Solid Earth Geophysics
+Continuum Physics of the Solid Earth
+Special Topics in Geological Sciences
+rinciples of Biostatistics and Data Analysis
+pplied Regression Analysis
+
+Research at Brown crosses many traditional boundaries. The Division of Applied Mathematics is no exception: by its nature, our work is and always has been inter- and multi-disciplinary. Some of our faculty have degrees outside mathematics, and we interact with many disciplines at Brown and elsewhere, including engineering, computer science, finance and economics, geology, chemistry, biology, physics, cognitive science, neuroscience, and others.
+
+Our research ranges from applied and algorithmic problems to the study of fundamental mathematical questions. Our research teams include faculty, postdocs, graduate students, and undergraduate students. The main research areas represented in the Division are:
+
+Computational Biology, Mathematical Biology, Neuroscience
+Differential Equations and Fluid Dynamics
+Numerical Analysis and Scientific Computing
+Pattern Theory and Statistics/Applied Probability and Statistics
+Probability and Stochastic Processes
+he Robert J. & Nancy D. Carney Institute for Brain Science is committed to supporting research and facilitating collaborations in brain science across the Brown University community. A top priority of the institute is to build on our collective successes in generating funding for brain science and strengthening departments.
+
+Mission
+Our mission is to promote discovery and innovation in brain science by supporting a diverse community of experimentalists, theorists, engineers, and clinical scientists. We do this by recruiting and retaining world-class faculty, creating an outstanding collaborative training environment, seeding innovative projects, supporting collaborative teams, and raising the visibility and reputation of Carney researchers.
+
+Vision
+Our vision is to become a global leader in brain science, recognized for excellence, innovation, and discovery, and applying knowledge to improve lives and benefit society.
+
+About Robert J. Carney and Nancy D. Carney
+Robert J. Carney graduated in Brown’s undergraduate Class of 1961. He is founder and chairman of Vacation Publications, Inc. Previously he was a founder of Jet Capital Corp., a financial advisory firm, and Texas Air Corp, which owned Continental Airlines and several other airlines. Nancy Doerr Carney is a former television news producer.
+
+The Carneys, of Houston, are longtime supporters of Brown, including as the donors of the Robert J. and Nancy D. Carney University Professorship in Economics, the Robert J. and Nancy D. Carney Assistant Professorship, and the Robert J. and Nancy D. Carney Innovation Fund. Robert Carney’s generous volunteer service to Brown includes a long-term tenure as a trustee of the Corporation of Brown University and having served as the co-chair of his class’s 50th Reunion gift committee.
+
+A $100 million namesake gift in 2018 from Brown University alumnus Robert J. Carney and Nancy D. Carney established the institute as one of the best-endowed university brain institutes in the country. This gift will drive our research agenda, from studying genes and circuits, to healthy behavior, to brain disorders.
+The prime intellectual mission is to promote the development, implementation and application of analytical and computational methods to foundational questions in the biological and medical sciences. The research programs of the Core Faculty in CCMB lie fundamentally at the intersection of computer science, evolutionary biology, mathematics, and molecular and cellular biology.
+
+Biological questions
+Biological questions that currently unite the CCMB Core and Associate Faculty are:
+
+How do genotypes and genes interact to produce phenotypes, and how does this happen from womb to tomb?
+What drives the formation, maintenance and evolutionary transformations of communities of organisms over time?
+Quantitative questions that currently unite the CCMB faculty are: how can we design powerful algorithms to make sense of the sea of data produced in the genomic era?
+What principles are required for a theoretical framework to completely model cellular systems?
+Research challenges
+The research challenges at the heart of CCMB are a rich source of mathematical problems motivated by the complex nature of genomes, disease processes and evolutionary relationships. These challenges are both multi-scale (with units of interest ranging from molecules to communities of organisms) and large-scale (data-intensive, due to advances in sequencing technologies).
+CCV develops and manages high-performance computing, data storage, and visualization resources, provides physical and virtual server hosting, and offers high-performance backup and archival services for the Brown research community. CCV’s technical staff offer research system management services for departmental research computing systems on a quarterly service fee basis. CCV also maintains a one-petabyte Tivoli TSM backup/archive server for campus research data.  CCV develops and maintains parallel computing and Virtual Reality display resources for general use by the University research community.   CCV provides consulting services for the configuration and management of research computing facilities, and provides resource access for applications for technologies in Brown's curricula.  They also participate directly in graphics, visualization, and computational science research.   Since computational science and engineering are integral to Brown's evolving research programs and its curricula, CCV is committed to providing a resource environment and nexus of intellectual interaction that will facilitate the development of innovative multidiscipline collaboration in the spirit of Brown's open academic identity.
+The Center for Computation and Visualization provides high-performance computing and visualization services to the Brown community. We also collaborate with researchers on projects across vast range of disciplines.
+
+We envision an environment where computational best practices, innovative solutions, and expert knowledge combine to build advanced tools for research and to enable new discoveries. Our mission is to provide the scientific and technical computing expertise required to advance computational research and support Brown’s academic mission. In practice, this frequently means partnering with researchers for projects that may span weeks, months, or years. In some cases, these partnerships can involve researchers using grant funds as partial support of one of our research software engineers or data scientists. We have a team of data scientists and research software engineers with a huge variety of scientific backgrounds (e.g., Engineering, Physics, Computer Vision, Biology, Psychology, Statistics, Applied Math, Computer Science, etc.), so we can closely calibrate a person with a project.
+The Institute for Computational and Experimental Research in Mathematics (ICERM) was founded in 2010 by Brown University Professors Jill Pipher (lead PI), Jeffrey Brock (now at Yale), Jan Hesthaven (now at EPFL), Jeffrey Hoffstein and Bjorn Sandstede, through a major grant to Brown University from the National Science Foundation, Division of Mathematical Sciences. The vision for ICERM is encapsulated in its mission statement:
+
+The mission of the Institute for Computational and Experimental Research in Mathematics (ICERM) is to support and broaden the relationship between mathematics and computation: specifically, to expand the use of computational and experimental methods in mathematics, support theoretical advances related to computation, and address problems posed by the existence and use of the computer through mathematical tools, research and innovation.
+ICERM supports its mission by developing and hosting research programs and activities that:
+
+Encourage the creation of new computational methods to advance mathematical understanding.
+Foster a deeper understanding of algorithms and computational tools.
+Expose program participants to the use of simulation, visualization, experiments, or computer-assisted proofs.
+Catalyze new directions of mathematical research through synergistic collaborations across disciplinary areas and research communities.
+Advance the training and mentoring of graduate students and early-career postdoctoral researchers through exposure to new mathematical areas and computational methods.
+The institute benefits from its strong ties to the mathematical sciences departments at Brown, and from the vibrant educational community of colleges and universities across New England.
+
+ICERM is located in the middle of Brown’s expanding campus in Providence, Rhode Island, making it convenient to transportation hubs, hotels, and restaurants. The beautiful space and facilities that Brown provides for the institute and its visitors are among the university's substantial contributions to ICERM.
+The Lefschetz Center for Dynamical Systems at Brown University promotes research in dynamical systems interpreted in its broadest sense as the study of evolving systems, including partial differential and functional equations, stochastic processes and finite-dimensional systems. Interactions and collaborations among its members and other scientists, engineers and mathematicians have made the Lefschetz Center for Dynamical Systems one of the leading groups in dynamical systems and control theory.   
+
+The Lefschetz Center for Dynamical Systems originated in 1964, when a large group of mathematicians and control theorists came to Brown from the Research Institute for Advanced Studies (RIAS) in Baltimore. Solomon Lefschetz (1884-1972), its first director, was one of the most outstanding mathematicians of this century.  The Center has been privileged to name itself in his honor for these many years.
+The Center for Vision Research, part of Brown’s interdisciplinary Brain Science Program, promotes and facilitates research on biological vision, computational aspects of machine vision, visual disorders, and the brain mechanisms underlying vision. The CVR provides in-depth training in vision research to postdoctoral fellows, medical residents, graduate students, and undergraduates and serves as a unifying organization spanning traditional departments, as well helping to bridge the gap between basic research and clinical practice. Vision Research at Brown includes over 30 faculty from 10 departments. What sets the Brown vision community apart is the unusually strong interactions between departments, and especially between faculty members in more quantitative disciplines (e.g. applied math, computer science, engineering, physics) and faculty in more biological or behavior-oriented disciplines (e.g. cognitive science, neuroscience, psychology). Our goal is to nurture multidisciplinary and translational research. Examples include theoretical studies of vision and visual plasticity in concert with experimental tests; biologically-inspired vision models implemented in artificial systems; and models of visual-cortical processing to address "high-level" visual deficits in developmental disorders such as Autism Spectrum Disorder.
+Research conducted by the Crunch Group focuses on the development of stochastic multiscale methods for physical and biological applications, specifically numerical algorithms, visualization methods and parallel software for continuum and atomistic simulations in biophysics, fluid and solid mechanics, biomedical modeling and related applications. The main approach to numerical discretization is based on spectral/hp element methods, on multi-element polynomial chaos, and on stochastic molecular dynamics (DPD). The group is directed by Prof. George Em Karniadakis.  We invite you to visit both our DPD Club and Crunch FPDE Club websites.
+Research in this area targets nonlinear differential equations and dynamical systems that arise in the physical, social and life sciences. Among the equations considered are finite-dimensional dynamical systems, reaction-diffusion systems, hyperbolic conservation laws, max-plus operators and differential delay equations. Questions that are addressed for these systems include the existence and stability of nonlinear waves and patterns, kinetic theory, phase transitions, domain coarsening, and statistical theories of turbulence, to name but a few.  Even though the techniques can vary widely from case to case, a unifying philosophy is the combination of applications and theory that is in the great Brown tradition in this area of mathematics, which is being fostered by close collaboration among the members of the group:
+
+Constantine Dafermos:  Hyperbolic conservation laws
+
+Hongjie Dong: Linear and nonlinear elliptic and parabolic PDEs, fluid equations
+
+Yan Guo:  Partial differential equations, kinetic theory and fluids
+
+John Mallet-Paret:  Dynamical systems; differential–delay, lattice, and reaction–diffusion equations
+
+Govind Menon: Kinetics of phase transitions and models of domain coarsening, integrable systems, random matrix theory, statistical theories of turbulence.
+
+Bjorn Sandstede: Applied dynamical systems, nonlinear waves and patterns
+The Division of Applied Mathematics is an established leader in research on mathematical modeling for physical and physiological, multi-scale fluid mechanics. In general, fluid mechanics is an enabling science that describes dynamics over a wide spectrum of scales, ranging from the global scales of climate dynamics to the transport of suspended proteins through nano-pores. The focus of research in the Division has evolved as new challenges have emerged. This goes far beyond what has been seen as traditional fluid dynamics in the past and involves a broad scientific knowledge of biological and physio-chemical processes. The main activity of the fluids group is the theoretical description and numerical simulation of complex fluids, self-organization in active suspensions and biological processes relating to blood flow in the arterial tree, brain aneurysms, diseases of blood cells and bacterial locomotion. We have ongoing interests in multi-scale phenomena in turbulence, flow-structure interactions and multiphase flows. The fluids group maintains strong connections and collaborations with other faculty in Engineering and Physics and coordinates research seminars and graduate teaching. Interactions with groups in biological and biomedical research are expanding.  
+
+George Em Karniadakis: Multiscale modeling of biological systems, atomistic and mesoscopic simulation methods, flow-structure interactions, micro-transport and dynamic self-assembly
+
+M.R. Maxey: Active suspensions, bacterial swimming, multiphase flow, turbulence, particle-based simulation methods
+The Brown University pattern theory group is working with the belief that the world is complex, and to understand it, or a part of it, requires realistic representations of knowledge about it. We create such representations using a mathematical formalism, pattern theory, that is compositional in that the representations are built from simple primitives, combined into (often) complicated structures according to rules that can be deterministic or random. This is similar to the formation of molecules from atoms connected by various forms of bonds.  Pattern theory is transformational in that groups or semigroups of transformations operate on the primitives. These transformations express the invariances of the world we are looking at.  Pattern theory is variational in that it describes the variability of the phenomena observed in different applications in terms of probability measures that are used with a Bayesian interpretation. This leads to inferences that will be realized by computational algorithms. Our aim is to realize them through codes that can be executed on currently available hardware.  Please visit our seminars page.  Professors Stuart Geman and Matt Harrison are involved in this line of research.
+The research of the group includes a broad range of topics in probability theory and stochastic processes including stochastic partial differential equations, nonlinear filtering, measure-valued processes, deterministic and stochastic control theory, probabilistic approach to partial differential equations, stability and the qualitative theory of stochastic dynamical systems, theory of large deviations, Monte Carlo simulation, Gibbs measures and phase transitions, stochastic networks. There is also a major program in numerical methods for a variety of stochastic dynamical systems, including Markov chain approximations and spectral methods. 
+
+Hongjie Dong: stochastic processes, stochastic control theory, probabilistic approaches of PDEs
+
+Paul Dupuis: applied probability, control theory, large deviation, numerical methods, Monte Carlo.
+
+Kavita Ramanan: Probability theory and stochastic processes, reflected diffusions, Gibbs measures and phase transitions, large deviations, measure-valued processes, stochastic networks
+
+Boris Rozovsky: analysis of stochastic partial differential equations (SPDEs), numerical methods for SPDEs, stochastic fluid dynamics, nonlinear filtering for hidden Markov models 
+
+Hui Wang: stochastic optimization, large deviations, stochastic networks, fast simulation
+The Division’s research in this area mostly focuses on developing efficient and stable numerical methods for approximating solutions to partial and stochastic differential equations that arise in a wide range of engineering and science applications. For decades now the scientific computing and numerical analysis group has been at the forefront in the development of higher-order methods such as spectral methods, spectral element methods, discontinuous Galerkin methods and WENO finite difference and finite volume methods. In more recent years research has also focused on uncertainty quantification, reduced order modeling, multi-scale methods, a-posteriori estimation, adaptivity and compatible discretizations.  Parallel computing and/or GPU processors are being used for large-scale computations.  Interdisciplinary collaborations have included projects with faculty from biology, geology, and engineering, to name a few.  
+
+Mark Ainsworth: Finite element methods: adaptivity, a-posteriori error control, Implementation using Bernstein- Bézier techniques, Dissipative and dispersive properties.
+
+Jerome Darbon:  Efficient algorithms for variational/Bayesian estimations and connections with Hamilton-Jacobi PDEs • Combinatorial optimization, especially network flows and graph-based algorithms • Stochastic sampling algorithms, especially perfect samplers • Algorithm/architecture co-design including low level implementation • Applications to denoising, geomorphology, remote sensing, biological, medical, historical, radar and inverse problems in imaging sciences
+
+Johnny Guzmán:  Discontinuous Galerkin methods, Mixed methods/compatible discretizations, Local error analysis 
+
+George Em Karniadakis:  Stochastic PDEs and stochastic multi-scale modeling, Fractional PDEs, Spectral element methods, Parallell computing
+
+Chi-Wang Shu:  High order methods for hyperbolic and convection dominated PDEs, Computational fluid dynamics
+The Statistical Molecular Biology Group at Brown University is led by Chip Lawrence, Professor of Applied Mathematics.  The group's research energies are focused on statistical inference in molecular biology, genomics, and paleo-climatology, most specifically on several different high-dimensional (High-D) discrete inference problems in sequence data.  These problems include genome arrangements, analysis of repeated sequences in genomes, and RNA editing and structure.  Data from repeated genome sequences are well suited for processing by implementing the probabilistic models developed by the group's members. Another facet of our research concerns the growing interest in drawing statistical inferences on the history of climate and its implications for modern climate change using data from ocean sediments and ice cores.  A wide network of collaboration has brought about extensive know-how and creativity to the group's research.  Among our many collaborators are several Brown faculty members: Professors Susan Gerbi and Robert Reenan from Molecular and Cellular Biology; Professor Case Dunn from Ecology and Evolutionary Biology; Professor Ben Raphael from Computer Science; Professor Tim Herbert in Earth, Environmental and Planetary Science; and Professor Lorraine Lisiecki from the Geology Department at UC Santa Barbara.
+
+Research in this area focuses on nonlinear differential equations and dynamical systems that arise in the physical, social, and life sciences.  Among the equations considered are finite-dimensional dynamical systems, reaction-diffusion systems, hyperbolic conservation laws, max-plus operators and differential delay equations.  Questions that are addressed for these systems include the existence and stability of nonlinear waves and patterns, kinetic theory, phase transitions, domain coarsening, and statistical theories of turbulence, to name but a few.  Even though the techniques can vary widely from case to case, a unifying philosophy is the combination of applications and theory that is in the great Brown tradition in this area of mathematics, which is being fostered by close collaboration among the members of the group. Faculty involved in this research area include: Professors Dafermos, Dong, Guo,  Mallet-Paret, Menon, Sandstede, Strauss.
+The Division of Applied Mathematics is an established leader in research on mathematical modeling for physical and physiological, multi-scale fluid mechanics.  In general, fluid mechanics is an enabling science that describes dynamics over a wide spectrum of scales, ranging from the global scales of climate dynamics to the transport of suspended proteins through nano-pores.  The focus of research in the Division has evolved as new challenges have emerged.  This goes far beyond what has been seen as traditional fluid dynamics in the past and requires a broad scientific knowledge of biological and physio-chemical processes.  The main activity of the fluids group is the theoretical description and numerical simulation of complex fluids, self-organization in active suspensions and biological processes relating to blood flow in the arterial tree, brain aneurysms, diseases of blood cells and bacterial locomotion.  There exist ongoing interests in multi-scale phenomena in turbulence, flow-structure interactions and multiphase flows.  The fluids group maintains strong connections with other faculty in Engineering and Physics and coordinates research seminars and graduate teaching.  Collaborations with groups in biological and biomedical research are rapidly expanding.  Faculty involved in this group include Professors Karniadakis, Maxey and Su. Please visit Fluids at Brown.
+This research area is inherently multidisciplinary. It has undergone phenomenal growth in response to the successes of modern computational methods in increasing the understanding of fundamental problems in science and engineering. The Division’s program in scientific computation and numerical analysis has kept pace with these developments and relates to most of the other research activities in the Division. Special emphasis has been given to newly developed, high-order techniques for the solution of the linear and nonlinear partial differential equations that arise in control theory and fluid dynamics. Numerical methods for the discontinuous problems that arise in shock wave propagation and for stochastic PDEs and uncertainty modeling are being studied. Emphasis is also being placed on the solution of large-scale linear systems and on the use of parallel processors in linear and nonlinear problems. Faculty devoted to this research include Professors Ainsworth, Darbon, Guzmán, Karniadakis, and Shu.  Please visit Scientific Computing at Brown!
+Research in pattern theory seeks to develop models of complex systems and statistical methods and algorithms for the interpretation of high-dimensional data.  Pattern theory research is  also typically interdisciplinary; it includes collaborations with computer scientists, engineers, cognitive and neural scientists, and molecular biologists.  Most of pattern theory research relies on tools from mathematical analysis, probability theory, applied and theoretical statistics, and stochastic processes.  Recent applications include the development of models for computation and representation in primate visual pathways, as well as the development of statistical methods for Bayesian non-parametrics, network analysis, the interpretation of multi-electrode neurophysiological recordings, image processing and image analysis, and the analyses of genome-wide expression data and cellular regulatory pathways. Faculty involved in this research endeavor include Professors Bienenstock, Geman, Gidas, Harrison, and Lawrence.
+The Division has long been a leader in stochastic systems theory and its applications, as well as at the forefront of current developments in probability theory, random processes and related computational methods.  Research in probability theory and stochastic processes include stochastic partial differential equations, nonlinear filtering, measure-valued processes, deterministic and stochastic control theory, probabilistic approaches to partial differential equations, stability and the qualitative theory of stochastic dynamical systems, the theory of large deviations.  Our research endeavors also include Monte Carlo simulation, Gibbs measures and phase transitions, as well as stochastic networks.  There also exists a major program in numerical methods for a variety of stochastic dynamical systems, including Markov chain approximations and spectral methods.  Faculty involved in this research are Professors Dong, Dupuis, Ramanan, Rozovsky, and Wang.
+Vision research at Brown includes over 30 faculty from 10 different departments. What sets the Brown vision community apart is the unusually strong interaction between departments, and especially between faculty members in more quantitative disciplines (e.g. applied math, computer science, engineering, physics) and faculty in more biological or behavior-oriented disciplines (e.g. cognitive science, neuroscience, psychology).  Our goal is to nurture multidisciplinary and translational research. Examples include theoretical studies of vision and visual plasticity in concert with experimental tests; biologically-inspired vision models implemented in artificial systems; and models of visual-cortical processing to address "high-level" visual deficits in developmental disorders such as Autism Spectrum Disorder.  Professor Geman currently pioneers this research exploration within the Division.
+The ARO MURI project on Fractional Partial Differential Equations seeks to address the common physical themes of anomalous transport, exponentially accelerated fronts, non-Markovian behavior and long-range interactions, self-similarity and scaling, singular behavior, interfaces, and finite-domain decorrelation effects.  In addition, investigators will develop rigorous mathematical theory, algorithms, and software for data-driven fractional PDEs that will provide significant breakthroughs toward modeling, analyzing, and subsequently controlling complex multiscale systems characterized by the aforementioned phenomena in a computationally scalable way.  This project will demonstrate the physical relevance and effectiveness of our framework in diverse applications of interest to the Department of Defense, characterized by the common themes of conservation, monotonicity, adaptive refinement, and high-order accuracy.
+The goal of this Research Training Group (RTG) on "Integrating Dynamics and Stochastics (IDyaS) is to broaden and enhance the scope and quality of the educational and research training provided to graduate students and postdoctoral fellows by integrating research and education in the fields of dynamics, stochastics, and their applications and to involve more undergraduate students in courses and research experiences in applied mathematics.  This Research Training Group is funded by the National Science Foundation through grant DMS-1148284, and is part of the Lefschetz Center for Dynamical Systems.
+This IGERT award entitled, "Reverse Ecology:  Computational Integration of Genomes, Organisms, and Environments," supports a novel graduate program to train PhDs at the interface of computational biology, genomics and environmental science. It leverages new education and research collaborations between Brown University and the Marine Biological Laboratories. Reverse Ecology is the application of genomic approaches to living systems to uncover the genetic bases of functional variation in nature. The revolution in high-throughput DNA sequencing and gene expression technologies redefines the notion of a 'model' organism. The interrogation of genomes from animals, plants, microbes or communities of organisms can identify genetic markers of processes at any scale: ecological, physiological, developmental, transcriptional, etc. The full interpretation of these powerful datasets demands intellectual dialogue between ecosystems ecologists, microbial geneticists, biogeochemists, and computational biologists. We will train a cohort of PhDs who can apply these technologies creatively and convert genomic and computational power into novel insights of how organisms function in their natural environments.

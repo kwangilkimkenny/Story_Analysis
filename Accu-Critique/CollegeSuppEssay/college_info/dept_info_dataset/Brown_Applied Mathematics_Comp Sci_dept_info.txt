@@ -1,0 +1,57 @@
+School Name: Brown
+Department: Applied Mathematics 
+Major: Applied Mathematics–Computer Science
+
+The Sc.B. concentration in Applied Math-Computer Science provides a foundation of basic concepts and methodology of mathematical analysis and computation and prepares students for advanced work in computer science, applied mathematics, and scientific computation. Concentrators must complete courses in mathematics, applied math, computer science, and an approved English writing course. While the concentration in Applied Math-Computer Science allows students to develop the use of quantitative methods in thinking about and solving problems, knowledge that is valuable in all walks of life, students who have completed the concentration have pursued graduate study, computer consulting and information industries, and scientific and statistical analysis careers in industry or government. This degree offers a standard track and a professional track.
+
+Our mission rests in research, education, and scholarship. Our faculty engages in research in a range of areas from applied and algorithmic problems to the study of fundamental mathematical questions. By its nature, our work is and always has been inter- and multi-disciplinary. Among the research areas represented in the Division are dynamical systems and partial differential equations, control theory, probability and stochastic processes, numerical analysis and scientific computing, fluid mechanics, computational molecular biology, statistics, and pattern theory. Our graduate program in applied mathematics includes around 50 Ph.D. students, with many of them working on interdisciplinary projects. We offer undergraduate degrees in Applied Mathematics, Applied Math–Biology, Applied Math–Computer Science, and Applied Math–Economics. Our faculty actively involve undergraduates in summer research projects and offer many independent studies every year. 
+
+The Division of Applied Mathematics is one of the most prominent departments at Brown, and one of the oldest and strongest of its type in the entire country. The Division had its origin in the program of Advanced Instruction and Research in Mechanics, established in 1941 on the recommendation of a committee of the National Research Council. This early program focused on solid and fluid mechanics, electromagnetic theory, mathematical methods in applied physics, numerical analysis and probability theory—the principal interests of the faculty for many years.  Since then the interests of the faculty have expanded and diversified, as the Division has maintained a leading role in the development of applied mathematics both in the United States and throughout the world. In 1964, for example, the Center for Dynamical Systems was established to coordinate the research of a large group of people working in ordinary and partial differential equations and their applications. More recently, programs at the forefront of research in scientific computing and in applied probability and statistics have been established.
+
+The mission of the Division of Applied Mathematics rests on research, education, and scholarship. We focus our research and teaching on a wide range of areas from applied and algorithmic problems to the study of fundamental mathematical questions. In particular, we explore the connections between mathematics and its applications in biology, chemistry, engineering, geosciences, neuroscience, physics and other disciplines at the research and educational levels. Our educational efforts are realized primarily through our graduate PhD program and our four undergraduate concentrations.   
+
+Professor George Karniadakis receives the SIAM/ACM Prize
+The Division of Applied Mathematics congratulates Professor George Karniadakis who will receive the 2021 SIAM/ACM Prize in Computational Science and Engineering.  This award by the Society for Industrial and Applied Mathematics (SIAM) and the Association for Computing Machinery (ACM) recognizes individuals for their outstanding contributions to the development and use of mathematical and computational tools and methods for the solution of science and engineering problems. 
+
+Professor Chi-Wang Shu was awarded the 2021 John von Neumann Prize
+Professor Chi-Wang Shu was awarded the 2021 John von Neumann Prize and will deliver the 2021 John von Neumann Lecture at the 2021 SIAM Annual Meeting (AN21) scheduled for July 19-23, 2021, in Spokane, Washington.  SIAM awards the John von Neumann Prize every year to an individual for outstanding and distinguished contributions to the field of applied mathematics and for the effective communication of these ideas to the community. It is one of SIAM's most distinguished prizes as well as an important lecture at the SIAM Annual Meeting.  Chi-Wang Shu was awarded this prize to recognize his fundamental contributions to the numerical solution of partial differential equations.  His work on finite difference essentially non-oscillatory (ENO) methods, weighted ENO (WENO) methods, finite element discontinuous Galerkin methods, and spectral methods has had a major impact on scientific computing.
+
+Associate Professor Caroline Klivans has been featured on "Top Influential Mathematicians Today"
+Associate Professor Caroline Klivans was featured on "Top Influential Mathematicians Today" along with 25 influential mathematicians for her contributions to chip-firing games and sandpile models.  Chip-firing games are an important method in developing and understanding the properties of finite structures, which have implications for fields beyond mathematics.  Professor Klivans is seen as the leading authority on the subject.  
+
+"The Mathematical Investigations of Dr. O and Arya"
+A recent graduate (2020) from the Division of Applied Mathematics, Arya Okten, published a math book with her father entitled, "The Mathematical Investigations of Dr. O and Arya."  It is aimed at students between the ages of 9-14, that will be launched on December 1st.  The book is focussed on making advanced mathematical topics accessible and enjoyable to children. The book uses a combination of games, and history to explain topics from number theory to probability.  The book is available for pre-order now and officially launches on December 1st. Here are the links to the publisher's page for the book, and the Amazon page.  
+
+Largest NSF grant in university history
+The National Science Foundation has awarded the largest grant in university history to renew ICERM, Brown's math institute.  ICERM's unique mission is to bring about new technologies in the realm of computation and experimentation into pure and applied mathematics.  The institute brings together renowned mathematicians and researchers, as well as students, from around the world.
+
+Applied Mathematics has a profound impact on our daily lives. Whether it is weather forecasts,
+search engines, climate research, secure online shopping, or movie recommendations, none of
+these would work the way they do without algorithms and tools from the mathematical sciences.
+More generally, Applied Mathematics is an inherently interdisciplinary subject, which covers a
+wide spectrum of scientific activities. It is the mathematics of problems arising in the physical,
+life and social sciences as well as in engineering, and provides a broad qualitative and quantitative
+background for use in these fields.
+Owing to its nature, Applied Mathematics appeals to people with a variety of different interests,
+ranging from those with a desire to obtain a good quantitative background for use in some future
+career, to those who wish to have a better understanding of the basic mathematical aspects of
+other fields, or to those who are interested in the fundamental mathematical techniques and
+approaches in themselves. Many students begin taking courses in the Division of Applied
+Mathematics and discover their favorite areas of study as they go along. The program stresses
+but is not limited to computing, differential equations, and applied probability which are areas
+of mathematics that are used most often in applications in science, society and industry. The
+curriculum of the Division is flexible enough to meet the goals and interests of a very wide range
+of students.
+The basic mathematical skills of Applied Mathematics come from a variety of sources, which
+depend on problems from areas of interest: the theory of ordinary and partial differential
+equations, matrix theory, statistical sciences, probability and decision theory, risk and insurance
+analysis, the classical methods for formulating and solving problems in the sciences, operational
+analysis, optimization theory, the mechanics of solid materials and of fluids flows, numerical
+analysis, scientific computation and the science of modern computer based modeling.
+Students take courses in applied mathematics for many reasons, not necessarily with an applied
+mathematics concentration in mind. The value of learning about applied mathematics goes 
+4 | Page
+beyond a career opportunity. It provides an education in the use of quantitative methods in
+thinking about and solving problems: knowledge that is valuable in all walks of life.
+
+
