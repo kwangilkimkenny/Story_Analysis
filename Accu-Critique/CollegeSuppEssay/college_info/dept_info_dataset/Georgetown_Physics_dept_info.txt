@@ -1,0 +1,8 @@
+School Name: Georgetown
+Department: Department of Physics
+Major: Physics
+
+Welcome to Undergraduate Physics at Georgetown! We are a group of friendly and welcoming faculty and students working together to understand the mysteries of the Universe. Our students form a close-knit community in which the pursuit of excellence is more often cooperative than competitive. Since the number of majors we graduate each year (typically between 10 and 20) is about the same size as our faculty, our students get a lot of personal attention, especially since all of our courses are taught by faculty members, not graduate students. The faculty also encourage undergraduates to get involved in their research, as early as freshman year. Most of our majors take advantage of the fantastic opportunity to work directly with internationally-known faculty on cutting-edge research. Many of our students even become authors on published scientific papers and/or present their work at national and international meetings.
+
+Our department offers B.S. and A.B. degrees in Physics, B.S. and A.B. degrees in Biological Physics, and a minor in Physics. Our B.S. majors often go on to top graduate schools in physics, biophysics, applied physics, materials science, and engineering. Since quantitative skills and an ability to analyze and solve difficult problems are prized in a wide variety of fields, our B.S. and A.B. majors are well-prepared for many different types of jobs. To this end, in recent years, some of our majors have gone on to top medical, law, and business schools, whereas others have taken jobs in finance, at software companies, at consulting firms, in scientific laboratories, in policy institutes, and in teaching.
+

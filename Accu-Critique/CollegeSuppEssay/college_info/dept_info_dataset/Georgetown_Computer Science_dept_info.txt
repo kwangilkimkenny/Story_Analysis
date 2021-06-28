@@ -1,0 +1,12 @@
+School Name: Georgetown
+Department: Department of Computer Science
+Major: Computer Science
+
+The Department of Computer Science at Georgetown University, in the heart of Washington, DC, is home to higher education and advanced research on the cutting edge of computing and technology. BS, BA, MS, and Ph.D. programs connect students with the ideas, skills, and opportunities to shape the digital world we live in. The department is rapidly growing, with current core research areas of algorithms and theory; security, privacy, and cryptography; and data-centric computing. Faculty members in the department have been honored with a Gödel Prize, Test-of-Time awards, membership in the European Academy of Sciences and Arts, NSF CAREER awards, and Best Paper awards, among other accolades. Students and faculty engage beyond the department through interdisciplinary courses and research, campus initiatives like guWeCode, public and private sector internships, local computing groups, and regional events.
+
+Georgetown University’s Department of Computer Science is a premier destination for research and education. We have faculty working in the areas of algorithms, artificial intelligence, bioinformatics, computer and network security, cryptography, database systems, data mining, distributed algorithms, human-computer interaction, information assurance, information retrieval, machine learning, networking, parallel algorithms, systems, theory, and visual analytics.
+
+Because of our small size, we provide considerable opportunity for interaction with faculty through independent studies, research, and social events. We are a student-centric department that focuses on providing students with a rich education and a wide range of job prospects after graduation. Being in the heart of Washington, DC also gives our students a strong quality of life and opportunities to engage in public and private sector internships, local computing groups, and regional events.
+
+
+

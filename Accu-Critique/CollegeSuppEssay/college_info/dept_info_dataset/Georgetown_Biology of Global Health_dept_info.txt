@@ -1,0 +1,64 @@
+School Name: Georgetown
+Department: Department of Biology
+Major: Biology of Global Health
+
+Our department’s laboratory design promotes meaningful and productive interactions, while numerous study spaces support innovative and collaborative education. This, combined with our strong ties to the research-oriented Georgetown Medical School, the NIH, and other universities in the DC area, provide an exceptional environment for learning and scholarship.
+
+Members of the Biology department are committed to undergraduate and graduate education and research. Our students learn the fundamentals of the life sciences, gain skills in communication, obtain knowledge of experimental design, and learn how to critically analyze data that will benefit them throughout their lives. We have worked to create a strong sense of collegiality between students and their professors at the undergraduate and graduate level.
+
+Pedagogy & Learning Goals
+The faculty in Department of Biology have a deep interest in developing new and using the best practices of biology pedagogy, at the undergraduate and graduate levels.
+
+Several faculty members have received credentials in pedagogy, attended conferences on biology education, and have published on teaching innovations.
+
+Prof. Heidi Elmendorf, 2014 Carnegie Foundation for the Advancement of Teaching’s District of Columbia Professor of the Year
+Prof. Janet Mann, Biology Mentorship Award from the Council on Undergraduate Research, 2011
+Prof. Peter Armbruster, National Academies Education Fellow in the Life Sciences, 2007; National Academies Education Mentor in the Life Sciences, 2009
+Prof. Heidi Elmendorf, Carnegie Scholar
+Prof. Ronda Rolfes, National Academies Education Fellow in the Life Sciences, 2008
+Prof. Martha Weiss, National Academies Education Fellow in the Life Sciences, 2007
+Active Learning and Student-centered Pedagogy Improve Student Attitudes and Performance in Introductory Biology authored by Profs. Peter Armbruster, Maya Patel, Erika Johnson and Martha Weiss, published in CBE Life Sciences Education, Fall 2009. ARTICLE PDF
+Doyle Faculty Fellowships
+Doyle Faculty Fellowships are designed to support full-time faculty in choosing one of their undergraduate courses to redesign, with a goal of enhancing or incorporating themes of difference and diversity. The fundamental goal of the Doyle Fellowships is to enable faculty to create inclusive pedagogies and diversified course content that will transform the teaching and learning experience for themselves and their students in deep and varied ways.
+
+There have been 4 Georgetown Doyle fellows – 
+
+Mun Chun Chan 2017-2018
+Elena Silva 2016-2017
+Sarah Johnson 2015-2016
+Maria Donoghue 2010-2011
+Department-wide Learning Goals
+Towards this end, we have developed a set of department-wide learning goals describing the fundamental concepts in biology as well as the developing insight into the process and product of biological science.
+
+We have examined each course in our curriculum to determine where students are introduced to each learning goal, where the learning goal is reinforced, and finally, where we demand mastery.
+
+Textbook and curriculum in Population Genetics
+Prof. Matthew Hamilton is the author of a survey textbook on Population Genetics for advanced undergraduate and graduate students. This text, published by Wiley-Blackwell in 2009, was designed to teach fundamental concepts in evolutionary genetics through an understanding of conceptual and mathematical foundations, and with interactive lessons and simulations developed with support from Georgetown’s Initiative for Technology Enhanced Learning (ITEL).
+ 
+
+Efforts to bring genomics and bioinformatics to undergraduate research programs
+Prof. Anne Rosenwald is a leader in development of research materials for undergraduates to use that are based on the latest technologies. Several groups of Georgetown students have conducted research projects to examine changes in gene expression using DNA microarray analysis. She has led workshops to teach educators on how to implement this technology in their classrooms and is a coauthor on an article published about teaching and microarrays.
+
+Generating a Community for Undergraduate Research Through the Use of Comparative Microbial Genomics is a project funded by the National Science Foundation. This grant was authored by Anne Rosenwald and Janet Russell from the GU’s Center for New Designs in Learning and Scholarship, Jennifer Roecklein-Canfield from Simmons College, and Ramana Madupu from J. Craig Venter Institute (JCVI).
+Genome consortium for active teaching (GCAT), authored by A. Malcolm Campbell, Todd T. Eckdahl, Edison Fowlks, Laurie J. Heyer, Laura L.M. Hoopes, Mary Lee Ledbetter and Anne G. Rosenwald in Science 311, 1103-1104 (2006)
+Genome Consortium for Active Teaching: Meeting the Goals of BIO2010, authored by A. Malcolm Campbell, Mary Lee S. Ledbetter, Laura L.M. Hoopes, Todd T. Eckdahl, Laurie J. Heyer, Anne Rosenwald, Edison Fowlks, Scott Tonidandel, Brooke Bucholtz and Gail Gottfried in CBE Life Sciences Education, Summer 2007. ARTICLE PDF
+Genomics Education Partnership (GEP)
+Consortium of faculty from primarily undergraduate institutions working together to promote undergraduate students using genomic approaches to solve scientific problems. Current efforts are geared towards understanding the evolution of the dot chromosome in Drosophila by comparative genomics. Students contribute to both sequence finishing and annotation projects.
+
+Genomics Education Partnership authored by D. Lopatto, C. Alvarez, D. Barnard, C. Chandrasekaran, H.-M. Chung, C. Du, T. Eckdahl, A.L. Goodman, C. Hauser, C.J. Jones, O.R. Kopp, G.A. Kuleck, G. McNeil, R. Morris, J.L. Myka, A. Nagengast, P.J. Overvoorde, J.L. Poet, K. Reed, G. Regisford, D. Revie, A. Rosenwald, K. Saville, M. Shaw, G.R. Skuse, C. Smith, M. Smith, M. Spratt, J. Stamm, J.S. Thompson, B.A. Wilson, C. Witkowski, J. Youngblom, W. Leung, C. Shaffer, J. Buhler, E. Mardis, and S.C.R. Elgin in Science 322, 684-685 (2008).
+The Genomics Education Partnership: Successful Integration of Research into Laboratory Classes at a Diverse Group of Undergraduate Institutions authored by C.D Shaffer, C. Alvarez, C. Bailey, D. Barnard, S. Bhalla, C. Chandrasekaran, V. Chandrasekaran, H.M. Chung, D.R. Dorer, C. Du, T.T Eckdahl, J.L. Poet, D. Frohlich, A.L. Goodman, Y. Gosser, C. Hauser, L.M. Hoopes, D. Johnson, C.J. Jones, M. Kaehler, N. Kokan, O.R. Kopp, G.A. Kuleck, G. McNeil, R. Moss, J.L. Myka, A. Nagengast, R. Morris, P.J. Overvoorde, E. Shoop, S. Parrish, K. Reed, E.G. Regisford, D. Revie, A.G. Rosenwald, K. Saville, S. Schroeder, M. Shaw, G. Skuse, C. Smith, M. Smith, E. Spana, M. Spratt, J. Stamm, J.S. Thompson, M. Wawersik, B.A. Wilson, J. Youngblom, W. Leung, E.R. Mardis, D. Lopatto, and S.C.R. Elgin in CBE Life Sci Educ 13, 111-130 (2014).
+A Central Support System Can Facilitate Implementation and Sustainability of a Classroom-Based Undergraduate Research Experience (CURE) in Genomics authored by D. Lopatto, C. Hauser, C.J. Jones, D. Paetkau, V. Chandrasekaran, D. Dunbar, C. MacKinnon, J. Stamm, C. Alvarez, D. Barnard, J.E. Bedard, A.E. Bednarski, S. Bhalla, J.M. Braverman, M. Burg, H.M. Chung, R.J. DeJong, J.R. DiAngelo, C. Du, T.T. Eckdahl, J. Emerson, A. Frary, D. Frohlich, A.L. Goodman, Y. Gosser, S. Govind, A. Haberman, A.T. Hark, A. Hoogewerf, D. Johnson, L. Kadlec, M. Kaehler, S,C, Key, N.P. Kokan, O.R. Kopp, G.A. Kuleck, J. Lopilato, J.C. Martinez-Cruzado, G. McNeil, S. Mel, A. Nagengast, P.J. Overvoorde, S. Parrish, M.L. Preuss, L.D. Reed, E.G. Regisford, D. Revie, S. Robic, J.A. Roecklien-Canfield, A.G. Rosenwald, M.R. Rubin, K. Saville, S. Schroeder, K.A. Sharif, M. Shaw, G. Skuse, C.D. Smith, M. Smith, S.T. Smith, E.P. Spana, M. Spratt, A. Sreenivasan, J.S. Thompson, M. Wawersik, M.J. Wolyniak, J. Youngblom, L. Zhou, J. Buhler, E. Mardis, W. Leung, C.D. Shaffer, J. Threlfall, S.C. Elgin.
+CBE Life Sci Educ 2014 Winter;13(4):711-23
+Reseach Opportunities for Undergraduates
+Traditionally, a majority of undergraduate students conduct research in the laboratory, in the field, or computationally under the direction of faculty mentors in the Department of Biology, the Medical Center or at local research institutions. Other students commit themselves to developing lesson plans and engaging high school students in biology. Follow these links for information on undergraduate research opportunities or the titles of senior theses.
+
+Graduate Students and Learning to Teach
+All graduate students in the Department of Biology learn how to teach in a pedagogy course. They can also receive a Teaching Apprenticeship Certificate through participation in workshops sponsored by the Center for New Designs in Learning and Scholarship.
+
+Vision and Change in Undergraduate Biology
+Biology Profs. Heidi Elmendorf, Peter Armbruster and Ronda Rolfes and Dean Alison Whitmer participated in the AAAS- and NSF-sponsored conference “Transforming Undergraduate Education in Biology: Mobilizing the Community for Change” in July 2009. Posters were presented on “Learning Goals & Curricular Changes” and “Transforming Introductory Biology” and attending faculty participated in workshops.
+
+Transforming Undergraduate Biology Education for All Students: An Action Plan for the Twenty-First Century authored by Terry Woodin, Diane Smith and Deborah Allen in CBE Life Sciences Education, Winter 2009. ARTICLE PDF
+
+
+
