@@ -1,4 +1,5 @@
-# upgrade... 2021_07_28
+# # upgrade... 2021_07_28
+
 
 #conflict
 import pickle
@@ -21,7 +22,14 @@ def key_value_print (dictonrytemp) :
 # with open('nltk_punkt.pickle', 'wb') as f:
 #     pickle.dump(punkt, f, pickle.HIGHEST_PROTOCOL)
 
-with open('./accu_ps/plot_conflict/nltk_punkt.pickle', 'rb') as f:
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -- > kyle upgrade...
+# after upgrade, return below code!
+
+# with open('./accu_ps/plot_conflict/nltk_punkt.pickle', 'rb') as f:
+#     punkt = pickle.load(f)
+
+
+with open('nltk_punkt.pickle', 'rb') as f:
     punkt = pickle.load(f)
 
 
@@ -30,16 +38,15 @@ with open('./accu_ps/plot_conflict/nltk_punkt.pickle', 'rb') as f:
 # with open('vader_lexicon.pickle', 'wb') as f:
 #     pickle.dump(punkt, f, pickle.HIGHEST_PROTOCOL)
 
-with open('./accu_ps/plot_conflict/vader_lexicon.pickle', 'rb') as f:
+with open('vader_lexicon.pickle', 'rb') as f:
     vader_lexicon = pickle.load(f)
-
 
 # 다운로드 이미 완료, 실행시 사용하지 않음
 # averaged_perceptron_tagger  = nltk.download('averaged_perceptron_tagger')
 # with open('averaged_perceptron_tagger.pickle', 'wb') as f:
 #     pickle.dump(punkt, f, pickle.HIGHEST_PROTOCOL)
     
-with open('./accu_ps/plot_conflict/averaged_perceptron_tagger.pickle', 'rb') as f:
+with open('averaged_perceptron_tagger.pickle', 'rb') as f:
     averaged_perceptron_tagger = pickle.load(f)
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer 
@@ -61,7 +68,7 @@ import nltk
 # with open('stopwords.pickle', 'wb') as f:
 #     pickle.dump(stopwords, f, pickle.HIGHEST_PROTOCOL)
     
-with open('./accu_ps/plot_conflict/stopwords.pickle', 'rb') as f:
+with open('stopwords.pickle', 'rb') as f:
     stopwords = pickle.load(f)
 
 from nltk.corpus import stopwords
@@ -83,16 +90,22 @@ from nltk.tokenize import RegexpTokenizer
 from collections import defaultdict
 
 
+
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -- > kyle upgrade...
+# after upgrade, return below code!
+
+# from accu_ps.data.model import BertForMultiLabelClassification
+# from accu_ps.data.multilabel_pipeline import MultiLabelPipeline
+
 from transformers import BertTokenizer
-from accu_ps.data.model import BertForMultiLabelClassification
-from accu_ps.data.multilabel_pipeline import MultiLabelPipeline
-
-
 from model import BertForMultiLabelClassification
 from multilabel_pipeline import MultiLabelPipeline
 
 
 
+# 다운로드했기 때문에 실행시는 사용하지 않음
+tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-original")
+model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
 
 
 # # save tokenizer ---> 계산속도 줄이기위해서 미리 저장, 저장했기 때문에 실행시는 사용하지 않음
@@ -100,18 +113,33 @@ from multilabel_pipeline import MultiLabelPipeline
 #     pickle.dump(tokenizer, f, pickle.HIGHEST_PROTOCOL)
 
 # # save model ---> 계산속도 줄이기위해서 미리 저장, 저장했기 때문에 실행시는 사용하지 않음
-
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -- > kyle upgrade...
+# after upgrade, return below code!
 # with open('/var/www/html/essayfit/accu_ps/plot_conflict/data_model.pickle', 'wb') as g:
 #     pickle.dump(model, g, pickle.HIGHEST_PROTOCOL)
 
+with open('data_model.pickle', 'wb') as g:
+    pickle.dump(model, g, pickle.HIGHEST_PROTOCOL)
+
 
 # open tokenizer
-with open('/var/www/html/essayfit/accu_ps/plot_conflict/data_tokenizer.pickle', 'rb') as f:
-    tokenizer = pickle.load(f)
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -- > kyle upgrade...
+# after upgrade, return below code!
+# with open('/var/www/html/essayfit/accu_ps/plot_conflict/data_tokenizer.pickle', 'rb') as f:
+#     tokenizer = pickle.load(f)
 
 
-with open('/var/www/html/essayfit/accu_ps/plot_conflict/data_model.pickle', 'rb') as g:
+# open model  --------> 이거새으 400MB 가 넘어서 git에 올라가지 않음, 그럴경우 아래 코드의 주석을 풀어서 사용해야 함
+######----- model 주석 해제하여 사용할 것  ----####
+# model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
+
+with open('data_model.pickle', 'rb') as g:
     model = pickle.load(g)
+
+
+
+# with open('/var/www/html/essayfit/accu_ps/plot_conflict/data_model.pickle', 'rb') as g:
+#     model = pickle.load(g)
 
 
 goemotions = MultiLabelPipeline(
@@ -1250,7 +1278,7 @@ def ai_emotion_analysis(input_text, promt_number):
     elif re_mood == 'joyful':
         sentence1 = 'You’ve intended to write the essay in a joyful mood.'
         sentence2 = 'The AI’s analysis shows that your personal statement’s mood seems to be joyful.'
-
+                     
     elif re_mood == 'calm':
         sentence1 = 'You’ve intended to write the essay in a calm mood.'
         sentence2 = 'The AI’s analysis shows that your personal statement’s mood seems to be calm.'
@@ -1329,7 +1357,7 @@ def ai_emotion_analysis(input_text, promt_number):
     
     
     # 결과해석
-
+  
     # result_emo_list: 문장 + 감성분석결과
     # intendedMoodByPmt : intended mood 
     # detected_mood : 대표 Mood
@@ -1343,7 +1371,7 @@ def ai_emotion_analysis(input_text, promt_number):
     for itm in key_emo[:5]:
         #print(itm[0])
         ps_ext_emo.append(itm[0])
-
+ 
     #print(ps_ext_emo)
     
     group_ext_emo = [] # 그룹 에세이에서 추출한 5개의 평균 대표감성 5개
@@ -1915,39 +1943,39 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
 ## 실행 ###
 # - 입력값 - #
 
-# prompt_no = 'ques_one' #이런 형식으로 넣어야 함
+prompt_no = 'ques_one' #이런 형식으로 넣어야 함
 
-# input_text = """My hand lingered on the cold metal doorknob. I closed my eyes as the Vancouver breeze ran its chilling fingers through my hair. The man I was about to meet was infamous for demanding perfection. But the beguiling music that faintly fluttered past the unlatched window’s curtain drew me forward, inviting me to cross the threshold. Stepping into the apartment, under the watchful gaze of an emerald-eyed cat portrait, I entered the sweeping B Major scale.
+input_text = """My hand lingered on the cold metal doorknob. I closed my eyes as the Vancouver breeze ran its chilling fingers through my hair. The man I was about to meet was infamous for demanding perfection. But the beguiling music that faintly fluttered past the unlatched window’s curtain drew me forward, inviting me to cross the threshold. Stepping into the apartment, under the watchful gaze of an emerald-eyed cat portrait, I entered the sweeping B Major scale.
 
-# Led by my intrinsic attraction towards music, coupled with the textured layers erupting the instant my fingers grazed the ivory keys, driving the hammers to shoot vibrations up in the air all around me, I soon fell in love with this new extension of my body and mind. My mom began to notice my aptitude for piano when I began returning home with trophies in my arms. These precious experiences fueled my conviction as a rising musician, but despite my confidence, I felt like something was missing.
+Led by my intrinsic attraction towards music, coupled with the textured layers erupting the instant my fingers grazed the ivory keys, driving the hammers to shoot vibrations up in the air all around me, I soon fell in love with this new extension of my body and mind. My mom began to notice my aptitude for piano when I began returning home with trophies in my arms. These precious experiences fueled my conviction as a rising musician, but despite my confidence, I felt like something was missing.
 
-# Back in the drafty apartment, I smiled nervously and walked towards the piano from which the music emanated. Ian Parker, my new piano teacher, eyes-closed and dressed in black glided his hands effortlessly across the keys. I stood beside a leather chair, waiting as he finished the phrase. He stood up. I sat down.
+Back in the drafty apartment, I smiled nervously and walked towards the piano from which the music emanated. Ian Parker, my new piano teacher, eyes-closed and dressed in black glided his hands effortlessly across the keys. I stood beside a leather chair, waiting as he finished the phrase. He stood up. I sat down.
 
-# Chopin Black Key Etude — a piece I knew so well I could play it eyes-closed. I took a breath and positioned my right hand in a G-flat 2nd inversion. 
-# Just one measure in, I was stopped. 
-# 	“Start again.”
-# 	Taken by surprise, I spun left. His eyes were on the score, not me. 
-# 	I started again. Past the first measure, first phrase, then stopped again. What is going on? 
+Chopin Black Key Etude — a piece I knew so well I could play it eyes-closed. I took a breath and positioned my right hand in a G-flat 2nd inversion. 
+Just one measure in, I was stopped. 
+	“Start again.”
+	Taken by surprise, I spun left. His eyes were on the score, not me. 
+	I started again. Past the first measure, first phrase, then stopped again. What is going on? 
 	
-# 	“Are you listening?”
-# I nodded. Of course I am. 
-# “But are you really listening?”
+	“Are you listening?”
+I nodded. Of course I am. 
+“But are you really listening?”
 
-# As we slowly dissected each measure, I felt my confidence slip away. The piece was being chipped into fragments. Unlike my previous teachers, who listened to a full performance before giving critical feedback, Ian stopped me every five seconds. One hour later, we only got through half a page. 
+As we slowly dissected each measure, I felt my confidence slip away. The piece was being chipped into fragments. Unlike my previous teachers, who listened to a full performance before giving critical feedback, Ian stopped me every five seconds. One hour later, we only got through half a page. 
 
-# Each consecutive week, the same thing happened. I struggled to meet his expectations. 
-# “I’m not here to teach you just how to play. I’m here to teach you how to listen.” 
-# I realized what Ian meant — listening involves taking what we hear and asking: is this the sound I want? What story am I telling through my interpretation? 
+Each consecutive week, the same thing happened. I struggled to meet his expectations. 
+“I’m not here to teach you just how to play. I’m here to teach you how to listen.” 
+I realized what Ian meant — listening involves taking what we hear and asking: is this the sound I want? What story am I telling through my interpretation? 
 
-# Absorbed in the music, I allowed my instincts and muscle memory to take over, flying past the broken tritones or neapolitan chords. But even if I was playing the right notes, it didn’t matter. Becoming immersed in the cascading arpeggio waterfalls, thundering basses, and fairydust trills was actually the easy part, which brought me joy and fueled my love for music in the first place. However, music is not just about me. True artists perform for their audience, and to bring them the same joy, to turn playing into magic-making, they must listen as the audience. 
+Absorbed in the music, I allowed my instincts and muscle memory to take over, flying past the broken tritones or neapolitan chords. But even if I was playing the right notes, it didn’t matter. Becoming immersed in the cascading arpeggio waterfalls, thundering basses, and fairydust trills was actually the easy part, which brought me joy and fueled my love for music in the first place. However, music is not just about me. True artists perform for their audience, and to bring them the same joy, to turn playing into magic-making, they must listen as the audience. 
 
-# The lesson Ian taught me echoes beyond practice rooms and concert halls. I’ve learned to listen as I explore the hidden dialogue between voices, to pauses and silence, equally as powerful as words. Listening is performing as a soloist backed up by an orchestra. Listening is calmly responding during heated debates and being the last to speak in a SPS Harkness discussion. It’s even bouncing jokes around the dining table with family. I’ve grown to envision how my voice will impact the stories of those listening to me.
+The lesson Ian taught me echoes beyond practice rooms and concert halls. I’ve learned to listen as I explore the hidden dialogue between voices, to pauses and silence, equally as powerful as words. Listening is performing as a soloist backed up by an orchestra. Listening is calmly responding during heated debates and being the last to speak in a SPS Harkness discussion. It’s even bouncing jokes around the dining table with family. I’ve grown to envision how my voice will impact the stories of those listening to me.
 
-# To this day, my lessons with Ian continue to be tough, consisting of 80% discussion and 20% playing. When we were both so immersed in the music that I managed to get to the end of the piece before he looked up to say, “Bravo.” Now, even when I practice piano alone, I repeat my refrain: Are you listening?  """
+To this day, my lessons with Ian continue to be tough, consisting of 80% discussion and 20% playing. When we were both so immersed in the music that I managed to get to the end of the piece before he looked up to say, “Bravo.” Now, even when I practice piano alone, I repeat my refrain: Are you listening?  """
 
-# data = feedback_plot_conflict(prompt_no,input_text)
+data = feedback_plot_conflict(prompt_no,input_text)
 
-# key_value_print(data)
+key_value_print(data)
 
 
 ####################################################################################################
