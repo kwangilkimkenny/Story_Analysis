@@ -1,3 +1,5 @@
+# upgrade... 2021_07_27
+
 # 아나콘다 가상환경 office:  py37TF2
 # home : py37Keras
 
@@ -18,6 +20,17 @@ from collections import defaultdict
 import spacy
 
 nlp = spacy.load('en_core_web_lg')
+
+
+##########  key_value_print
+##########  key: value 형식으로 나뉨 
+def key_value_print (dictonrytemp) : 
+    print("#"*100)
+    for key in dictonrytemp.keys() : 
+        print(key,": ",dictonrytemp[key])
+        print()
+    print("#"*100)
+
 
 # 시간, 공간, 장소를 알려주는 단어 추출하여 카운트
 def find_setting_words(text):
@@ -328,15 +341,21 @@ def Setting_analysis(text):
     elif setting_total_sentences_number_re < setting_total_sentences_number_of_admitted_student:
         less_more_numb = abs(setting_total_sentences_number_re - setting_total_sentences_number_of_admitted_student)
         over_all_sentence_1 = [less_more_numb, 'fewer']
-    elif setting_total_sentences_number_re == setting_total_sentences_number_of_admitted_student: # ??? 두값이 같을 경우
-        over_all_sentence_1 = ['a similar number of'] # ??????? 확인할 것
+    elif setting_total_sentences_number_re == setting_total_sentences_number_of_admitted_student: 
+        over_all_sentence_1 = ['a similar number of'] 
     else:
         pass
         
-        
+    print("#"*100)
+    print(type(model))
+    print("#"*100)
         
     for i in filtered_setting_text__:
-        ext_setting_sim_words_key = model.most_similar_cosmul(i) # 모델적용
+        # print("#"*100)
+        # print("str:",i)
+        ext_setting_sim_words_key = model.wv.most_similar_cosmul(i) # 모델적용
+        ######## 에러 발생함: 
+        ### AttributeError: 'Word2Vec' object has no attribute 'most_similar_cosmul'
     
     setting_total_count = len(filtered_setting_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현 수
     setting_count_ = len(filtered_setting_text__) # 중복제거된 setting표현 총 수
@@ -350,8 +369,8 @@ def Setting_analysis(text):
     # setting_total_count : Setting Indicators - Yours essay 부분으로, 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현 수
     # setting_total_sentences_number_re : 셋팅 단어가 포함된 총 문장 수 ---> 그래프 표현 부분 * PPT 14page 참고
     ###############################################################################################
-    group_total_cnt  = 70 # group_total_cont # Admitted Case Avg. 부분으로 합격학생들의 셋팅단어 평균값(임의 입력, 계산해서 입력해야 함)
-    group_total_setting_descriptors = 20 # Setting Descriptors 합격학생들의 셋팅 문장수 평균값
+    group_total_cnt  = 30 # group_total_cont # Admitted Case Avg. 부분으로 합격학생들의 셋팅단어 평균값(임의 입력, 계산해서 입력해야 함) ==> 적용완료
+    group_total_setting_descriptors = 80 # Setting Descriptors 합격학생들의 셋팅 문장수 평균값 ==> 적용완료
     ###############################################################################################
     
     
@@ -368,8 +387,9 @@ def Setting_analysis(text):
     # 9. tot_setting_words : 총 문장에서 셋팅 단어 추출  ---- 웹에 표시할 부분임
     # 10. group_total_cnt : # Admitted Case Avg. 부분으로 합격학생들의 셋팅'단어' 평균값 ---> 그래프로 표현 * PPT 14page 참고
     # 11. group_total_setting_descriptors : Setting Descriptors 합격학생들의 셋팅 '문장'수 평균값 ---> 그래프로 표현 * PPT 14page 참고
+    # 12. filtered_setting_text : 총 셋팅 단어모음(중복포함)
     
-    return result_setting_words_ratio, total_sentences, total_words, setting_total_count, setting_count_, ext_setting_sim_words_key, totalSettingSentences, setting_total_sentences_number_re, over_all_sentence_1, tot_setting_words, group_total_cnt, group_total_setting_descriptors
+    return result_setting_words_ratio, total_sentences, total_words, setting_total_count, setting_count_, ext_setting_sim_words_key, totalSettingSentences, setting_total_sentences_number_re, over_all_sentence_1, tot_setting_words, group_total_cnt, group_total_setting_descriptors, filtered_setting_text
 
 
 
@@ -416,7 +436,7 @@ def paragraph_divide_ratio(text):
     #print('sentences:',df_sentences)
     
     ######### setting 관련 단어 추출 #########
-    s_a_re = Setting_analysis(input_text)
+    s_a_re = Setting_analysis(text)
     tot_setting_words = s_a_re[9]
 
     # 구간별 셋팅 단어가 몇개씩 포함되어 있는지 계산 method
@@ -520,16 +540,41 @@ def EmphasisOnSetting(prompt_no, input_text, intended_setting_by_you):
     ##########################################################
     ##########################################################
     # 1000명의 평균값 셋팅 벨류(임의로 설정, 나중에 평균값 계산해서 적용할 것)
-    group_setting_mean_value = 15
+    group_setting_mean_value = 30 # 적용완료!
     # 3번 문항에 대한 내용 입력부분 - 합격한 학생들의 평균값 적용(임시적용, 나중에 계산해서 입력할 것)
     group_setting_mean_value_for_prompt = 'moderate emphasis' # 'heavy emphasis', 'moderate emphasis', 'minimal emphasis' 중 1개 서택
     
-    # 각 구간의 셋팅 관련 표현의 합격자 평균값
-    group_setting_parts_mean_value = [9, 8, 9, 10, 3]
+    # 각 구간의 셋팅 관련 표현의 합격자 평균값(intro, body1, body2, body3, conclusion)
+    group_setting_parts_mean_value = []
+
+    # prompt별로 셋팅 단어 적용 비율 
+    pmt_1 = [12, 6, 6, 6, 5]
+    pmt_2 = [16, 6, 7, 7, 3]
+    pmt_3 = [10, 5, 5, 4, 8]
+    pmt_4 = [12, 6, 6, 7, 5]
+    pmt_5 = [16, 6, 6, 5, 8]
+    pmt_6 = [15, 5, 6, 5, 7]
     ##########################################################
     ##########################################################
+    if prompt_no == 'prompt_1':
+        group_setting_parts_mean_value = pmt_1
     
+    elif prompt_no == 'prompt_2':
+        group_setting_parts_mean_value = pmt_2
+
+    elif prompt_no == 'prompt_3':
+        group_setting_parts_mean_value = pmt_3
+
+    elif prompt_no == 'prompt_4':
+        group_setting_parts_mean_value = pmt_4
+
+    elif prompt_no == 'prompt_5':
+        group_setting_parts_mean_value = pmt_5
+
+    else : #prompt_no == 'prompt_1':
+        group_setting_parts_mean_value = pmt_6
     
+
     
     #detected setting value
     detected_setting_value_re = Setting_analysis(input_text)[4]
@@ -564,19 +609,19 @@ def EmphasisOnSetting(prompt_no, input_text, intended_setting_by_you):
         
     # Setting Preferences by Admitted Students for 'Prompt #3'
     selected_prompt_number = []
-    if prompt_no == "promt_1":
+    if prompt_no == "ques_one":
         selected_prompt_number.append("prompt #.1")
-    elif prompt_no == "promt_2":
+    elif prompt_no == "ques_two":
         selected_prompt_number.append("prompt #.2")
-    elif prompt_no == "promt_3":
+    elif prompt_no == "ques_three":
         selected_prompt_number.append("prompt #.3")
-    elif prompt_no == "promt_4":
+    elif prompt_no == "ques_four":
         selected_prompt_number.append("prompt #.4")
-    elif prompt_no == "promt_5":
+    elif prompt_no == "ques_five":
         selected_prompt_number.append("prompt #.5")
-    elif prompt_no == "promt_6":
+    elif prompt_no == "ques_six":
         selected_prompt_number.append("prompt #.6")
-    elif prompt_no == "promt_7":
+    elif prompt_no == "ques_seven":
         selected_prompt_number.append("prompt #.7")
     else:
         pass
@@ -721,8 +766,52 @@ def EmphasisOnSetting(prompt_no, input_text, intended_setting_by_you):
     # sa_re[11] : # 11. group_total_setting_descriptors : Setting Descriptors 합격학생들의 셋팅 '문장'수 평균값 ---> 그래프로 표현 * PPT 14page 참고
     # sa_re[6] : 6. totalSettingSentences : setting description 문장 추출
     # sa_re[9] : 9. tot_setting_words : 총 문장에서 셋팅 단어 추출  ---- 웹에 표시할 부분임
+    
+    data = {
 
-    return intended_re, dct_result, group_setting_mean_value_for_prompt, personal_setting_mean_value_for_prompt, selected_prompt_number, Sentence_1, Sentence_2, Sentence_3, Sentence_4, overall_sentence_1, overall_sentence_2, over_sentence_3, over_sentence_4, sa_re[3], sa_re[7], sa_re[10], sa_re[11], sa_re[6], sa_re[9] 
+        "selected_prompt_number" : selected_prompt_number,
+        
+        "intended_result" : intended_re,
+        "detected_result" : dct_result,
+        
+        # "setting_preferences_by_admitted_students_list" = models.TextField(default="") 
+        
+        "group_setting_mean_value_for_prompt" : group_setting_mean_value_for_prompt,
+        "personal_setting_mean_value_for_prompt" : personal_setting_mean_value_for_prompt,
+        
+        "emphasis_all_comment_1" : Sentence_1,
+        "emphasis_all_comment_2" : Sentence_2,
+        "emphasis_all_comment_3" : Sentence_3,
+        "emphasis_all_comment_4" : Sentence_4,
+        
+
+        
+        "overall_emphasis_indicators_you" : sa_re[3],
+        "overall_emphasis_indicators_admitted" : sa_re[7],
+        "overall_emphasis_descriptors_you" : sa_re[10],
+        "overall_emphasis_descriptors_admitted" : sa_re[11],
+        
+        # "emphasis_admitted_case_list" : "0,0,0,0,0",
+        # "emphasis_your_essay_list" : "0,0,0,0,0",
+        
+        "emphasis_your_comment_1" : overall_sentence_1,
+        "emphasis_your_comment_2" : overall_sentence_2,
+        "emphasis_your_comment_3" : over_sentence_3,
+        "emphasis_your_comment_4" : over_sentence_4,
+        
+        "indicator_descriptors" : sa_re[6],
+
+        # 총 셋팅을 표현하는 단어 모음(시간, 장소, 공간, 전치사)
+        "indicator_place_nouns" : sa_re[9],
+
+        "Number of Setting Indicators" : sa_re[3],
+
+        # 총 셋팅을 표현하는 전치사 모음(중복포함) ----> 이것은 전치사이기 때문에 분석에 큰 의미가 없음, DB에 적용할 필요는 없음
+        "Number of total setting words(preposition)" : sa_re[12]
+        
+    }
+
+    return data 
 
 
 
@@ -730,12 +819,76 @@ def EmphasisOnSetting(prompt_no, input_text, intended_setting_by_you):
 
 # 입력
 
+# Personal Essay Sample #1 (Prompt #1이나 Prompt #4에 맞는 아름다운 에세이)
 
-input_text = """Bloomington Normal is almost laughably cliché for a midwestern city. Vast swathes of corn envelop winding roads and the heady smell of BBQ smoke pervades the countryside every summer. Yet, underlying the trite norms of Normal is the prescriptive force of tradition—the expectation to fulfill my role as a female Filipino by playing Debussy in the yearly piano festival and enrolling in multivariable calculus instead of political philosophy.So when I discovered the technical demand of bebop, the triplet groove, and the intricacies of chordal harmony after ten years of grueling classical piano, I was fascinated by the music's novelty. Jazz guitar was not only evocative and creative, but also strangely liberating. I began to explore different pedagogical methods, transcribe solos from the greats, and experiment with various approaches until my own unique sound began to develop. And, although I did not know what would be the 'best' route for me to follow as a musician, the freedom to forge whatever path I felt was right seemed to be exactly what I needed; there were no expectations for me to continue in any particular way—only the way that suited my own desires.While journeying this trail, I found myself at Interlochen Arts Camp the summer before my junior year. Never before had I been immersed in an environment so conducive to musical growth: I was surrounded by people intensely passionate about pursuing all kinds of art with no regard for ideas of what art 'should' be. I knew immediately that this would be a perfect opportunity to cultivate my sound, unbounded by the limits of confining tradition. On the first day of camp, I found that my peer guitarist in big band was another Filipino girl from Illinois. Until that moment, my endeavors in jazz guitar had been a solitary effort; I had no one with whom to collaborate and no one against whom I could compare myself, much less someone from a background mirroring my own. I was eager to play with her, but while I quickly recognized a slew of differences between us—different heights, guitars, and even playing styles—others seemed to have trouble making that distinction during performances. Some even went as far as calling me 'other-Francesca.' Thus, amidst the glittering lakes and musky pine needles of Interlochen, I once again confronted Bloomington's frustrating expectations.After being mistaken for her several times, I could not help but view Francesca as a standard of what the 'female Filipino jazz guitarist' should embody. Her improvisatory language, comping style and even personal qualities loomed above me as something I had to live up to. Nevertheless, as Francesca and I continued to play together, it was not long before we connected through our creative pursuit. In time, I learned to draw inspiration from her instead of feeling pressured to follow whatever precedent I thought she set. I found that I grew because of, rather than in spite of, her presence; I could find solace in our similarities and even a sense of comfort in an unfamiliar environment without being trapped by expectation. Though the pressure to conform was still present—and will likely remain present in my life no matter what genre I'm playing or what pursuits I engage in—I learned to eschew its corrosive influence and enjoy the rewards that it brings. While my encounter with Francesca at first sparked a feeling of pressure to conform in a setting where I never thought I would feel its presence, it also carried the warmth of finding someone with whom I could connect. Like the admittedly trite conditions of my hometown, the resemblances between us provided comfort to me through their familiarity. I ultimately found that I can embrace this warmth while still rejecting the pressure to succumb to expectations, and that, in the careful balance between these elements, I can grow in a way that feels both like discove"""
+# input_text = """My hand lingered on the cold metal doorknob. I closed my eyes as the Vancouver breeze ran its chilling fingers through my hair. The man I was about to meet was infamous for demanding perfection. But the beguiling music that faintly fluttered past the unlatched window’s curtain drew me forward, inviting me to cross the threshold. Stepping into the apartment, under the watchful gaze of an emerald-eyed cat portrait, I entered the sweeping B Major scale.
 
-result_emp = EmphasisOnSetting('promt_3', input_text, 'alot')
+# Led by my intrinsic attraction towards music, coupled with the textured layers erupting the instant my fingers grazed the ivory keys, driving the hammers to shoot vibrations up in the air all around me, I soon fell in love with this new extension of my body and mind. My mom began to notice my aptitude for piano when I began returning home with trophies in my arms. These precious experiences fueled my conviction as a rising musician, but despite my confidence, I felt like something was missing.
 
-print('셋팅 결과 : ', result_emp)
+# Back in the drafty apartment, I smiled nervously and walked towards the piano from which the music emanated. Ian Parker, my new piano teacher, eyes-closed and dressed in black glided his hands effortlessly across the keys. I stood beside a leather chair, waiting as he finished the phrase. He stood up. I sat down.
+
+# Chopin Black Key Etude — a piece I knew so well I could play it eyes-closed. I took a breath and positioned my right hand in a G-flat 2nd inversion. 
+# Just one measure in, I was stopped. 
+# 	“Start again.”
+# 	Taken by surprise, I spun left. His eyes were on the score, not me. 
+# 	I started again. Past the first measure, first phrase, then stopped again. What is going on? 
+	
+# 	“Are you listening?”
+# I nodded. Of course I am. 
+# “But are you really listening?”
+
+# As we slowly dissected each measure, I felt my confidence slip away. The piece was being chipped into fragments. Unlike my previous teachers, who listened to a full performance before giving critical feedback, Ian stopped me every five seconds. One hour later, we only got through half a page. 
+
+# Each consecutive week, the same thing happened. I struggled to meet his expectations. 
+# “I’m not here to teach you just how to play. I’m here to teach you how to listen.” 
+# I realized what Ian meant — listening involves taking what we hear and asking: is this the sound I want? What story am I telling through my interpretation? 
+
+# Absorbed in the music, I allowed my instincts and muscle memory to take over, flying past the broken tritones or neapolitan chords. But even if I was playing the right notes, it didn’t matter. Becoming immersed in the cascading arpeggio waterfalls, thundering basses, and fairydust trills was actually the easy part, which brought me joy and fueled my love for music in the first place. However, music is not just about me. True artists perform for their audience, and to bring them the same joy, to turn playing into magic-making, they must listen as the audience. 
+
+# The lesson Ian taught me echoes beyond practice rooms and concert halls. I’ve learned to listen as I explore the hidden dialogue between voices, to pauses and silence, equally as powerful as words. Listening is performing as a soloist backed up by an orchestra. Listening is calmly responding during heated debates and being the last to speak in a SPS Harkness discussion. It’s even bouncing jokes around the dining table with family. I’ve grown to envision how my voice will impact the stories of those listening to me.
+
+# To this day, my lessons with Ian continue to be tough, consisting of 80% discussion and 20% playing. When we were both so immersed in the music that I managed to get to the end of the piece before he looked up to say, “Bravo.” Now, even when I practice piano alone, I repeat my refrain: Are you listening?  """
+
+# prompt_no = 'ques_one'
+# intended_setting_by_you = "alot"
+
+
+# data = EmphasisOnSetting(prompt_no, input_text, intended_setting_by_you)
+# key_value_print(data)
+
+####################################################################################################
+# selected_prompt_number :  ['prompt #.1']
+
+# intended_result :  Surroundings matter a lot
+# detected_result :  Somewhat important
+
+# group_setting_mean_value_for_prompt :  moderate emphasis
+# personal_setting_mean_value_for_prompt :  moderate emphasis
+
+# emphasis_all_comment_1 :  You aimed to give high importance on setting in your personal statement.
+# emphasis_all_comment_2 :  ['It seems that the significance of setting is moderate in your writing, which is ', 'different from', 'your intentions.']
+# emphasis_all_comment_3 :  ['In addition, the admitted students tend to choose to display a', 'moderate emphasis', 'on setting for this prompt.']
+# emphasis_all_comment_4 :  ['It', 'does not match', 'with your intended direction for setting while it', 'does not coincide', 'with the level of emphasis shown in your essay.']
+
+# overall_emphasis_indicators_you :  39
+# overall_emphasis_indicators_admitted :  18
+# overall_emphasis_descriptors_you :  70
+# overall_emphasis_descriptors_admitted :  20
+
+# emphasis_your_comment_1 :  ['Compared to the accepted case average for this prompt, you have spent', 3, 'a similar number of', 'setting indicators and', [2, 'fewer'], 'words to describe the setting.']
+# emphasis_your_comment_2 :  ['You may consider', 'adding more', 'words to describe the setting in your story.']
+# emphasis_your_comment_3 :  ['Dividing up the personal statement in 5 equal parts by the word count, the accepted case average indicated that most number of setting descriptors are concentrated in the', 'conclusion', 'and', 'intro', '.']
+# emphasis_your_comment_4 :  ['Comparing this with your essay, we see some similarities in the pattern.']
+
+# indicator_descriptors :  {'I heard art exploration still has plenty of openings !', 'I attempted to mimic the laid-back , grooving movements of my peers , but to no avail .', 'My movements were about as far away from ‘ jazzy ’ as one could possibly get .', 'The soft and melodic sound of a classic jazz ballad floated out of a set of speakers to my right , mixing with the confident chatter of students in the back row .', 'The band congregated in the middle of the room , each person tapping his or her feet along with the drummer .', 'Reflect on a time when you challenged a belief or idea .', 'Just relax !', 'Would you make the same decision again ?', 'As the solo section began to move around the room most students seemed relaxed and loose , acting as if they were easygoing musicians on a street corner in new orleans .', 'With my confidence already fading , i sat and thought to myself , i wonder if it ’ s too late to drop this course ?', 'I was used to the rigid accents and staccatos of the concert band world .', 'The director stepped to the front of the room , and snapped his fingers in a slow rhythm that the drummer tapped out with his worn wooden sticks .', 'As usual , i shuffled around in the back of the classroom , attempting to blend in with the sets of cubbies .', 'My shaking fingers closed around the shiny gold pieces of the saxophone in its case , leaving a streak of fingerprints down the newly cleaned exterior .', 'I felt my body tense and my eyes dart nervously around the room for a quick escape route .', 'My confidence plummeted as the person in front of me swung a closing riff and looked expectantly in my direction .', 'What prompted you to act ?', 'I scolded myself , just be jazzy and no one will notice you look out of place .'}
+# indicator_place_nouns :  ['New Orleans', 'street', 'corner', 'on', 'room', 'route', 'from', 'sound', 'in', 'along', 'body', 'down', 'to']
+
+####################################################################################################
+
+
+
+
+
 
     # 결과해석
     # intended_re : intended setting by you
@@ -750,3 +903,11 @@ print('셋팅 결과 : ', result_emp)
     # sa_re[11] : # 11. group_total_setting_descriptors : Setting Descriptors 합격학생들의 셋팅 '문장'수 평균값 ---> 그래프로 표현 * PPT 14page 참고
     # sa_re[6] : 6. totalSettingSentences : setting description 문장 추출
     # sa_re[9] : 9. tot_setting_words : 총 문장에서 셋팅 단어 추출  ---- 웹에 표시할 부분임
+
+
+
+
+
+
+
+    
