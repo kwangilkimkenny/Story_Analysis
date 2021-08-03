@@ -528,6 +528,88 @@ def paragraph_divide_ratio(text):
     return df_sentences, tot_setting_words, first_snt_part, second_snt_part, compare_parts_grup_nums_and_parts
 
 
+
+
+from gensim import corpora, models, similarities
+
+#질문 7개
+def get_appropriate_pmt_by_pmt_nomber_seven(input_text):
+    
+    documents = ["Some students have a background, identity, interest, or talent that is so meaningful they believe their application would be incomplete without it. If this sounds like you, then please share your story.",
+                "The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?",
+                "Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?",
+                "Describe a problem you've solved or a problem you'd like to solve. It can be an intellectual challenge, a research query, an ethical dilemma - anything that is of personal importance, no matter the scale. Explain its significance to you and what steps you took or could be taken to identify a solution.",
+                "Discuss an accomplishment, event, or realization that sparked a period of personal growth and a new understanding of yourself or others.",
+                "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more? ",
+                "Share an essay on any topic of your choice. It can be one you've already written, one that responds to a different prompt, or one of your own design."]
+
+
+  
+    # remove common words and tokenize them
+    stoplist = set('for a of the and to in'.split())
+
+    texts = [[word for word in document.lower().split() if word not in stoplist] for document in documents]
+
+    # remove words those appear only once
+    all_tokens = sum(texts, [])
+
+    tokens_once = set(word for word in set(all_tokens) if all_tokens.count(word) ==1)
+    texts = [[word for word in text if word not in tokens_once]
+            for text in texts]
+    dictionary = corpora.Dictionary(texts)
+
+    dictionary.save('deerwester.dict')  # save as binary file at the dictionary at local directory
+    dictionary.save_as_text('deerwester_text.dict')  # save as text file at the local directory
+
+
+
+    #input answer
+    text_input = input_text #문장입력....
+    #text_input = """I inhale deeply and blow harder than I thought possible, pushing the tiny ember from its resting place on the candle out into the air. The room erupts around me, and 'Happy Birthday!' cheers echo through the halls. It's time to make a wish. In my mind, that new Limited Edition Deluxe Ben 10 watch will soon be mine. My parents and the aunties and uncles around me attempt to point me in a different direction. 'Wish that you get to go to the temple every day when you're older! Wish that you memorize all your Sanskrit texts before you turn 6! Wish that you can live in India after college!' My ears listen, but my mind tunes them out, as nothing could possibly compare to that toy watch! What I never realized on my third birthday is that those wishes quietly tell the story of how my family hopes my life will play out. In this version of my life, there wasn't much room for change, personal growth, or 'rocking the boat.' A vital aspect of my family's cultural background is their focus on accepting things as they are. Growing up, I was discouraged from questioning others or asking questions that didn't have definitive yes or no answers. If I innocently asked my grandma why she expected me to touch her feet, my dad would grab my hand in a sudden swoop, look me sternly in the eye, and tell me not to disrespect her like that again. At home, if I mentioned that I had tried eggs for breakfast at a friend's house, I'd be looked at like I had just committed a felony for eating what my parents considered meat. If I asked the priest at the temple why he had asked an Indian man and his white wife to leave, I'd be met with a condescending glare and told that I should also leave for asking such questions.In direct contrast, my curiosity was invited and encouraged at school. After an environmental science lesson, I stayed for a few minutes after class to ask my 4th-grade science teacher with wide eyes how it was possible that Niagara Falls doesn't run out of flowing water. Instead of scolding me for asking her a 'dumb question,' she smiled and explained the intricacy of the water cycle. Now, if a teacher mentions that we'll learn about why a certain proof or idea works only in a future class, I'll stay after to ask more or pour through an advanced textbook to try to understand it. While my perspective was widening at school, the receptiveness to raising complex questions at home was diminishing. After earning my driver's license, I registered as an organ donor. My small checkmark on a piece of paper led to an intense clash between my and my parents' moral platform. I wanted to ensure that I positively contributed to society, while my parents believed that organ donation was an unfamiliar and unnecessary cultural taboo. I would often ask for clarity or for reasons that supported their ideologies. Their response would usually entail feeling a deep, visceral sense that traditions must be followed exactly as taught, without objection. Told in one language to keep asking questions and in another to ask only the right ones, I chose exploring questions that don't have answers, rather than accepting answers that don't get questioned. When it comes to the maze of learning, even when I take a wrong turn and encounter roadblocks that are meant to stop me, I've learned to climb over them and keep moving forward. My curiosity strengthens with each hurdle and has expanded into a pure love of learning new things. I've become someone who seeks to understand things at a fundamental level and who finds excitement in taking on big questions that have yet to be solved. I'm no longer afraid to rock the boat. "},{"index":1,"personal_essay":"Ever since I first held a small foam Spiderman basketball in my tiny hands and watched my idol Kobe Bryant hit every three-pointer he attempted, I've wanted to understand and replicate his flawless jump shot. As my math education progressed in school, I began to realize I had the tools to create a perfect shot formula. After learning about variables for the first time in 5th grade Algebra, I began to treat each aspect of Kobe's jump shot as a different variable, each combination of variables resulting in a unique solution. While in 7th-grade geometry, I graphed the arc of his shot, and after learning about quadratic equations in 8th grade, I expressed his shot as a parabolic function that would ensure a swish when shooting from any spot. After calculus lessons in 10th and 11th grade, I was excited to finally solve for the perfect velocity and acceleration needed on my release. At Brown, I hope to explore this intellectual pursuit through a different lens. What if I could maximize the odds of making shots if I understood the science behind one's mental mindset and focus through CLPS 500: Perception and Action? Or use astrophysics to account for drag and gravitational force anywhere in the universe? Or use data science to break down the analytics of the NBA's best shooters? Through the Open Curriculum, I see myself not only becoming a more complete learner, but also a more complete thinker, applying a flexible mindset to any problem I encounter. Brown's Open Curriculum allows students to explore broadly while also diving deeply into their academic pursuits. Tell us about an academic interest (or interests) that excites you, and how you might use the Open Curriculum to pursue it. I've been playing the Mridangam since I was five years old. It's a simple instrument: A wood barrel covered on two ends by goatskin with leather straps surrounding the hull. This instrument serves as a connection between me and one of the most beautiful aspects of my culture: Carnatic music. As a young child, I'd be taken to the temple every weekend for three-hour-long Carnatic music concerts, where the most accomplished teenagers and young adults in our local Indian community would perform. I would watch in awe as the mridangists' hands moved gracefully, flowing across the goatskin as if they weren't making contact, while simultaneously producing sharp rhythmic patterns that never failed to fall on the beat. Hoping to be like these idols on the stage, I trained intensely with my teacher, a strict man who taught me that the simple drum I was playing had thousands of years of culture behind it. Building up from simple strokes, I realized that the finger speed I'd had been awestruck by wasn't some magical talent, it was instead a science perfected by repeated practice."""
+
+    new_vec = dictionary.doc2bow(text_input.lower().split()) # return "word-ID : Frequency of appearance""
+    corpus = [dictionary.doc2bow(text) for text in texts]
+    corpora.MmCorpus.serialize('deerwester.mm', corpus) # save corpus at local directory
+    corpus = corpora.MmCorpus('deerwester.mm') # try to load the saved corpus from local
+    dictionary = corpora.Dictionary.load('deerwester.dict') # try to load saved dic.from local
+    tfidf = models.TfidfModel(corpus) # step 1 -- initialize a model
+    corpus_tfidf = tfidf[corpus]  # map corpus object into tfidf space
+    lsi = models.LsiModel(corpus_tfidf, id2word=dictionary, num_topics=2) # initialize LSI
+    corpus_lsi = lsi[corpus_tfidf] # create a double wrapper over the original corpus
+    topic = lsi.print_topics(2)
+    lsi.save('model.lsi')  # save output model at local directory
+    lsi = models.LsiModel.load('model.lsi') # try to load above saved model
+
+    doc = text_input
+
+    vec_bow = dictionary.doc2bow(doc.lower().split())  # put newly obtained document to existing dictionary object
+    vec_lsi = lsi[vec_bow] # convert new document (henceforth, call it "query") to LSI space
+    index = similarities.MatrixSimilarity(lsi[corpus]) # transform corpus to LSI space and indexize it
+    index.save('deerwester.index') # save index object at local directory
+    index = similarities.MatrixSimilarity.load('deerwester.index')
+    sims = index[vec_lsi] # calculate degree of similarity of the query to existing corpus
+
+    print(list(enumerate(sims))) # output (document_number , document similarity)
+
+    sims = sorted(enumerate(sims), key=lambda item: -item[1])  # sort output object as per similarity ( largest similarity document comes first )
+    print(sims) # 가장 질문에 대한 답변이 적합한 순서대로 출력
+    
+    # result_sims = []
+    
+    quada_list = []
+    
+    for temp in sims : 
+        
+        #quada_list.append(round(float(temp[1]),3))
+        
+        quada_list.append([temp[0],round(float(temp[1]),3)])
+
+    return quada_list
+
+
+
+
+
 # Setting PPT 13p
 # Emphasis on Setting
 
@@ -606,23 +688,69 @@ def EmphasisOnSetting(prompt_no, input_text, intended_setting_by_you):
         less_more_number_re = abs(detected_setting_value_re - group_setting_mean_value) # 평균값보다 디텍팅한 값이 많을 경우 몇단어가 많은지
         less_more_re = 'fewer' # overall Emphasis sentence 1 번째 문장 생성 부분 
         
-        
+
+
+    # Setting Focus by 합격에세 2021_08_02 추가코드
+    pmompt_01 = {'Heavy emphasis on setting': 25, 'Moderate emphasis on setting': 63, 'Setting is not a big factor': 12}
+    pmompt_02 = {'Heavy emphasis on setting': 35, 'Moderate emphasis on setting': 58, 'Setting is not a big factor': 7}
+    pmompt_03 = {'Heavy emphasis on setting': 24, 'Moderate emphasis on setting': 47, 'Setting is not a big factor': 29}
+    pmompt_04 = {'Heavy emphasis on setting': 31, 'Moderate emphasis on setting': 55, 'Setting is not a big factor': 14}
+    pmompt_05 = {'Heavy emphasis on setting': 42, 'Moderate emphasis on setting': 55, 'Setting is not a big factor': 3}
+    pmompt_06 = {'Heavy emphasis on setting': 21, 'Moderate emphasis on setting': 43, 'Setting is not a big factor': 36}
+
+
+############################################################################################### 
+
+    # *Prompt #7은 자기 에세이와 가장 가까운 prompt를 1-6번 안에서 고르라고 한걸로 기억해요 - 이것을 자동으로 계산해주기
+    # 이 부분을 계산하기 위해서는, 에세이와 가장 가까운 prompt의 속성을 자동으로 1~6번에서 골라줘야함
+    # 유사문장비교 기술을 이용하여 가장 관련성이 높은 prompt를 선택하게 해야함
+    def selected_seven(prompt_no):
+        if(prompt_no == "ques_seven") : # (수정 후) 7번의 Prompt를 선택했고, 에세이를 입력했다면,
+            re_prompt_no_analysis = get_appropriate_pmt_by_pmt_nomber_seven(input_text)
+            print('re_prompt_no_analysis:', re_prompt_no_analysis[0][0]) # 가장 일치율이 높은 prompt를 자동으로 찾아줌
+            most_sim_prompt_no_by_selected_seven = re_prompt_no_analysis[0][0]
+            if most_sim_prompt_no_by_selected_seven == 0:
+                prompt_no == "ques_one"
+            elif most_sim_prompt_no_by_selected_seven == 1:
+                prompt_no == "ques_two"
+            elif most_sim_prompt_no_by_selected_seven == 3:
+                prompt_no == "ques_three"
+            elif most_sim_prompt_no_by_selected_seven == 4:
+                prompt_no == "ques_four"
+            elif most_sim_prompt_no_by_selected_seven == 5:
+                prompt_no == "ques_five"
+            else: # most_sim_prompt_no_by_selected_seven == 6:
+                prompt_no == "ques_six"
+
+        print('selected_prompt no:', prompt_no)
+        return prompt_no
+
+############################################################################################### 
+
     # Setting Preferences by Admitted Students for 'Prompt #3'
     selected_prompt_number = []
     if prompt_no == "ques_one":
         selected_prompt_number.append("prompt #.1")
+        web_result_prompt_by_selected = pmompt_01
     elif prompt_no == "ques_two":
         selected_prompt_number.append("prompt #.2")
+        web_result_prompt_by_selected = pmompt_02
     elif prompt_no == "ques_three":
         selected_prompt_number.append("prompt #.3")
+        web_result_prompt_by_selected = pmompt_03
     elif prompt_no == "ques_four":
         selected_prompt_number.append("prompt #.4")
+        web_result_prompt_by_selected = pmompt_04
     elif prompt_no == "ques_five":
         selected_prompt_number.append("prompt #.5")
+        web_result_prompt_by_selected = pmompt_05
     elif prompt_no == "ques_six":
         selected_prompt_number.append("prompt #.6")
+        web_result_prompt_by_selected = pmompt_06
     elif prompt_no == "ques_seven":
         selected_prompt_number.append("prompt #.7")
+        # prompt 1~6 중에서 선택한 에세이와 가장 가까운 prompt에 해당하는 질문을 자동 선택하는 코드
+        web_result_prompt_by_selected = selected_seven("ques_seven")
     else:
         pass
     
@@ -734,6 +862,8 @@ def EmphasisOnSetting(prompt_no, input_text, intended_setting_by_you):
                 
     over_sentence_4 = comp_each_parts(first_2nd_parts[4], group_setting_parts_mean_value)
 
+
+
     # setting analysis 이용하여 Overall Emphasis on Setting 의 그래프 구현값 추출
     # 3. setting_total_count : # 개인 에세이 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현'단어' 수 -----> 그래프로 표현 * PPT 14page 참고
     # sa_re[3]
@@ -807,7 +937,12 @@ def EmphasisOnSetting(prompt_no, input_text, intended_setting_by_you):
         "Number of Setting Indicators" : sa_re[3],
 
         # 총 셋팅을 표현하는 전치사 모음(중복포함) ----> 이것은 전치사이기 때문에 분석에 큰 의미가 없음, DB에 적용할 필요는 없음
-        "Number of total setting words(preposition)" : sa_re[12]
+        "Number of total setting words(preposition)" : sa_re[12],
+
+        # web_result_prompt_by_selected 결과로 웹사이트에 표시하는 부분,선택한 Prompt에 해당하는 합격생들의 이상적인 값 표시로 고정값
+        # 예) 이하 5가지로 문항별 고정값을 웹페이지에 표시한다. 개인 에세이 분석 결과값은 위에서 계산한 값을 표시해야 함
+
+        "web_result_prompt_by_selected" : web_result_prompt_by_selected 
         
     }
 
@@ -821,40 +956,40 @@ def EmphasisOnSetting(prompt_no, input_text, intended_setting_by_you):
 
 # Personal Essay Sample #1 (Prompt #1이나 Prompt #4에 맞는 아름다운 에세이)
 
-# input_text = """My hand lingered on the cold metal doorknob. I closed my eyes as the Vancouver breeze ran its chilling fingers through my hair. The man I was about to meet was infamous for demanding perfection. But the beguiling music that faintly fluttered past the unlatched window’s curtain drew me forward, inviting me to cross the threshold. Stepping into the apartment, under the watchful gaze of an emerald-eyed cat portrait, I entered the sweeping B Major scale.
+input_text = """My hand lingered on the cold metal doorknob. I closed my eyes as the Vancouver breeze ran its chilling fingers through my hair. The man I was about to meet was infamous for demanding perfection. But the beguiling music that faintly fluttered past the unlatched window’s curtain drew me forward, inviting me to cross the threshold. Stepping into the apartment, under the watchful gaze of an emerald-eyed cat portrait, I entered the sweeping B Major scale.
 
-# Led by my intrinsic attraction towards music, coupled with the textured layers erupting the instant my fingers grazed the ivory keys, driving the hammers to shoot vibrations up in the air all around me, I soon fell in love with this new extension of my body and mind. My mom began to notice my aptitude for piano when I began returning home with trophies in my arms. These precious experiences fueled my conviction as a rising musician, but despite my confidence, I felt like something was missing.
+Led by my intrinsic attraction towards music, coupled with the textured layers erupting the instant my fingers grazed the ivory keys, driving the hammers to shoot vibrations up in the air all around me, I soon fell in love with this new extension of my body and mind. My mom began to notice my aptitude for piano when I began returning home with trophies in my arms. These precious experiences fueled my conviction as a rising musician, but despite my confidence, I felt like something was missing.
 
-# Back in the drafty apartment, I smiled nervously and walked towards the piano from which the music emanated. Ian Parker, my new piano teacher, eyes-closed and dressed in black glided his hands effortlessly across the keys. I stood beside a leather chair, waiting as he finished the phrase. He stood up. I sat down.
+Back in the drafty apartment, I smiled nervously and walked towards the piano from which the music emanated. Ian Parker, my new piano teacher, eyes-closed and dressed in black glided his hands effortlessly across the keys. I stood beside a leather chair, waiting as he finished the phrase. He stood up. I sat down.
 
-# Chopin Black Key Etude — a piece I knew so well I could play it eyes-closed. I took a breath and positioned my right hand in a G-flat 2nd inversion. 
-# Just one measure in, I was stopped. 
-# 	“Start again.”
-# 	Taken by surprise, I spun left. His eyes were on the score, not me. 
-# 	I started again. Past the first measure, first phrase, then stopped again. What is going on? 
+Chopin Black Key Etude — a piece I knew so well I could play it eyes-closed. I took a breath and positioned my right hand in a G-flat 2nd inversion. 
+Just one measure in, I was stopped. 
+	“Start again.”
+	Taken by surprise, I spun left. His eyes were on the score, not me. 
+	I started again. Past the first measure, first phrase, then stopped again. What is going on? 
 	
-# 	“Are you listening?”
-# I nodded. Of course I am. 
-# “But are you really listening?”
+	“Are you listening?”
+I nodded. Of course I am. 
+“But are you really listening?”
 
-# As we slowly dissected each measure, I felt my confidence slip away. The piece was being chipped into fragments. Unlike my previous teachers, who listened to a full performance before giving critical feedback, Ian stopped me every five seconds. One hour later, we only got through half a page. 
+As we slowly dissected each measure, I felt my confidence slip away. The piece was being chipped into fragments. Unlike my previous teachers, who listened to a full performance before giving critical feedback, Ian stopped me every five seconds. One hour later, we only got through half a page. 
 
-# Each consecutive week, the same thing happened. I struggled to meet his expectations. 
-# “I’m not here to teach you just how to play. I’m here to teach you how to listen.” 
-# I realized what Ian meant — listening involves taking what we hear and asking: is this the sound I want? What story am I telling through my interpretation? 
+Each consecutive week, the same thing happened. I struggled to meet his expectations. 
+“I’m not here to teach you just how to play. I’m here to teach you how to listen.” 
+I realized what Ian meant — listening involves taking what we hear and asking: is this the sound I want? What story am I telling through my interpretation? 
 
-# Absorbed in the music, I allowed my instincts and muscle memory to take over, flying past the broken tritones or neapolitan chords. But even if I was playing the right notes, it didn’t matter. Becoming immersed in the cascading arpeggio waterfalls, thundering basses, and fairydust trills was actually the easy part, which brought me joy and fueled my love for music in the first place. However, music is not just about me. True artists perform for their audience, and to bring them the same joy, to turn playing into magic-making, they must listen as the audience. 
+Absorbed in the music, I allowed my instincts and muscle memory to take over, flying past the broken tritones or neapolitan chords. But even if I was playing the right notes, it didn’t matter. Becoming immersed in the cascading arpeggio waterfalls, thundering basses, and fairydust trills was actually the easy part, which brought me joy and fueled my love for music in the first place. However, music is not just about me. True artists perform for their audience, and to bring them the same joy, to turn playing into magic-making, they must listen as the audience. 
 
-# The lesson Ian taught me echoes beyond practice rooms and concert halls. I’ve learned to listen as I explore the hidden dialogue between voices, to pauses and silence, equally as powerful as words. Listening is performing as a soloist backed up by an orchestra. Listening is calmly responding during heated debates and being the last to speak in a SPS Harkness discussion. It’s even bouncing jokes around the dining table with family. I’ve grown to envision how my voice will impact the stories of those listening to me.
+The lesson Ian taught me echoes beyond practice rooms and concert halls. I’ve learned to listen as I explore the hidden dialogue between voices, to pauses and silence, equally as powerful as words. Listening is performing as a soloist backed up by an orchestra. Listening is calmly responding during heated debates and being the last to speak in a SPS Harkness discussion. It’s even bouncing jokes around the dining table with family. I’ve grown to envision how my voice will impact the stories of those listening to me.
 
-# To this day, my lessons with Ian continue to be tough, consisting of 80% discussion and 20% playing. When we were both so immersed in the music that I managed to get to the end of the piece before he looked up to say, “Bravo.” Now, even when I practice piano alone, I repeat my refrain: Are you listening?  """
+To this day, my lessons with Ian continue to be tough, consisting of 80% discussion and 20% playing. When we were both so immersed in the music that I managed to get to the end of the piece before he looked up to say, “Bravo.” Now, even when I practice piano alone, I repeat my refrain: Are you listening?  """
 
-# prompt_no = 'ques_one'
-# intended_setting_by_you = "alot"
+prompt_no = 'ques_one'
+intended_setting_by_you = "alot"
 
 
-# data = EmphasisOnSetting(prompt_no, input_text, intended_setting_by_you)
-# key_value_print(data)
+data = EmphasisOnSetting(prompt_no, input_text, intended_setting_by_you)
+key_value_print(data)
 
 ####################################################################################################
 # selected_prompt_number :  ['prompt #.1']
@@ -881,14 +1016,14 @@ def EmphasisOnSetting(prompt_no, input_text, intended_setting_by_you):
 # emphasis_your_comment_4 :  ['Comparing this with your essay, we see some similarities in the pattern.']
 
 # indicator_descriptors :  {'I heard art exploration still has plenty of openings !', 'I attempted to mimic the laid-back , grooving movements of my peers , but to no avail .', 'My movements were about as far away from ‘ jazzy ’ as one could possibly get .', 'The soft and melodic sound of a classic jazz ballad floated out of a set of speakers to my right , mixing with the confident chatter of students in the back row .', 'The band congregated in the middle of the room , each person tapping his or her feet along with the drummer .', 'Reflect on a time when you challenged a belief or idea .', 'Just relax !', 'Would you make the same decision again ?', 'As the solo section began to move around the room most students seemed relaxed and loose , acting as if they were easygoing musicians on a street corner in new orleans .', 'With my confidence already fading , i sat and thought to myself , i wonder if it ’ s too late to drop this course ?', 'I was used to the rigid accents and staccatos of the concert band world .', 'The director stepped to the front of the room , and snapped his fingers in a slow rhythm that the drummer tapped out with his worn wooden sticks .', 'As usual , i shuffled around in the back of the classroom , attempting to blend in with the sets of cubbies .', 'My shaking fingers closed around the shiny gold pieces of the saxophone in its case , leaving a streak of fingerprints down the newly cleaned exterior .', 'I felt my body tense and my eyes dart nervously around the room for a quick escape route .', 'My confidence plummeted as the person in front of me swung a closing riff and looked expectantly in my direction .', 'What prompted you to act ?', 'I scolded myself , just be jazzy and no one will notice you look out of place .'}
+
 # indicator_place_nouns :  ['New Orleans', 'street', 'corner', 'on', 'room', 'route', 'from', 'sound', 'in', 'along', 'body', 'down', 'to']
 
+
+# Number of total setting words(preposition) :  ['on', 'on', 'on', 'through', ... 'to']
+
+# web_result_prompt_by_selected :  {'Heavy emphasis on setting': 25, 'Moderate emphasis on setting': 63, 'Setting is not a big factor': 12}
 ####################################################################################################
-
-
-
-
-
 
     # 결과해석
     # intended_re : intended setting by you
