@@ -1,3 +1,4 @@
+# upgrade... 2021_07_28
 
 #conflict
 import pickle
@@ -31,6 +32,7 @@ with open('./accu_ps/plot_conflict/nltk_punkt.pickle', 'rb') as f:
 
 with open('./accu_ps/plot_conflict/vader_lexicon.pickle', 'rb') as f:
     vader_lexicon = pickle.load(f)
+
 
 # 다운로드 이미 완료, 실행시 사용하지 않음
 # averaged_perceptron_tagger  = nltk.download('averaged_perceptron_tagger')
@@ -80,33 +82,35 @@ from nltk.tokenize import word_tokenize
 from nltk.tokenize import RegexpTokenizer
 from collections import defaultdict
 
+
 from transformers import BertTokenizer
 from accu_ps.data.model import BertForMultiLabelClassification
 from accu_ps.data.multilabel_pipeline import MultiLabelPipeline
 
-# 다운로드했기 때문에 실행시는 사용하지 않음
-tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-original")
-model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
+from collections import Counter
+
+
+# from model import BertForMultiLabelClassification
+# from multilabel_pipeline import MultiLabelPipeline
+
+
+
+
 
 # # save tokenizer ---> 계산속도 줄이기위해서 미리 저장, 저장했기 때문에 실행시는 사용하지 않음
 # with open('data_tokenizer.pickle', 'wb') as f:
 #     pickle.dump(tokenizer, f, pickle.HIGHEST_PROTOCOL)
 
 # # save model ---> 계산속도 줄이기위해서 미리 저장, 저장했기 때문에 실행시는 사용하지 않음
+
 # with open('/var/www/html/essayfit/accu_ps/plot_conflict/data_model.pickle', 'wb') as g:
 #     pickle.dump(model, g, pickle.HIGHEST_PROTOCOL)
+
 
 # open tokenizer
 with open('/var/www/html/essayfit/accu_ps/plot_conflict/data_tokenizer.pickle', 'rb') as f:
     tokenizer = pickle.load(f)
 
-# open model  --------> 이거새으 400MB 가 넘어서 git에 올라가지 않음, 그럴경우 아래 코드의 주석을 풀어서 사용해야 함
-######----- model 주석 해제하여 사용할 것  ----####
-# model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
-# ############################################
-
-# with open('data_model.pickle', 'rb') as g:
-#     model = pickle.load(g)
 
 with open('/var/www/html/essayfit/accu_ps/plot_conflict/data_model.pickle', 'rb') as g:
     model = pickle.load(g)
@@ -178,33 +182,27 @@ def ai_plot_conf(essay_input_):
         #우선 토큰화한다.
         retokenize = RegexpTokenizer("[\w]+") #줄바꿈 제거하여 한줄로 만들고
         token_input_text = retokenize.tokenize(essay_input_corpus)
+        
         #print (token_input_text) #토큰화 처리 확인.. 토큰들이 리스트에 담김
         #리트스로 정리된 개별 토큰을 char_list와 비교해서 존재하는 것만 추출한다.
-        filtered_chr_text = []
+        conflict_text_org = []
         for k in token_input_text:
             for j in confict_words_list:
-                if k == j:
-                    filtered_chr_text.append(j)
+                if k in j:
+                    conflict_text_org.append(j)
         
         #print (filtered_chr_text) # 유사단어 비교 추출 완료, 겹치는 단어는 제거하자.
         
-        filtered_chr_text_ = set(filtered_chr_text) #중복제거
+        filtered_chr_text_ = set(conflict_text_org) #중복제거
         filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
+        # print("#"*100)
+        # print("token_input_text:",token_input_text)
+        # print()
+        # print("filtered_chr_text__:",filtered_chr_text__)
+        # print("#"*100)
         #print (filtered_chr_text__) # 중복값 제거 확인
         
-#         for i in filtered_chr_text__:
-#             ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
-        
-#         char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 표현 수
-#         char_count_ = len(filtered_chr_text__) #중복제거된  표현 총 수
-            
-#         result_char_ratio = round(char_total_count/total_words * 100, 2)
 
-#         import pandas as pd
-
-#         df_conf_words = pd.DataFrame(ext_sim_words_key, columns=['words','values']) #데이터프레임으로 변환
-#         df_r = df_conf_words['words'] #words 컬럼 값 추출
-#         ext_sim_words_key = df_r.values.tolist() # 유사단어 추출
         ext_sim_words_key = filtered_chr_text__
 
         #return result_char_ratio, total_sentences, total_words, char_total_count, char_count_, ext_sim_words_key
@@ -218,6 +216,7 @@ def ai_plot_conf(essay_input_):
 
 
 
+
     #########################################################################
     # 4.CONFLICT GRAPH EXPRESSION Analysis  -- 그래프로 그리기
     # conflict(input_text):
@@ -225,6 +224,9 @@ def ai_plot_conf(essay_input_):
     token_list_str = text_to_word_sequence(contents) #tokenize
     # 원본문장 단어 중복제거
     token_list_str_set = set(token_list_str)
+    print("#"*100)
+    print("token_list_str_set:",token_list_str_set)
+   
     #print('token_list_str:', token_list_str)
     confict_words_list_basic = ['clash', 'incompatible', 'inconsistent', 'incongruous', 'opposition', 'variance','vary', 'odds', 
                             'differ', 'diverge', 'disagree', 'contrast', 'collide', 'contradictory', 'incompatible', 'conflict',
@@ -241,15 +243,21 @@ def ai_plot_conf(essay_input_):
     confict_words_list = confict_words_list_basic + conflict_sim_words_ratio_result #유사단어를 계산결과 반영!
     #중복제거
     confict_words_list_set = set(confict_words_list)
-    #print('confict_words_list:', confict_words_list_set)
+    # print('confict_words_list:', confict_words_list)
     
     # 문장에 들어있는 추출된 conflict 단어들 : count_conflict_list ==================> conflict 단어가 없음(겹치는 단어 없나?)
     count_conflict_list = []
     for ittm in confict_words_list_set:
-        if ittm in token_list_str_set:
-            count_conflict_list.append(ittm)
-            
-    #print('문장에 들어있는 추출된 conflict 단어들:', count_conflict_list)
+        for token_list in token_list_str_set:
+            if  token_list in ittm : 
+                count_conflict_list.append(ittm)
+    
+    # print()        
+    # print('문장에 들어있는 추출된 conflict 단어들:', count_conflict_list)
+    # print("#"*100)
+    
+    count_conflict_list = set(count_conflict_list) #중복제거
+    count_conflict_list = list(count_conflict_list) #다시 리스트로 변환
     
     # 전체문장에 들어있는 conflict 단어 수
     nums_conflict_words =  len(count_conflict_list)
@@ -296,6 +304,7 @@ def ai_plot_conf(essay_input_):
     #comp_score를 1 -1 변환
     df_sent.loc[df_sent["comp_score"] == "pos","comp_score"] = 1
     df_sent.loc[df_sent["comp_score"] == "neg","comp_score"] = -1
+    
 
     # df_sent 의 변환된 값은 아래와 같다.
     # neg   neu   pos   compound   comp_score
@@ -309,6 +318,27 @@ def ai_plot_conf(essay_input_):
     #########################################################################
     # 5. 그래프로 그려보자. 이 코드는 matplotlib 로 그린것임. 종필은 highcharts로 표현할 것
     #########################################################################
+    # print("#"*100)
+    # print("df_sent['comp_score']:",df_sent['comp_score'])
+    # print("idx:",df_sent[df_sent['comp_score'] == 1].index)
+    # print("#"*100)
+    
+    list_pos_neg = []
+    list_df_sent = list(df_sent['comp_score']) 
+    idx = 0 
+    for df in  list_df_sent : 
+        
+         
+        if idx < len(list_df_sent)-1 and df != list_df_sent[idx+1]  and  list_str[idx+1] : 
+            
+            list_pos_neg.append(list_str[idx+1])
+            print("list_pos_neg_"+str(idx+1)+":", list_str[idx+1])
+        idx += 1 
+        
+    
+    
+    # neg_pos_list = []
+    # list_str[idx] 
     
  
     
@@ -351,7 +381,10 @@ def ai_plot_conf(essay_input_):
     import pandas as pd
 
     #Awards 데이터 불러오기
-    data_action_verbs = pd.read_csv('/var/www/html/essayfit/accu_ps/plot_conflict/actionverbs.csv')
+   ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -- > kyle upgrade...
+    # after upgrade, return below code!
+    #data_action_verbs = pd.read_csv('/var/www/html/essayfit/accu_ps/plot_conflict/actionverbs.csv')
+    data_action_verbs = pd.read_csv('./accu_ps/plot_conflict/actionverbs.csv')
     data_ac_verbs_list = data_action_verbs.values.tolist()
     verbs_list = [y for x in data_ac_verbs_list for y in x]
 
@@ -406,17 +439,17 @@ def ai_plot_conf(essay_input_):
         filtered_chr_text__ = list(filtered_chr_text_) #다시 리스트로 변환
         #print (filtered_chr_text__) # 중복값 제거 확인
         
-#         for i in filtered_chr_text__:
-#             ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
-        
-#         char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 표현 수
-#         char_count_ = len(filtered_chr_text__) #중복제거된  표현 총 수
-            
-#         result_char_ratio = round(char_total_count/total_words * 100, 2)
-        
-#         df_conf_words = pd.DataFrame(ext_sim_words_key, columns=['words','values']) #데이터프레임으로 변환
-#         df_r = df_conf_words['words'] #words 컬럼 값 추출
-#         ext_sim_words_key = df_r.values.tolist() # 유사단어 추출
+        #         for i in filtered_chr_text__:
+        #             ext_sim_words_key = model.most_similar_cosmul(i) #모델적용
+                
+        #         char_total_count = len(filtered_chr_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 표현 수
+        #         char_count_ = len(filtered_chr_text__) #중복제거된  표현 총 수
+                    
+        #         result_char_ratio = round(char_total_count/total_words * 100, 2)
+                
+        #         df_conf_words = pd.DataFrame(ext_sim_words_key, columns=['words','values']) #데이터프레임으로 변환
+        #         df_r = df_conf_words['words'] #words 컬럼 값 추출
+        #         ext_sim_words_key = df_r.values.tolist() # 유사단어 추출
 
         #return result_char_ratio, total_sentences, total_words, char_total_count, char_count_, ext_sim_words_key
         ext_sim_words_key = filtered_chr_text__
@@ -448,6 +481,8 @@ def ai_plot_conf(essay_input_):
             #print('counter :', counter)
             graph_calculation_list.append(round(graph_calculation_list[counter]-0.1,2)) 
             counter += 1
+    
+
             
     #문장에 Action Verbs 추출확인
     #print('Action Verbs:', get_words__)
@@ -777,8 +812,8 @@ def ai_plot_conf(essay_input_):
         filtered_setting_text__ = list(filtered_setting_text_) #다시 리스트로 변환
         #print (filtered_setting_text__) # 중복값 제거 확인
         
-#         for i in filtered_setting_text__:
-#             ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
+    #         for i in filtered_setting_text__:
+    #             ext_setting_sim_words_key = model.most_similar_cosmul(i) #모델적용
         
         setting_total_count = len(filtered_setting_text) # 중복이 제거되지 않은 에세이 총 문장에 사용된 setting 표현 수
         setting_count_ = len(filtered_setting_text__) #중복제거된 setting표현 총 수
@@ -935,7 +970,7 @@ def ai_plot_conf(essay_input_):
     # 8.nums_action_verbs : Action verbs 수
     # 9.ext_shift_emoiton_re : Shifts Between Positive and Negative Sentiments의 감정기복 값 계산 결과로 문장생성 frequent / moderate / sparse
     
-    return st_input, result_emo_swings, conflict_word_ratio, df_sent, graph_calculation_list, count_conflict_list, nums_conflict_words, get_words__, nums_action_verbs, ext_shift_emoiton_re
+    return st_input, result_emo_swings, conflict_word_ratio, df_sent, graph_calculation_list, count_conflict_list, nums_conflict_words, get_words__, nums_action_verbs, ext_shift_emoiton_re,list_pos_neg
 
 
 
@@ -1102,7 +1137,9 @@ def ai_plot_coflict_total_analysis(input_text):
             "compound" : compound,
             "graph_calculation_list" : graph_calculation_list,
             "Shifts Between Positive and Negative Sentiments" : shifts_btw_neg_pos,
-            "conflict words list" : count_conflict_list_re # 문장에서 추출한 conflict 단어 모음
+            "conflict words list" : count_conflict_list_re, # 문장에서 추출한 conflict 단어 모음
+            "list_pos_neg" : plot_conf_re[10]
+            
 
         }
     
@@ -1245,7 +1282,7 @@ def ai_emotion_analysis(input_text, promt_number):
     elif re_mood == 'joyful':
         sentence1 = 'You’ve intended to write the essay in a joyful mood.'
         sentence2 = 'The AI’s analysis shows that your personal statement’s mood seems to be joyful.'
-                     
+
     elif re_mood == 'calm':
         sentence1 = 'You’ve intended to write the essay in a calm mood.'
         sentence2 = 'The AI’s analysis shows that your personal statement’s mood seems to be calm.'
@@ -1324,7 +1361,7 @@ def ai_emotion_analysis(input_text, promt_number):
     
     
     # 결과해석
-  
+
     # result_emo_list: 문장 + 감성분석결과
     # intendedMoodByPmt : intended mood 
     # detected_mood : 대표 Mood
@@ -1338,7 +1375,7 @@ def ai_emotion_analysis(input_text, promt_number):
     for itm in key_emo[:5]:
         #print(itm[0])
         ps_ext_emo.append(itm[0])
- 
+
     #print(ps_ext_emo)
     
     group_ext_emo = [] # 그룹 에세이에서 추출한 5개의 평균 대표감성 5개
@@ -1381,7 +1418,7 @@ def ai_emotion_analysis(input_text, promt_number):
     # 2.detected_mood : 대표 Mood
     # 3.sentence1,sentence2, sentence3 : intended mood vs. your mood 비교결과에 대한 문장생성 커멘트
     # 4.key_emo[:5] : 학생 한명의 에세이에서 추출한 대표감성 5개
-    # 5.accepted_essay_av_value : 1000명의 합격한 학생의 대표감서 5개
+    # 5.accepted_essay_av_value : 1000명의 합격한 학생의 대표감성 5개
     # 6.in_depth_sent_result : 최종 심층 분석결과
     # 7.re_mood : 개인 mood 분석 추출결과
 
@@ -1754,36 +1791,48 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
         if prompt_no == 'ques_one':
             group_pmt_no_value = 2 # 이 숫자들을 다시 frequent 여부를 계산해야 함, 그럴려면 위 함수를 재활용해야 함
             re_fms = ferq_moder_spar(group_pmt_no_value) # 문항의 결과값 frequent / moderate / sparse 중 택1
+            shift_between_pos_neg_sentiments_admitted = "Moderate"
         elif prompt_no == 'ques_two':
             group_pmt_no_value = 2
             re_fms = ferq_moder_spar(group_pmt_no_value) # 문항의 결과값 frequent / moderate / sparse 중 택1
+            shift_between_pos_neg_sentiments_admitted = "Frequent"
         elif prompt_no == 'ques_three':
             group_pmt_no_value = 3
             re_fms = ferq_moder_spar(group_pmt_no_value) # 문항의 결과값 frequent / moderate / sparse 중 택1
+            shift_between_pos_neg_sentiments_admitted = "Frequent"
         elif prompt_no =='ques_four':
             group_pmt_no_value = 4
             re_fms = ferq_moder_spar(group_pmt_no_value) # 문항의 결과값 frequent / moderate / sparse 중 택1
+            shift_between_pos_neg_sentiments_admitted = "Moderate"
         elif prompt_no == 'ques_five':
             group_pmt_no_value = 5
             re_fms = ferq_moder_spar(group_pmt_no_value) # 문항의 결과값 frequent / moderate / sparse 중 택1
+            shift_between_pos_neg_sentiments_admitted = "Moderate"
         elif prompt_no == 'ques_six':
             group_pmt_no_value = 3
             re_fms = ferq_moder_spar(group_pmt_no_value) # 문항의 결과값 frequent / moderate / sparse 중 택1
+            shift_between_pos_neg_sentiments_admitted = "Sparse"
         else: # prompt_no = 'prompt_7':
             group_pmt_no_value = 0
             re_fms = ferq_moder_spar(group_pmt_no_value) # 문항의 결과값 frequent / moderate / sparse 중 택1
+            shift_between_pos_neg_sentiments_admitted = "Sparse"
         ###############################################################################
         if re_fms == shift_neg_pos_value:
             sentence_2_val = 'match'
         else: # re_fms != shift_neg_pos_value
             sentence_2_val = 'does not match'
 
-        return shift_neg_pos_value, sentence_2_val,re_fms
+        return shift_neg_pos_value, sentence_2_val,re_fms,shift_between_pos_neg_sentiments_admitted
 
     # 문장생성
     Sft_BT_PoNe_re = shifts_Bt_PoNe(prompt_no, shift_neg_pos_value)
     
-    sentense_1_PN = ['The admitted cases tend to display', Sft_BT_PoNe_re[0],'fluctuations between polarizing sentiments throughout the story for this type of essay prompt.']
+    sentence_max = dict(Counter(Sft_BT_PoNe_re[0]))
+    
+    
+    
+    
+    sentense_1_PN = ['The admitted cases tend to display', list(sentence_max.keys())[:2],'fluctuations between polarizing sentiments throughout the story for this type of essay prompt.']
     sentense_2_PN = ['Such pattern observed from the admitted case average seems to', Sft_BT_PoNe_re[1], 'with the pattern detected from your personal statement.']
 
     # 문장생성
@@ -1807,10 +1856,36 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
     # 각 구간의 셋팅 관련 표현의 합격자 평균값(임의로 넣음, 나중에 평균값을 계산해서 적용해야 함)
     ##########################################################
     ##########################################################
-    group_conflict_words_parts_mean_value = [2, 2, 1, 1, 0] # intro, body 1~3, conclusion
+    group_conflict_words_parts_mean_value = [] # intro, body 1~3, conclusion
     ##########################################################
+       # prompt별로 셋팅 단어 적용 비율 
+    pmt_1 = [3, 2, 2, 2, 1]
+    pmt_2 = [6, 4, 2, 2, 1]
+    pmt_3 = [5, 3, 2, 2, 2]
+    pmt_4 = [2, 2, 2, 1, 2]
+    pmt_5 = [3, 2, 1, 1, 2]
+    pmt_6 = [2, 1, 1, 1, 1]
     ##########################################################
-    each_parts_of_conflict_words_used # 개인의 구간별 컨플릭 단어 사용 수 리스트!
+    if prompt_no == 'ques_one':
+        group_conflict_words_parts_mean_value = pmt_1
+    
+    elif prompt_no == 'ques_two':
+        group_conflict_words_parts_mean_value = pmt_2
+
+    elif prompt_no == 'ques_three':
+        group_conflict_words_parts_mean_value = pmt_3
+
+    elif prompt_no == 'ques_four':
+        group_conflict_words_parts_mean_value = pmt_4
+
+    elif prompt_no == 'ques_five':
+        group_conflict_words_parts_mean_value = pmt_5
+
+    else : #prompt_no == 'ques_one':
+        group_conflict_words_parts_mean_value = pmt_6
+
+
+    # each_parts_of_conflict_words_used # 개인의 구간별 컨플릭 단어 사용 수 리스트!
 
     # 각각의 값을 비교하고, 0.3 의 오차범위에서 같으면 True 
     def compart(val_1, val_2):
@@ -1847,6 +1922,7 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
     # pc_tension : 개인의 선택한 tension 결과
     # intended_mood : 개인의 에세이를 prompt 문항에 의해 분석한 결과 
 
+   
 
     result_data = {
         "intended_mood" : pc_intended_mood_result, #intended mood by you  --> 개인이 선택한 intended mood 선택 결과
@@ -1870,21 +1946,57 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
         "strength_tension_comment_2" : sentence_2_STS,#문장생성
         "strength_tension_comment_3" : sentence_3_STS,#문장생성
         
+        # strength_tension_admitted_case_list = strength_tension_admitted_case_list,  ### kjp 이부분 값을 부탁드립니다. 
+        # strength_tension_your_essay_list = strength_tension_your_essay_list,        ### kjp 이부분 값을 부탁드립니다. 
+        "shift_between_pos_neg_sentiments_admitted" : Sft_BT_PoNe_re[3],
+        
         "shift_emo_ratio" : Sft_BT_PoNe_re[2],  #### 
         
-        "indicator_conflict_word" :  count_conflict_list_re, # conflict words list ------> 웹페이지에 표시해야 함
-        "indicator_action_verbs" : get_words__re, #Action Verbs list -------> 웹페이지에 표시해야 함
+        "indicator_conflict_word" :  dict(Counter(count_conflict_list_re)), # conflict words list ------> 웹페이지에 표시해야 함
+        "indicator_action_verbs" : dict(Counter(get_words__re)), #Action Verbs list -------> 웹페이지에 표시해야 함
         
-        "indicator_sentiment_shifits_pos_neg" : indicator_sentiment_shifits_pos_neg 
+        
+        
+        "indicator_sentiment_shifits_pos_neg" : dict(Counter(plot_conf_re[10]))
     }
         
     return result_data
 
 
-### 실행 ###
-#  - 입력값 - #
+## 실행 ###
+# - 입력값 - #
+
 # prompt_no = 'ques_one' #이런 형식으로 넣어야 함
-# input_text = """Bloomington Normal is almost laughably cliché for a midwestern city. Vast swathes of corn envelop winding roads and the heady smell of BBQ smoke pervades the countryside every summer. Yet, underlying the trite norms of Normal is the prescriptive force of tradition—the expectation to fulfill my role as a female Filipino by playing Debussy in the yearly piano festival and enrolling in multivariable calculus instead of political philosophy.So when I discovered the technical demand of bebop, the triplet groove, and the intricacies of chordal harmony after ten years of grueling classical piano, I was fascinated by the music's novelty. Jazz guitar was not only evocative and creative, but also strangely liberating. I began to explore different pedagogical methods, transcribe solos from the greats, and experiment with various approaches until my own unique sound began to develop. And, although I did not know what would be the 'best' route for me to follow as a musician, the freedom to forge whatever path I felt was right seemed to be exactly what I needed; there were no expectations for me to continue in any particular way—only the way that suited my own desires.While journeying this trail, I found myself at Interlochen Arts Camp the summer before my junior year. Never before had I been immersed in an environment so conducive to musical growth: I was surrounded by people intensely passionate about pursuing all kinds of art with no regard for ideas of what art 'should' be. I knew immediately that this would be a perfect opportunity to cultivate my sound, unbounded by the limits of confining tradition. On the first day of camp, I found that my peer guitarist in big band was another Filipino girl from Illinois. Until that moment, my endeavors in jazz guitar had been a solitary effort; I had no one with whom to collaborate and no one against whom I could compare myself, much less someone from a background mirroring my own. I was eager to play with her, but while I quickly recognized a slew of differences between us—different heights, guitars, and even playing styles—others seemed to have trouble making that distinction during performances. Some even went as far as calling me 'other-Francesca.' Thus, amidst the glittering lakes and musky pine needles of Interlochen, I once again confronted Bloomington's frustrating expectations.After being mistaken for her several times, I could not help but view Francesca as a standard of what the 'female Filipino jazz guitarist' should embody. Her improvisatory language, comping style and even personal qualities loomed above me as something I had to live up to. Nevertheless, as Francesca and I continued to play together, it was not long before we connected through our creative pursuit. In time, I learned to draw inspiration from her instead of feeling pressured to follow whatever precedent I thought she set. I found that I grew because of, rather than in spite of, her presence; I could find solace in our similarities and even a sense of comfort in an unfamiliar environment without being trapped by expectation. Though the pressure to conform was still present—and will likely remain present in my life no matter what genre I'm playing or what pursuits I engage in—I learned to eschew its corrosive influence and enjoy the rewards that it brings. While my encounter with Francesca at first sparked a feeling of pressure to conform in a setting where I never thought I would feel its presence, it also carried the warmth of finding someone with whom I could connect. Like the admittedly trite conditions of my hometown, the resemblances between us provided comfort to me through their familiarity. I ultimately found that I can embrace this warmth while still rejecting the pressure to succumb to expectations, and that, in the careful balance between these elements, I can grow in a way that feels both like discove"""
+
+# input_text = """My hand lingered on the cold metal doorknob. I closed my eyes as the Vancouver breeze ran its chilling fingers through my hair. The man I was about to meet was infamous for demanding perfection. But the beguiling music that faintly fluttered past the unlatched window’s curtain drew me forward, inviting me to cross the threshold. Stepping into the apartment, under the watchful gaze of an emerald-eyed cat portrait, I entered the sweeping B Major scale.
+
+# Led by my intrinsic attraction towards music, coupled with the textured layers erupting the instant my fingers grazed the ivory keys, driving the hammers to shoot vibrations up in the air all around me, I soon fell in love with this new extension of my body and mind. My mom began to notice my aptitude for piano when I began returning home with trophies in my arms. These precious experiences fueled my conviction as a rising musician, but despite my confidence, I felt like something was missing.
+
+# Back in the drafty apartment, I smiled nervously and walked towards the piano from which the music emanated. Ian Parker, my new piano teacher, eyes-closed and dressed in black glided his hands effortlessly across the keys. I stood beside a leather chair, waiting as he finished the phrase. He stood up. I sat down.
+
+# Chopin Black Key Etude — a piece I knew so well I could play it eyes-closed. I took a breath and positioned my right hand in a G-flat 2nd inversion. 
+# Just one measure in, I was stopped. 
+# 	“Start again.”
+# 	Taken by surprise, I spun left. His eyes were on the score, not me. 
+# 	I started again. Past the first measure, first phrase, then stopped again. What is going on? 
+	
+# 	“Are you listening?”
+# I nodded. Of course I am. 
+# “But are you really listening?”
+
+# As we slowly dissected each measure, I felt my confidence slip away. The piece was being chipped into fragments. Unlike my previous teachers, who listened to a full performance before giving critical feedback, Ian stopped me every five seconds. One hour later, we only got through half a page. 
+
+# Each consecutive week, the same thing happened. I struggled to meet his expectations. 
+# “I’m not here to teach you just how to play. I’m here to teach you how to listen.” 
+# I realized what Ian meant — listening involves taking what we hear and asking: is this the sound I want? What story am I telling through my interpretation? 
+
+# Absorbed in the music, I allowed my instincts and muscle memory to take over, flying past the broken tritones or neapolitan chords. But even if I was playing the right notes, it didn’t matter. Becoming immersed in the cascading arpeggio waterfalls, thundering basses, and fairydust trills was actually the easy part, which brought me joy and fueled my love for music in the first place. However, music is not just about me. True artists perform for their audience, and to bring them the same joy, to turn playing into magic-making, they must listen as the audience. 
+
+# The lesson Ian taught me echoes beyond practice rooms and concert halls. I’ve learned to listen as I explore the hidden dialogue between voices, to pauses and silence, equally as powerful as words. Listening is performing as a soloist backed up by an orchestra. Listening is calmly responding during heated debates and being the last to speak in a SPS Harkness discussion. It’s even bouncing jokes around the dining table with family. I’ve grown to envision how my voice will impact the stories of those listening to me.
+
+# To this day, my lessons with Ian continue to be tough, consisting of 80% discussion and 20% playing. When we were both so immersed in the music that I managed to get to the end of the piece before he looked up to say, “Bravo.” Now, even when I practice piano alone, I repeat my refrain: Are you listening?  """
+
+# input_text = "Reflect on a time when you challenged a belief or idea. What prompted you to act? Would you make the same decision again? My shaking fingers closed around the shiny gold pieces of the saxophone in its case, leaving a streak of fingerprints down the newly cleaned exterior. The soft and melodic sound of a classic jazz ballad floated out of a set of speakers to my right, mixing with the confident chatter of students in the back row. As usual, I shuffled around in the back of the classroom, attempting to blend in with the sets of cubbies. With my confidence already fading, I sat and thought to myself, I wonder if it’s too late to drop this course? I heard Art Exploration still has plenty of openings! The director stepped to the front of the room, and snapped his fingers in a slow rhythm that the drummer tapped out with his worn wooden sticks. The band congregated in the middle of the room, each person tapping his or her feet along with the drummer. Just relax! I scolded myself, just be jazzy and no one will notice you look out of place. I attempted to mimic the laid-back, grooving movements of my peers, but to no avail. My movements were about as far away from ‘jazzy’ as one could possibly get. I was used to the rigid accents and staccatos of the concert band world. As the solo section began to move around the room most students seemed relaxed and loose, acting as if they were easygoing musicians on a street corner in New Orleans. I felt my body tense and my eyes dart nervously around the room for a quick escape route. My confidence plummeted as the person in front of me swung a closing riff and looked expectantly in my direction. I quickly pressed the mouthpiece to my tongue and played a few stiff sounding riffs, but the notes seemed to fall flat. I felt my face flush a nice shade of deep red as I stood in the middle of the room with the drummer tapping away, waiting for me to step in and finish. All of a sudden, the director shouted, ‘Play a riff! Dance! Come on, Phoebe, at least do something!’ His exasperated tone prompted me to attempt to salvage the bleak looking situation I was currently facing."
 
 # data = feedback_plot_conflict(prompt_no,input_text)
 
@@ -1894,30 +2006,26 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
 ####################################################################################################
 
 # intended_mood :  joyful
-# detected_mood :  joyful
-
+# detected_mood :  suspenseful
 # stimulus_conflict_words_admmitted :  5
-# stimulus_conflict_words_your_essay :  3
+# stimulus_conflict_words_your_essay :  76
 # stimulus_action_verbs_admmitted :  20
-# stimulus_action_verbs_your_essay :  28
-
-# intended_mood_plot_conflict_comment_1 :  ['Your intended mood for the essay is ‘calm.’ It means that the story may contain self-reflection, intellectual topics, and observations that shaped your perspective. Hence, the plot is likely to be somewhat steady with limited emotional fluctuations and conflicts.']
-# intended_mood_plot_conflict_comment_2 :  ['The detected plot displays a moderate tension which seems to be', 'closely correlated with', 'your intended mood of the essay.']
-
-# stimulus_words_comment_1 :  ['Compared to the accepted case average for this prompt, you have spent', 2, 'fewer', 'conflict oriented words and', 8, 'more', 'action verbs in your story.']
-# stimulus_words_comment_2 :  ['Overall, you may consider', 'adding more', 'words to', 'alleviate', "the plot's tension"]
-
-# shift_between_pos_neg_comment_1 :  ['The admitted cases tend to display', ['matter', 'different', 'encounter'], 'fluctuations between polarizing sentiments throughout the story for this type of essay prompt.']
+# stimulus_action_verbs_your_essay :  19
+# intended_mood_plot_conflict_comment_1 :  ['Your intended mood for the essay is ‘suspenseful.’ It means that the story may contain multiple elements intertwined with one another. In addition, it may deal with incidents unfolding in a dynamic pattern. Hence, the plot is likely to show a high level of tension with multiple emotional fluctuations and conflicts.']
+# intended_mood_plot_conflict_comment_2 :  ['The detected plot displays a high tension which seems to be', 'somewhat distant from', 'your intended mood of the essay.']
+# stimulus_words_comment_1 :  ['Compared to the accepted case average for this prompt, you have spent', 71, 'more', 'conflict oriented words and', 1, 'fewer', 'action verbs in your story.']
+# stimulus_words_comment_2 :  ['Overall, you may consider', 'using less', 'words to', 'intensify', "the plot's tension"]
+# shift_between_pos_neg_comment_1 :  ['The admitted cases tend to display', ['enmity', 'friction'], 'fluctuations between polarizing sentiments throughout the story for this type of essay prompt.']
 # shift_between_pos_neg_comment_2 :  ['Such pattern observed from the admitted case average seems to', 'does not match', 'with the pattern detected from your personal statement.']
-
 # strength_tension_comment_1 :  ['Both physical and emotional conflicts and fluctuations in the plot constitute the ‘ups-and-downs’ which add excitement to the story.']
-# strength_tension_comment_2 :  ['Dividing up the personal statement in 5 equal parts by the word count, AI analysis indicated that highest levels of tension are concentrated in', 'conclusion', 'and', 'intro', 'of the accepted case average.']
+# strength_tension_comment_2 :  ['Dividing up the personal statement in 5 equal parts by the word count, AI analysis indicated that highest levels of tension are concentrated in', 'intro', 'and', 'intro', 'of the accepted case average.']
 # strength_tension_comment_3 :  ['Comparing this with your essay, we see some similarities in the pattern.']
+# shift_emo_ratio :  frequent
+# indicator_conflict_word :  {'enmity': 1, 'friction': 1, 'divergent': 1, 'varying': 1, 'incongruous': 1, 'bone of contention': 1, 'variance': 1, 'sore point': 1, 'issue': 1, 'beef': 1, 'differ': 1, 'discord': 1, 'combat': 1, 'question': 1, 'incongruity': 1, 'fight': 1, 'at variance': 1, 'contrariety': 1, 'disagreeing': 1, 'striving': 1, 'discrepant': 1, 'contention': 1, 'bone to pick': 1, 'rivalry': 1, 'battle': 1, 'dispute': 1, 'incompatible': 1, 'inconsistent': 1, 'collision': 1, 'dissension': 1, 'contrary': 1, 'agitation': 1, 'controversy': 1, 'conflicting': 1, 'set-to': 1, 'contrasting': 1, 'point in question': 1, 'debate': 1, 'hatred': 1, 'war': 1, 'in opposition': 1, 'diverge': 1, 'opposite': 1, 'vary': 1, 'conflict': 1, 'contradictory': 1, 'irreconcilable': 1, 'resistance': 1, 'at odds': 1, 'different': 1, 'competition': 1, 'discordant': 1, 'conflicted': 1, 'disagree': 1, 'differing': 1, 'tug-of-war': 1, 'contrast': 1, 'strife': 1, 'conflicts': 1, 'clash': 1, 'rancor': 1, 'clashing': 1, 'matter': 1, 'quarrel': 1, 'disagreement': 1, 'opposing': 1, 'engagement': 1, 'opposition': 1, 'contest': 1, 'fray': 1, 'collide': 1, 'emulation': 1, 'matter at hand': 1, 'hostility': 1, 'antithetical': 1, 'fracas': 1}
+# indicator_action_verbs :  {'act': 1, 'make': 1, 'set': 1, 'blend': 1, 'drop': 1, 'relax': 1, 'place': 1, 'mimic': 1, 'get': 1, 'move': 1, 'dart': 1, 'escape': 1, 'fall': 1, 'flush': 1, 'step': 1, 'finish': 1, 'play': 1, 'dance': 1, 'do': 1}
+# indicator_sentiment_shifits_pos_neg :  {' The soft and melodic sound of a classic jazz ballad floated out of a set of speakers to my right, mixing with the confident chatter of students in the back row': 1, ' I attempted to mimic the laid-back, grooving movements of my peers, but to no avail': 1, ' My movements were about as far away from ‘jazzy’ as one could possibly get': 1, ' I was used to the rigid accents and staccatos of the concert band world': 1, ' As the solo section began to move around the room most students seemed relaxed and loose, acting as if they were easygoing musicians on a street corner in New Orleans': 1, ' I felt my body tense and my eyes dart nervously around the room for a quick escape route': 1, ' My confidence plummeted as the person in front of me swung a closing riff and looked expectantly in my direction': 1, ' All of a sudden, the director shouted, ‘Play a riff! Dance! Come on, Phoebe, at least do something!’ His exasperated tone prompted me to attempt to salvage the bleak looking situation I was currently facing': 1}
 
-# indicator_conflict_word :  ['matter', 'different', 'encounter']
-# indicator_action_verbs :  ['smell', 'force', 'explore', 'transcribe', 'experiment', 'develop', 'forge', 'found', 'perfect', 'cultivate', 'found', 'collaborate', 'play', 'help', 'play', 'draw', 'set', 'found', 'find', 'sense', 'present', 'present', 'engage', 'influence', 'feel', 'found', 'balance', 'grow']
-
-####################################################################################################
+# ####################################################################################################
 
 
 

@@ -1,5 +1,5 @@
-# # upgrade... 2021_07_28
-
+# upgrade... 2021_08_08 :
+# streng of tension 부분 값 도출
 
 #conflict
 import pickle
@@ -975,6 +975,7 @@ def ai_plot_conf(essay_input_):
 
 def ai_plot_coflict_total_analysis(input_text):
 
+    # conflicts 단어 리스트, 입력에세이에서 추출한 값 외 다양한 계산 결과추출
     plot_conf_re = ai_plot_conf(input_text)
     
     count_conflict_list_re = plot_conf_re[5] # conflict words list
@@ -1442,11 +1443,13 @@ def run_first(input_text):
         return conflict_words_li_re, shift_neg_pos_value
 
 
+
+
 def paragraph_divide_ratio(input_text):
 
     run_first_result = run_first(input_text)
     conflict_words_li_re = run_first_result[0]
-    #print('------------------>conflict_words_li_re:', conflict_words_li_re)
+    print('------------------>conflict_words_li_re:', conflict_words_li_re)
 
     essay_input_corpus = str(input_text) #문장입력
     essay_input_corpus = essay_input_corpus.lower()#소문자 변환
@@ -1514,7 +1517,7 @@ def paragraph_divide_ratio(input_text):
                 pass
         return counter, part_section
 
-    # 구간별 셋팅 단어가 몇개씩 포함되어 있는지 계산 
+    # 구간별 단어가 몇개씩 포함되어 있는지 계산 
     intro_s_num = set_wd_conunter_each_parts(tot_setting_words, intro)
     #print('intor:', intro_s_num)
     body_1_s_num = set_wd_conunter_each_parts(tot_setting_words, body_1_)
@@ -1528,7 +1531,7 @@ def paragraph_divide_ratio(input_text):
 
     
     # 가장 많이 포함된 구간을 순서대로 추출
-    compare_parts_grup_nums = [] # 숫자와 항복명을 모두 저장(튜플을 리스트로)
+    compare_parts_grup_nums = [] # 숫자와 항목명을 모두 저장(튜플을 리스트로)
     compare_parts_grup_nums_and_parts = [] # 숫자만 리스트로
     
     compare_parts_grup_nums.append(intro_s_num[0])
@@ -1554,18 +1557,18 @@ def paragraph_divide_ratio(input_text):
     
     #compare_parts_grup_nums_and_parts =compare_parts_grup_nums_and_parts.sort(reverse=True)
     
-    #print('compare_parts_grup: ', compare_parts_grup_nums) # [7, 'intro', 11, 'body #1', 9, 'body #2', 9, 'body #3', 4, 'conclusion']
+    print('compare_parts_grup: ', compare_parts_grup_nums) # [7, 'intro', 11, 'body #1', 9, 'body #2', 9, 'body #3', 4, 'conclusion']
     
     #순서정렬
     compare_parts_grup_nums_and_parts_sorted = sorted(compare_parts_grup_nums_and_parts, reverse=True)
-    #print('compare_parts_grup_nums_and_parts(sorted)', compare_parts_grup_nums_and_parts_sorted) # [11, 9, 9, 7, 4]
-    #print('compare_parts_grup_nums_and_parts :',compare_parts_grup_nums_and_parts)
+    print('compare_parts_grup_nums_and_parts(sorted)', compare_parts_grup_nums_and_parts_sorted) # [11, 9, 9, 7, 4]
+    print('compare_parts_grup_nums_and_parts :',compare_parts_grup_nums_and_parts)
     
     first_result = compare_parts_grup_nums_and_parts_sorted[0]
     second_result = compare_parts_grup_nums_and_parts_sorted[1]
     
     get_first_re = compare_parts_grup_nums.index(first_result) #인덱스 위치찾기
-    #print('get_firtst_re:',get_first_re)
+    print('get_firtst_re:',get_first_re)
     #가장 많은 표현이 들어간 부분 추출(최종값)
     first_snt_part = compare_parts_grup_nums[get_first_re + 1]
     
@@ -1577,17 +1580,103 @@ def paragraph_divide_ratio(input_text):
     # 0.df_sentences: 모든 단어를 데이터프레임으로 변환
     # 1.tot_setting_words: : 추출한 conflict 관련 단어 리스트로 변환
     # 2.first_snt_part: 문단중 가장 conflict 관련 단어가 많은 부분 -> Strength of Tension by Section 문장으로 표현
-    # 3.second_snt_part: 문잔중 conflict 관련 단어가 두번째고 많은 부분 -> Strength of Tension by Section 문장으로 표현
+    # 3.second_snt_part: 문단중 conflict 관련 단어가 두번째고 많은 부분 -> Strength of Tension by Section 문장으로 표현
     # 4.compare_parts_grup_nums_and_parts : intro body_1 body_2 body_3 conclusion 의 개인 에세이 계산 값
     # 5.conflict_words_li_re[1] : 컨플릭단어추출 분석 결과 리스트
 
     return df_sentences, tot_setting_words, first_snt_part, second_snt_part, compare_parts_grup_nums_and_parts, conflict_words_li_re
 
 
+
+############## conflicts csv 파일에서 추출한 단어들을 spacy-wordnet에서 유사어를 모두 찾아내여 리스트로 만들기 시작! ##############
+
+###################################################################################################
+# 문장에서 동사를 추출하여 원형으로 변환, 비교하여 Spacy-wordnet을 통해서 Synonym을 모두 추출import spacy
+import spacy
+from spacy_wordnet.wordnet_annotator import WordnetAnnotator
+from nltk.tokenize import word_tokenize
+import re
+
+# Load an spacy model
+nlp = spacy.load('en_core_web_lg')
+# Spacy 3.x
+nlp.add_pipe("spacy_wordnet", after='tagger', config={'lang': nlp.lang})
+# Spacy 2.x
+# self.nlp_en.add_pipe(WordnetAnnotator(self.nlp_en.lang))
+token = nlp('prices')[0]
+
+# wordnet object link spacy token with nltk wordnet interface by giving acces to
+# synsets and lemmas 
+token._.wordnet.synsets()
+token._.wordnet.lemmas()
+
+# And automatically tags with wordnet domains
+token._.wordnet.wordnet_domains()
+
+data_conflict_verbs = pd.read_csv('conflict_words.csv')
+data_cf_verbs_list = data_conflict_verbs.values.tolist()
+cf_verbs_list = [y for x in data_cf_verbs_list for y in x]
+print('cf_verbs_list:', cf_verbs_list)
+
+def get_sym_words_all_in_sents(ipt):
+
+    # conflictS 단어들을 문자열로 변환하고, 연관단어를 모두 찾아낸다.
+    ipt_ =  " ".join(ipt)
+    
+    sentences_domains = ['book_keeping', 'numismatics', 'betting','banking','insurance','racing','social',
+    'money','finance','post','law','commerce','enterprise','telegraphy', 'mathematics','industry','economy',
+    'tax','free_time','jewellery','statistics', 'exchange','buildings','diplomacy', 'book_keeping','factotum','agriculture', 'electrotechnology','numismatics',
+    'person','telephony', 'metrology', 'politics', 'betting', 'banking', 'sociology', 'insurance', 'racing', 'publishing', 'social', 'money', 'card', 'finance', 'post', 'law', 'topography', 'tourism', 'commerce', 'philology', 'telegraphy', 'enterprise', 'mathematics', 'time_period',
+    'town_planning', 'animal_husbandry', 'pure_science', 'computer_science', 'economy', 'industry', 'tax', 'quality', 'free_time', 'philately', 'railway', 'jewellery', 'telecommunication', 'statistics',
+    'exchange', 'economy', 'music', 'social', 'economy', 'commerce', 'social', 'commerce']
+
+    enriched_sentence = []
+    sentence = nlp(ipt_)
+    # For each token in the sentence
+    for token in sentence:
+        # We get those synsets within the desired domains
+        synsets = token._.wordnet.wordnet_synsets_for_domain(sentences_domains)
+        print("synsets:", synsets)
+        if not synsets:
+            enriched_sentence.append(token.text)
+        else:
+            lemmas_for_synset = [lemma for s in synsets for lemma in s.lemma_names()]
+            # If we found a synset in the economy domains
+            # we get the variants and add them to the enriched sentence
+            enriched_sentence.append('({})'.format(','.join(set(lemmas_for_synset))))
+
+    # Let's see our enriched sentence
+    print(' '.join(enriched_sentence))
+    result = ' '.join(enriched_sentence)
+    type(result)
+
+    get_syn_words = re.findall('\(([^)]+)', result)
+
+    ext_syn_words_all = []
+    for i in get_syn_words:
+        w_array = word_tokenize(i)
+        for j in w_array:
+            k = re.sub(',', '', j)
+            ext_syn_words_all.append(k)
         
+    ext_syn_re = list(filter(None, ext_syn_words_all))
+
+    # 문장에 포함된 동사의 모든 연관단어들 추출
+    # ['pass_on', 'reach', 'script', 'hand', 'hired_man', 'manus', 'mitt', ....
+    return ext_syn_re
 
 
-def feedback_plot_conflict(prompt_no, ps_input_text):
+
+get_all_conflict_words_with_synm = get_sym_words_all_in_sents(cf_verbs_list)
+print("get_all_conflict_words_with_synm:", get_all_conflict_words_with_synm)
+# ['competition', 'rival', 'challenger', 'competitor', 'rivalry', 'contention', 'contest', 'contender', 'contention',  ...
+
+############## conflicts csv 파일에서 추출한 단어들을 spacy-wordnet에서 유사어를 모두 찾아내여 리스트로 만들기 끝!, 이 리스트를 이용해서 입력한 에세에서 conflict 관련 단어를 모두 찾아낼것임 ##############
+
+
+
+def feedback_plot_conflict(prompt_no, ps_input_text, get_all_conflict_words_with_synm):
+
     ############################################
     #############################################
     # 합격한 학생의 평균 mood 평균 값
@@ -1642,7 +1731,9 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
         dtc_intended_mood_result = 'carm'
         dtc_tension = 'Low Tension'
         
-    
+    print("------------------------------------------------------------------------------------------")
+    print("detected_mood:", detected_mood)
+
     # Intended Mood vs. Plot & Conflict 두개의 값 비교
     if intended_mood == detected_mood:
         comp_int_dtc = '='
@@ -1683,7 +1774,7 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
     plot_conf_re = ai_plot_conf(ps_input_text)
     
     #####################################################
-    ################# 합격한 학생의 평균값 ###################
+    ################# 합격한 학생의 평균값 ################
     group_conflict_word_num = 5 # Conflict words numbers
     group_action_verbs_num = 20 # 
     #####################################################
@@ -1697,11 +1788,29 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
     #print('get_words__re', get_words__re)
     nums_action_verbs_re = plot_conf_re[8] # Action verbs number
     #print('nums_action_verbs_re', nums_action_verbs_re)
+
+
+
+    # 입력 문장에서 추출한 모든 컨플릭 단어
+    # count_conflict_list_re
+
+    # 컨플릭 단어 사전 리스트
+    # get_all_conflict_words_with_synm
+
+    # 모든 컨플릭 단어 모음(입력문장추출 + 컨플릭단어모음사전)
+    all_conflicts_words_ = count_conflict_list_re + get_all_conflict_words_with_synm
+    print('all_conflicts_words_:', all_conflicts_words_)
+
+    ##### 이제 합격생들의 평균 값과 비교하면 됨. all_conflicts_words_ 의 단어리스트를 가지고, 입력문장을 토크나이즈, 단어 원형으로 변환, 컨플릭단어 구간별 비교, 구간별 숫자 카운트한 후, 합격생들의 결과와 비교하여 그래프로 표현(리스트로 도출하여 리턴하면 끝! 이것은 내일 해야지)
+
+
+
     
     stm_sentence_1 = []
     stm_sentence_2 = []
     
     print("#"*200)
+    print("count_conflict_list_re:", count_conflict_list_re)
     print("nums_conflict_words_re:",nums_conflict_words_re)
     print("group_conflict_word_num:",group_conflict_word_num)
     print("nums_action_verbs_re:",nums_action_verbs_re)
@@ -1902,7 +2011,7 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
     ###  결과해석 ###
     ###############
 
-    ## option  - 추가분석 시 아래 두개의 분석결과 사용해도됨, 현재코드에서는 불필요함 ##
+    # option  - 추가분석 시 아래 두개의 분석결과 사용해도됨, 현재코드에서는 불필요함 ##
     # pc_tension : 개인의 선택한 tension 결과
     # intended_mood : 개인의 에세이를 prompt 문항에 의해 분석한 결과 
 
@@ -1973,7 +2082,9 @@ The lesson Ian taught me echoes beyond practice rooms and concert halls. I’ve 
 
 To this day, my lessons with Ian continue to be tough, consisting of 80% discussion and 20% playing. When we were both so immersed in the music that I managed to get to the end of the piece before he looked up to say, “Bravo.” Now, even when I practice piano alone, I repeat my refrain: Are you listening?  """
 
-data = feedback_plot_conflict(prompt_no,input_text)
+# get_all_conflict_words_with_synm : 이것은 그냥 고정값으로 prompt_no, input_text만 별도입력 받으면 됨
+
+data = feedback_plot_conflict(prompt_no,input_text, get_all_conflict_words_with_synm)
 
 key_value_print(data)
 
