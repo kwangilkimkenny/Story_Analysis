@@ -340,6 +340,10 @@ def ai_plot_conf(essay_input_):
     # 5. 그래프로 그려보자. 이 코드는 matplotlib 로 그린것임. 종필은 highcharts로 표현할 것
     #########################################################################
     
+ 
+    
+    
+    
     # from matplotlib import pyplot as plt
 
     # plt.plot(df_sent)
@@ -479,11 +483,9 @@ def ai_plot_conf(essay_input_):
             counter += 1
             
     #문장에 Action Verbs 추출확인
-    print('Action Verbs:', get_words__)
+    #print('Action Verbs:', get_words__)
     nums_action_verbs = len(get_words__)
     #print('Number of Action Verbs:', nums_action_verbs)
-
-
 
 
     def divide_list(l, n): 
@@ -973,16 +975,12 @@ def ai_plot_conf(essay_input_):
 
 def ai_plot_coflict_total_analysis(input_text):
 
-    # conflicts 단어 리스트, 입력에세이에서 추출한 값 외 다양한 계산 결과추출
     plot_conf_re = ai_plot_conf(input_text)
     
     count_conflict_list_re = plot_conf_re[5] # conflict words list
     #nums_conflict_words_re = plot_conf_re[6] # conflict words number
     #get_words__re = plot_conf_re[7] # Action Verbs list
-    nums_action_verbs_re = plot_conf_re[8] # Action verbs number
-
-    #ActionVerbs 단어들
-    action_verbs_re = plot_conf_re[7]
+    #nums_action_verbs_re = plot_conf_re[8] # Action verbs number
     
     #Shifts Between Positive and Negative Sentiments의 감정기복 값 계산 결과로 문장생성 frequent / moderate / sparse , 숫자값
     shifts_btw_neg_pos = plot_conf_re[9]
@@ -1137,10 +1135,7 @@ def ai_plot_coflict_total_analysis(input_text):
             "compound" : compound,
             "graph_calculation_list" : graph_calculation_list,
             "Shifts Between Positive and Negative Sentiments" : shifts_btw_neg_pos,
-            # 문장에서 추출한 conflict 단어 모음
-            "conflict words list" : count_conflict_list_re,
-            # 문장에서 추출한 action verbs 단어리스트
-            "action_verbs_re": action_verbs_re
+            "conflict words list" : count_conflict_list_re # 문장에서 추출한 conflict 단어 모음
 
         }
     
@@ -1443,24 +1438,15 @@ def run_first(input_text):
         # print('#############++++++++++++++++++++++++++#########')
         # print('conflict_words_li_re: ', conflict_words_li_re) # conflict words 추출한 리스트
         # print('#############++++++++++++++++++++++++++#########')
-        
-        # Action Verbs words list
-        get_action_verbs_re = ai_plot_coflict_value['action_verbs_re']
-        print('get_action_verbs_re:', get_action_verbs_re)
 
-        return conflict_words_li_re, shift_neg_pos_value, get_action_verbs_re
+        return conflict_words_li_re, shift_neg_pos_value
 
 
-
-
-def paragraph_divide_ratio(input_text, cf_verbs_list):
-
-    get_all_conflict_words_with_synm = get_sym_words_all_in_sents(cf_verbs_list)
-    print("입력에세이에서 Word-Net에서 Conflict words를 모두 추출(부족한 렉시콘 보완)", get_all_conflict_words_with_synm)
+def paragraph_divide_ratio(input_text):
 
     run_first_result = run_first(input_text)
     conflict_words_li_re = run_first_result[0]
-    print('입력에세이에서 추출한 Conflict words:', conflict_words_li_re)
+    #print('------------------>conflict_words_li_re:', conflict_words_li_re)
 
     essay_input_corpus = str(input_text) #문장입력
     essay_input_corpus = essay_input_corpus.lower()#소문자 변환
@@ -1498,15 +1484,12 @@ def paragraph_divide_ratio(input_text, cf_verbs_list):
     #print('sentences:',df_sentences)
     
 
-    ######### conflict 관련 단어 모두 추출 - start #########
+    ######### conflict 관련 단어 추출 - start #########
 
-    tot_setting_words = conflict_words_li_re + get_all_conflict_words_with_synm
+    tot_setting_words = conflict_words_li_re
 
-    ######### conflict 관련 단어 모두 추출 - end   #########
+    ######### conflict 관련 단어 추출 - end   #########
 
-    ######### Action Verbs 단어들 ###########
-    ext_action_verbs = run_first_result[2]
-    print('ext_action_verbs:', ext_action_verbs)
 
 
     # 구간별 셋팅 단어가 몇개씩 포함되어 있는지 계산 method
@@ -1523,79 +1506,29 @@ def paragraph_divide_ratio(input_text, cf_verbs_list):
             part_section = 'body #3'
         else: #conclusion
             part_section = 'conclusion'
-
         counter = 0
-        conf_words_of_each_parts = []
         for set_itm in st_wd:
             if set_itm in each_parts_:
                 counter += 1
-                conf_words_of_each_parts.append(set_itm)
-
             else:
                 pass
-        return counter, part_section, conf_words_of_each_parts
+        return counter, part_section
 
-    # 구간별 단어가 몇개씩 포함되어 있는지 계산 
+    # 구간별 셋팅 단어가 몇개씩 포함되어 있는지 계산 
     intro_s_num = set_wd_conunter_each_parts(tot_setting_words, intro)
-    print('intro:', intro_s_num)
+    #print('intor:', intro_s_num)
     body_1_s_num = set_wd_conunter_each_parts(tot_setting_words, body_1_)
-    print('body1:', body_1_s_num)
+    #print('body1:', body_1_s_num)
     body_2_s_num = set_wd_conunter_each_parts(tot_setting_words, body_2_)
-    print('body2:', body_2_s_num)
+    #print('body2:', body_2_s_num)
     body_3_s_num = set_wd_conunter_each_parts(tot_setting_words, body_3_)
-    print('body3',body_3_s_num)
+    #rint('body3',body_3_s_num)
     conclusion_s_num = set_wd_conunter_each_parts(tot_setting_words, conclusion)
-    print('conclusion:',conclusion_s_num)
-
-    # 합격에세이의 Prompt별 컨플릭 단어 사용 평균값
-    # strength_tension_admitted_case_list = []     ---> def feedback_plot_conflict() 부분에서 Prompt별로 개별값 적용
-
-    # 입력에세이에서 구간별 컨플릭 단어 사용 개수
-    strength_tension_your_essay_list = [intro_s_num[0], body_1_s_num[0], body_2_s_num[0], body_3_s_num[0], conclusion_s_num[0]]
-
-    # 입력 에세이에서 구간별 컨플릭 단어들 (웹에 표시할 것)
-    strength_tension_your_essay_words_list = {'intro': intro_s_num[2],
-                                            'body #1': body_1_s_num[2],
-                                            'body #2': body_2_s_num[2],
-                                            'body #3': body_3_s_num[2],
-                                            'conclusion': conclusion_s_num[2]
-                                            }
-    print('strength_tension_your_essay_words_list:', strength_tension_your_essay_words_list)
-
-
-    ##############################################################################################################################
-    
-
-    # 구간별 단어가 몇개씩 포함되어 있는지 계산 
-    intro_s_num_ac = set_wd_conunter_each_parts(ext_action_verbs, intro)
-    print('intro:', intro_s_num_ac)
-    body_1_s_num_ac = set_wd_conunter_each_parts(ext_action_verbs, body_1_)
-    print('body1:', body_1_s_num_ac)
-    body_2_s_num_ac = set_wd_conunter_each_parts(ext_action_verbs, body_2_)
-    print('body2:', body_2_s_num_ac)
-    body_3_s_num_ac = set_wd_conunter_each_parts(ext_action_verbs, body_3_)
-    print('body3',body_3_s_num_ac)
-    conclusion_s_num_ac = set_wd_conunter_each_parts(ext_action_verbs, conclusion)
-    print('conclusion:',conclusion_s_num_ac)
-
-
-    # 입력에세이에서 구간별 action verbs 단어 사용 개수
-    strength_tension_action_verbs_your_essay_list = [intro_s_num_ac[0], body_1_s_num_ac[0], body_2_s_num_ac[0], body_3_s_num_ac[0], conclusion_s_num_ac[0]]
-
-    # 입력 에세이에서 구간별 action verbs 단어들 (웹에 표시할 것)
-    strength_tension_action_verb_your_essay_words_list = {'intro': intro_s_num_ac[2],
-                                            'body #1': body_1_s_num_ac[2],
-                                            'body #2': body_2_s_num_ac[2],
-                                            'body #3': body_3_s_num_ac[2],
-                                            'conclusion': conclusion_s_num_ac[2]
-                                            }
-    print('strength_tension_action_verb_your_essay_words_list:', strength_tension_action_verb_your_essay_words_list)
-
-    ##############################################################################################################################
+    #print('conclusion:',conclusion_s_num)
 
     
     # 가장 많이 포함된 구간을 순서대로 추출
-    compare_parts_grup_nums = [] # 숫자와 항목명을 모두 저장(튜플을 리스트로)
+    compare_parts_grup_nums = [] # 숫자와 항복명을 모두 저장(튜플을 리스트로)
     compare_parts_grup_nums_and_parts = [] # 숫자만 리스트로
     
     compare_parts_grup_nums.append(intro_s_num[0])
@@ -1621,132 +1554,40 @@ def paragraph_divide_ratio(input_text, cf_verbs_list):
     
     #compare_parts_grup_nums_and_parts =compare_parts_grup_nums_and_parts.sort(reverse=True)
     
-    print('compare_parts_grup: ', compare_parts_grup_nums) # [7, 'intro', 11, 'body #1', 9, 'body #2', 9, 'body #3', 4, 'conclusion']
+    #print('compare_parts_grup: ', compare_parts_grup_nums) # [7, 'intro', 11, 'body #1', 9, 'body #2', 9, 'body #3', 4, 'conclusion']
     
     #순서정렬
     compare_parts_grup_nums_and_parts_sorted = sorted(compare_parts_grup_nums_and_parts, reverse=True)
-    print('compare_parts_grup_nums_and_parts(sorted)', compare_parts_grup_nums_and_parts_sorted) # [11, 9, 9, 7, 4]
-    print('compare_parts_grup_nums_and_parts :',compare_parts_grup_nums_and_parts)
+    #print('compare_parts_grup_nums_and_parts(sorted)', compare_parts_grup_nums_and_parts_sorted) # [11, 9, 9, 7, 4]
+    #print('compare_parts_grup_nums_and_parts :',compare_parts_grup_nums_and_parts)
     
     first_result = compare_parts_grup_nums_and_parts_sorted[0]
     second_result = compare_parts_grup_nums_and_parts_sorted[1]
     
     get_first_re = compare_parts_grup_nums.index(first_result) #인덱스 위치찾기
-    print('get_firtst_re:',get_first_re)
-
+    #print('get_firtst_re:',get_first_re)
     #가장 많은 표현이 들어간 부분 추출(최종값)
     first_snt_part = compare_parts_grup_nums[get_first_re + 1]
     
     get_second_re = compare_parts_grup_nums.index(second_result)
     #print('get_second_re:',get_second_re)
-
     second_snt_part = compare_parts_grup_nums[get_second_re + 1] # 인덱스 다음 항목이 최종값
 
     # 결과해석
     # 0.df_sentences: 모든 단어를 데이터프레임으로 변환
     # 1.tot_setting_words: : 추출한 conflict 관련 단어 리스트로 변환
     # 2.first_snt_part: 문단중 가장 conflict 관련 단어가 많은 부분 -> Strength of Tension by Section 문장으로 표현
-    # 3.second_snt_part: 문단중 conflict 관련 단어가 두번째고 많은 부분 -> Strength of Tension by Section 문장으로 표현
+    # 3.second_snt_part: 문잔중 conflict 관련 단어가 두번째고 많은 부분 -> Strength of Tension by Section 문장으로 표현
     # 4.compare_parts_grup_nums_and_parts : intro body_1 body_2 body_3 conclusion 의 개인 에세이 계산 값
-    # 5.conflict_words_li_re : 컨플릭단어추출 분석 결과 리스트
-    # 6. strength_tension_your_essay_list : 입력에세이의 구간별 컨플릭 단어 사용수 리스트
-    # 7. strength_tension_your_essay_words_list : 입력에세이의 구간별 컨플릭 단어모음(웹에 표시할 것)
-    # 8. strength_tension_action_verbs_your_essay_list : : 입력에세이의 구간별 Action verbs 사용수 리스트
-    # 9. strength_tension_action_verb_your_essay_words_list : 입력에세이의 구간별 Action verbs 단어모음(웹에 표시할 것)
+    # 5.conflict_words_li_re[1] : 컨플릭단어추출 분석 결과 리스트
 
-    return df_sentences, tot_setting_words, first_snt_part, second_snt_part, compare_parts_grup_nums_and_parts, conflict_words_li_re, strength_tension_your_essay_list, strength_tension_your_essay_words_list, strength_tension_action_verbs_your_essay_list, strength_tension_action_verb_your_essay_words_list
+    return df_sentences, tot_setting_words, first_snt_part, second_snt_part, compare_parts_grup_nums_and_parts, conflict_words_li_re
 
 
-
-############## conflicts csv 파일에서 추출한 단어들을 spacy-wordnet에서 유사어를 모두 찾아내여 리스트로 만들기 시작! ##############
-
-###################################################################################################
-# 문장에서 동사를 추출하여 원형으로 변환, 비교하여 Spacy-wordnet을 통해서 Synonym을 모두 추출import spacy
-import spacy
-from spacy_wordnet.wordnet_annotator import WordnetAnnotator
-from nltk.tokenize import word_tokenize
-import re
-
-# Load an spacy model
-nlp = spacy.load('en_core_web_lg')
-# Spacy 3.x
-nlp.add_pipe("spacy_wordnet", after='tagger', config={'lang': nlp.lang})
-# Spacy 2.x
-# self.nlp_en.add_pipe(WordnetAnnotator(self.nlp_en.lang))
-token = nlp('prices')[0]
-
-# wordnet object link spacy token with nltk wordnet interface by giving acces to
-# synsets and lemmas 
-token._.wordnet.synsets()
-token._.wordnet.lemmas()
-
-# And automatically tags with wordnet domains
-token._.wordnet.wordnet_domains()
-
-data_conflict_verbs = pd.read_csv('conflict_words.csv')
-data_cf_verbs_list = data_conflict_verbs.values.tolist()
-cf_verbs_list = [y for x in data_cf_verbs_list for y in x]
-print('cf_verbs_list:', cf_verbs_list)
-
-def get_sym_words_all_in_sents(ipt):
-
-    # conflictS 단어들을 문자열로 변환하고, 연관단어를 모두 찾아낸다.
-    ipt_ =  " ".join(ipt)
-    
-    sentences_domains = ['book_keeping', 'numismatics', 'betting','banking','insurance','racing','social',
-    'money','finance','post','law','commerce','enterprise','telegraphy', 'mathematics','industry','economy',
-    'tax','free_time','jewellery','statistics', 'exchange','buildings','diplomacy', 'book_keeping','factotum','agriculture', 'electrotechnology','numismatics',
-    'person','telephony', 'metrology', 'politics', 'betting', 'banking', 'sociology', 'insurance', 'racing', 'publishing', 'social', 'money', 'card', 'finance', 'post', 'law', 'topography', 'tourism', 'commerce', 'philology', 'telegraphy', 'enterprise', 'mathematics', 'time_period',
-    'town_planning', 'animal_husbandry', 'pure_science', 'computer_science', 'economy', 'industry', 'tax', 'quality', 'free_time', 'philately', 'railway', 'jewellery', 'telecommunication', 'statistics',
-    'exchange', 'economy', 'music', 'social', 'economy', 'commerce', 'social', 'commerce']
-
-    enriched_sentence = []
-    sentence = nlp(ipt_)
-    # For each token in the sentence
-    for token in sentence:
-        # We get those synsets within the desired domains
-        synsets = token._.wordnet.wordnet_synsets_for_domain(sentences_domains)
-        print("synsets:", synsets)
-        if not synsets:
-            enriched_sentence.append(token.text)
-        else:
-            lemmas_for_synset = [lemma for s in synsets for lemma in s.lemma_names()]
-            # If we found a synset in the economy domains
-            # we get the variants and add them to the enriched sentence
-            enriched_sentence.append('({})'.format(','.join(set(lemmas_for_synset))))
-
-    # Let's see our enriched sentence
-    print(' '.join(enriched_sentence))
-    result = ' '.join(enriched_sentence)
-    type(result)
-
-    get_syn_words = re.findall('\(([^)]+)', result)
-
-    ext_syn_words_all = []
-    for i in get_syn_words:
-        w_array = word_tokenize(i)
-        for j in w_array:
-            k = re.sub(',', '', j)
-            ext_syn_words_all.append(k)
         
-    ext_syn_re = list(filter(None, ext_syn_words_all))
-
-    # 문장에 포함된 동사의 모든 연관단어들 추출
-    # ['pass_on', 'reach', 'script', 'hand', 'hired_man', 'manus', 'mitt', ....
-    return ext_syn_re
 
 
-
-get_all_conflict_words_with_synm = get_sym_words_all_in_sents(cf_verbs_list)
-print("get_all_conflict_words_with_synm:", get_all_conflict_words_with_synm)
-# ['competition', 'rival', 'challenger', 'competitor', 'rivalry', 'contention', 'contest', 'contender', 'contention',  ...
-
-############## conflicts csv 파일에서 추출한 단어들을 spacy-wordnet에서 유사어를 모두 찾아내여 리스트로 만들기 끝!, 이 리스트를 이용해서 입력한 에세에서 conflict 관련 단어를 모두 찾아낼것임 ##############
-
-
-
-def feedback_plot_conflict(prompt_no, ps_input_text, get_all_conflict_words_with_synm):
-
+def feedback_plot_conflict(prompt_no, ps_input_text):
     ############################################
     #############################################
     # 합격한 학생의 평균 mood 평균 값
@@ -1801,9 +1642,7 @@ def feedback_plot_conflict(prompt_no, ps_input_text, get_all_conflict_words_with
         dtc_intended_mood_result = 'carm'
         dtc_tension = 'Low Tension'
         
-    print("------------------------------------------------------------------------------------------")
-    print("detected_mood:", detected_mood)
-
+    
     # Intended Mood vs. Plot & Conflict 두개의 값 비교
     if intended_mood == detected_mood:
         comp_int_dtc = '='
@@ -1844,7 +1683,7 @@ def feedback_plot_conflict(prompt_no, ps_input_text, get_all_conflict_words_with
     plot_conf_re = ai_plot_conf(ps_input_text)
     
     #####################################################
-    ################# 합격한 학생의 평균값 ################
+    ################# 합격한 학생의 평균값 ###################
     group_conflict_word_num = 5 # Conflict words numbers
     group_action_verbs_num = 20 # 
     #####################################################
@@ -1858,32 +1697,11 @@ def feedback_plot_conflict(prompt_no, ps_input_text, get_all_conflict_words_with
     #print('get_words__re', get_words__re)
     nums_action_verbs_re = plot_conf_re[8] # Action verbs number
     #print('nums_action_verbs_re', nums_action_verbs_re)
-
-
-
-    # 입력 문장에서 추출한 모든 컨플릭 단어
-    # count_conflict_list_re
-
-    # 컨플릭 단어 사전 리스트
-    # get_all_conflict_words_with_synm
-
-    # 모든 컨플릭 단어 모음(입력문장추출 + 컨플릭단어모음사전)
-    all_conflicts_words_ = count_conflict_list_re + get_all_conflict_words_with_synm
-    print('all_conflicts_words_:', all_conflicts_words_)
-
-    ##### 이제 합격생들의 평균 값과 비교하면 됨. 
-    # all_conflicts_words_ 의 단어리스트를 가지고, 입력문장을 토크나이즈, 단어 원형으로 변환, 컨플릭단어 구간별 비교, 구간별 숫자 카운트한 후, 
-    # 합격생들의 결과와 비교하여 그래프로 표현
-
-
-
-
     
     stm_sentence_1 = []
     stm_sentence_2 = []
     
     print("#"*200)
-    print("count_conflict_list_re:", count_conflict_list_re)
     print("nums_conflict_words_re:",nums_conflict_words_re)
     print("group_conflict_word_num:",group_conflict_word_num)
     print("nums_action_verbs_re:",nums_action_verbs_re)
@@ -1959,15 +1777,8 @@ def feedback_plot_conflict(prompt_no, ps_input_text, get_all_conflict_words_with
     
     # Shifts Between Positive and Negative Sentiments 문장 생성 부분
     # print("ps_input_text:",ps_input_text)
-    result_=paragraph_divide_ratio(ps_input_text, cf_verbs_list)
+    result_=paragraph_divide_ratio(ps_input_text)
     shift_neg_pos_value = result_[5]
-
-    # 입력한 에세이의 구간별 컨플릭 단어 사용 수 리스트(그래프에 적용)
-    strength_tension_your_essay_list =  result_[6]
-
-    #  구간별 단어들(웹에표시)
-    strength_tension_your_essay_words_list = result_[7]
-
 
     def shifts_Bt_PoNe(prompt_no, shift_neg_pos_value): #shift_neg_pos_value는 하나의 키값(단어) 입력됨
         ###############################################################################
@@ -2016,7 +1827,7 @@ def feedback_plot_conflict(prompt_no, ps_input_text, get_all_conflict_words_with
 
     sentence_1_STS = ['Both physical and emotional conflicts and fluctuations in the plot constitute the ‘ups-and-downs’ which add excitement to the story.']
     
-    result_conf_part_1st_2nd = paragraph_divide_ratio(ps_input_text, cf_verbs_list) #[2], [3]이 순서대로 많은 구간임
+    result_conf_part_1st_2nd = paragraph_divide_ratio(ps_input_text) #[2], [3]이 순서대로 많은 구간임
    
     first = result_conf_part_1st_2nd[2] # conflict 값이 가장 많은 구간
     second = result_conf_part_1st_2nd[3] # conflict 값이 두번째로 많은 구간
@@ -2028,11 +1839,10 @@ def feedback_plot_conflict(prompt_no, ps_input_text, get_all_conflict_words_with
     # 문장생성
     # 각 구간의 셋팅 관련 표현의 합격자 평균값(임의로 넣음, 나중에 평균값을 계산해서 적용해야 함)
     ##########################################################
-
     ##########################################################
     group_conflict_words_parts_mean_value = [] # intro, body 1~3, conclusion
     ##########################################################
-    # prompt별로 conflict  단어 적용 비율 - KJ
+       # prompt별로 셋팅 단어 적용 비율 
     pmt_1 = [3, 2, 2, 2, 1]
     pmt_2 = [6, 4, 2, 2, 1]
     pmt_3 = [5, 3, 2, 2, 2]
@@ -2040,63 +1850,26 @@ def feedback_plot_conflict(prompt_no, ps_input_text, get_all_conflict_words_with
     pmt_5 = [3, 2, 1, 1, 2]
     pmt_6 = [2, 1, 1, 1, 1]
     ##########################################################
-    group_action_verbs_parts_mean_value = [] # intro, body 1~3, conclusion
-    # prompt별로 action verbs  단어 적용 비율 - KJ
-    pmt_1_ac_verb = [3, 5, 5, 5, 2]
-    pmt_2_ac_verb = [5, 6, 5, 5, 2]
-    pmt_3_ac_verb = [4, 4, 3, 3, 2]
-    pmt_4_ac_verb = [3, 5, 5, 4, 2]
-    pmt_5_ac_verb = [2, 4, 4, 4, 2]
-    pmt_6_ac_verb = [2, 4, 5, 4, 2]
-    ##########################################################
     if prompt_no == 'prompt_1':
         group_conflict_words_parts_mean_value = pmt_1
-        group_action_verbs_parts_mean_value = pmt_1_ac_verb
+    
     elif prompt_no == 'prompt_2':
         group_conflict_words_parts_mean_value = pmt_2
-        group_action_verbs_parts_mean_value = pmt_2_ac_verb
+
     elif prompt_no == 'prompt_3':
         group_conflict_words_parts_mean_value = pmt_3
-        group_action_verbs_parts_mean_value = pmt_3_ac_verb
+
     elif prompt_no == 'prompt_4':
         group_conflict_words_parts_mean_value = pmt_4
-        group_action_verbs_parts_mean_value = pmt_4_ac_verb
+
     elif prompt_no == 'prompt_5':
         group_conflict_words_parts_mean_value = pmt_5
-        group_action_verbs_parts_mean_value = pmt_5_ac_verb
+
     else : #prompt_no == 'prompt_1':
         group_conflict_words_parts_mean_value = pmt_6
-        group_action_verbs_parts_mean_value = pmt_6_ac_verb
 
 
-    print("group_conflict_words_parts_mean_value:", group_conflict_words_parts_mean_value)
-    print("=================================================")
-    # 그래프로 표현하기 위한 값 추출 - strength_tension_admitted_case_list
-    strength_tension_admitted_case_list = []
-    count_ = 0
-    while count_ < 5: # 리스트 값이 총 5개, 0 부터 시작하기 때문
-        sum_value = group_conflict_words_parts_mean_value[count_] + group_action_verbs_parts_mean_value[count_]
-        strength_tension_admitted_case_list.append(sum_value)
-        count_ += 1
-
-
-
-    # 입력에세이의 Action verbs 사용수 리스트
-    strength_tension_action_verbs_your_essay_list_re = result_conf_part_1st_2nd[8]
-
-    # 입력에세이의 구간별 Conflicts words 사용 수 리스트!
-    strength_tension_conflict_words_essay_list_re = result_conf_part_1st_2nd[6]
-    print("strength_tension_conflict_words_essay_list_re:", strength_tension_conflict_words_essay_list_re)
-
-    # 입력에세이에서 구간별(Intor-body 1 2 3 - conclusion) Action verbs + Conflicts words 사용 수 합친값
-    strength_tension_your_essay_list_final = []
-    count__ = 0
-    while count__ < 5:
-        sum_value_ = strength_tension_action_verbs_your_essay_list_re[count__] + strength_tension_conflict_words_essay_list_re[count__]
-        strength_tension_your_essay_list_final.append(sum_value_)
-        count__ += 1
-
-
+    # each_parts_of_conflict_words_used # 개인의 구간별 컨플릭 단어 사용 수 리스트!
 
     # 각각의 값을 비교하고, 0.3 의 오차범위에서 같으면 True 
     def compart(val_1, val_2):
@@ -2115,29 +1888,21 @@ def feedback_plot_conflict(prompt_no, ps_input_text, get_all_conflict_words_with
             
         elif personal[1] + personal[2] == group[1] + group[2]: # body1 + body 2 로 개인과 그릅울 비교
             over_sentence_4 = ['Comparing this with your essay, we see some similarities in the pattern.']
-
         elif personal[1] + personal[2] < (group[1] + group[2]) + (group[1] + group[2]) * 0.3:
             over_sentence_4 = ['Comparing this with your essay, we see some similarities in the pattern.']
-
         elif personal[1] + personal[2] > (group[1] + group[2]) - (group[1] + group[2]) * 0.3:
             over_sentence_4 = ['Comparing this with your essay, we see some similarities in the pattern.']
-
         else: # 각 구간들이 불일치
             over_sentence_4 = ['Comparing this with your essay, we see a different pattern.']
-
         return over_sentence_4       
     # 최종 문장생성
     sentence_3_STS = comp_each_parts(each_parts_of_conflict_words_used, group_conflict_words_parts_mean_value)
-
-    # Action Verb list
-    get_final_action_verbs_list = result_conf_part_1st_2nd[8]
-    get_final_action_verbs_list_for_web = result_conf_part_1st_2nd[9]
 
     ###############
     ###  결과해석 ###
     ###############
 
-    # option  - 추가분석 시 아래 두개의 분석결과 사용해도됨, 현재코드에서는 불필요함 ##
+    ## option  - 추가분석 시 아래 두개의 분석결과 사용해도됨, 현재코드에서는 불필요함 ##
     # pc_tension : 개인의 선택한 tension 결과
     # intended_mood : 개인의 에세이를 prompt 문항에 의해 분석한 결과 
 
@@ -2169,28 +1934,7 @@ def feedback_plot_conflict(prompt_no, ps_input_text, get_all_conflict_words_with
         "indicator_conflict_word" :  count_conflict_list_re, # conflict words list ------> 웹페이지에 표시해야 함
         "indicator_action_verbs" : get_words__re, #Action Verbs list -------> 웹페이지에 표시해야 함
         
-        "indicator_sentiment_shifits_pos_neg" : indicator_sentiment_shifits_pos_neg,
-
-        # 합격한 에세이의 구간별 컨플릭 단어 사용 수 리스트(계산용)
-        "group_conflict_words_parts_mean_value" : group_conflict_words_parts_mean_value,
-
-        # 입력한 에세이의 구간별 컨플릭 단어 사용 수 리스트(계산용)
-        "strength_tension_conflict_words_your_essay_list" : strength_tension_your_essay_list,
-
-        # 합격한 에세이의 Action Verbs 단어 사용수 리스트 (계산용)
-        'get_final_action_verbs_list': get_final_action_verbs_list,
-
-        # 합격한 에세이의 Conflicts words + Action verbs 구간별 값 리스트 ----------------------------->  그래프로 표시
-        "strength_tension_admitted_case_list" : strength_tension_admitted_case_list,
-
-        # 개인 에세이의 Conflicts words + Action verbs 구간별 값 리스트  ------------------------------> 그래프로 표시
-        "strength_tension_your_essay_list_final": strength_tension_your_essay_list_final,
-    
-        # 구간별 Conflict words 단어들---------------------------------------------------------------> 웹에표시
-        "strength_tension_your_essay_words_list" : strength_tension_your_essay_words_list,
-
-        # 구간별 Action verbs 단어들 ----------------------------------------------------------------> 웹에표시
-        'get_final_action_verbs_list_for_web': get_final_action_verbs_list_for_web,
+        "indicator_sentiment_shifits_pos_neg" : indicator_sentiment_shifits_pos_neg 
     }
         
     return result_data
@@ -2229,9 +1973,7 @@ The lesson Ian taught me echoes beyond practice rooms and concert halls. I’ve 
 
 To this day, my lessons with Ian continue to be tough, consisting of 80% discussion and 20% playing. When we were both so immersed in the music that I managed to get to the end of the piece before he looked up to say, “Bravo.” Now, even when I practice piano alone, I repeat my refrain: Are you listening?  """
 
-# get_all_conflict_words_with_synm : 이것은 그냥 고정값으로 prompt_no, input_text만 별도입력 받으면 됨
-
-data = feedback_plot_conflict(prompt_no,input_text, get_all_conflict_words_with_synm)
+data = feedback_plot_conflict(prompt_no,input_text)
 
 key_value_print(data)
 

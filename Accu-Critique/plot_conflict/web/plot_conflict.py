@@ -1,3 +1,9 @@
+# 2021_08_09
+# streng of tension 부분 값 도출 하고 각 값을 비교하는 그래프 생성할 수 있음
+# 그래프 표현의 근거가 되는 구간별 Action verbs, Conflict words 를 도출하였음
+# by kyle
+
+
 
 #conflict
 import pickle
@@ -20,7 +26,14 @@ def key_value_print (dictonrytemp) :
 # with open('nltk_punkt.pickle', 'wb') as f:
 #     pickle.dump(punkt, f, pickle.HIGHEST_PROTOCOL)
 
-with open('./accu_ps/plot_conflict/nltk_punkt.pickle', 'rb') as f:
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -- > kyle upgrade...
+# after upgrade, return below code!
+
+# with open('./accu_ps/plot_conflict/nltk_punkt.pickle', 'rb') as f:
+#     punkt = pickle.load(f)
+
+
+with open('nltk_punkt.pickle', 'rb') as f:
     punkt = pickle.load(f)
 
 
@@ -29,7 +42,7 @@ with open('./accu_ps/plot_conflict/nltk_punkt.pickle', 'rb') as f:
 # with open('vader_lexicon.pickle', 'wb') as f:
 #     pickle.dump(punkt, f, pickle.HIGHEST_PROTOCOL)
 
-with open('./accu_ps/plot_conflict/vader_lexicon.pickle', 'rb') as f:
+with open('vader_lexicon.pickle', 'rb') as f:
     vader_lexicon = pickle.load(f)
 
 # 다운로드 이미 완료, 실행시 사용하지 않음
@@ -37,7 +50,7 @@ with open('./accu_ps/plot_conflict/vader_lexicon.pickle', 'rb') as f:
 # with open('averaged_perceptron_tagger.pickle', 'wb') as f:
 #     pickle.dump(punkt, f, pickle.HIGHEST_PROTOCOL)
     
-with open('./accu_ps/plot_conflict/averaged_perceptron_tagger.pickle', 'rb') as f:
+with open('averaged_perceptron_tagger.pickle', 'rb') as f:
     averaged_perceptron_tagger = pickle.load(f)
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer 
@@ -59,7 +72,7 @@ import nltk
 # with open('stopwords.pickle', 'wb') as f:
 #     pickle.dump(stopwords, f, pickle.HIGHEST_PROTOCOL)
     
-with open('./accu_ps/plot_conflict/stopwords.pickle', 'rb') as f:
+with open('stopwords.pickle', 'rb') as f:
     stopwords = pickle.load(f)
 
 from nltk.corpus import stopwords
@@ -80,36 +93,57 @@ from nltk.tokenize import word_tokenize
 from nltk.tokenize import RegexpTokenizer
 from collections import defaultdict
 
+
+
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -- > kyle upgrade...
+# after upgrade, return below code!
+
+# from accu_ps.data.model import BertForMultiLabelClassification
+# from accu_ps.data.multilabel_pipeline import MultiLabelPipeline
+
 from transformers import BertTokenizer
-from accu_ps.data.model import BertForMultiLabelClassification
-from accu_ps.data.multilabel_pipeline import MultiLabelPipeline
+from model import BertForMultiLabelClassification
+from multilabel_pipeline import MultiLabelPipeline
+
+
 
 # 다운로드했기 때문에 실행시는 사용하지 않음
 tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-original")
 model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
+
 
 # # save tokenizer ---> 계산속도 줄이기위해서 미리 저장, 저장했기 때문에 실행시는 사용하지 않음
 # with open('data_tokenizer.pickle', 'wb') as f:
 #     pickle.dump(tokenizer, f, pickle.HIGHEST_PROTOCOL)
 
 # # save model ---> 계산속도 줄이기위해서 미리 저장, 저장했기 때문에 실행시는 사용하지 않음
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -- > kyle upgrade...
+# after upgrade, return below code!
 # with open('/var/www/html/essayfit/accu_ps/plot_conflict/data_model.pickle', 'wb') as g:
 #     pickle.dump(model, g, pickle.HIGHEST_PROTOCOL)
 
+with open('data_model.pickle', 'wb') as g:
+    pickle.dump(model, g, pickle.HIGHEST_PROTOCOL)
+
+
 # open tokenizer
-with open('/var/www/html/essayfit/accu_ps/plot_conflict/data_tokenizer.pickle', 'rb') as f:
-    tokenizer = pickle.load(f)
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -- > kyle upgrade...
+# after upgrade, return below code!
+# with open('/var/www/html/essayfit/accu_ps/plot_conflict/data_tokenizer.pickle', 'rb') as f:
+#     tokenizer = pickle.load(f)
+
 
 # open model  --------> 이거새으 400MB 가 넘어서 git에 올라가지 않음, 그럴경우 아래 코드의 주석을 풀어서 사용해야 함
 ######----- model 주석 해제하여 사용할 것  ----####
 # model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
-# ############################################
 
-# with open('data_model.pickle', 'rb') as g:
-#     model = pickle.load(g)
-
-with open('/var/www/html/essayfit/accu_ps/plot_conflict/data_model.pickle', 'rb') as g:
+with open('data_model.pickle', 'rb') as g:
     model = pickle.load(g)
+
+
+
+# with open('/var/www/html/essayfit/accu_ps/plot_conflict/data_model.pickle', 'rb') as g:
+#     model = pickle.load(g)
 
 
 goemotions = MultiLabelPipeline(
@@ -310,10 +344,6 @@ def ai_plot_conf(essay_input_):
     # 5. 그래프로 그려보자. 이 코드는 matplotlib 로 그린것임. 종필은 highcharts로 표현할 것
     #########################################################################
     
- 
-    
-    
-    
     # from matplotlib import pyplot as plt
 
     # plt.plot(df_sent)
@@ -351,7 +381,10 @@ def ai_plot_conf(essay_input_):
     import pandas as pd
 
     #Awards 데이터 불러오기
-    data_action_verbs = pd.read_csv('/var/www/html/essayfit/accu_ps/plot_conflict/actionverbs.csv')
+   ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### -- > kyle upgrade...
+    # after upgrade, return below code!
+    #data_action_verbs = pd.read_csv('/var/www/html/essayfit/accu_ps/plot_conflict/actionverbs.csv')
+    data_action_verbs = pd.read_csv('actionverbs.csv')
     data_ac_verbs_list = data_action_verbs.values.tolist()
     verbs_list = [y for x in data_ac_verbs_list for y in x]
 
@@ -450,9 +483,11 @@ def ai_plot_conf(essay_input_):
             counter += 1
             
     #문장에 Action Verbs 추출확인
-    #print('Action Verbs:', get_words__)
+    print('Action Verbs:', get_words__)
     nums_action_verbs = len(get_words__)
     #print('Number of Action Verbs:', nums_action_verbs)
+
+
 
 
     def divide_list(l, n): 
@@ -942,12 +977,16 @@ def ai_plot_conf(essay_input_):
 
 def ai_plot_coflict_total_analysis(input_text):
 
+    # conflicts 단어 리스트, 입력에세이에서 추출한 값 외 다양한 계산 결과추출
     plot_conf_re = ai_plot_conf(input_text)
     
     count_conflict_list_re = plot_conf_re[5] # conflict words list
     #nums_conflict_words_re = plot_conf_re[6] # conflict words number
     #get_words__re = plot_conf_re[7] # Action Verbs list
-    #nums_action_verbs_re = plot_conf_re[8] # Action verbs number
+    nums_action_verbs_re = plot_conf_re[8] # Action verbs number
+
+    #ActionVerbs 단어들
+    action_verbs_re = plot_conf_re[7]
     
     #Shifts Between Positive and Negative Sentiments의 감정기복 값 계산 결과로 문장생성 frequent / moderate / sparse , 숫자값
     shifts_btw_neg_pos = plot_conf_re[9]
@@ -1102,7 +1141,10 @@ def ai_plot_coflict_total_analysis(input_text):
             "compound" : compound,
             "graph_calculation_list" : graph_calculation_list,
             "Shifts Between Positive and Negative Sentiments" : shifts_btw_neg_pos,
-            "conflict words list" : count_conflict_list_re # 문장에서 추출한 conflict 단어 모음
+            # 문장에서 추출한 conflict 단어 모음
+            "conflict words list" : count_conflict_list_re,
+            # 문장에서 추출한 action verbs 단어리스트
+            "action_verbs_re": action_verbs_re
 
         }
     
@@ -1381,7 +1423,7 @@ def ai_emotion_analysis(input_text, promt_number):
     # 2.detected_mood : 대표 Mood
     # 3.sentence1,sentence2, sentence3 : intended mood vs. your mood 비교결과에 대한 문장생성 커멘트
     # 4.key_emo[:5] : 학생 한명의 에세이에서 추출한 대표감성 5개
-    # 5.accepted_essay_av_value : 1000명의 합격한 학생의 대표감서 5개
+    # 5.accepted_essay_av_value : 1000명의 합격한 학생의 대표감성 5개
     # 6.in_depth_sent_result : 최종 심층 분석결과
     # 7.re_mood : 개인 mood 분석 추출결과
 
@@ -1405,15 +1447,24 @@ def run_first(input_text):
         # print('#############++++++++++++++++++++++++++#########')
         # print('conflict_words_li_re: ', conflict_words_li_re) # conflict words 추출한 리스트
         # print('#############++++++++++++++++++++++++++#########')
+        
+        # Action Verbs words list
+        get_action_verbs_re = ai_plot_coflict_value['action_verbs_re']
+        print('get_action_verbs_re:', get_action_verbs_re)
 
-        return conflict_words_li_re, shift_neg_pos_value
+        return conflict_words_li_re, shift_neg_pos_value, get_action_verbs_re
 
 
-def paragraph_divide_ratio(input_text):
+
+
+def paragraph_divide_ratio(input_text, cf_verbs_list):
+
+    get_all_conflict_words_with_synm = get_sym_words_all_in_sents(cf_verbs_list)
+    print("입력에세이에서 Word-Net에서 Conflict words를 모두 추출(부족한 렉시콘 보완)", get_all_conflict_words_with_synm)
 
     run_first_result = run_first(input_text)
     conflict_words_li_re = run_first_result[0]
-    #print('------------------>conflict_words_li_re:', conflict_words_li_re)
+    print('입력에세이에서 추출한 Conflict words:', conflict_words_li_re)
 
     essay_input_corpus = str(input_text) #문장입력
     essay_input_corpus = essay_input_corpus.lower()#소문자 변환
@@ -1451,12 +1502,15 @@ def paragraph_divide_ratio(input_text):
     #print('sentences:',df_sentences)
     
 
-    ######### conflict 관련 단어 추출 - start #########
+    ######### conflict 관련 단어 모두 추출 - start #########
 
-    tot_setting_words = conflict_words_li_re
+    tot_setting_words = conflict_words_li_re + get_all_conflict_words_with_synm
 
-    ######### conflict 관련 단어 추출 - end   #########
+    ######### conflict 관련 단어 모두 추출 - end   #########
 
+    ######### Action Verbs 단어들 ###########
+    ext_action_verbs = run_first_result[2]
+    print('ext_action_verbs:', ext_action_verbs)
 
 
     # 구간별 셋팅 단어가 몇개씩 포함되어 있는지 계산 method
@@ -1473,29 +1527,79 @@ def paragraph_divide_ratio(input_text):
             part_section = 'body #3'
         else: #conclusion
             part_section = 'conclusion'
+
         counter = 0
+        conf_words_of_each_parts = []
         for set_itm in st_wd:
             if set_itm in each_parts_:
                 counter += 1
+                conf_words_of_each_parts.append(set_itm)
+
             else:
                 pass
-        return counter, part_section
+        return counter, part_section, conf_words_of_each_parts
 
-    # 구간별 셋팅 단어가 몇개씩 포함되어 있는지 계산 
+    # 구간별 단어가 몇개씩 포함되어 있는지 계산 
     intro_s_num = set_wd_conunter_each_parts(tot_setting_words, intro)
-    #print('intor:', intro_s_num)
+    print('intro:', intro_s_num)
     body_1_s_num = set_wd_conunter_each_parts(tot_setting_words, body_1_)
-    #print('body1:', body_1_s_num)
+    print('body1:', body_1_s_num)
     body_2_s_num = set_wd_conunter_each_parts(tot_setting_words, body_2_)
-    #print('body2:', body_2_s_num)
+    print('body2:', body_2_s_num)
     body_3_s_num = set_wd_conunter_each_parts(tot_setting_words, body_3_)
-    #rint('body3',body_3_s_num)
+    print('body3',body_3_s_num)
     conclusion_s_num = set_wd_conunter_each_parts(tot_setting_words, conclusion)
-    #print('conclusion:',conclusion_s_num)
+    print('conclusion:',conclusion_s_num)
+
+    # 합격에세이의 Prompt별 컨플릭 단어 사용 평균값
+    # strength_tension_admitted_case_list = []     ---> def feedback_plot_conflict() 부분에서 Prompt별로 개별값 적용
+
+    # 입력에세이에서 구간별 컨플릭 단어 사용 개수
+    strength_tension_your_essay_list = [intro_s_num[0], body_1_s_num[0], body_2_s_num[0], body_3_s_num[0], conclusion_s_num[0]]
+
+    # 입력 에세이에서 구간별 컨플릭 단어들 (웹에 표시할 것)
+    strength_tension_your_essay_words_list = {'intro': intro_s_num[2],
+                                            'body #1': body_1_s_num[2],
+                                            'body #2': body_2_s_num[2],
+                                            'body #3': body_3_s_num[2],
+                                            'conclusion': conclusion_s_num[2]
+                                            }
+    print('strength_tension_your_essay_words_list:', strength_tension_your_essay_words_list)
+
+
+    ##############################################################################################################################
+    
+
+    # 구간별 단어가 몇개씩 포함되어 있는지 계산 
+    intro_s_num_ac = set_wd_conunter_each_parts(ext_action_verbs, intro)
+    print('intro:', intro_s_num_ac)
+    body_1_s_num_ac = set_wd_conunter_each_parts(ext_action_verbs, body_1_)
+    print('body1:', body_1_s_num_ac)
+    body_2_s_num_ac = set_wd_conunter_each_parts(ext_action_verbs, body_2_)
+    print('body2:', body_2_s_num_ac)
+    body_3_s_num_ac = set_wd_conunter_each_parts(ext_action_verbs, body_3_)
+    print('body3',body_3_s_num_ac)
+    conclusion_s_num_ac = set_wd_conunter_each_parts(ext_action_verbs, conclusion)
+    print('conclusion:',conclusion_s_num_ac)
+
+
+    # 입력에세이에서 구간별 action verbs 단어 사용 개수
+    strength_tension_action_verbs_your_essay_list = [intro_s_num_ac[0], body_1_s_num_ac[0], body_2_s_num_ac[0], body_3_s_num_ac[0], conclusion_s_num_ac[0]]
+
+    # 입력 에세이에서 구간별 action verbs 단어들 (웹에 표시할 것)
+    strength_tension_action_verb_your_essay_words_list = {'intro': intro_s_num_ac[2],
+                                            'body #1': body_1_s_num_ac[2],
+                                            'body #2': body_2_s_num_ac[2],
+                                            'body #3': body_3_s_num_ac[2],
+                                            'conclusion': conclusion_s_num_ac[2]
+                                            }
+    print('strength_tension_action_verb_your_essay_words_list:', strength_tension_action_verb_your_essay_words_list)
+
+    ##############################################################################################################################
 
     
     # 가장 많이 포함된 구간을 순서대로 추출
-    compare_parts_grup_nums = [] # 숫자와 항복명을 모두 저장(튜플을 리스트로)
+    compare_parts_grup_nums = [] # 숫자와 항목명을 모두 저장(튜플을 리스트로)
     compare_parts_grup_nums_and_parts = [] # 숫자만 리스트로
     
     compare_parts_grup_nums.append(intro_s_num[0])
@@ -1521,40 +1625,132 @@ def paragraph_divide_ratio(input_text):
     
     #compare_parts_grup_nums_and_parts =compare_parts_grup_nums_and_parts.sort(reverse=True)
     
-    #print('compare_parts_grup: ', compare_parts_grup_nums) # [7, 'intro', 11, 'body #1', 9, 'body #2', 9, 'body #3', 4, 'conclusion']
+    print('compare_parts_grup: ', compare_parts_grup_nums) # [7, 'intro', 11, 'body #1', 9, 'body #2', 9, 'body #3', 4, 'conclusion']
     
     #순서정렬
     compare_parts_grup_nums_and_parts_sorted = sorted(compare_parts_grup_nums_and_parts, reverse=True)
-    #print('compare_parts_grup_nums_and_parts(sorted)', compare_parts_grup_nums_and_parts_sorted) # [11, 9, 9, 7, 4]
-    #print('compare_parts_grup_nums_and_parts :',compare_parts_grup_nums_and_parts)
+    print('compare_parts_grup_nums_and_parts(sorted)', compare_parts_grup_nums_and_parts_sorted) # [11, 9, 9, 7, 4]
+    print('compare_parts_grup_nums_and_parts :',compare_parts_grup_nums_and_parts)
     
     first_result = compare_parts_grup_nums_and_parts_sorted[0]
     second_result = compare_parts_grup_nums_and_parts_sorted[1]
     
     get_first_re = compare_parts_grup_nums.index(first_result) #인덱스 위치찾기
-    #print('get_firtst_re:',get_first_re)
+    print('get_firtst_re:',get_first_re)
+
     #가장 많은 표현이 들어간 부분 추출(최종값)
     first_snt_part = compare_parts_grup_nums[get_first_re + 1]
     
     get_second_re = compare_parts_grup_nums.index(second_result)
     #print('get_second_re:',get_second_re)
+
     second_snt_part = compare_parts_grup_nums[get_second_re + 1] # 인덱스 다음 항목이 최종값
 
     # 결과해석
     # 0.df_sentences: 모든 단어를 데이터프레임으로 변환
     # 1.tot_setting_words: : 추출한 conflict 관련 단어 리스트로 변환
     # 2.first_snt_part: 문단중 가장 conflict 관련 단어가 많은 부분 -> Strength of Tension by Section 문장으로 표현
-    # 3.second_snt_part: 문잔중 conflict 관련 단어가 두번째고 많은 부분 -> Strength of Tension by Section 문장으로 표현
+    # 3.second_snt_part: 문단중 conflict 관련 단어가 두번째고 많은 부분 -> Strength of Tension by Section 문장으로 표현
     # 4.compare_parts_grup_nums_and_parts : intro body_1 body_2 body_3 conclusion 의 개인 에세이 계산 값
-    # 5.conflict_words_li_re[1] : 컨플릭단어추출 분석 결과 리스트
+    # 5.conflict_words_li_re : 컨플릭단어추출 분석 결과 리스트
+    # 6. strength_tension_your_essay_list : 입력에세이의 구간별 컨플릭 단어 사용수 리스트
+    # 7. strength_tension_your_essay_words_list : 입력에세이의 구간별 컨플릭 단어모음(웹에 표시할 것)
+    # 8. strength_tension_action_verbs_your_essay_list : : 입력에세이의 구간별 Action verbs 사용수 리스트
+    # 9. strength_tension_action_verb_your_essay_words_list : 입력에세이의 구간별 Action verbs 단어모음(웹에 표시할 것)
 
-    return df_sentences, tot_setting_words, first_snt_part, second_snt_part, compare_parts_grup_nums_and_parts, conflict_words_li_re
+    return df_sentences, tot_setting_words, first_snt_part, second_snt_part, compare_parts_grup_nums_and_parts, conflict_words_li_re, strength_tension_your_essay_list, strength_tension_your_essay_words_list, strength_tension_action_verbs_your_essay_list, strength_tension_action_verb_your_essay_words_list
 
 
+
+############## conflicts csv 파일에서 추출한 단어들을 spacy-wordnet에서 유사어를 모두 찾아내여 리스트로 만들기 시작! ##############
+
+###################################################################################################
+# 문장에서 동사를 추출하여 원형으로 변환, 비교하여 Spacy-wordnet을 통해서 Synonym을 모두 추출import spacy
+import spacy
+from spacy_wordnet.wordnet_annotator import WordnetAnnotator
+from nltk.tokenize import word_tokenize
+import re
+
+# Load an spacy model
+nlp = spacy.load('en_core_web_lg')
+# Spacy 3.x
+nlp.add_pipe("spacy_wordnet", after='tagger', config={'lang': nlp.lang})
+# Spacy 2.x
+# self.nlp_en.add_pipe(WordnetAnnotator(self.nlp_en.lang))
+token = nlp('prices')[0]
+
+# wordnet object link spacy token with nltk wordnet interface by giving acces to
+# synsets and lemmas 
+token._.wordnet.synsets()
+token._.wordnet.lemmas()
+
+# And automatically tags with wordnet domains
+token._.wordnet.wordnet_domains()
+
+data_conflict_verbs = pd.read_csv('conflict_words.csv')
+data_cf_verbs_list = data_conflict_verbs.values.tolist()
+cf_verbs_list = [y for x in data_cf_verbs_list for y in x]
+print('cf_verbs_list:', cf_verbs_list)
+
+def get_sym_words_all_in_sents(ipt):
+
+    # conflictS 단어들을 문자열로 변환하고, 연관단어를 모두 찾아낸다.
+    ipt_ =  " ".join(ipt)
+    
+    sentences_domains = ['book_keeping', 'numismatics', 'betting','banking','insurance','racing','social',
+    'money','finance','post','law','commerce','enterprise','telegraphy', 'mathematics','industry','economy',
+    'tax','free_time','jewellery','statistics', 'exchange','buildings','diplomacy', 'book_keeping','factotum','agriculture', 'electrotechnology','numismatics',
+    'person','telephony', 'metrology', 'politics', 'betting', 'banking', 'sociology', 'insurance', 'racing', 'publishing', 'social', 'money', 'card', 'finance', 'post', 'law', 'topography', 'tourism', 'commerce', 'philology', 'telegraphy', 'enterprise', 'mathematics', 'time_period',
+    'town_planning', 'animal_husbandry', 'pure_science', 'computer_science', 'economy', 'industry', 'tax', 'quality', 'free_time', 'philately', 'railway', 'jewellery', 'telecommunication', 'statistics',
+    'exchange', 'economy', 'music', 'social', 'economy', 'commerce', 'social', 'commerce']
+
+    enriched_sentence = []
+    sentence = nlp(ipt_)
+    # For each token in the sentence
+    for token in sentence:
+        # We get those synsets within the desired domains
+        synsets = token._.wordnet.wordnet_synsets_for_domain(sentences_domains)
+        print("synsets:", synsets)
+        if not synsets:
+            enriched_sentence.append(token.text)
+        else:
+            lemmas_for_synset = [lemma for s in synsets for lemma in s.lemma_names()]
+            # If we found a synset in the economy domains
+            # we get the variants and add them to the enriched sentence
+            enriched_sentence.append('({})'.format(','.join(set(lemmas_for_synset))))
+
+    # Let's see our enriched sentence
+    print(' '.join(enriched_sentence))
+    result = ' '.join(enriched_sentence)
+    type(result)
+
+    get_syn_words = re.findall('\(([^)]+)', result)
+
+    ext_syn_words_all = []
+    for i in get_syn_words:
+        w_array = word_tokenize(i)
+        for j in w_array:
+            k = re.sub(',', '', j)
+            ext_syn_words_all.append(k)
         
+    ext_syn_re = list(filter(None, ext_syn_words_all))
+
+    # 문장에 포함된 동사의 모든 연관단어들 추출
+    # ['pass_on', 'reach', 'script', 'hand', 'hired_man', 'manus', 'mitt', ....
+    return ext_syn_re
 
 
-def feedback_plot_conflict(prompt_no, ps_input_text):
+
+get_all_conflict_words_with_synm = get_sym_words_all_in_sents(cf_verbs_list)
+print("get_all_conflict_words_with_synm:", get_all_conflict_words_with_synm)
+# ['competition', 'rival', 'challenger', 'competitor', 'rivalry', 'contention', 'contest', 'contender', 'contention',  ...
+
+############## conflicts csv 파일에서 추출한 단어들을 spacy-wordnet에서 유사어를 모두 찾아내여 리스트로 만들기 끝!, 이 리스트를 이용해서 입력한 에세에서 conflict 관련 단어를 모두 찾아낼것임 ##############
+
+
+
+def feedback_plot_conflict(prompt_no, ps_input_text, get_all_conflict_words_with_synm):
+
     ############################################
     #############################################
     # 합격한 학생의 평균 mood 평균 값
@@ -1609,7 +1805,9 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
         dtc_intended_mood_result = 'carm'
         dtc_tension = 'Low Tension'
         
-    
+    print("------------------------------------------------------------------------------------------")
+    print("detected_mood:", detected_mood)
+
     # Intended Mood vs. Plot & Conflict 두개의 값 비교
     if intended_mood == detected_mood:
         comp_int_dtc = '='
@@ -1650,7 +1848,7 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
     plot_conf_re = ai_plot_conf(ps_input_text)
     
     #####################################################
-    ################# 합격한 학생의 평균값 ###################
+    ################# 합격한 학생의 평균값 ################
     group_conflict_word_num = 5 # Conflict words numbers
     group_action_verbs_num = 20 # 
     #####################################################
@@ -1664,11 +1862,32 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
     #print('get_words__re', get_words__re)
     nums_action_verbs_re = plot_conf_re[8] # Action verbs number
     #print('nums_action_verbs_re', nums_action_verbs_re)
+
+
+
+    # 입력 문장에서 추출한 모든 컨플릭 단어
+    # count_conflict_list_re
+
+    # 컨플릭 단어 사전 리스트
+    # get_all_conflict_words_with_synm
+
+    # 모든 컨플릭 단어 모음(입력문장추출 + 컨플릭단어모음사전)
+    all_conflicts_words_ = count_conflict_list_re + get_all_conflict_words_with_synm
+    print('all_conflicts_words_:', all_conflicts_words_)
+
+    ##### 이제 합격생들의 평균 값과 비교하면 됨. 
+    # all_conflicts_words_ 의 단어리스트를 가지고, 입력문장을 토크나이즈, 단어 원형으로 변환, 컨플릭단어 구간별 비교, 구간별 숫자 카운트한 후, 
+    # 합격생들의 결과와 비교하여 그래프로 표현
+
+
+
+
     
     stm_sentence_1 = []
     stm_sentence_2 = []
     
     print("#"*200)
+    print("count_conflict_list_re:", count_conflict_list_re)
     print("nums_conflict_words_re:",nums_conflict_words_re)
     print("group_conflict_word_num:",group_conflict_word_num)
     print("nums_action_verbs_re:",nums_action_verbs_re)
@@ -1744,8 +1963,15 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
     
     # Shifts Between Positive and Negative Sentiments 문장 생성 부분
     # print("ps_input_text:",ps_input_text)
-    result_=paragraph_divide_ratio(ps_input_text)
+    result_=paragraph_divide_ratio(ps_input_text, cf_verbs_list)
     shift_neg_pos_value = result_[5]
+
+    # 입력한 에세이의 구간별 컨플릭 단어 사용 수 리스트(그래프에 적용)
+    strength_tension_your_essay_list =  result_[6]
+
+    #  구간별 단어들(웹에표시)
+    strength_tension_your_essay_words_list = result_[7]
+
 
     def shifts_Bt_PoNe(prompt_no, shift_neg_pos_value): #shift_neg_pos_value는 하나의 키값(단어) 입력됨
         ###############################################################################
@@ -1794,7 +2020,7 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
 
     sentence_1_STS = ['Both physical and emotional conflicts and fluctuations in the plot constitute the ‘ups-and-downs’ which add excitement to the story.']
     
-    result_conf_part_1st_2nd = paragraph_divide_ratio(ps_input_text) #[2], [3]이 순서대로 많은 구간임
+    result_conf_part_1st_2nd = paragraph_divide_ratio(ps_input_text, cf_verbs_list) #[2], [3]이 순서대로 많은 구간임
    
     first = result_conf_part_1st_2nd[2] # conflict 값이 가장 많은 구간
     second = result_conf_part_1st_2nd[3] # conflict 값이 두번째로 많은 구간
@@ -1806,11 +2032,75 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
     # 문장생성
     # 각 구간의 셋팅 관련 표현의 합격자 평균값(임의로 넣음, 나중에 평균값을 계산해서 적용해야 함)
     ##########################################################
+
     ##########################################################
-    group_conflict_words_parts_mean_value = [2, 2, 1, 1, 0] # intro, body 1~3, conclusion
+    group_conflict_words_parts_mean_value = [] # intro, body 1~3, conclusion
     ##########################################################
+    # prompt별로 conflict  단어 적용 비율 - KJ
+    pmt_1 = [3, 2, 2, 2, 1]
+    pmt_2 = [6, 4, 2, 2, 1]
+    pmt_3 = [5, 3, 2, 2, 2]
+    pmt_4 = [2, 2, 2, 1, 2]
+    pmt_5 = [3, 2, 1, 1, 2]
+    pmt_6 = [2, 1, 1, 1, 1]
     ##########################################################
-    each_parts_of_conflict_words_used # 개인의 구간별 컨플릭 단어 사용 수 리스트!
+    group_action_verbs_parts_mean_value = [] # intro, body 1~3, conclusion
+    # prompt별로 action verbs  단어 적용 비율 - KJ
+    pmt_1_ac_verb = [3, 5, 5, 5, 2]
+    pmt_2_ac_verb = [5, 6, 5, 5, 2]
+    pmt_3_ac_verb = [4, 4, 3, 3, 2]
+    pmt_4_ac_verb = [3, 5, 5, 4, 2]
+    pmt_5_ac_verb = [2, 4, 4, 4, 2]
+    pmt_6_ac_verb = [2, 4, 5, 4, 2]
+    ##########################################################
+    if prompt_no == 'prompt_1':
+        group_conflict_words_parts_mean_value = pmt_1
+        group_action_verbs_parts_mean_value = pmt_1_ac_verb
+    elif prompt_no == 'prompt_2':
+        group_conflict_words_parts_mean_value = pmt_2
+        group_action_verbs_parts_mean_value = pmt_2_ac_verb
+    elif prompt_no == 'prompt_3':
+        group_conflict_words_parts_mean_value = pmt_3
+        group_action_verbs_parts_mean_value = pmt_3_ac_verb
+    elif prompt_no == 'prompt_4':
+        group_conflict_words_parts_mean_value = pmt_4
+        group_action_verbs_parts_mean_value = pmt_4_ac_verb
+    elif prompt_no == 'prompt_5':
+        group_conflict_words_parts_mean_value = pmt_5
+        group_action_verbs_parts_mean_value = pmt_5_ac_verb
+    else : #prompt_no == 'prompt_1':
+        group_conflict_words_parts_mean_value = pmt_6
+        group_action_verbs_parts_mean_value = pmt_6_ac_verb
+
+
+    print("group_conflict_words_parts_mean_value:", group_conflict_words_parts_mean_value)
+    print("=================================================")
+    # 그래프로 표현하기 위한 값 추출 - strength_tension_admitted_case_list
+    strength_tension_admitted_case_list = []
+    count_ = 0
+    while count_ < 5: # 리스트 값이 총 5개, 0 부터 시작하기 때문
+        sum_value = group_conflict_words_parts_mean_value[count_] + group_action_verbs_parts_mean_value[count_]
+        strength_tension_admitted_case_list.append(sum_value)
+        count_ += 1
+
+
+
+    # 입력에세이의 Action verbs 사용수 리스트
+    strength_tension_action_verbs_your_essay_list_re = result_conf_part_1st_2nd[8]
+
+    # 입력에세이의 구간별 Conflicts words 사용 수 리스트!
+    strength_tension_conflict_words_essay_list_re = result_conf_part_1st_2nd[6]
+    print("strength_tension_conflict_words_essay_list_re:", strength_tension_conflict_words_essay_list_re)
+
+    # 입력에세이에서 구간별(Intor-body 1 2 3 - conclusion) Action verbs + Conflicts words 사용 수 합친값
+    strength_tension_your_essay_list_final = []
+    count__ = 0
+    while count__ < 5:
+        sum_value_ = strength_tension_action_verbs_your_essay_list_re[count__] + strength_tension_conflict_words_essay_list_re[count__]
+        strength_tension_your_essay_list_final.append(sum_value_)
+        count__ += 1
+
+
 
     # 각각의 값을 비교하고, 0.3 의 오차범위에서 같으면 True 
     def compart(val_1, val_2):
@@ -1829,21 +2119,29 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
             
         elif personal[1] + personal[2] == group[1] + group[2]: # body1 + body 2 로 개인과 그릅울 비교
             over_sentence_4 = ['Comparing this with your essay, we see some similarities in the pattern.']
+
         elif personal[1] + personal[2] < (group[1] + group[2]) + (group[1] + group[2]) * 0.3:
             over_sentence_4 = ['Comparing this with your essay, we see some similarities in the pattern.']
+
         elif personal[1] + personal[2] > (group[1] + group[2]) - (group[1] + group[2]) * 0.3:
             over_sentence_4 = ['Comparing this with your essay, we see some similarities in the pattern.']
+
         else: # 각 구간들이 불일치
             over_sentence_4 = ['Comparing this with your essay, we see a different pattern.']
+
         return over_sentence_4       
     # 최종 문장생성
     sentence_3_STS = comp_each_parts(each_parts_of_conflict_words_used, group_conflict_words_parts_mean_value)
+
+    # Action Verb list
+    get_final_action_verbs_list = result_conf_part_1st_2nd[8]
+    get_final_action_verbs_list_for_web = result_conf_part_1st_2nd[9]
 
     ###############
     ###  결과해석 ###
     ###############
 
-    ## option  - 추가분석 시 아래 두개의 분석결과 사용해도됨, 현재코드에서는 불필요함 ##
+    # option  - 추가분석 시 아래 두개의 분석결과 사용해도됨, 현재코드에서는 불필요함 ##
     # pc_tension : 개인의 선택한 tension 결과
     # intended_mood : 개인의 에세이를 prompt 문항에 의해 분석한 결과 
 
@@ -1875,71 +2173,99 @@ def feedback_plot_conflict(prompt_no, ps_input_text):
         "indicator_conflict_word" :  count_conflict_list_re, # conflict words list ------> 웹페이지에 표시해야 함
         "indicator_action_verbs" : get_words__re, #Action Verbs list -------> 웹페이지에 표시해야 함
         
-        "indicator_sentiment_shifits_pos_neg" : indicator_sentiment_shifits_pos_neg 
+        "indicator_sentiment_shifits_pos_neg" : indicator_sentiment_shifits_pos_neg,
+
+        # 합격한 에세이의 구간별 컨플릭 단어 사용 수 리스트(계산용)
+        "group_conflict_words_parts_mean_value" : group_conflict_words_parts_mean_value,
+
+        # 입력한 에세이의 구간별 컨플릭 단어 사용 수 리스트(계산용)
+        "strength_tension_conflict_words_your_essay_list" : strength_tension_your_essay_list,
+
+        # 합격한 에세이의 Action Verbs 단어 사용수 리스트 (계산용)
+        'get_final_action_verbs_list': get_final_action_verbs_list,
+
+        # 합격한 에세이의 Conflicts words + Action verbs 구간별 값 리스트 ----------------------------->  그래프로 표시
+        "strength_tension_admitted_case_list" : strength_tension_admitted_case_list,
+
+        # 개인 에세이의 Conflicts words + Action verbs 구간별 값 리스트  ------------------------------> 그래프로 표시
+        "strength_tension_your_essay_list_final": strength_tension_your_essay_list_final,
+    
+        # 구간별 Conflict words 단어들---------------------------------------------------------------> 웹에표시
+        "strength_tension_your_essay_words_list" : strength_tension_your_essay_words_list,
+
+        # 구간별 Action verbs 단어들 ----------------------------------------------------------------> 웹에표시
+        'get_final_action_verbs_list_for_web': get_final_action_verbs_list_for_web,
     }
         
     return result_data
 
 
-### 실행 ###
-#  - 입력값 - #
-# prompt_no = 'ques_one' #이런 형식으로 넣어야 함
-# input_text = """Bloomington Normal is almost laughably cliché for a midwestern city. Vast swathes of corn envelop winding roads and the heady smell of BBQ smoke pervades the countryside every summer. Yet, underlying the trite norms of Normal is the prescriptive force of tradition—the expectation to fulfill my role as a female Filipino by playing Debussy in the yearly piano festival and enrolling in multivariable calculus instead of political philosophy.So when I discovered the technical demand of bebop, the triplet groove, and the intricacies of chordal harmony after ten years of grueling classical piano, I was fascinated by the music's novelty. Jazz guitar was not only evocative and creative, but also strangely liberating. I began to explore different pedagogical methods, transcribe solos from the greats, and experiment with various approaches until my own unique sound began to develop. And, although I did not know what would be the 'best' route for me to follow as a musician, the freedom to forge whatever path I felt was right seemed to be exactly what I needed; there were no expectations for me to continue in any particular way—only the way that suited my own desires.While journeying this trail, I found myself at Interlochen Arts Camp the summer before my junior year. Never before had I been immersed in an environment so conducive to musical growth: I was surrounded by people intensely passionate about pursuing all kinds of art with no regard for ideas of what art 'should' be. I knew immediately that this would be a perfect opportunity to cultivate my sound, unbounded by the limits of confining tradition. On the first day of camp, I found that my peer guitarist in big band was another Filipino girl from Illinois. Until that moment, my endeavors in jazz guitar had been a solitary effort; I had no one with whom to collaborate and no one against whom I could compare myself, much less someone from a background mirroring my own. I was eager to play with her, but while I quickly recognized a slew of differences between us—different heights, guitars, and even playing styles—others seemed to have trouble making that distinction during performances. Some even went as far as calling me 'other-Francesca.' Thus, amidst the glittering lakes and musky pine needles of Interlochen, I once again confronted Bloomington's frustrating expectations.After being mistaken for her several times, I could not help but view Francesca as a standard of what the 'female Filipino jazz guitarist' should embody. Her improvisatory language, comping style and even personal qualities loomed above me as something I had to live up to. Nevertheless, as Francesca and I continued to play together, it was not long before we connected through our creative pursuit. In time, I learned to draw inspiration from her instead of feeling pressured to follow whatever precedent I thought she set. I found that I grew because of, rather than in spite of, her presence; I could find solace in our similarities and even a sense of comfort in an unfamiliar environment without being trapped by expectation. Though the pressure to conform was still present—and will likely remain present in my life no matter what genre I'm playing or what pursuits I engage in—I learned to eschew its corrosive influence and enjoy the rewards that it brings. While my encounter with Francesca at first sparked a feeling of pressure to conform in a setting where I never thought I would feel its presence, it also carried the warmth of finding someone with whom I could connect. Like the admittedly trite conditions of my hometown, the resemblances between us provided comfort to me through their familiarity. I ultimately found that I can embrace this warmth while still rejecting the pressure to succumb to expectations, and that, in the careful balance between these elements, I can grow in a way that feels both like discove"""
+## 실행 ###
+# - 입력값 - #
 
-# data = feedback_plot_conflict(prompt_no,input_text)
+prompt_no = 'ques_one' #이런 형식으로 넣어야 함
 
-# key_value_print(data)
+input_text = """My hand lingered on the cold metal doorknob. I closed my eyes as the Vancouver breeze ran its chilling fingers through my hair. The man I was about to meet was infamous for demanding perfection. But the beguiling music that faintly fluttered past the unlatched window’s curtain drew me forward, inviting me to cross the threshold. Stepping into the apartment, under the watchful gaze of an emerald-eyed cat portrait, I entered the sweeping B Major scale.
+
+Led by my intrinsic attraction towards music, coupled with the textured layers erupting the instant my fingers grazed the ivory keys, driving the hammers to shoot vibrations up in the air all around me, I soon fell in love with this new extension of my body and mind. My mom began to notice my aptitude for piano when I began returning home with trophies in my arms. These precious experiences fueled my conviction as a rising musician, but despite my confidence, I felt like something was missing.
+
+Back in the drafty apartment, I smiled nervously and walked towards the piano from which the music emanated. Ian Parker, my new piano teacher, eyes-closed and dressed in black glided his hands effortlessly across the keys. I stood beside a leather chair, waiting as he finished the phrase. He stood up. I sat down.
+
+Chopin Black Key Etude — a piece I knew so well I could play it eyes-closed. I took a breath and positioned my right hand in a G-flat 2nd inversion. 
+Just one measure in, I was stopped. 
+	“Start again.”
+	Taken by surprise, I spun left. His eyes were on the score, not me. 
+	I started again. Past the first measure, first phrase, then stopped again. What is going on? 
+	
+	“Are you listening?”
+I nodded. Of course I am. 
+“But are you really listening?”
+
+As we slowly dissected each measure, I felt my confidence slip away. The piece was being chipped into fragments. Unlike my previous teachers, who listened to a full performance before giving critical feedback, Ian stopped me every five seconds. One hour later, we only got through half a page. 
+
+Each consecutive week, the same thing happened. I struggled to meet his expectations. 
+“I’m not here to teach you just how to play. I’m here to teach you how to listen.” 
+I realized what Ian meant — listening involves taking what we hear and asking: is this the sound I want? What story am I telling through my interpretation? 
+
+Absorbed in the music, I allowed my instincts and muscle memory to take over, flying past the broken tritones or neapolitan chords. But even if I was playing the right notes, it didn’t matter. Becoming immersed in the cascading arpeggio waterfalls, thundering basses, and fairydust trills was actually the easy part, which brought me joy and fueled my love for music in the first place. However, music is not just about me. True artists perform for their audience, and to bring them the same joy, to turn playing into magic-making, they must listen as the audience. 
+
+The lesson Ian taught me echoes beyond practice rooms and concert halls. I’ve learned to listen as I explore the hidden dialogue between voices, to pauses and silence, equally as powerful as words. Listening is performing as a soloist backed up by an orchestra. Listening is calmly responding during heated debates and being the last to speak in a SPS Harkness discussion. It’s even bouncing jokes around the dining table with family. I’ve grown to envision how my voice will impact the stories of those listening to me.
+
+To this day, my lessons with Ian continue to be tough, consisting of 80% discussion and 20% playing. When we were both so immersed in the music that I managed to get to the end of the piece before he looked up to say, “Bravo.” Now, even when I practice piano alone, I repeat my refrain: Are you listening?  """
+
+# get_all_conflict_words_with_synm : 이것은 그냥 고정값으로 prompt_no, input_text만 별도입력 받으면 됨
+
+data = feedback_plot_conflict(prompt_no,input_text, get_all_conflict_words_with_synm)
+
+key_value_print(data)
 
 
 ####################################################################################################
+#################################################################################
 
 # intended_mood :  joyful
 # detected_mood :  joyful
-
 # stimulus_conflict_words_admmitted :  5
-# stimulus_conflict_words_your_essay :  3
+# stimulus_conflict_words_your_essay :  1
 # stimulus_action_verbs_admmitted :  20
-# stimulus_action_verbs_your_essay :  28
-
+# stimulus_action_verbs_your_essay :  27
 # intended_mood_plot_conflict_comment_1 :  ['Your intended mood for the essay is ‘calm.’ It means that the story may contain self-reflection, intellectual topics, and observations that shaped your perspective. Hence, the plot is likely to be somewhat steady with limited emotional fluctuations and conflicts.']
 # intended_mood_plot_conflict_comment_2 :  ['The detected plot displays a moderate tension which seems to be', 'closely correlated with', 'your intended mood of the essay.']
-
-# stimulus_words_comment_1 :  ['Compared to the accepted case average for this prompt, you have spent', 2, 'fewer', 'conflict oriented words and', 8, 'more', 'action verbs in your story.']
+# stimulus_words_comment_1 :  ['Compared to the accepted case average for this prompt, you have spent', 4, 'fewer', 'conflict oriented words and', 7, 'more', 'action verbs in your story.']
 # stimulus_words_comment_2 :  ['Overall, you may consider', 'adding more', 'words to', 'alleviate', "the plot's tension"]
-
-# shift_between_pos_neg_comment_1 :  ['The admitted cases tend to display', ['matter', 'different', 'encounter'], 'fluctuations between polarizing sentiments throughout the story for this type of essay prompt.']
+# shift_between_pos_neg_comment_1 :  ['The admitted cases tend to display', ['matter'], 'fluctuations between polarizing sentiments throughout the story for this type of essay prompt.']
 # shift_between_pos_neg_comment_2 :  ['Such pattern observed from the admitted case average seems to', 'does not match', 'with the pattern detected from your personal statement.']
-
 # strength_tension_comment_1 :  ['Both physical and emotional conflicts and fluctuations in the plot constitute the ‘ups-and-downs’ which add excitement to the story.']
-# strength_tension_comment_2 :  ['Dividing up the personal statement in 5 equal parts by the word count, AI analysis indicated that highest levels of tension are concentrated in', 'conclusion', 'and', 'intro', 'of the accepted case average.']
+# strength_tension_comment_2 :  ['Dividing up the personal statement in 5 equal parts by the word count, AI analysis indicated that highest levels of tension are concentrated in', 'body #2', 'and', 'body #1', 'of the accepted case average.']
 # strength_tension_comment_3 :  ['Comparing this with your essay, we see some similarities in the pattern.']
-
-# indicator_conflict_word :  ['matter', 'different', 'encounter']
-# indicator_action_verbs :  ['smell', 'force', 'explore', 'transcribe', 'experiment', 'develop', 'forge', 'found', 'perfect', 'cultivate', 'found', 'collaborate', 'play', 'help', 'play', 'draw', 'set', 'found', 'find', 'sense', 'present', 'present', 'engage', 'influence', 'feel', 'found', 'balance', 'grow']
-
-####################################################################################################
-
-
-
-# print("pc_intended_mood_result(intended mood by you  --> 개인이 선택한 intended mood 선택 결과):" , result["pc_intended_mood_result"]) #intended mood by you  --> 개인이 선택한 intended mood 선택 결과
-# print("detected_mood(Detected Plot Complexity & Conflicts --> 개인의 에세이를 감성분석한 결과):" , result["detected_mood"]) #Detected Plot Complexity & Conflicts --> 개인의 에세이를 감성분석한 결과
-# print("comp_int_dtc(intended Mood vs. Plot & Conflict 부분의 두 값 비교로 --> 같거(=)나 같지 않음(!=)):" , result["comp_int_dtc"]) #intended Mood vs. Plot & Conflict 부분의 두 값 비교로 --> 같거(=)나 같지 않음(!=)
-# print()
-# print("group_conflict_word_num(합격한 학생들의 컨플릭 단어 사용량):" , result["group_conflict_word_num"])#합격한 학생들의 컨플릭 단어 사용량
-# print("nums_conflict_words_re(개인의 컨플릭 단어 사용량):" , result["nums_conflict_words_re"]) #개인의 컨플릭 단어 사용량
-# print("group_action_verbs_num(합격한 학생들의 Action Verbs 사용량):" , result["group_action_verbs_num"]) #합격한 학생들의 Action Verbs 사용량
-# print("nums_action_verbs_re(개인의 Action Verbs 사용량):" , result["nums_action_verbs_re"]) #개인의 Action Verbs 사용량
-# print()
-# print("sentence_1:" , result["sentence_1"]) #문장생성
-# print("sentence_2:" , result["sentence_2"]) #문장생성
-# print("stm_sentence_1:" , result["stm_sentence_1"])#문장생성
-# print("stm_sentence_2:" , result["stm_sentence_2"])#문장생성
-# print("sentense_1_PN:" , result["sentense_1_PN"])#문장생성
-# print("sentense_2_PN:" , result["sentense_2_PN"])#문장생성
-# print("sentence_1_STS:" , result["sentence_1_STS"])#문장생성
-# print("sentence_2_STS:" , result["sentence_2_STS"])#문장생성
-# print("sentence_3_STS:" , result["sentence_3_STS"])#문장생성
-# print()
-# print("count_conflict_list_re(conflict words list ------> 웹페이지에 표시해야 함):" ,  result["count_conflict_list_re"]) # conflict words list ------> 웹페이지에 표시해야 함
-# print("get_words__re(Action Verbs list -------> 웹페이지에 표시해야 함):" , result["get_words__re"]) #Action Verbs list -------> 웹페이지에 표시해야 함
-# print("#"*100)
+# shift_emo_ratio :  frequent
+# indicator_conflict_word :  ['matter']
+# indicator_action_verbs :  ['meet', 'scale', 'led', 'shoot', 'effortlessly', 'chair', 'play', 'measure', 'start', 'left', 'score', 'measure', 'measure', 'page', 'meet', 'teach', 'play', 'teach', 'listen', 'take', 'place', 'perform', 'turn', 'listen', 'listen', 'explore', 'get']
+# indicator_sentiment_shifits_pos_neg :
+# group_conflict_words_parts_mean_value :  [2, 1, 1, 1, 1]
+# strength_tension_conflict_words_your_essay_list :  [2, 3, 5, 2, 0]
+# get_final_action_verbs_list :  [5, 10, 10, 7, 2]
+# strength_tension_admitted_case_list :  [4, 5, 6, 5, 3]
+# strength_tension_your_essay_list_final :  [7, 13, 15, 9, 2]
+# strength_tension_your_essay_words_list :  {'intro': ['meet', 'meet'], 'body #1': ['play', 'play', 'play'], 'body #2': ['play', 'meet', 'play', 'play', 'meet'], 'body #3': ['matter', 'place'], 'conclusion': []}
+# get_final_action_verbs_list_for_web :  {'intro': ['meet', 'scale', 'led', 'shoot', 'meet'], 'body #1': ['effortlessly', 'chair', 'play', 'measure', 'start', 'left', 'score', 'measure', 'measure', 'play'], 'body #2': ['meet', 'play', 'measure', 'measure', 'measure', 'page', 'meet', 'teach', 'play', 'teach'], 'body #3': ['listen', 'take', 'place', 'perform', 'turn', 'listen', 'listen'], 'conclusion': ['explore', 'get']}
